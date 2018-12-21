@@ -9,11 +9,22 @@
 /* Begin PBXBuildFile section */
 		22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD921A21CBDEDB00019853 /* AppDelegate.swift */; };
 		22BD921D21CBDEDB00019853 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD921C21CBDEDB00019853 /* ViewController.swift */; };
-		22BD922021CBDEDB00019853 /* macB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22BD921E21CBDEDB00019853 /* macB.xcdatamodeld */; };
 		22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BD922121CBDEDD00019853 /* Assets.xcassets */; };
 		22BD922521CBDEDD00019853 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BD922321CBDEDD00019853 /* Main.storyboard */; };
 		22BD923121CBDEDD00019853 /* macBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD923021CBDEDD00019853 /* macBTests.swift */; };
 		22BD923C21CBDEDD00019853 /* macBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD923B21CBDEDD00019853 /* macBUITests.swift */; };
+		22BD924A21CC159C00019853 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD924921CC159C00019853 /* Extensions.swift */; };
+		22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 22BD925421CC1EC400019853 /* macB.xcdatamodeld */; };
+		22BD925F21CCD03C00019853 /* Verse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD925E21CCD03C00019853 /* Verse.swift */; };
+		22BD926121CCD34B00019853 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926021CCD34B00019853 /* Chapter.swift */; };
+		22BD926321CCD35E00019853 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926221CCD35E00019853 /* Book.swift */; };
+		22BD926521CCD36B00019853 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926421CCD36A00019853 /* Module.swift */; };
+		22BD926721CCD37F00019853 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926621CCD37F00019853 /* History.swift */; };
+		22BD926921CCD46700019853 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926821CCD46700019853 /* DownloadManager.swift */; };
+		22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926A21CCD48100019853 /* ModuleOffline.swift */; };
+		22BD926D21CCD62F00019853 /* DownloadCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926C21CCD62F00019853 /* DownloadCellView.swift */; };
+		22BD927021CCDB0E00019853 /* DownloadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926F21CCDB0E00019853 /* DownloadProtocol.swift */; };
+		22BD927421CCFE0500019853 /* DownloadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD927321CCFE0500019853 /* DownloadTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +48,6 @@
 		22BD921721CBDEDB00019853 /* macB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BD921A21CBDEDB00019853 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22BD921C21CBDEDB00019853 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		22BD921F21CBDEDB00019853 /* macB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = macB.xcdatamodel; sourceTree = "<group>"; };
 		22BD922121CBDEDD00019853 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22BD922421CBDEDD00019853 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		22BD922621CBDEDD00019853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,6 +58,18 @@
 		22BD923721CBDEDD00019853 /* macBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = macBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BD923B21CBDEDD00019853 /* macBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = macBUITests.swift; sourceTree = "<group>"; };
 		22BD923D21CBDEDD00019853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22BD924921CC159C00019853 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		22BD925521CC1EC400019853 /* macB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = macB.xcdatamodel; sourceTree = "<group>"; };
+		22BD925E21CCD03C00019853 /* Verse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
+		22BD926021CCD34B00019853 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
+		22BD926221CCD35E00019853 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		22BD926421CCD36A00019853 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
+		22BD926621CCD37F00019853 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		22BD926821CCD46700019853 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		22BD926A21CCD48100019853 /* ModuleOffline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleOffline.swift; sourceTree = "<group>"; };
+		22BD926C21CCD62F00019853 /* DownloadCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCellView.swift; sourceTree = "<group>"; };
+		22BD926F21CCDB0E00019853 /* DownloadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProtocol.swift; sourceTree = "<group>"; };
+		22BD927321CCFE0500019853 /* DownloadTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,13 +120,18 @@
 		22BD921921CBDEDB00019853 /* macB */ = {
 			isa = PBXGroup;
 			children = (
+				22BD926E21CCD63400019853 /* Views */,
+				22BD927221CCFDB900019853 /* VC */,
 				22BD921A21CBDEDB00019853 /* AppDelegate.swift */,
 				22BD921C21CBDEDB00019853 /* ViewController.swift */,
 				22BD922121CBDEDD00019853 /* Assets.xcassets */,
 				22BD922321CBDEDD00019853 /* Main.storyboard */,
 				22BD922621CBDEDD00019853 /* Info.plist */,
 				22BD922721CBDEDD00019853 /* macB.entitlements */,
-				22BD921E21CBDEDB00019853 /* macB.xcdatamodeld */,
+				22BD925421CC1EC400019853 /* macB.xcdatamodeld */,
+				22BD925D21CCD02400019853 /* CoreData */,
+				22BD924921CC159C00019853 /* Extensions.swift */,
+				22BD927121CCDB1500019853 /* Protocols */,
 			);
 			path = macB;
 			sourceTree = "<group>";
@@ -125,6 +152,44 @@
 				22BD923D21CBDEDD00019853 /* Info.plist */,
 			);
 			path = macBUITests;
+			sourceTree = "<group>";
+		};
+		22BD925D21CCD02400019853 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				22BD925E21CCD03C00019853 /* Verse.swift */,
+				22BD926021CCD34B00019853 /* Chapter.swift */,
+				22BD926221CCD35E00019853 /* Book.swift */,
+				22BD926421CCD36A00019853 /* Module.swift */,
+				22BD926A21CCD48100019853 /* ModuleOffline.swift */,
+				22BD926621CCD37F00019853 /* History.swift */,
+				22BD926821CCD46700019853 /* DownloadManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		22BD926E21CCD63400019853 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				22BD926C21CCD62F00019853 /* DownloadCellView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		22BD927121CCDB1500019853 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				22BD926F21CCDB0E00019853 /* DownloadProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		22BD927221CCFDB900019853 /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				22BD927321CCFE0500019853 /* DownloadTableViewController.swift */,
+			);
+			path = VC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,9 +322,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22BD926D21CCD62F00019853 /* DownloadCellView.swift in Sources */,
+				22BD927421CCFE0500019853 /* DownloadTableViewController.swift in Sources */,
+				22BD926721CCD37F00019853 /* History.swift in Sources */,
+				22BD926921CCD46700019853 /* DownloadManager.swift in Sources */,
 				22BD921D21CBDEDB00019853 /* ViewController.swift in Sources */,
-				22BD922021CBDEDB00019853 /* macB.xcdatamodeld in Sources */,
+				22BD925F21CCD03C00019853 /* Verse.swift in Sources */,
+				22BD927021CCDB0E00019853 /* DownloadProtocol.swift in Sources */,
+				22BD926321CCD35E00019853 /* Book.swift in Sources */,
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
+				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,
+				22BD926121CCD34B00019853 /* Chapter.swift in Sources */,
+				22BD926521CCD36B00019853 /* Module.swift in Sources */,
+				22BD924A21CC159C00019853 /* Extensions.swift in Sources */,
+				22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,12 +659,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		22BD921E21CBDEDB00019853 /* macB.xcdatamodeld */ = {
+		22BD925421CC1EC400019853 /* macB.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				22BD921F21CBDEDB00019853 /* macB.xcdatamodel */,
+				22BD925521CC1EC400019853 /* macB.xcdatamodel */,
 			);
-			currentVersion = 22BD921F21CBDEDB00019853 /* macB.xcdatamodel */;
+			currentVersion = 22BD925521CC1EC400019853 /* macB.xcdatamodel */;
 			path = macB.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

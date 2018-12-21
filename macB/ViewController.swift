@@ -7,12 +7,16 @@
 //
 
 import Cocoa
+import Foundation
 
 class ViewController: NSViewController {
 
+
+    @IBOutlet weak var scrollView: NSScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 
@@ -21,7 +25,6 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
 
 }
 

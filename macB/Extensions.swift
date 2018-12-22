@@ -50,6 +50,14 @@ extension CGRect {
         rect.origin.y = rhs.origin.y - lhs.size.height
         return rect
     }
+    
+    var bottomRightEdge: CGPoint {
+        return CGPoint(x: origin.x + width, y: origin.y + height)
+    }
+    
+    var bottomLeftEdge: CGPoint {
+        return CGPoint(x: origin.x, y: maxY)
+    }
 }
 
 

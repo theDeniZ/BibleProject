@@ -30,7 +30,7 @@ class DownloadCellView: NSTableCellView {
     func updateUI() {
         leftLabel?.stringValue = left ?? ""
         rightLabel?.stringValue = right ?? ""
-        button?.stringValue = loaded ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
+        button?.title = loaded ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
         if loading {
             button?.isHidden = true
             activityindicator?.isHidden = false
@@ -58,14 +58,16 @@ class DownloadCellView: NSTableCellView {
                     self?.activityindicator.stopAnimation(nil)
                     self?.activityindicator.isHidden = true
                     self?.button.isHidden = false
-                    self?.button.stringValue = !done ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
+                    self?.loaded = !done
+                    self?.button.title = !done ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
                 }
             } else {
                 delegate?.initiateDownload(by: key) { [weak self] (done) in
                     self?.activityindicator.stopAnimation(nil)
                     self?.activityindicator.isHidden = true
                     self?.button.isHidden = false
-                    self?.button.stringValue = done ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
+                    self?.loaded = done
+                    self?.button.title = done ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
                 }
             }
         }

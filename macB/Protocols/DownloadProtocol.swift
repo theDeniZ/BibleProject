@@ -9,8 +9,8 @@
 import Foundation
 
 protocol DownloadDelegate {
-    func initiateDownload(by key: String)
-    func initiateRemoval(by key: String)
+    func initiateDownload(by key: String, completition: ((Bool) -> Void)?)
+    func initiateRemoval(by key: String, completition: ((Bool) -> Void)?)
 }
 
 extension DownloadDelegate {

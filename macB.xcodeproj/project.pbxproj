@@ -25,6 +25,9 @@
 		22BD926D21CCD62F00019853 /* DownloadCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926C21CCD62F00019853 /* DownloadCellView.swift */; };
 		22BD927021CCDB0E00019853 /* DownloadProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926F21CCDB0E00019853 /* DownloadProtocol.swift */; };
 		22BD927421CCFE0500019853 /* DownloadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD927321CCFE0500019853 /* DownloadTableViewController.swift */; };
+		22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB121CF87EB001C96D3 /* CoreManager.swift */; };
+		22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */; };
+		22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB721CFC556001C96D3 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,9 @@
 		22BD926C21CCD62F00019853 /* DownloadCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCellView.swift; sourceTree = "<group>"; };
 		22BD926F21CCDB0E00019853 /* DownloadProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadProtocol.swift; sourceTree = "<group>"; };
 		22BD927321CCFE0500019853 /* DownloadTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewController.swift; sourceTree = "<group>"; };
+		22F68BB121CF87EB001C96D3 /* CoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreManager.swift; sourceTree = "<group>"; };
+		22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
+		22F68BB721CFC556001C96D3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +170,7 @@
 				22BD926A21CCD48100019853 /* ModuleOffline.swift */,
 				22BD926621CCD37F00019853 /* History.swift */,
 				22BD926821CCD46700019853 /* DownloadManager.swift */,
+				22F68BB121CF87EB001C96D3 /* CoreManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -187,6 +194,8 @@
 		22BD927221CCFDB900019853 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				22F68BB721CFC556001C96D3 /* MainViewController.swift */,
+				22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */,
 				22BD927321CCFE0500019853 /* DownloadTableViewController.swift */,
 			);
 			path = VC;
@@ -260,6 +269,11 @@
 				TargetAttributes = {
 					22BD921621CBDEDB00019853 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					22BD922B21CBDEDD00019853 = {
 						CreatedOnToolsVersion = 10.1;
@@ -329,8 +343,11 @@
 				22BD921D21CBDEDB00019853 /* ViewController.swift in Sources */,
 				22BD925F21CCD03C00019853 /* Verse.swift in Sources */,
 				22BD927021CCDB0E00019853 /* DownloadProtocol.swift in Sources */,
+				22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */,
 				22BD926321CCD35E00019853 /* Book.swift in Sources */,
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
+				22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */,
+				22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */,
 				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,
 				22BD926121CCD34B00019853 /* Chapter.swift in Sources */,
 				22BD926521CCD36B00019853 /* Module.swift in Sources */,

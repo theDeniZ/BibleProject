@@ -11,8 +11,20 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    static var context: NSManagedObjectContext {
+        return AppDelegate.shared.persistentContainer.newBackgroundContext()
+    }
+    
+    static var shared: AppDelegate {
+        return NSApplication.shared.delegate as! AppDelegate
+    }
+    
+    static var coreManager: CoreManager {
+        return AppDelegate.shared.manager
+    }
 
-
+    private lazy var manager = CoreManager(AppDelegate.context)
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }

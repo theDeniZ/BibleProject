@@ -8,9 +8,15 @@
 
 import Cocoa
 
+
 class DownloadTableViewController: NSViewController {
 
     @IBOutlet weak var tableView: NSTableView!
+    
+    var downloadManager: DownloadManager = DownloadManager(in: AppDelegate.context)
+    var coreManager: CoreManager = AppDelegate.coreManager
+    
+    var downloadedKeys: [String] = []
     
     private let modules: [ModuleOffline] = [
         ModuleOffline("King James Version", "kjv"),
@@ -39,6 +45,7 @@ class DownloadTableViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        downloadedKeys = coreManager.getAllDownloadedModulesKey()
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -69,7 +76,7 @@ extension DownloadTableViewController: NSTableViewDelegate {
          let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Download Cell"), owner: self) as? DownloadCellView
         cell?.left = modules[row].key
         cell?.right = modules[row].name
-        cell?.loaded = false
+        cell?.loaded = downloadedKeys.contains(modules[row].key)
         cell?.delegate = self
         return cell
     }
@@ -79,18 +86,30 @@ extension DownloadTableViewController: NSTableViewDelegate {
 
 extension DownloadTableViewController: DownloadDelegate {
     func initiateRemoval(by key: String, completition: ((Bool) -> Void)?) {
-        print("removed")
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (t) in
-            completition?(true)
-            t.invalidate()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if let module = self?.modules.filter({ $0.key == key }),
+                module.count > 0 {
+                self?.downloadManager.removeAsync(module[0]) { (e, m) in
+                    completition?(e)
+                    if e {
+                        self?.downloadedKeys.removeAll { $0 == key}
+                    }
+                }
+            }
         }
     }
     
     func initiateDownload(by key: String, completition: ((Bool) -> Void)?) {
-        print("downloaded")
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (t) in
-            completition?(true)
-            t.invalidate()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if let module = self?.modules.filter({ $0.key == key }),
+                module.count > 0 {
+                self?.downloadManager.downloadAsync(module[0]) { (e, m) in
+                    completition?(e)
+                    if e {
+                        self?.downloadedKeys.append(key)
+                    }
+                }
+            }
         }
     }
 }

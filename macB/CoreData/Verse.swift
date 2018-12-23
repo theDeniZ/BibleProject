@@ -22,4 +22,19 @@ class Verse: NSManagedObject {
         v.text = t
         return v
     }
+    
+    var compound: String {
+        if let t = text {
+            return "\(number) \(t)"
+        }
+        return "\(number)"
+    }
+    
+    var attributedCompound: NSAttributedString {
+        let att = NSMutableAttributedString(string: compound)
+//        if let color = selectionColor {
+//
+//        }
+        return att
+    }
 }

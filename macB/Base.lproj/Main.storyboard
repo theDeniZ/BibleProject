@@ -684,7 +684,7 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="0.0"/>
+            <point key="canvasLocation" x="-123" y="-200"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -693,8 +693,9 @@
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="589" height="366"/>
+                        <rect key="contentRect" x="196" y="240" width="1000" height="700"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="1000" height="700"/>
                         <toolbar key="toolbar" implicitIdentifier="5BAC2CAE-BCAD-4762-A475-203F0A1D270E" autosavesConfiguration="NO" displayMode="labelOnly" sizeMode="small" id="4wv-ye-7ds">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="aOg-QB-ZzV"/>
@@ -715,12 +716,62 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="Qa6-0m-U4W" kind="relationship" relationship="window.shadowedContentViewController" id="Lqk-5q-R72"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="129.5" y="298"/>
+            <point key="canvasLocation" x="18" y="461"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="mz4-VK-aoA">
+            <objects>
+                <viewController id="Qa6-0m-U4W" customClass="MainViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="wvt-IZ-cas">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WdG-f2-s7U">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FHg-JB-pLc">
+                                        <rect key="frame" x="468" y="672" width="65" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8fK-mv-iDP">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="addButton:" target="Qa6-0m-U4W" id="hh7-gh-YZu"/>
+                                        </connections>
+                                    </button>
+                                    <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0z-xr-DLY">
+                                        <rect key="frame" x="275" y="0.0" width="450" height="659"/>
+                                    </splitView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="WdG-f2-s7U" secondAttribute="bottom" id="CyN-AV-y11"/>
+                            <constraint firstItem="WdG-f2-s7U" firstAttribute="top" secondItem="wvt-IZ-cas" secondAttribute="top" id="ZMC-R6-Kxv"/>
+                            <constraint firstAttribute="trailing" secondItem="WdG-f2-s7U" secondAttribute="trailing" id="sCo-2U-arl"/>
+                            <constraint firstItem="WdG-f2-s7U" firstAttribute="leading" secondItem="wvt-IZ-cas" secondAttribute="leading" id="uln-De-tGa"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="splitView" destination="G0z-xr-DLY" id="g8r-iO-1eM"/>
+                    </connections>
+                </viewController>
+                <customObject id="ZPp-Ct-EWM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18" y="1302"/>
         </scene>
         <!--Download Manager-->
         <scene sceneID="0EL-tD-uFy">
@@ -807,6 +858,7 @@
                                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                         <font key="font" metaFont="system"/>
                                                                                     </buttonCell>
+                                                                                    <color key="contentTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <connections>
                                                                                         <action selector="buttonTouched:" target="EF4-rT-bxw" id="Vc9-Ud-HDX"/>
                                                                                     </connections>
@@ -878,20 +930,83 @@
                 <customObject id="NM3-Ir-4Jg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="hjy-60-wZc"/>
             </objects>
-            <point key="canvasLocation" x="789" y="216"/>
+            <point key="canvasLocation" x="1079" y="54"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="hIz-AP-VOD">
+        <!--Module View Controller-->
+        <scene sceneID="46E-DE-Gsz">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="589" height="387"/>
+                <viewController storyboardIdentifier="Module VC" id="tca-dp-LBm" customClass="ModuleViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="6Ty-GT-JSC">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ebW-VU-tv5">
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
+                                <subviews>
+                                    <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AF2-qS-jMu">
+                                        <rect key="frame" x="452" y="676" width="99" height="26"/>
+                                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="cwr-lJ-Dzt">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <objectValues>
+                                                <string>Item 1</string>
+                                                <string>Item 2</string>
+                                                <string>Item 3</string>
+                                            </objectValues>
+                                        </comboBoxCell>
+                                        <connections>
+                                            <action selector="comboPicked:" target="tca-dp-LBm" id="D5C-b7-dFw"/>
+                                        </connections>
+                                    </comboBox>
+                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tw8-xT-qku">
+                                        <rect key="frame" x="20" y="0.0" width="960" height="670"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="by9-e0-7ct">
+                                            <rect key="frame" x="0.0" y="0.0" width="960" height="670"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="O6K-sF-3VI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="960" height="670"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="minSize" width="960" height="670"/>
+                                                    <size key="maxSize" width="967" height="10000000"/>
+                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                </textView>
+                                            </subviews>
+                                        </clipView>
+                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="fGs-uX-SaJ">
+                                            <rect key="frame" x="944" y="0.0" width="16" height="670"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ebW-VU-tv5" firstAttribute="top" secondItem="6Ty-GT-JSC" secondAttribute="top" id="9hk-YB-KsJ"/>
+                            <constraint firstAttribute="trailing" secondItem="ebW-VU-tv5" secondAttribute="trailing" id="GOI-as-DlD"/>
+                            <constraint firstItem="ebW-VU-tv5" firstAttribute="leading" secondItem="6Ty-GT-JSC" secondAttribute="leading" id="Puw-hq-Brs"/>
+                            <constraint firstAttribute="bottom" secondItem="ebW-VU-tv5" secondAttribute="bottom" id="v4u-bg-VYu"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="modulePicker" destination="AF2-qS-jMu" id="cax-og-X4O"/>
+                        <outlet property="textView" destination="O6K-sF-3VI" id="0TA-ab-cmw"/>
+                    </connections>
                 </viewController>
-                <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="etP-mp-3tY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="129.5" y="842.5"/>
+            <point key="canvasLocation" x="18" y="2151"/>
         </scene>
     </scenes>
 </document>

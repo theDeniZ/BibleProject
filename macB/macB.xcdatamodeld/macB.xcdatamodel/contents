@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Book" representedClassName="Book" syncable="YES" codeGenerationType="category">
+    <entity name="Book" representedClassName=".Book" syncable="YES" codeGenerationType="category">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="chapters" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Chapter" inverseName="book" inverseEntity="Chapter" syncable="YES"/>
         <relationship name="module" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Module" inverseName="books" inverseEntity="Module" syncable="YES"/>
     </entity>
-    <entity name="Chapter" representedClassName="Chapter" syncable="YES" codeGenerationType="category">
+    <entity name="Chapter" representedClassName=".Chapter" syncable="YES" codeGenerationType="category">
         <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="chapters" inverseEntity="Book" syncable="YES"/>
         <relationship name="inHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="History" inverseName="chapter" inverseEntity="History" syncable="YES"/>
         <relationship name="verses" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Verse" inverseName="chapter" inverseEntity="Verse" syncable="YES"/>
     </entity>
-    <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="category">
+    <entity name="History" representedClassName=".History" syncable="YES" codeGenerationType="category">
         <attribute name="added" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="chapter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chapter" inverseName="inHistory" inverseEntity="Chapter" syncable="YES"/>
         <relationship name="verses" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Verse" inverseName="inHistory" inverseEntity="Verse" syncable="YES"/>
     </entity>
-    <entity name="Module" representedClassName="Module" syncable="YES" codeGenerationType="category">
+    <entity name="Module" representedClassName=".Module" syncable="YES" codeGenerationType="category">
         <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Book" inverseName="module" inverseEntity="Book" syncable="YES"/>
     </entity>
-    <entity name="Verse" representedClassName="Verse" syncable="YES" codeGenerationType="category">
+    <entity name="Verse" representedClassName=".Verse" syncable="YES" codeGenerationType="category">
         <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="selectionColor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="selectionRange" optional="YES" attributeType="String" syncable="YES"/>
@@ -31,10 +31,10 @@
         <relationship name="inHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="History" inverseName="verses" inverseEntity="History" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Verse" positionX="-325.109375" positionY="37.7890625" width="128" height="135"/>
-        <element name="Chapter" positionX="-134.8359375" positionY="35.55078125" width="128" height="103"/>
         <element name="Book" positionX="32.01953125" positionY="29.36328125" width="128" height="103"/>
-        <element name="Module" positionX="12.828125" positionY="-115.0234375" width="128" height="88"/>
+        <element name="Chapter" positionX="-134.8359375" positionY="35.55078125" width="128" height="103"/>
         <element name="History" positionX="-124.51171875" positionY="224.35546875" width="128" height="88"/>
+        <element name="Module" positionX="12.828125" positionY="-115.0234375" width="128" height="88"/>
+        <element name="Verse" positionX="-325.109375" positionY="37.7890625" width="128" height="133"/>
     </elements>
 </model>

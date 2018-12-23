@@ -55,19 +55,23 @@ class DownloadCellView: NSTableCellView {
             button.isHidden = true
             if loaded {
                 delegate?.initiateRemoval(by: key) { [weak self] (done) in
-                    self?.activityindicator.stopAnimation(nil)
-                    self?.activityindicator.isHidden = true
-                    self?.button.isHidden = false
-                    self?.loaded = !done
-                    self?.button.title = !done ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
+                    DispatchQueue.main.async { [weak self] in
+                        self?.activityindicator.stopAnimation(nil)
+                        self?.activityindicator.isHidden = true
+                        self?.button.isHidden = false
+                        self?.loaded = !done
+                        self?.button.title = !done ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
+                    }
                 }
             } else {
                 delegate?.initiateDownload(by: key) { [weak self] (done) in
-                    self?.activityindicator.stopAnimation(nil)
-                    self?.activityindicator.isHidden = true
-                    self?.button.isHidden = false
-                    self?.loaded = done
-                    self?.button.title = done ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
+                    DispatchQueue.main.async { [weak self] in
+                        self?.activityindicator.stopAnimation(nil)
+                        self?.activityindicator.isHidden = true
+                        self?.button.isHidden = false
+                        self?.loaded = done
+                        self?.button.title = done ? DownloadButtonStrings.downloaded.rawValue : DownloadButtonStrings.notDownloaded.rawValue
+                    }
                 }
             }
         }

@@ -38,4 +38,36 @@ class Book: NSManagedObject {
         book.chapters = NSOrderedSet(array: chapters)
         return book
     }
+    
+    class func isThere(with number: Int, in module: Module, _ context: NSManagedObjectContext) -> Bool {
+        let fetch: NSFetchRequest<Book> = Book.fetchRequest()
+        let predicate = NSPredicate(format: "number = %@ AND module = %@", argumentArray: [number, module])
+        fetch.predicate = predicate
+        
+        do {
+            let match = try context.fetch(fetch)
+            if match.count > 0 {
+                return true
+            }
+        } catch {
+            print("Error: Book.isThereBook: \(error)")
+        }
+        return false
+    }
+    
+    class func find(by regex: String, in context: NSManagedObjectContext) -> Int? {
+        let fetch: NSFetchRequest<Book> = Book.fetchRequest()
+        let predicate = NSPredicate(format: "name MATCHES %@", argumentArray: [regex])
+        fetch.predicate = predicate
+        
+        do {
+            let match = try context.fetch(fetch)
+            if match.count > 0 {
+                return Int(match[0].number)
+            }
+        } catch {
+            print("Error: Book.isThereBook: \(error)")
+        }
+        return nil
+    }
 }

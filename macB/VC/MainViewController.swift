@@ -14,14 +14,36 @@ class MainViewController: NSViewController {
     private var displayedModuleControllers: [ModuleViewController] = []
     
     @IBOutlet weak var splitView: NSSplitView!
-    
+    @IBOutlet weak var textField: NSTextField!
     @IBAction func addButton(_ sender: NSButton) {
         addVC()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addVC()
+        updateUI()
+        manager.addDelegate(self)
+    }
+    
+    @IBAction func textFieldDidEnter(_ sender: NSTextField) {
+        let text = sender.stringValue
+        if let match = text.capturedGroups(withRegex: String.regexForBookRefference),
+            match.count > 0 {
+            if manager.changeBook(by: match[0]),
+                match.count > 1,
+                let n = Int(match[1]) {
+                manager.changeChapter(to: n)
+            }
+        }
+        updateUI()
+    }
+    
+    private func updateUI() {
+        textField?.stringValue = ""
+        textField?.placeholderString = manager.description
+        if displayedModuleControllers.count == 0 {
+            addVC()
+        }
     }
     
     private func addVC() {
@@ -32,8 +54,17 @@ class MainViewController: NSViewController {
                 newVC.index = available.1
                 displayedModuleControllers.append(newVC)
                 splitView.addArrangedSubview(newVC.view)
+                manager.addDelegate(newVC)
             }
         }
     }
-    
+
+}
+
+extension MainViewController: ModelUpdateDelegate {
+    func modelChanged() {
+        DispatchQueue.main.async { [weak self] in
+            self?.updateUI()
+        }
+    }
 }

@@ -41,13 +41,15 @@ class ModuleViewController: NSViewController {
 //                r.append("\n")
                 return r
             }
+            if let c = NSColor(named: NSColor.Name("textColor")) {
+                attributedString.addAttribute(.foregroundColor, value: c, range: NSRange(0..<attributedString.length))
+            }
             if let lm = textView?.layoutManager {
                 textStorage?.removeLayoutManager(lm)
                 textStorage = NSTextStorage(attributedString: attributedString)
                 textStorage!.addLayoutManager(lm)
             }
         }
-        resignFirstResponder()
     }
     
     @IBAction func comboPicked(_ sender: NSComboBox) {
@@ -60,4 +62,13 @@ class ModuleViewController: NSViewController {
     }
     
     
+}
+
+
+extension ModuleViewController: ModelUpdateDelegate {
+    func modelChanged() {
+        DispatchQueue.main.async { [weak self] in
+            self?.updateUI()
+        }
+    }
 }

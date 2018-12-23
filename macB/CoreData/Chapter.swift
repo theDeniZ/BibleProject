@@ -32,4 +32,20 @@ class Chapter: NSManagedObject {
         ch.verses = NSOrderedSet(array: verses)
         return ch
     }
+    
+    class func isThere(with number: Int, in book: Book, _ context: NSManagedObjectContext) -> Bool {
+        let fetch: NSFetchRequest<Chapter> = Chapter.fetchRequest()
+        let predicate = NSPredicate(format: "number = %@ AND book = %@", argumentArray: [number, book])
+        fetch.predicate = predicate
+        
+        do {
+            let match = try context.fetch(fetch)
+            if match.count > 0 {
+                return true
+            }
+        } catch {
+            print("Error: Chapter.isThere: \(error)")
+        }
+        return false
+    }
 }

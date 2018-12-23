@@ -33,6 +33,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    // MARK: - Manager controls
+    
+    @IBAction func chapterIncrement(_ sender: Any) {
+        manager.incrementChapter()
+    }
+    @IBAction func chapterDecrement(_ sender: Any) {
+        manager.decrementChapter()
+    }
+    @IBAction func bookIncrement(_ sender: Any) {
+        manager.incrementBook()
+    }
+    @IBAction func bookDecrement(_ sender: Any) {
+        manager.decrementBook()
+    }
+    
+    
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {

@@ -63,7 +63,7 @@ extension CGRect {
 
 extension String {
     
-    static let regexForBookRefference = "((?:\\d*\\s*)(?:[A-z]+))\\s*(\\d+)\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*"
+    static let regexForBookRefference = "((?:\\d*\\s*)(?:[A-z]+))\\s*(\\d+)?\\s*[:,]?\\s*(\\d+)?(\\s*[,.-]?\\s*(\\d+))*"
     
     func indicesOf(string: String) -> [Int] {
         var indices = [Int]()

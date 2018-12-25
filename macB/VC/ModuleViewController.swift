@@ -27,7 +27,7 @@ class ModuleViewController: NSViewController {
         updateUI()
     }
     
-    private func updateUI() {
+    private func updateCombo() {
         modulePicker?.removeAllItems()
         modulePicker?.addItem(withObjectValue: currentModule.key ?? currentModule.name ?? "Bible")
         if let keys = moduleManager?.getAllAvailableModulesKey() {
@@ -35,6 +35,10 @@ class ModuleViewController: NSViewController {
             choise = keys
         }
         modulePicker?.selectItem(at: 0)
+    }
+    
+    private func updateUI() {
+        updateCombo()
         if let i = index, let strings = moduleManager?[i] {
             let attributedString = strings.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
                 r.append(each)
@@ -61,6 +65,10 @@ class ModuleViewController: NSViewController {
         }
     }
     
+    override func becomeFirstResponder() -> Bool {
+        updateCombo()
+        return super.becomeFirstResponder()
+    }
     
 }
 

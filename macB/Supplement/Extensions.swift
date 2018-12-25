@@ -138,6 +138,18 @@ extension String {
         
         return results
     }
+    
+    func matches(_ pattern: String) -> Bool {
+        var regex: NSRegularExpression
+        do {
+            regex = try NSRegularExpression(pattern: pattern, options: [])
+        } catch {
+            return false
+        }
+        
+        let matches = regex.matches(in: self, options: [], range: NSRange(location:0, length: self.count))
+        return matches.count > 0
+    }
 }
 
 extension Range where Bound: FixedWidthInteger {

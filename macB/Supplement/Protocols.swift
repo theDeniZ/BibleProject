@@ -17,3 +17,17 @@ extension DownloadDelegate {
     func initiateDownload(by key: String, completition: ((Bool) -> Void)? = nil) {}
     func initiateRemoval(by key: String, completition: ((Bool) -> Void)? = nil) {}
 }
+
+protocol ModelUpdateDelegate {
+    var hashValue: Int {get}
+    func modelChanged()
+    
+}
+
+protocol DragDelegate {
+    func dragCompleted(with path: String)
+}
+
+protocol DownloadProgressDelegate {
+    func downloadCompleted(with success: Bool, at number: Int, of: Int)
+}

@@ -18,6 +18,12 @@ class Module: NSManagedObject {
         return try context.fetch(Module.fetchRequest())
     }
     
+    class func getAll(from context: NSManagedObjectContext, local: Bool) throws -> [Module] {
+        let request: NSFetchRequest<Module> = Module.fetchRequest()
+        request.predicate = NSPredicate(format: "local = %@", argumentArray: [true])
+        return try context.fetch(request)
+    }
+    
     class func get(by key: String, from context: NSManagedObjectContext) throws -> Module? {
         let request: NSFetchRequest <Module> = Module.fetchRequest()
         request.predicate = NSPredicate(format: "key = %@", argumentArray: [key.lowercased()])

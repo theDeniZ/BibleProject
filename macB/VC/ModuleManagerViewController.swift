@@ -70,10 +70,11 @@ extension ModuleManagerViewController: DownloadDelegate {
     func initiateRemoval(by key: String, completition: ((Bool) -> Void)?) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                if let module = try Module.get(by: key, from: self.context) {
+                let context = AppDelegate.context
+                if let module = try Module.get(by: key, from: context) {
                     self.modules.removeAll {$0.key == key}
-                    self.context.delete(module)
-                    try self.context.save()
+                    context.delete(module)
+                    try context.save()
                     DispatchQueue.main.async { [weak self] in
                         self?.tableView.reloadData()
                     }

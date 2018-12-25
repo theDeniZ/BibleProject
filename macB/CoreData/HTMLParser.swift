@@ -71,7 +71,7 @@ class HTMLParser: NSObject {
                         var verseText = verseGroups[1]
                         index += 1
                         
-                        if index < bookArray.count &&
+                        while index < bookArray.count &&
                             !bookArray[index].matches("(\\d+) (.+)") &&
                             matchesChapter(bookArray[index], with: withInfo.name) == nil {
                             verseText += bookArray[index]

@@ -29,6 +29,10 @@ class DownloadManager {
     }
     
     func downloadAsync(_ module: ModuleOffline, completition: ((Bool, String) -> Void)? = nil) {
+        if let m = try? Module.get(by: module.key.lowercased(), from: context), let local = m {
+            context.delete(local)
+            try? context.save()
+        }
         guard let url = URL(string: serverUrl + module.key)
         else {
             completition?(false, "URL error")

@@ -29,5 +29,7 @@ protocol DragDelegate {
 }
 
 protocol DownloadProgressDelegate {
-    func downloadCompleted(with success: Bool, at number: Int, of: Int)
+    func downloadStarted(with pendingNumber: Int)
+    func downloadCompleted(with success: Bool, at name: String)
+    func downloadFinished()
 }

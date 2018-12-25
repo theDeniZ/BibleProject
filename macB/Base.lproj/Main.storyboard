@@ -983,7 +983,7 @@
         <!--Tab View Controller-->
         <scene sceneID="xD2-Kd-T9y">
             <objects>
-                <tabViewController selectedTabViewItemIndex="1" id="xHB-An-9cz" customClass="TabViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="0" id="xHB-An-9cz" customClass="TabViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem id="Xax-gK-ksO"/>
                         <tabViewItem label="Local Manager" id="Acg-pv-q2R"/>
@@ -1009,7 +1009,7 @@
         <!--Tab View Controller-->
         <scene sceneID="LSh-Uo-e2e">
             <objects>
-                <tabViewController selectedTabViewItemIndex="1" id="8My-Mx-HgO" customClass="TabViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="0" id="8My-Mx-HgO" customClass="TabViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem label="Add Modules" id="dSR-ze-tcg"/>
                         <tabViewItem label="Manage Modules" id="2N1-6s-vVo"/>
@@ -1196,11 +1196,11 @@
                 <customObject id="FHr-cL-6DR" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController title="File Manager" id="WHy-Db-aTQ" customClass="FileManagerViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="szU-zg-cud">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="401"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="Goh-Bg-XRU" customClass="DropView" customModule="macB" customModuleProvider="target">
-                                <rect key="frame" x="128" y="85" width="345" height="230"/>
+                                <rect key="frame" x="128" y="86" width="345" height="230"/>
                                 <subviews>
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R4E-Ey-Stm" customClass="DropImageView" customModule="macB" customModuleProvider="target">
                                         <rect key="frame" x="140" y="83" width="64" height="64"/>
@@ -1229,21 +1229,60 @@
                                     <constraint firstAttribute="bottom" secondItem="9j8-O9-diM" secondAttribute="bottom" constant="20" symbolic="YES" id="xFG-qr-Tqd"/>
                                 </constraints>
                             </customView>
-                            <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="fu5-TK-7x4">
-                                <rect key="frame" x="128" y="28" width="345" height="20"/>
+                            <progressIndicator wantsLayer="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="fu5-TK-7x4">
+                                <rect key="frame" x="128" y="29" width="345" height="20"/>
                             </progressIndicator>
+                            <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Vq-rh-4b6">
+                                <rect key="frame" x="128" y="86" width="345" height="230"/>
+                                <subviews>
+                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ljo-87-L0m">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="230"/>
+                                        <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Rye-yU-dsR">
+                                            <rect key="frame" x="0.0" y="0.0" width="345" height="230"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="YCv-Sf-Qfh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="230"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <size key="minSize" width="345" height="230"/>
+                                                    <size key="maxSize" width="346" height="10000000"/>
+                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                </textView>
+                                            </subviews>
+                                        </clipView>
+                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="uON-xN-dHt">
+                                            <rect key="frame" x="329" y="0.0" width="16" height="230"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
+                                    </scrollView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Ljo-87-L0m" secondAttribute="bottom" id="Ktg-KC-cI4"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ljo-87-L0m" secondAttribute="trailing" id="bfN-V0-8w3"/>
+                                    <constraint firstItem="Ljo-87-L0m" firstAttribute="leading" secondItem="7Vq-rh-4b6" secondAttribute="leading" id="fPn-zg-Yzn"/>
+                                    <constraint firstAttribute="width" secondItem="7Vq-rh-4b6" secondAttribute="height" multiplier="3:2" id="nAP-iU-8yd"/>
+                                    <constraint firstItem="Ljo-87-L0m" firstAttribute="top" secondItem="7Vq-rh-4b6" secondAttribute="top" id="pyx-J6-Mzo"/>
+                                    <constraint firstAttribute="width" constant="345" id="s4U-a7-l8D"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Goh-Bg-XRU" firstAttribute="centerX" secondItem="szU-zg-cud" secondAttribute="centerX" id="2vZ-b6-iTJ"/>
                             <constraint firstItem="fu5-TK-7x4" firstAttribute="centerX" secondItem="Goh-Bg-XRU" secondAttribute="centerX" id="FUU-cG-MZb"/>
+                            <constraint firstItem="7Vq-rh-4b6" firstAttribute="centerY" secondItem="szU-zg-cud" secondAttribute="centerY" id="QxA-Ua-m5a"/>
                             <constraint firstItem="fu5-TK-7x4" firstAttribute="top" secondItem="Goh-Bg-XRU" secondAttribute="bottom" constant="38" id="bNY-Pf-LFw"/>
                             <constraint firstItem="Goh-Bg-XRU" firstAttribute="centerY" secondItem="szU-zg-cud" secondAttribute="centerY" id="cXl-zj-WDl"/>
+                            <constraint firstItem="7Vq-rh-4b6" firstAttribute="centerX" secondItem="szU-zg-cud" secondAttribute="centerX" id="jBY-7M-4ZN"/>
                             <constraint firstItem="fu5-TK-7x4" firstAttribute="width" secondItem="Goh-Bg-XRU" secondAttribute="width" id="kgB-bt-efT"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="customTextViewContainer" destination="7Vq-rh-4b6" id="5z9-4p-GMJ"/>
                         <outlet property="dropImageView" destination="R4E-Ey-Stm" id="iOn-h5-D18"/>
                         <outlet property="dropView" destination="Goh-Bg-XRU" id="7Cf-r1-gLx"/>
+                        <outlet property="outputTextView" destination="YCv-Sf-Qfh" id="iGW-rJ-P15"/>
                         <outlet property="progressBar" destination="fu5-TK-7x4" id="pN8-NP-WvU"/>
                     </connections>
                 </viewController>

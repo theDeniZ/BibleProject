@@ -11,35 +11,29 @@ import FilesProvider
 
 class FileManager: NSObject {
 
-    var context: NSManagedObjectContext
     var delegate: DownloadProgressDelegate?
+    var countOfDirectoriesParsingAtOnce = 5
     
     private let documentProvider: LocalFileProvider
     private let rootPath: String
-
+    private var countOfCurrentDirectories = 0
     
-    init(_ path: String, in context: NSManagedObjectContext) {
+    
+    init(_ path: String) {
         rootPath = path
         documentProvider = LocalFileProvider(baseURL: URL(fileURLWithPath: path))
-        self.context = context
         super.init()
     }
     
     func initiateParsing() {
         do {
-            try parseDirectory("/", being: 0, counting: 1)
+            delegate?.downloadStarted(with: 1)
+            try parseDirectory("/", being: 0)
+            delegate?.downloadFinished()
         } catch ModuleParseError.moduleNotFound {
             parseMultipleDirectories("/")
         } catch {
             print("Unrecognized error \(error)")
-        }
-    }
-    
-    private func parseDirectory(_ path: String, being: Int, counting: Int) throws {
-        if documentProvider.fileManager.fileExists(atPath: rootPath + path + ININames.standart.rawValue) {
-            readINI(path, being: being, counting: counting)
-        } else {
-            throw ModuleParseError.moduleNotFound
         }
     }
     
@@ -48,41 +42,99 @@ class FileManager: NSObject {
             if error != nil {
                 print(error!.localizedDescription)
             }
-            for i in 0..<contents.count {
+            let count = contents.count
+            self.delegate?.downloadStarted(with: count)
+            for i in 0..<count {
                 let object = contents[i]
                 if object.type == URLFileResourceType.directory {
-                    do {
-                        try self.parseDirectory(path + object.name + "/", being: i, counting: contents.count)
-                    } catch {
-                        print(error)
+                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+                        print(object.name + " trying to parse: current \(self.countOfCurrentDirectories)")
+                        if self.countOfCurrentDirectories < self.countOfDirectoriesParsingAtOnce {
+                            print(object.name + " parsing: current \(self.countOfCurrentDirectories)")
+                            self.countOfCurrentDirectories += 1
+                            do {
+                                try self.parseDirectory(path + object.name + "/", being: i) {
+                                    if self.countOfCurrentDirectories == 0 {
+                                        self.delegate?.downloadFinished()
+                                    }
+                                    print(object.name + " parsing finished: current \(self.countOfCurrentDirectories)")
+                                    timer.invalidate()
+                                }
+                            } catch {
+                                print(error)
+                            }
+                            timer.tolerance = .greatestFiniteMagnitude
+                        }
                     }
+//                    do {
+//                        try self.parseDirectory(path + object.name + "/", being: i, counting: contents.count)
+//                    } catch {
+//                        print(error)
+//                    }
+                } else {
+                    self.delegate?.downloadCompleted(with: false, at: object.name)
                 }
             }
-
         }
     }
     
-    private func readINI(_ path: String, being: Int, counting: Int) {
+    private func parseDirectory(_ path: String, being: Int, completed: (() -> ())? = nil) throws {
+        if documentProvider.fileManager.fileExists(atPath: rootPath + path + ININames.standart.rawValue) {
+            let context = AppDelegate.context
+            readINI(path, being: being, to: context, completed: completed)
+        } else {
+            self.countOfCurrentDirectories -= 1
+            self.delegate?.downloadCompleted(with: false, at: path)
+            completed?()
+            throw ModuleParseError.moduleNotFound
+        }
+    }
+    
+    
+    /*
+        Reads .ini file and initiates parsing
+        Runs in async
+     */
+    private func readINI(_ path: String, being: Int, to context: NSManagedObjectContext, completed: (() -> ())? = nil) {
         documentProvider.contents(path: path + ININames.standart.rawValue) { (data, err) in
             if err != nil {
                 print(err!.localizedDescription)
+                self.delegate?.downloadCompleted(with: false, at: path)
+                self.countOfCurrentDirectories -= 1
                 return
             }
             guard let data = data else {return}
             var written = false
             //        String(data: data, encoding: .isoLatin2)
-            if let content = String(data: data, encoding: .utf8) {
-                written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path)
+            if let content = String(data: data, encoding: .iso2022JP) {
+                written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path, to: context)
             } else if let content = String(data: data, encoding: .windowsCP1254) {
-                written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path)
+                written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path, to: context)
             }
 //            print("Writing from '\(path)' finished with \(written ? "success" : "faliure")")
-            self.delegate?.downloadCompleted(with: written, at: being + 1, of: counting)
+            
+            // completed
+            self.countOfCurrentDirectories -= 1
+            completed?()
+            
+            if path != "/" {
+                self.delegate?.downloadCompleted(with: written, at: path)
+            } else {
+                if let p = self.rootPath.split(separator: "/").map({String($0)}).last {
+                    self.delegate?.downloadCompleted(with: written, at: p)
+                } else {
+                    self.delegate?.downloadCompleted(with: written, at: self.rootPath)
+                }
+            }
         }
     }
-
     
-    private func parseINI(content array: [String], in path: String) -> Bool {
+
+    /*
+        Parsing module, described in .ini file
+        Runs in sync
+    */
+    private func parseINI(content array: [String], in path: String, to context: NSManagedObjectContext) -> Bool {
         var bibleName: String?
         var bibleKey: String?
         var startingNumberForBooks = 1
@@ -111,7 +163,10 @@ class FileManager: NSObject {
         if let name = bibleName,
             let key = bibleKey{
             
-            // TODO: remove in case of existing
+            if let m = try? Module.get(by: key.lowercased(), from: context), let module = m {
+                context.delete(module)
+                try? context.save()
+            }
             let module = Module(context: context)
             module.name = name
             module.key = key.lowercased()

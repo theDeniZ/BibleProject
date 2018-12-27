@@ -14,10 +14,13 @@ class DropView: NSView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        self.wantsLayer = true
+        self.layer?.backgroundColor = NSColor.gray.cgColor
         registerForDraggedTypes([NSPasteboard.PasteboardType.URL, NSPasteboard.PasteboardType.fileURL])
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        self.layer?.backgroundColor = NSColor.blue.cgColor
         return .copy
     }
     

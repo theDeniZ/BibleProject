@@ -33,6 +33,18 @@ class ModuleManagerViewController: NSViewController {
         }
     }
     
+    @IBAction func clearAll(_ sender: NSButton) {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            self?.modules.forEach {self?.context.delete($0)}
+            try? self?.context.save()
+            if self != nil, let m = try? Module.getAll(from: self!.context, local: true) {
+                self!.modules = m
+                self!.tableView.reloadData()
+            }
+        }
+    }
+    
+    
 }
 
 extension ModuleManagerViewController: NSTableViewDataSource {

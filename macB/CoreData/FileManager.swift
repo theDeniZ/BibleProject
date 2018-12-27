@@ -18,6 +18,15 @@ class FileManager: NSObject {
     private let rootPath: String
     private var countOfCurrentDirectories = 0
     
+    private var countOfContent = 0
+    private var countOfProceeded = 0
+    
+    
+    private var bibleName: String?
+    private var bibleKey: String?
+    private var startingNumberForBooks = 1
+    private var booksInfo: [(path: String, name: String)] = []
+    private var encoding: String.Encoding?
     
     init(_ path: String) {
         rootPath = path
@@ -28,8 +37,10 @@ class FileManager: NSObject {
     func initiateParsing() {
         do {
             delegate?.downloadStarted(with: 1)
-            try parseDirectory("/", being: 0)
-            delegate?.downloadFinished()
+            countOfCurrentDirectories += 1
+            try parseDirectory("/", being: 0) {
+                self.delegate?.downloadFinished()
+            }
         } catch ModuleParseError.moduleNotFound {
             parseMultipleDirectories("/")
         } catch {
@@ -42,36 +53,34 @@ class FileManager: NSObject {
             if error != nil {
                 print(error!.localizedDescription)
             }
-            let count = contents.count
-            self.delegate?.downloadStarted(with: count)
-            for i in 0..<count {
+            self.countOfContent = contents.count
+            self.delegate?.downloadStarted(with: self.countOfContent)
+            for i in 0..<self.countOfContent {
                 let object = contents[i]
                 if object.type == URLFileResourceType.directory {
-                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
-                        print(object.name + " trying to parse: current \(self.countOfCurrentDirectories)")
+//                    Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (timer) in
+//                        print("Trying " + object.name + " to parse: current \(self.countOfCurrentDirectories)")
+                    while(self.countOfCurrentDirectories >= self.countOfDirectoriesParsingAtOnce) { sleep(1) }
                         if self.countOfCurrentDirectories < self.countOfDirectoriesParsingAtOnce {
-                            print(object.name + " parsing: current \(self.countOfCurrentDirectories)")
+//                            print("Parsing " + object.name + ": current \(self.countOfCurrentDirectories)")
                             self.countOfCurrentDirectories += 1
                             do {
                                 try self.parseDirectory(path + object.name + "/", being: i) {
-                                    if self.countOfCurrentDirectories == 0 {
+                                    self.countOfProceeded += 1
+                                    if self.countOfProceeded == self.countOfContent {
                                         self.delegate?.downloadFinished()
                                     }
-                                    print(object.name + " parsing finished: current \(self.countOfCurrentDirectories)")
-                                    timer.invalidate()
+//                                    print("Finished " + object.name + " parsing: current \(self.countOfCurrentDirectories)")
+//                                    timer.invalidate()
                                 }
                             } catch {
                                 print(error)
                             }
-                            timer.tolerance = .greatestFiniteMagnitude
+//                            timer.tolerance = .greatestFiniteMagnitude
                         }
-                    }
-//                    do {
-//                        try self.parseDirectory(path + object.name + "/", being: i, counting: contents.count)
-//                    } catch {
-//                        print(error)
 //                    }
                 } else {
+                    self.countOfProceeded += 1
                     self.delegate?.downloadCompleted(with: false, at: object.name)
                 }
             }
@@ -85,7 +94,6 @@ class FileManager: NSObject {
         } else {
             self.countOfCurrentDirectories -= 1
             self.delegate?.downloadCompleted(with: false, at: path)
-            completed?()
             throw ModuleParseError.moduleNotFound
         }
     }
@@ -96,6 +104,7 @@ class FileManager: NSObject {
         Runs in async
      */
     private func readINI(_ path: String, being: Int, to context: NSManagedObjectContext, completed: (() -> ())? = nil) {
+        setEncoding(from: path)
         documentProvider.contents(path: path + ININames.standart.rawValue) { (data, err) in
             if err != nil {
                 print(err!.localizedDescription)
@@ -106,9 +115,7 @@ class FileManager: NSObject {
             guard let data = data else {return}
             var written = false
             //        String(data: data, encoding: .isoLatin2)
-            if let content = String(data: data, encoding: .iso2022JP) {
-                written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path, to: context)
-            } else if let content = String(data: data, encoding: .windowsCP1254) {
+            if let content = String(data: data, encoding: self.encoding ?? .utf8) {
                 written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path, to: context)
             }
 //            print("Writing from '\(path)' finished with \(written ? "success" : "faliure")")
@@ -134,13 +141,8 @@ class FileManager: NSObject {
         Parsing module, described in .ini file
         Runs in sync
     */
-    private func parseINI(content array: [String], in path: String, to context: NSManagedObjectContext) -> Bool {
-        var bibleName: String?
-        var bibleKey: String?
-        var startingNumberForBooks = 1
-        
-        var booksInfo: [(path: String, name: String)] = []
-        
+    private func parseINI(content array: [String], in path: String, to context: NSManagedObjectContext, andWrite: Bool = true) -> Bool {
+       
         var pendingBook: String?
         for i in 0..<array.count {
             if array[i].matches("BibleName =[ ]?.*") {
@@ -159,7 +161,15 @@ class FileManager: NSObject {
                 }
             }
         }
-        // TODO: parse html next
+        
+        if andWrite {
+            return readAndWrite(in: path, to: context)
+        }
+        
+        return false
+    }
+    
+    private func readAndWrite(in path: String, to context: NSManagedObjectContext) -> Bool {
         if let name = bibleName,
             let key = bibleKey{
             
@@ -173,7 +183,8 @@ class FileManager: NSObject {
             module.local = true
             
             let htmlParser = HTMLParser(rootPath + path, start: startingNumberForBooks, context: context)
-            if htmlParser.parse(booksInfo, to: module) {
+            htmlParser.encoding = encoding
+            if  htmlParser.parse(booksInfo, to: module) {
                 do {
                     try context.save()
                     return true
@@ -183,6 +194,29 @@ class FileManager: NSObject {
             }
         }
         return false
+    }
+    
+    private func setEncoding(from path: String) {
+        if documentProvider.fileManager.fileExists(atPath: rootPath + path + "charset.txt") {
+            let content = try! String(contentsOf: URL(fileURLWithPath: rootPath + path + "charset.txt"))
+            switch content {
+            case "windows-1251":
+                encoding = String.Encoding.windowsCP1251
+            case "windows-1252":
+                encoding = String.Encoding.windowsCP1252
+            case "windows-1253":
+                encoding = String.Encoding.windowsCP1253
+            case "windows-1254":
+                encoding = String.Encoding.windowsCP1254
+            case "utf-8":
+                encoding = String.Encoding.utf8
+            case "utf-16":
+                encoding = String.Encoding.utf16
+            default: break;
+            }
+        } else {
+            encoding = nil
+        }
     }
     
 }

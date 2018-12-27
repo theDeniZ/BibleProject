@@ -14,6 +14,7 @@ class HTMLParser: NSObject {
     let root: String
     var current: Int
     let context: NSManagedObjectContext
+    var encoding: String.Encoding?
     
     init(_ path: String, start: Int, context: NSManagedObjectContext) {
         root = path
@@ -38,7 +39,8 @@ class HTMLParser: NSObject {
     }
     
     private func parseBookfFromFile(withInfo: (name: String, path: String)) -> Book? {
-        if let html: String = try? String(contentsOf: URL(fileURLWithPath: root + withInfo.path), encoding: .iso2022JP) {
+        if var html: String = try? String(contentsOf: URL(fileURLWithPath: root + withInfo.path), encoding: encoding ?? .utf8) {
+            
             let stripped = html.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
             let bookArray = stripped.split(separator: "\r\n").map {String($0)}
             
@@ -118,8 +120,8 @@ class HTMLParser: NSObject {
 }
 
 enum ChapterPattern: String, CaseIterable {
-    case withNameInFront = " (\\d+)$"
-    case withChapter = "(?i)Chapter (\\d+)$"
-    case withNumber = "^(\\d+)$"
-    case withCustomName = "^[A-z]+ (\\d+)$"
+    case withNameInFront = "[,]? (\\d+)[.]?$"
+    case withChapter = "(?i)Chapter (\\d+)[.]?$"
+    case withNumber = "^(\\d+)[.]?$"
+    case withCustomName = "^\\w+ (\\d+)[.]?$"
 }

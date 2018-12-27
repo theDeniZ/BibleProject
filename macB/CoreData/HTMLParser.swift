@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SwiftSoup
+import CoreData
 
 class HTMLParser: NSObject {
     

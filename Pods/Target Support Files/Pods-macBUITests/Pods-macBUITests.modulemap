@@ -1,0 +1,6 @@
+framework module Pods_macBUITests {
+  umbrella header "Pods-macBUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

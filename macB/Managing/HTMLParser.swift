@@ -39,7 +39,13 @@ class HTMLParser: NSObject {
     }
     
     private func parseBookfFromFile(withInfo: (name: String, path: String)) -> Book? {
-        if var html: String = try? String(contentsOf: URL(fileURLWithPath: root + withInfo.path), encoding: encoding ?? .utf8) {
+        var htm: String?
+        if let enc = encoding {
+            htm = try? String(contentsOf: URL(fileURLWithPath: root + withInfo.path), encoding: enc)
+        } else {
+            htm = try? String(contentsOf: URL(fileURLWithPath: root + withInfo.path))
+        }
+        if let html = htm {
             
             let stripped = html.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
             let bookArray = stripped.split(separator: "\r\n").map {String($0)}
@@ -102,7 +108,6 @@ class HTMLParser: NSObject {
         return nil
     }
     
-    
     private func matchesChapter(_ text: String, with name: String) -> ChapterPattern? {
         for pattern in ChapterPattern.allCases {
             if pattern == .withNameInFront {
@@ -117,6 +122,86 @@ class HTMLParser: NSObject {
         }
         return nil
     }
+
+    func parseHtmlFile(_ named: String = "") -> Bool {
+        var htm: String?
+        if let enc = encoding {
+            htm = try? String(contentsOf: URL(fileURLWithPath: root), encoding: enc)
+        } else {
+            do {
+                htm = try String(contentsOf: URL(fileURLWithPath: root))
+            } catch {
+                print("Opening error: \(error)")
+                do {
+                    htm = try String(contentsOf: URL(fileURLWithPath: root), encoding: .utf8)
+                } catch {
+                    print("!!Not an utf8!! \(error)")
+                }
+            }
+        }
+        if let html = htm {
+            let name = named.contains("hebrew") ? "Hebrew" : "Greek"
+            let stripped = html.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+            var fileArray = stripped.split(separator: "\r\n").map {String($0)}
+            if fileArray.count == 1 {
+                fileArray = stripped.split(separator: "\n").map {String($0)}
+            }
+            let regexForStart = "^[0]*(\\d+)$"
+            let regexForMeaning = "^[(:']?\\w+"
+            
+            var i = 0
+            while i < fileArray.count {
+                if fileArray[i].matches(regexForStart) {
+                    let number = Int(fileArray[i].capturedGroups(withRegex: regexForStart)![0])!
+                    i += 1
+                    let regexForLine = "(?:\(number), )(.*)"
+                    while i < fileArray.count,
+                        !fileArray[i].matches(regexForLine),
+                        !fileArray[i].matches(regexForStart),
+                        !fileArray[i].matches(regexForMeaning) {i += 1}
+                    if i < fileArray.count, !fileArray[i].matches(regexForStart) {
+                        var original: String? = nil
+                        if fileArray[i].matches(regexForLine) {
+                            original = fileArray[i].capturedGroups(withRegex: regexForLine)![0]
+                            i += 1
+                        }
+                        var meaning = ""
+                        while i < fileArray.count, !fileArray[i].matches(regexForStart) {
+                            meaning.append(fileArray[i] + "\n")
+                            i += 1
+                        }
+                        if let strong = Strong.get(number, by: name, from: context) {
+                            if let m = strong.meaning {
+                                strong.meaning = meaning + "\n\n" + m
+                            } else {
+                                strong.meaning = meaning
+                            }
+                        } else {
+                            let strong = Strong(context: context)
+                            strong.number = Int32(number)
+                            if let org = original {
+                                strong.original = org
+                            }
+                            strong.meaning = meaning
+                            strong.type = name
+                        }
+                    }
+                } else {
+                    i += 1
+                }
+            }
+            do {
+                try context.save()
+                return true
+            } catch {
+                print(error)
+                return false
+            }
+            
+        }
+        return false
+    }
+    
 }
 
 enum ChapterPattern: String, CaseIterable {

@@ -8,6 +8,11 @@
 
 import Cocoa
 
+struct StrongIdentifier {
+    static let oldTestament = "Hebrew"
+    static let newTestament = "Greek"
+}
+
 extension CGRect {
     init(_ x: Double, _ y: Double, _ width: Double, _ height: Double) {
         self.init(x: x, y: y, width: width, height: height)
@@ -63,7 +68,7 @@ extension CGRect {
 
 extension String {
     
-    static let regexForBookRefference = "((?:\\d*\\s*)(?:[A-z]+))\\s*(\\d+)?\\s*[:,]?\\s*(\\d+)?(\\s*[,.-]?\\s*(\\d+))*"
+    static let regexForBookRefference = "((?:\\d*\\s*)(?:[A-z]+))\\s*(\\d+)(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
     
     func indicesOf(string: String) -> [Int] {
         var indices = [Int]()
@@ -154,4 +159,49 @@ extension String {
 
 extension Range where Bound: FixedWidthInteger {
     var nsRange: NSRange { return NSRange(self) }
+}
+
+extension NSAttributedString: StrongsLinkEmbeddable {
+    var strongNumbersAvailable: Bool {
+        return self.string.matches("( \\d+ )")
+    }
+    
+    func embedStrongs(to link: String) -> NSAttributedString {
+        let newMAString = NSMutableAttributedString()
+        var colorAttribute: [NSAttributedString.Key: Any]?
+        var upperAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.baselineOffset : 4,
+                                                             NSAttributedString.Key.font : NSFont.systemFont(ofSize: 7)]
+        if let c = NSColor(named: NSColor.Name("textColor")) {
+            colorAttribute = [NSAttributedString.Key.foregroundColor : c]
+            upperAttribute[NSAttributedString.Key.foregroundColor] = c
+        }
+        let splited = string.replacingOccurrences(of: "\r\n", with: "").split(separator: " ").map {String($0)}
+        newMAString.append(NSAttributedString(string: splited[0] + " ", attributes: upperAttribute))
+        var i = 1
+        while i < splited.count {
+            if !splited[i].matches("\\d+") {
+                let s = NSMutableAttributedString(string: splited[i] + " ")
+                if let c = colorAttribute {
+                    s.addAttributes(c, range: NSRange(0..<s.length))
+                }
+                var numbers: [Int] = []
+                while i < splited.count - 1, splited[i + 1].matches("\\d+") {
+                    i += 1
+                    numbers.append(Int(splited[i].capturedGroups(withRegex: "(\\d+)")![0])!)
+                }
+                if numbers.count > 0 {
+                    let url = link + numbers.map({String($0)}).joined(separator: "+")
+                    s.addAttribute(NSAttributedString.Key.link, value: url, range: NSRange(0..<s.length - 1))
+                }
+                newMAString.append(s)
+            }
+            i += 1
+        }
+        if !newMAString.string.hasSuffix("\n ") {
+            newMAString.append(NSAttributedString(string: "\n"))
+        }
+        return newMAString
+    }
+    
+    
 }

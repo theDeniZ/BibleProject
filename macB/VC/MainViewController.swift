@@ -21,6 +21,7 @@ class MainViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppDelegate.shared.urlDelegate = self
         updateUI()
         manager.addDelegate(self)
     }
@@ -65,6 +66,22 @@ extension MainViewController: ModelUpdateDelegate {
     func modelChanged() {
         DispatchQueue.main.async { [weak self] in
             self?.updateUI()
+        }
+    }
+}
+
+extension MainViewController: URLDelegate {
+    func openedURL(with parameters: [String]) {
+        if let vc = NSStoryboard.main?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Detail Strong VC")) as? StrongDetailViewController {
+            var numbers: [Int] = []
+            let identifier = parameters[0]
+            let numbersString = parameters[1].split(separator: "+")
+            for n in numbersString {
+                numbers.append(Int(String(n))!)
+            }
+            vc.numbers = numbers
+            vc.identifierStrong = identifier
+            presentAsModalWindow(vc)
         }
     }
 }

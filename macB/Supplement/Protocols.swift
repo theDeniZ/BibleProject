@@ -33,3 +33,12 @@ protocol DownloadProgressDelegate {
     func downloadCompleted(with success: Bool, at name: String)
     func downloadFinished()
 }
+
+protocol StrongsLinkEmbeddable {
+    var strongNumbersAvailable: Bool {get}
+    func embedStrongs(to link: String) -> NSAttributedString
+}
+
+protocol URLDelegate {
+    func openedURL(with parameters: [String])
+}

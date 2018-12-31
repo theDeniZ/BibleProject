@@ -91,6 +91,8 @@ class FileManager: NSObject {
         if documentProvider.fileManager.fileExists(atPath: rootPath + path + ININames.standart.rawValue) {
             let context = AppDelegate.context
             readINI(path, being: being, to: context, completed: completed)
+        } else if rootPath.lowercased().hasSuffix(".htm") || rootPath.lowercased().hasSuffix(".html") {
+            self.parseHtml(path: rootPath, completed: completed)
         } else {
             self.countOfCurrentDirectories -= 1
             self.delegate?.downloadCompleted(with: false, at: path)
@@ -98,6 +100,14 @@ class FileManager: NSObject {
         }
     }
     
+    private func parseHtml(path: String, completed: (() -> ())? = nil) {
+        let name = String(path.split(separator: "/").last ?? "").lowercased()
+        let htmlParser = HTMLParser(path, start: 0, context: AppDelegate.context)
+        let result = htmlParser.parseHtmlFile(name)
+        delegate?.downloadCompleted(with: result, at: path)
+        completed?()
+    
+    }
     
     /*
         Reads .ini file and initiates parsing

@@ -45,9 +45,9 @@ class ModuleViewController: NSViewController {
 //                r.append("\n")
                 return r
             }
-            if let c = NSColor(named: NSColor.Name("textColor")) {
-                attributedString.addAttribute(.foregroundColor, value: c, range: NSRange(0..<attributedString.length))
-            }
+//            if let c = NSColor(named: NSColor.Name("textColor")) {
+//                attributedString.addAttribute(.foregroundColor, value: c, range: NSRange(0..<attributedString.length))
+//            }
             if let lm = textView?.layoutManager {
                 textStorage?.removeLayoutManager(lm)
                 textStorage = NSTextStorage(attributedString: attributedString)

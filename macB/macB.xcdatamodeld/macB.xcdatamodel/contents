@@ -23,6 +23,12 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Book" inverseName="module" inverseEntity="Book" syncable="YES"/>
     </entity>
+    <entity name="Strong" representedClassName=".Strong" syncable="YES" codeGenerationType="category">
+        <attribute name="meaning" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="original" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" defaultValueString="Hebrew" syncable="YES"/>
+    </entity>
     <entity name="Verse" representedClassName=".Verse" syncable="YES" codeGenerationType="category">
         <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="selectionColor" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,5 +43,6 @@
         <element name="History" positionX="-124.51171875" positionY="224.35546875" width="128" height="88"/>
         <element name="Module" positionX="12.828125" positionY="-115.0234375" width="128" height="105"/>
         <element name="Verse" positionX="-325.109375" positionY="37.7890625" width="128" height="135"/>
+        <element name="Strong" positionX="-144" positionY="36" width="128" height="105"/>
     </elements>
 </model>

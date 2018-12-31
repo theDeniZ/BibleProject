@@ -6,7 +6,7 @@
 //  Copyright © 2018 Denis Dobanda. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 import CoreData
 
 class Verse: NSManagedObject {
@@ -32,9 +32,9 @@ class Verse: NSManagedObject {
     
     var attributedCompound: NSAttributedString {
         let att = NSMutableAttributedString(string: compound)
-//        if let color = selectionColor {
-//
-//        }
+        if let c = NSColor(named: NSColor.Name("textColor")) {
+            att.addAttribute(.foregroundColor, value: c, range: NSRange(0..<att.length))
+        }
         return att
     }
 }

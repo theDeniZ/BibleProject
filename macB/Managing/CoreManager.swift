@@ -20,6 +20,10 @@ class CoreManager: NSObject {
     var activeModules: [Module]
     var currentIndex: BibleIndex
     
+    var currentTestament: String {
+        return currentIndex.book <= 39 ? StrongIdentifier.oldTestament : StrongIdentifier.newTestament
+    }
+    
     private var delegates: [ModelUpdateDelegate]?
     
     init(_ context: NSManagedObjectContext) {
@@ -47,11 +51,20 @@ class CoreManager: NSObject {
                                     for index in vs {
                                         let verse = verses.filter {$0.number == index}
                                         if verse.count > 0 {
-                                            result.append(verse[0].attributedCompound)
+                                            let attributedVerse = verse[0].attributedCompound
+                                            //check for strong's numbers
+                                            if attributedVerse.strongNumbersAvailable {
+                                                result.append(attributedVerse.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/"))
+                                            } else {
+                                                result.append(attributedVerse)
+                                            }
                                         }
                                     }
                                     return result
                                 } else {
+                                    if verses[0].attributedCompound.strongNumbersAvailable {
+                                        return verses.map {$0.attributedCompound.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/")}
+                                    }
                                     return verses.map {$0.attributedCompound}
                                 }
                             }

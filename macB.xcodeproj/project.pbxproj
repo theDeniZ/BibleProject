@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		221A3E9021D243B9007C269E /* ModuleManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */; };
 		221A3E9221D51233007C269E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E9121D51233007C269E /* DropView.swift */; };
+		221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */; };
 		22234EB921D1388C00BC595D /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EB821D1388C00BC595D /* FileManagerViewController.swift */; };
 		22234EBD21D13B6400BC595D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBC21D13B6400BC595D /* TabViewController.swift */; };
 		22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBE21D13FB500BC595D /* DropImageView.swift */; };
@@ -32,6 +33,9 @@
 		22BD926D21CCD62F00019853 /* DownloadCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926C21CCD62F00019853 /* DownloadCellView.swift */; };
 		22BD927021CCDB0E00019853 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926F21CCDB0E00019853 /* Protocols.swift */; };
 		22BD927421CCFE0500019853 /* DownloadTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD927321CCFE0500019853 /* DownloadTableViewController.swift */; };
+		22CB04AF21D907BA004110E0 /* Strong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04AD21D907BA004110E0 /* Strong.swift */; };
+		22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B221D911F2004110E0 /* StrongViewController.swift */; };
+		22CB04B521D9155B004110E0 /* LabelCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B421D9155B004110E0 /* LabelCellView.swift */; };
 		22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB121CF87EB001C96D3 /* CoreManager.swift */; };
 		22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */; };
 		22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB721CFC556001C96D3 /* MainViewController.swift */; };
@@ -62,6 +66,7 @@
 		0F4AE5F9062AC3626EDAE46A /* Pods_macBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleManagerViewController.swift; sourceTree = "<group>"; };
 		221A3E9121D51233007C269E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
+		221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongDetailViewController.swift; sourceTree = "<group>"; };
 		22234EB821D1388C00BC595D /* FileManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
 		22234EBC21D13B6400BC595D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		22234EBE21D13FB500BC595D /* DropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropImageView.swift; sourceTree = "<group>"; };
@@ -92,6 +97,9 @@
 		22BD926C21CCD62F00019853 /* DownloadCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCellView.swift; sourceTree = "<group>"; };
 		22BD926F21CCDB0E00019853 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		22BD927321CCFE0500019853 /* DownloadTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewController.swift; sourceTree = "<group>"; };
+		22CB04AD21D907BA004110E0 /* Strong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strong.swift; sourceTree = "<group>"; };
+		22CB04B221D911F2004110E0 /* StrongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongViewController.swift; sourceTree = "<group>"; };
+		22CB04B421D9155B004110E0 /* LabelCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellView.swift; sourceTree = "<group>"; };
 		22F68BB121CF87EB001C96D3 /* CoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreManager.swift; sourceTree = "<group>"; };
 		22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		22F68BB721CFC556001C96D3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +171,7 @@
 				22BD922321CBDEDD00019853 /* Main.storyboard */,
 				22BD922621CBDEDD00019853 /* Info.plist */,
 				22BD925421CC1EC400019853 /* macB.xcdatamodeld */,
+				22CB04B121D90A42004110E0 /* Managing */,
 				22BD925D21CCD02400019853 /* CoreData */,
 				22BD927121CCDB1500019853 /* Supplement */,
 				22BD921A21CBDEDB00019853 /* AppDelegate.swift */,
@@ -199,10 +208,7 @@
 				22BD926421CCD36A00019853 /* Module.swift */,
 				22BD926A21CCD48100019853 /* ModuleOffline.swift */,
 				22BD926621CCD37F00019853 /* History.swift */,
-				22BD926821CCD46700019853 /* DownloadManager.swift */,
-				22F68BB121CF87EB001C96D3 /* CoreManager.swift */,
-				22234EC021D1453A00BC595D /* FileManager.swift */,
-				22234EC221D164A000BC595D /* HTMLParser.swift */,
+				22CB04AD21D907BA004110E0 /* Strong.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -213,6 +219,7 @@
 				22BD926C21CCD62F00019853 /* DownloadCellView.swift */,
 				22234EBE21D13FB500BC595D /* DropImageView.swift */,
 				221A3E9121D51233007C269E /* DropView.swift */,
+				22CB04B421D9155B004110E0 /* LabelCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -235,8 +242,21 @@
 				22234EB821D1388C00BC595D /* FileManagerViewController.swift */,
 				22234EBC21D13B6400BC595D /* TabViewController.swift */,
 				221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */,
+				22CB04B221D911F2004110E0 /* StrongViewController.swift */,
+				221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		22CB04B121D90A42004110E0 /* Managing */ = {
+			isa = PBXGroup;
+			children = (
+				22BD926821CCD46700019853 /* DownloadManager.swift */,
+				22F68BB121CF87EB001C96D3 /* CoreManager.swift */,
+				22234EC021D1453A00BC595D /* FileManager.swift */,
+				22234EC221D164A000BC595D /* HTMLParser.swift */,
+			);
+			path = Managing;
 			sourceTree = "<group>";
 		};
 		43072824CA4E971833228D31 /* Frameworks */ = {
@@ -504,6 +524,7 @@
 				22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */,
 				22234EBD21D13B6400BC595D /* TabViewController.swift in Sources */,
 				22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */,
+				221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */,
 				22BD926321CCD35E00019853 /* Book.swift in Sources */,
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
 				22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */,
@@ -511,11 +532,14 @@
 				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,
 				22BD926121CCD34B00019853 /* Chapter.swift in Sources */,
 				221A3E9221D51233007C269E /* DropView.swift in Sources */,
+				22CB04B521D9155B004110E0 /* LabelCellView.swift in Sources */,
 				22234EB921D1388C00BC595D /* FileManagerViewController.swift in Sources */,
 				22BD926521CCD36B00019853 /* Module.swift in Sources */,
+				22CB04AF21D907BA004110E0 /* Strong.swift in Sources */,
 				22BD924A21CC159C00019853 /* Extensions.swift in Sources */,
 				22234EC321D164A000BC595D /* HTMLParser.swift in Sources */,
 				22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */,
+				22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

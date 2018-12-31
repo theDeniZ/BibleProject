@@ -24,6 +24,7 @@ class StrongViewController: NSViewController {
         table.dataSource = self
         table.delegate = self
         load()
+        Strong.printStats()
     }
     
     private func load() {

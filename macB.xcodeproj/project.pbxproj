@@ -15,6 +15,9 @@
 		22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBE21D13FB500BC595D /* DropImageView.swift */; };
 		22234EC121D1453A00BC595D /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC021D1453A00BC595D /* FileManager.swift */; };
 		22234EC321D164A000BC595D /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC221D164A000BC595D /* HTMLParser.swift */; };
+		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
+		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
+		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
 		22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD921A21CBDEDB00019853 /* AppDelegate.swift */; };
 		22BD921D21CBDEDB00019853 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD921C21CBDEDB00019853 /* ViewController.swift */; };
 		22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BD922121CBDEDD00019853 /* Assets.xcassets */; };
@@ -72,6 +75,9 @@
 		22234EBE21D13FB500BC595D /* DropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropImageView.swift; sourceTree = "<group>"; };
 		22234EC021D1453A00BC595D /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		22234EC221D164A000BC595D /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
+		22B9F1EE21DD219A00E6E62C /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
+		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
 		22BD921721CBDEDB00019853 /* macB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BD921A21CBDEDB00019853 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		22BD921C21CBDEDB00019853 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +183,7 @@
 				22BD921A21CBDEDB00019853 /* AppDelegate.swift */,
 				22BD922121CBDEDD00019853 /* Assets.xcassets */,
 				22BD922721CBDEDD00019853 /* macB.entitlements */,
+				22B9F1F121DD221400E6E62C /* UserSettings.plist */,
 			);
 			path = macB;
 			sourceTree = "<group>";
@@ -255,6 +262,8 @@
 				22F68BB121CF87EB001C96D3 /* CoreManager.swift */,
 				22234EC021D1453A00BC595D /* FileManager.swift */,
 				22234EC221D164A000BC595D /* HTMLParser.swift */,
+				22B9F1EE21DD219A00E6E62C /* PlistManager.swift */,
+				22B9F1ED21DD219A00E6E62C /* plistHandler.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -395,6 +404,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */,
 				22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */,
 				22BD922521CBDEDD00019853 /* Main.storyboard in Resources */,
 			);
@@ -530,6 +540,7 @@
 				22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */,
 				22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */,
 				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,
+				22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */,
 				22BD926121CCD34B00019853 /* Chapter.swift in Sources */,
 				221A3E9221D51233007C269E /* DropView.swift in Sources */,
 				22CB04B521D9155B004110E0 /* LabelCellView.swift in Sources */,
@@ -540,6 +551,7 @@
 				22234EC321D164A000BC595D /* HTMLParser.swift in Sources */,
 				22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */,
 				22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */,
+				22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

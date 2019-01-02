@@ -13,6 +13,7 @@ class ModuleViewController: NSViewController {
     var moduleManager: CoreManager? {didSet{updateUI()}}
     var currentModule: Module!
     var index: Int!
+    var delegate: SplitViewDelegate?
     
     private var textStorage: NSTextStorage?
     private var choise: [String] = []
@@ -69,6 +70,11 @@ class ModuleViewController: NSViewController {
         updateCombo()
         return super.becomeFirstResponder()
     }
+    
+    @IBAction func closeAction(_ sender: NSButton) {
+        delegate?.splitViewWouldLikeToResign(being: index)
+    }
+    
     
 }
 

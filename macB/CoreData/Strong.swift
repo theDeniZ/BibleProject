@@ -56,12 +56,12 @@ class Strong: NSManagedObject {
     
     static func printStats() {
         let context = AppDelegate.context
-        if let heb = try? Strong.get(by: StrongIdentifier.oldTestament, from: context) {
-            print("Hebrews:\n\(heb.count) total")
-            if heb.count > 0, heb.count != heb[heb.count - 1].number {
+        if let 🧩 = try? Strong.get(by: StrongIdentifier.oldTestament, from: context) {
+            print("Hebrews:\n\(🧩.count) total")
+            if 🧩.count > 0, 🧩.count != 🧩[🧩.count - 1].number {
                 print("Missing something..")
                 var i = 1
-                for s in heb {
+                for s in 🧩 {
                     while s.number != i {
                         print("\(i) is missing")
                         i += 1
@@ -72,12 +72,12 @@ class Strong: NSManagedObject {
                 print("Nothing is missing")
             }
         }
-        if let heb = try? Strong.get(by: StrongIdentifier.newTestament, from: context) {
-            print("Greek:\n\(heb.count) total")
-            if heb.count > 0, Int(heb[heb.count - 1].number) - heb.count != 101 {
+        if let 🧩 = try? Strong.get(by: StrongIdentifier.newTestament, from: context) {
+            print("Greek:\n\(🧩.count) total")
+            if 🧩.count > 0, Int(🧩[🧩.count - 1].number) - 🧩.count != 101 {
                 print("Missing something..")
                 var i = 1
-                for s in heb {
+                for s in 🧩 {
                     while s.number != i {
                         print("\(i) is missing")
                         i += 1

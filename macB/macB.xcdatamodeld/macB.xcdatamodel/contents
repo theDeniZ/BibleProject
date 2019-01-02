@@ -18,7 +18,7 @@
         <relationship name="verses" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Verse" inverseName="inHistory" inverseEntity="Verse" syncable="YES"/>
     </entity>
     <entity name="Module" representedClassName=".Module" syncable="YES" codeGenerationType="category">
-        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="key" attributeType="String" syncable="YES"/>
         <attribute name="local" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Book" inverseName="module" inverseEntity="Book" syncable="YES"/>
@@ -42,7 +42,7 @@
         <element name="Chapter" positionX="-134.8359375" positionY="35.55078125" width="128" height="103"/>
         <element name="History" positionX="-124.51171875" positionY="224.35546875" width="128" height="88"/>
         <element name="Module" positionX="12.828125" positionY="-115.0234375" width="128" height="105"/>
-        <element name="Verse" positionX="-325.109375" positionY="37.7890625" width="128" height="135"/>
         <element name="Strong" positionX="-144" positionY="36" width="128" height="105"/>
+        <element name="Verse" positionX="-325.109375" positionY="37.7890625" width="128" height="135"/>
     </elements>
 </model>

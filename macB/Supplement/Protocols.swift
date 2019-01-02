@@ -42,3 +42,7 @@ protocol StrongsLinkEmbeddable {
 protocol URLDelegate {
     func openedURL(with parameters: [String])
 }
+
+protocol SplitViewDelegate {
+    func splitViewWouldLikeToResign(being: Int)
+}

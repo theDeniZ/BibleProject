@@ -19,6 +19,8 @@ class CoreManager: NSObject {
     var context: NSManagedObjectContext
     var activeModules: [Module]
     var currentIndex: BibleIndex
+    var fontSize: CGFloat
+    var plistManager: PlistManager { return AppDelegate.plistManager }
     
     var currentTestament: String {
         return currentIndex.book <= 39 ? StrongIdentifier.oldTestament : StrongIdentifier.newTestament
@@ -29,7 +31,13 @@ class CoreManager: NSObject {
     init(_ context: NSManagedObjectContext) {
         self.context = context
         activeModules = []
-        currentIndex = BibleIndex(book: 1, chapter: 1, verses: nil)
+        let modules = AppDelegate.plistManager.getAllModuleKeys()
+        for module in modules {
+            activeModules.append(try! Module.get(by: module, from: context)!)
+        }
+        let index = AppDelegate.plistManager.getCurrentBookAndChapterIndexes()
+        currentIndex = BibleIndex(book: index.bookIndex, chapter: index.chapterIndex, verses: nil)
+        fontSize = AppDelegate.plistManager.getFontSize()
         super.init()
     }
     
@@ -102,8 +110,9 @@ extension CoreManager {
     }
     
     func setActive(_ module: Module, at place: Int) -> Module? {
-        if place < activeModules.count {
+        if place < activeModules.count, let k = module.key {
             activeModules[place] = module
+            plistManager.set(module: k, at: place)
             return module
         }
         return nil
@@ -111,6 +120,7 @@ extension CoreManager {
     
     func setActive(_ key: String, at place: Int) -> Module? {
         if let m = try? Module.get(by: key, from: context), let module = m {
+            plistManager.set(module: key, at: place)
             return setActive(module, at: place)
         }
         return nil
@@ -118,11 +128,19 @@ extension CoreManager {
     
     func createNewActiveModule() -> (Module, Int)? {
         let available = getAllAvailableModules()
-        if available.count > 0 {
+        if available.count > 0, let key = available[0].key {
             activeModules.append(available[0])
+            plistManager.set(module: key, at: activeModules.count - 1)
             return (available[0], activeModules.count - 1)
         }
         return nil
+    }
+    
+    func removeModule(at index: Int) {
+        if index < activeModules.count {
+            activeModules.remove(at: index)
+            plistManager.set(modules: activeModules.map{$0.key!})
+        }
     }
 }
 
@@ -162,6 +180,7 @@ extension CoreManager {
         guard let book = book else {return}
         if Chapter.isThere(with: number, in: book, context) {
             currentIndex.chapter = number
+            plistManager.set(chapter: number)
             broadcastChanges()
         }
     }
@@ -169,22 +188,28 @@ extension CoreManager {
         guard let book = book else {return}
         if Chapter.isThere(with: currentIndex.chapter + 1, in: book, context) {
             currentIndex.chapter += 1
+            plistManager.set(chapter: currentIndex.chapter)
             broadcastChanges()
         } else if let m = mainModule,
             Book.isThere(with: currentIndex.book + 1, in: m, context) {
             currentIndex.book += 1
             currentIndex.chapter = 1
+            plistManager.set(chapter: 1)
+            plistManager.set(book: currentIndex.book)
             broadcastChanges()
         }
     }
     func decrementChapter() {
         if currentIndex.chapter > 1 {
             currentIndex.chapter -= 1
+            plistManager.set(chapter: currentIndex.chapter)
             broadcastChanges()
         } else if let m = mainModule,
             Book.isThere(with: currentIndex.book - 1, in: m, context) {
             currentIndex.book -= 1
             currentIndex.chapter = book?.chapters?.array.count ?? 1
+            plistManager.set(chapter: currentIndex.chapter)
+            plistManager.set(book: currentIndex.book)
             broadcastChanges()
         }
     }
@@ -198,6 +223,8 @@ extension CoreManager {
         if Book.isThere(with: number, in: module, context) {
             currentIndex.book = number
             currentIndex.chapter = 1
+            plistManager.set(chapter: 1)
+            plistManager.set(book: number)
             broadcastChanges()
         }
     }
@@ -220,6 +247,8 @@ extension CoreManager {
         if let n = Book.find(by: regex, in: context) {
             currentIndex.book = n
             currentIndex.chapter = 1
+            plistManager.set(chapter: 1)
+            plistManager.set(book: n)
             broadcastChanges()
             return true
         }

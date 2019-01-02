@@ -1594,26 +1594,49 @@
             <objects>
                 <viewController storyboardIdentifier="Module VC" id="tca-dp-LBm" customClass="ModuleViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="6Ty-GT-JSC">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="719"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="5" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ebW-VU-tv5">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1000" height="719"/>
                                 <subviews>
-                                    <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AF2-qS-jMu">
-                                        <rect key="frame" x="450" y="683" width="102" height="19"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="mge-vY-bmf"/>
-                                        </constraints>
-                                        <comboBoxCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" buttonBordered="NO" numberOfVisibleItems="25" id="cwr-lJ-Dzt">
-                                            <font key="font" metaFont="miniSystem"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </comboBoxCell>
-                                        <connections>
-                                            <action selector="comboPicked:" target="tca-dp-LBm" id="D5C-b7-dFw"/>
-                                        </connections>
-                                    </comboBox>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="15" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPL-2I-4rc">
+                                        <rect key="frame" x="423" y="687" width="154" height="32"/>
+                                        <subviews>
+                                            <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AF2-qS-jMu">
+                                                <rect key="frame" x="0.0" y="6" width="102" height="19"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="mge-vY-bmf"/>
+                                                </constraints>
+                                                <comboBoxCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" buttonBordered="NO" numberOfVisibleItems="25" id="cwr-lJ-Dzt">
+                                                    <font key="font" metaFont="miniSystem"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </comboBoxCell>
+                                                <connections>
+                                                    <action selector="comboPicked:" target="tca-dp-LBm" id="D5C-b7-dFw"/>
+                                                </connections>
+                                            </comboBox>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ovV-12-Nma">
+                                                <rect key="frame" x="115" y="8" width="39" height="15"/>
+                                                <buttonCell key="cell" type="roundRect" title="Close" bezelStyle="roundedRect" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6x-cR-WnL">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="miniSystem"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="closeAction:" target="tca-dp-LBm" id="dAr-Th-3yF"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tw8-xT-qku">
                                         <rect key="frame" x="20" y="0.0" width="960" height="682"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="by9-e0-7ct">

@@ -24,8 +24,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static var coreManager: CoreManager {
         return AppDelegate.shared.manager
     }
+    
+    static var plistManager: PlistManager {
+        return AppDelegate.shared.plistManager
+    }
 
     private lazy var manager = CoreManager(AppDelegate.context)
+    private var plistManager = PlistManager()
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application

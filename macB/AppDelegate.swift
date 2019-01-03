@@ -56,6 +56,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func bookDecrement(_ sender: Any) {
         manager.decrementBook()
     }
+    @IBAction func fontIncrement(_ sender: Any) {
+        manager.incrementFont()
+    }
+    @IBAction func fontDecrement(_ sender: Any) {
+        manager.decrementFont()
+    }
+    
     
     // MARK: - URL control
     

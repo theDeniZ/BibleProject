@@ -21,7 +21,6 @@ extension DownloadDelegate {
 protocol ModelUpdateDelegate {
     var hashValue: Int {get}
     func modelChanged()
-    
 }
 
 protocol DragDelegate {
@@ -36,7 +35,7 @@ protocol DownloadProgressDelegate {
 
 protocol StrongsLinkEmbeddable {
     var strongNumbersAvailable: Bool {get}
-    func embedStrongs(to link: String) -> NSAttributedString
+    func embedStrongs(to link: String, using size: CGFloat) -> NSAttributedString
 }
 
 protocol URLDelegate {

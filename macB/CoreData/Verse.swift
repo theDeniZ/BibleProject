@@ -37,4 +37,21 @@ class Verse: NSManagedObject {
         }
         return att
     }
+    
+    func attributedCompound(font: NSFont, upperBaseline: [NSAttributedString.Key: Any]? = nil) -> NSAttributedString {
+        let mutable = NSMutableAttributedString(attributedString: attributedCompound)
+        mutable.addAttributes([.font: font], range: NSRange(0..<mutable.length))
+        if let upper = upperBaseline {
+            mutable.addAttributes(upper, range: NSRange(0..<"\(number)".count))
+        }
+        return mutable
+    }
+    
+    func attributedCompound(size: CGFloat) -> NSAttributedString {
+        let font = NSFont.systemFont(ofSize: size)
+        let upperAttribute: [NSAttributedString.Key: Any] =
+            [NSAttributedString.Key.baselineOffset : size * 0.333,
+             NSAttributedString.Key.font : NSFont.systemFont(ofSize: size * 0.666)]
+        return attributedCompound(font: font, upperBaseline: upperAttribute)
+    }
 }

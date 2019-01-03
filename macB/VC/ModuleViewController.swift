@@ -53,6 +53,9 @@ class ModuleViewController: NSViewController {
                 textStorage?.removeLayoutManager(lm)
                 textStorage = NSTextStorage(attributedString: attributedString)
                 textStorage!.addLayoutManager(lm)
+                if let c = NSColor(named: NSColor.Name("linkTextColor")) {
+                    textView?.linkTextAttributes = [.foregroundColor: c, .cursor: NSCursor.contextualMenu]
+                }
             }
         }
     }

@@ -59,10 +59,10 @@ class CoreManager: NSObject {
                                     for index in vs {
                                         let verse = verses.filter {$0.number == index}
                                         if verse.count > 0 {
-                                            let attributedVerse = verse[0].attributedCompound
+                                            let attributedVerse = verse[0].attributedCompound(size: fontSize)
                                             //check for strong's numbers
                                             if attributedVerse.strongNumbersAvailable {
-                                                result.append(attributedVerse.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/"))
+                                                result.append(attributedVerse.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize))
                                             } else {
                                                 result.append(attributedVerse)
                                             }
@@ -71,9 +71,9 @@ class CoreManager: NSObject {
                                     return result
                                 } else {
                                     if verses[0].attributedCompound.strongNumbersAvailable {
-                                        return verses.map {$0.attributedCompound.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/")}
+                                        return verses.map {$0.attributedCompound.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize)}
                                     }
-                                    return verses.map {$0.attributedCompound}
+                                    return verses.map {$0.attributedCompound(size: fontSize)}
                                 }
                             }
                         }
@@ -88,6 +88,7 @@ class CoreManager: NSObject {
     func broadcastChanges() {
         delegates?.forEach {$0.modelChanged()}
     }
+
 }
 
 // MARK: - Managing multiple modules
@@ -256,6 +257,20 @@ extension CoreManager {
     }
 }
 
+// MARK: Font
+
+extension CoreManager {
+    func incrementFont() {
+        fontSize += 1.0
+        broadcastChanges()
+        plistManager.setFont(size: fontSize)
+    }
+    func decrementFont() {
+        fontSize -= 1.0
+        broadcastChanges()
+        plistManager.setFont(size: fontSize)
+    }
+}
 
 // MARK: Concerning Delegates
 

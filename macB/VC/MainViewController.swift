@@ -53,6 +53,8 @@ class MainViewController: NSViewController {
                 newVC.currentModule = manager.activeModules[index]
                 newVC.index = index
                 newVC.delegate = self
+                newVC.setSplitViewParticipants(displayedModuleControllers)
+                displayedModuleControllers.forEach {$0.addSplitViewParticipant(newVC)}
                 displayedModuleControllers.append(newVC)
                 splitView.addArrangedSubview(newVC.view)
                 manager.addDelegate(newVC)
@@ -75,6 +77,8 @@ class MainViewController: NSViewController {
                 newVC.currentModule = available.0
                 newVC.index = available.1
                 newVC.delegate = self
+                newVC.setSplitViewParticipants(displayedModuleControllers)
+                displayedModuleControllers.forEach {$0.addSplitViewParticipant(newVC)}
                 displayedModuleControllers.append(newVC)
                 splitView.addArrangedSubview(newVC.view)
                 manager.addDelegate(newVC)
@@ -111,6 +115,7 @@ extension MainViewController: URLDelegate {
 extension MainViewController: SplitViewDelegate {
     func splitViewWouldLikeToResign(being number: Int) {
         splitView.removeArrangedSubview(displayedModuleControllers[number].view)
+        displayedModuleControllers.forEach {$0.removeSplitViewParticipant(displayedModuleControllers[number])}
         displayedModuleControllers.remove(at: number)
         manager.removeModule(at: number)
     }

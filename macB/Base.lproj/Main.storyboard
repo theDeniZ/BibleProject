@@ -1431,6 +1431,7 @@
                     </view>
                     <connections>
                         <outlet property="modulePicker" destination="AF2-qS-jMu" id="cax-og-X4O"/>
+                        <outlet property="scrollView" destination="Tw8-xT-qku" id="fSM-KZ-1Am"/>
                         <outlet property="textView" destination="O6K-sF-3VI" id="0TA-ab-cmw"/>
                     </connections>
                 </viewController>

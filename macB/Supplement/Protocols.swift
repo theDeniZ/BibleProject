@@ -45,3 +45,9 @@ protocol URLDelegate {
 protocol SplitViewDelegate {
     func splitViewWouldLikeToResign(being: Int)
 }
+
+protocol SplitViewParticipant {
+    var hashValue: Int {get}
+    func splitViewParticipantDidEndScrolling()
+    func splitViewParticipantDidScrolled(to offsetRatio: CGFloat)
+}

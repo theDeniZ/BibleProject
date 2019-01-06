@@ -28,7 +28,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <segue destination="Iax-tL-AU6" kind="modal" id="1gR-5u-Pmv"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -737,6 +741,35 @@
                 <userDefaultsController representsSharedInstance="YES" id="hjy-60-wZc"/>
             </objects>
             <point key="canvasLocation" x="937" y="586"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="diz-wI-mf6">
+            <objects>
+                <viewController id="Iax-tL-AU6" customClass="SettingsViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="k5r-mM-nHD">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xEA-su-WC2">
+                                <rect key="frame" x="42" y="213" width="145" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Strong's Numbers" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="93M-hB-w5Z">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="strongsCheck:" target="Iax-tL-AU6" id="Jjg-ec-G6F"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="strongsSwitch" destination="xEA-su-WC2" id="JXc-FR-1xw"/>
+                    </connections>
+                </viewController>
+                <customObject id="ehm-Ky-vLC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="877" y="1081"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="xD2-Kd-T9y">

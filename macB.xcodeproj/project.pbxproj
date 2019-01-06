@@ -42,6 +42,7 @@
 		22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB121CF87EB001C96D3 /* CoreManager.swift */; };
 		22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */; };
 		22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB721CFC556001C96D3 /* MainViewController.swift */; };
+		22FFB73721E26DEF00E7F0FD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */; };
 		3B3B45DDB06591F0183ABCB7 /* Pods_macBUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BB517BD524BDC59EBCFD849 /* Pods_macBUITests.framework */; };
 		60ABE089883483FE0521790F /* Pods_macB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E84F3FCD55100997776984 /* Pods_macB.framework */; };
 		9B7A986B44D6E27FCE5BC029 /* Pods_macBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F4AE5F9062AC3626EDAE46A /* Pods_macBTests.framework */; };
@@ -109,6 +110,7 @@
 		22F68BB121CF87EB001C96D3 /* CoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreManager.swift; sourceTree = "<group>"; };
 		22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		22F68BB721CFC556001C96D3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3689E8B4A62D58A55890DF22 /* Pods-macBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macBTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-macBTests/Pods-macBTests.release.xcconfig"; sourceTree = "<group>"; };
 		6BB517BD524BDC59EBCFD849 /* Pods_macBUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macBUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD160E5FEDA78783DF46F294 /* Pods-macBTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macBTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macBTests/Pods-macBTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */,
 				22CB04B221D911F2004110E0 /* StrongViewController.swift */,
 				221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */,
+				22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,
 				22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */,
 				22BD926121CCD34B00019853 /* Chapter.swift in Sources */,
+				22FFB73721E26DEF00E7F0FD /* SettingsViewController.swift in Sources */,
 				221A3E9221D51233007C269E /* DropView.swift in Sources */,
 				22CB04B521D9155B004110E0 /* LabelCellView.swift in Sources */,
 				22234EB921D1388C00BC595D /* FileManagerViewController.swift in Sources */,

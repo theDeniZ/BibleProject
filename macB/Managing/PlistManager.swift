@@ -14,12 +14,19 @@ class PlistManager {
     var plistName = "UserSettings"
     var plistHandler: PlistHandler
     
+    var isStrongsIsOn: Bool {
+        var s = true
+        plistHandler.get(to: &s, of: strongsKey)
+        return s
+    }
+    
     private var plistPath: String?
     
     private let fontKey = "font size"
     private let chapterKey = "chapter"
     private let bookKey = "book"
     private let modulesKey = "modules"
+    private let strongsKey = "strongsNumbers"
     
 
     init() {
@@ -90,5 +97,9 @@ class PlistManager {
     
     func setFont(size: CGFloat) {
         plistHandler.setValue(size.description, of: fontKey)
+    }
+    
+    func setStrong(on: Bool) {
+        plistHandler.setValue(on, of: strongsKey)
     }
 }

@@ -8,6 +8,8 @@
 	<string></string>
 	<key>book</key>
 	<string></string>
+	<key>strongsNumbers</key>
+	<true/>
 	<key>modules</key>
 	<array/>
 </dict>

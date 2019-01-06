@@ -73,6 +73,7 @@ class ModuleViewController: NSViewController {
                 if let c = NSColor(named: NSColor.Name("linkTextColor")) {
                     textView?.linkTextAttributes = [.foregroundColor: c, .cursor: NSCursor.contextualMenu]
                 }
+                textView?.setSelectedRange(NSMakeRange(textView.string.count, 0))
             }
         }
     }

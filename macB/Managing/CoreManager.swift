@@ -21,6 +21,7 @@ class CoreManager: NSObject {
     var currentIndex: BibleIndex
     var fontSize: CGFloat
     var plistManager: PlistManager { return AppDelegate.plistManager }
+    var strongsNumbersIsOn: Bool = true {didSet {plistManager.setStrong(on: strongsNumbersIsOn);broadcastChanges()}}
     
     var currentTestament: String {
         return currentIndex.book <= 39 ? StrongIdentifier.oldTestament : StrongIdentifier.newTestament
@@ -38,6 +39,7 @@ class CoreManager: NSObject {
         let index = AppDelegate.plistManager.getCurrentBookAndChapterIndexes()
         currentIndex = BibleIndex(book: index.bookIndex, chapter: index.chapterIndex, verses: nil)
         fontSize = AppDelegate.plistManager.getFontSize()
+        strongsNumbersIsOn = AppDelegate.plistManager.isStrongsIsOn
         super.init()
     }
     
@@ -62,7 +64,7 @@ class CoreManager: NSObject {
                                             let attributedVerse = verse[0].attributedCompound(size: fontSize)
                                             //check for strong's numbers
                                             if attributedVerse.strongNumbersAvailable {
-                                                result.append(attributedVerse.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize))
+                                                result.append(attributedVerse.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize, linking: strongsNumbersIsOn))
                                             } else {
                                                 result.append(attributedVerse)
                                             }
@@ -71,7 +73,7 @@ class CoreManager: NSObject {
                                     return result
                                 } else {
                                     if verses[0].attributedCompound.strongNumbersAvailable {
-                                        return verses.map {$0.attributedCompound.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize)}
+                                        return verses.map {$0.attributedCompound.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize, linking: strongsNumbersIsOn)}
                                     }
                                     return verses.map {$0.attributedCompound(size: fontSize)}
                                 }

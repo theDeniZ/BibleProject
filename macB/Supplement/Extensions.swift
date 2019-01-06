@@ -166,7 +166,7 @@ extension NSAttributedString: StrongsLinkEmbeddable {
         return self.string.matches("( \\d+ )")
     }
     
-    func embedStrongs(to link: String, using size: CGFloat) -> NSAttributedString {
+    func embedStrongs(to link: String, using size: CGFloat, linking: Bool = true) -> NSAttributedString {
         let newMAString = NSMutableAttributedString()
         var colorAttribute: [NSAttributedString.Key: Any]?
         var upperAttribute: [NSAttributedString.Key: Any] =
@@ -191,7 +191,7 @@ extension NSAttributedString: StrongsLinkEmbeddable {
                     i += 1
                     numbers.append(Int(splited[i].capturedGroups(withRegex: "(\\d+)")![0])!)
                 }
-                if numbers.count > 0 {
+                if linking, numbers.count > 0 {
                     let url = link + numbers.map({String($0)}).joined(separator: "+")
                     s.addAttribute(NSAttributedString.Key.link, value: url, range: NSRange(0..<s.length - 1))
 //                    s.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single, range: NSRange(0..<s.length - 1))

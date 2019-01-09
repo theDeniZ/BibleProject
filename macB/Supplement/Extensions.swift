@@ -69,6 +69,7 @@ extension CGRect {
 extension String {
     
     static let regexForBookRefference = "((?:\\d*\\s*)(?:[A-z]+))\\s*(\\d+)(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
+    static let regexForVerses = "(?!^)((?:[,.-])?\\d+)"
     
     func indicesOf(string: String) -> [Int] {
         var indices = [Int]()
@@ -144,6 +145,36 @@ extension String {
         return results
     }
     
+    func matches(withRegex pattern: String) -> [[String]]? {
+        var regex: NSRegularExpression
+        do {
+            regex = try NSRegularExpression(pattern: pattern, options: [])
+        } catch {
+            return nil
+        }
+        
+        let matches = regex.matches(in: self, options: [], range: NSRange(location:0, length: self.count))
+        guard matches.count > 0 else { return nil }
+        
+        var returning = [[String]]()
+        for match in matches {
+            // Note: Index 1 is 1st capture group, 2 is 2nd, ..., while index 0 is full match which we don't use
+            let lastRangeIndex = match.numberOfRanges - 1
+            if lastRangeIndex >= 1 {
+                var results = [String]()
+                for i in 1...lastRangeIndex {
+                    let capturedGroupIndex = match.range(at: i)
+                    if capturedGroupIndex.length > 0 {
+                        let matchedString = (self as NSString).substring(with: capturedGroupIndex)
+                        results.append(matchedString)
+                    }
+                }
+                returning.append(results)
+            }
+        }
+        return returning
+    }
+    
     func matches(_ pattern: String) -> Bool {
         var regex: NSRegularExpression
         do {
@@ -182,20 +213,26 @@ extension NSAttributedString: StrongsLinkEmbeddable {
         var i = 1
         while i < splited.count {
             if !splited[i].matches("\\d+") {
-                let s = NSMutableAttributedString(string: splited[i] + " ", attributes: [.font: NSFont.systemFont(ofSize: size)])
-                if let c = colorAttribute {
-                    s.addAttributes(c, range: NSRange(0..<s.length))
-                }
+                let s = NSMutableAttributedString(string: splited[i])
                 var numbers: [Int] = []
                 while i < splited.count - 1, splited[i + 1].matches("\\d+") {
                     i += 1
-                    numbers.append(Int(splited[i].capturedGroups(withRegex: "(\\d+)")![0])!)
+                    let numberStr = splited[i].capturedGroups(withRegex: "(\\d+)")![0]
+                    numbers.append(Int(numberStr)!)
+                    if splited[i].count != numberStr.count {
+                        s.append(NSAttributedString(string: splited[i].replacingOccurrences(of: numberStr, with: "")))
+                    }
+                }
+                s.append(NSAttributedString(string: " "))
+                if let c = colorAttribute {
+                    s.addAttributes(c, range: NSRange(0..<s.length))
                 }
                 if linking, numbers.count > 0 {
                     let url = link + numbers.map({String($0)}).joined(separator: "+")
                     s.addAttribute(NSAttributedString.Key.link, value: url, range: NSRange(0..<s.length - 1))
 //                    s.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single, range: NSRange(0..<s.length - 1))
                 }
+                s.addAttributes([.font: NSFont.systemFont(ofSize: size)], range: NSRange(0..<s.length))
                 newMAString.append(s)
             }
             i += 1

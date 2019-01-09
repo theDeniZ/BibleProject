@@ -11,7 +11,7 @@ import CoreData
 
 struct BibleIndex {
     var book, chapter: Int
-    var verses: [Int]?
+    var verses: [Range<Int>]?
 }
 
 class CoreManager: NSObject {
@@ -28,6 +28,7 @@ class CoreManager: NSObject {
     }
     
     private var delegates: [ModelUpdateDelegate]?
+    private var timings: Timer?
     
     init(_ context: NSManagedObjectContext) {
         self.context = context
@@ -58,10 +59,10 @@ class CoreManager: NSObject {
                             if let verses = chapter.verses?.array as? [Verse] {
                                 if let vs = currentIndex.verses {
                                     var result = [NSAttributedString]()
-                                    for index in vs {
-                                        let verse = verses.filter {$0.number == index}
-                                        if verse.count > 0 {
-                                            let attributedVerse = verse[0].attributedCompound(size: fontSize)
+                                    for range in vs {
+                                        let versesFiltered = verses.filter {range.contains(Int($0.number))}
+                                        for verse in versesFiltered {
+                                            let attributedVerse = verse.attributedCompound(size: fontSize)
                                             //check for strong's numbers
                                             if attributedVerse.strongNumbersAvailable {
                                                 result.append(attributedVerse.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize, linking: strongsNumbersIsOn))
@@ -88,7 +89,11 @@ class CoreManager: NSObject {
     }
     
     func broadcastChanges() {
-        delegates?.forEach {$0.modelChanged()}
+        timings?.invalidate()
+        timings = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
+            self.delegates?.forEach {$0.modelChanged()}
+            t.invalidate()
+        }
     }
 
 }
@@ -173,6 +178,46 @@ extension CoreManager {
             return "\(n) \(currentIndex.chapter)"
         }
         return ""
+    }
+}
+
+// MARK: - Verse managing
+
+extension CoreManager {
+    func setVerses(from strArray: [String]) {
+        var verseRanges = [Range<Int>]()
+        var pendingRange: Range<Int>? = nil
+        for verse in strArray {
+            if !("0"..."9" ~= verse[0]) {
+                if let v = Int(verse[verse.index(after: verse.startIndex)...]) {
+                    switch verse[0] {
+                    case "-":
+                        if pendingRange != nil {
+                            pendingRange = Range(uncheckedBounds: (pendingRange!.lowerBound, v + 1))
+                        } else {
+                            pendingRange = Range(uncheckedBounds: (v, v + 1))
+                        }
+                    case ",",".":
+                        if pendingRange != nil {
+                            verseRanges.append(pendingRange!)
+                        }
+                        pendingRange = Range(uncheckedBounds: (v, v + 1))
+                    default:break
+                    }
+                }
+            } else {
+                let v = Int(verse)!
+                if pendingRange != nil {
+                    verseRanges.append(pendingRange!)
+                }
+                pendingRange = Range(uncheckedBounds: (v,v + 1))
+            }
+        }
+        if pendingRange != nil {
+            verseRanges.append(pendingRange!)
+        }
+        currentIndex.verses = verseRanges
+        broadcastChanges()
     }
 }
 

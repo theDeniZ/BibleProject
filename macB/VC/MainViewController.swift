@@ -41,6 +41,12 @@ class MainViewController: NSViewController {
                 match.count > 1,
                 let n = Int(match[1]) {
                 manager.changeChapter(to: n)
+                if match.count > 2,
+                    let verseMatch = text.replacingOccurrences(of: " ", with: "").matches(withRegex: String.regexForVerses),
+                    verseMatch[0][0] == match[1] {
+                    let v = verseMatch[1...]
+                    manager.setVerses(from: v.map {$0[0]})
+                }
             }
         }
         updateUI()

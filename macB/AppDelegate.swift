@@ -74,7 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         urlDelegate?.openedURL(with: parameters.split(separator: "/").map{String($0)})
     }
     
-    static let URLServerRoot = "x-com-thedeniz-macb://"
+    static let URLServerRoot = "x-com-thedeniz-bible://"
     
     // MARK: - Core Data stack
 

@@ -51,3 +51,7 @@ protocol SplitViewParticipant {
     func splitViewParticipantDidEndScrolling()
     func splitViewParticipantDidScrolled(to offsetRatio: CGFloat)
 }
+
+protocol SharingSelectingDelegate {
+    func sharingObjectWasSelected(with status: Bool, being: Int)
+}

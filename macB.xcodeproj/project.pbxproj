@@ -15,6 +15,8 @@
 		22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBE21D13FB500BC595D /* DropImageView.swift */; };
 		22234EC121D1453A00BC595D /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC021D1453A00BC595D /* FileManager.swift */; };
 		22234EC321D164A000BC595D /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC221D164A000BC595D /* HTMLParser.swift */; };
+		2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239321E8BB0B00AB71F9 /* SharingVC.swift */; };
+		2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239521E8C0F600AB71F9 /* SharingTCV.swift */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
 		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
 		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
@@ -76,6 +78,8 @@
 		22234EBE21D13FB500BC595D /* DropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropImageView.swift; sourceTree = "<group>"; };
 		22234EC021D1453A00BC595D /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		22234EC221D164A000BC595D /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		2274239321E8BB0B00AB71F9 /* SharingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingVC.swift; sourceTree = "<group>"; };
+		2274239521E8C0F600AB71F9 /* SharingTCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTCV.swift; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
 		22B9F1EE21DD219A00E6E62C /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				22234EBE21D13FB500BC595D /* DropImageView.swift */,
 				221A3E9121D51233007C269E /* DropView.swift */,
 				22CB04B421D9155B004110E0 /* LabelCellView.swift */,
+				2274239521E8C0F600AB71F9 /* SharingTCV.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 				22CB04B221D911F2004110E0 /* StrongViewController.swift */,
 				221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */,
 				22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */,
+				2274239321E8BB0B00AB71F9 /* SharingVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -462,12 +468,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-macB/Pods-macB-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FilesProvider/FilesProvider.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCoder/QRCoder.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.swift/SocketSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FilesProvider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -539,7 +549,9 @@
 				22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */,
 				221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */,
 				22BD926321CCD35E00019853 /* Book.swift in Sources */,
+				2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */,
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
+				2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */,
 				22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */,
 				22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */,
 				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,

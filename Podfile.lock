@@ -1,16 +1,24 @@
 PODS:
   - FilesProvider (0.25.1)
+  - QRCoder (1.1.0)
+  - Socket.swift (2.3.0)
 
 DEPENDENCIES:
   - FilesProvider
+  - QRCoder
+  - Socket.swift (~> 2.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - FilesProvider
+    - QRCoder
+    - Socket.swift
 
 SPEC CHECKSUMS:
   FilesProvider: f6ab75211d2fd4814720f19b427e43668dc24585
+  QRCoder: cbd2bee531cc86d286df7942334cfed94c803ae4
+  Socket.swift: aac01e588724e57a6a871b945184444f2b6521fc
 
-PODFILE CHECKSUM: 30691f4114fa92c442bcdbbc6096b2d560d2b7f1
+PODFILE CHECKSUM: a8fcb025cb478888bd75741580f7b917177276c9
 
 COCOAPODS: 1.5.3

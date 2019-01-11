@@ -44,7 +44,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>x-com-thedeniz-macb</string>
+				<string>x-com-thedeniz-bible</string>
 			</array>
 		</dict>
 	</array>

@@ -11,7 +11,8 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var urlDelegate: URLDelegate?
+    var urlDelegate: URLDelegate? {didSet{openUrlIfNeeded()}}
+    var urlToOpen: [String]? {didSet{openUrlIfNeeded()}}
     
     static var context: NSManagedObjectContext {
         return AppDelegate.shared.persistentContainer.newBackgroundContext()
@@ -63,7 +64,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         manager.decrementFont()
     }
     
-    
     // MARK: - URL control
     
     @objc func getUrl(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
@@ -71,7 +71,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let urlStr: String = event.paramDescriptor(forKeyword: keyDirectObject)!.stringValue!
         let count = AppDelegate.URLServerRoot.count
         let parameters = String(urlStr[urlStr.index(urlStr.startIndex, offsetBy: count)...])
-        urlDelegate?.openedURL(with: parameters.split(separator: "/").map{String($0)})
+        urlToOpen = parameters.split(separator: "/").map{String($0)}
+    }
+    
+    private func openUrlIfNeeded() {
+        if urlToOpen != nil {
+            urlDelegate?.openedURL(with: urlToOpen!)
+            urlToOpen = nil
+        }
     }
     
     static let URLServerRoot = "x-com-thedeniz-bible://"

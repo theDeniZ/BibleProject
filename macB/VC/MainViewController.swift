@@ -34,7 +34,10 @@ class MainViewController: NSViewController {
     }
     
     @IBAction func textFieldDidEnter(_ sender: NSTextField) {
-        let text = sender.stringValue
+        doSearch(with: sender.stringValue)
+    }
+    
+    private func doSearch(with text: String) {
         if let match = text.capturedGroups(withRegex: String.regexForBookRefference),
             match.count > 0 {
             if manager.changeBook(by: match[0]),
@@ -104,16 +107,21 @@ extension MainViewController: ModelUpdateDelegate {
 
 extension MainViewController: URLDelegate {
     func openedURL(with parameters: [String]) {
-        if let vc = NSStoryboard.main?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Detail Strong VC")) as? StrongDetailViewController {
-            var numbers: [Int] = []
-            let identifier = parameters[0]
-            let numbersString = parameters[1].split(separator: "+")
-            for n in numbersString {
-                numbers.append(Int(String(n))!)
+        if parameters.count > 1,
+            [StrongIdentifier.newTestament, StrongIdentifier.oldTestament].contains(parameters[0]) {
+            if let vc = NSStoryboard.main?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Detail Strong VC")) as? StrongDetailViewController {
+                var numbers: [Int] = []
+                let identifier = parameters[0]
+                let numbersString = parameters[1].split(separator: "+")
+                for n in numbersString {
+                    numbers.append(Int(String(n))!)
+                }
+                vc.numbers = numbers
+                vc.identifierStrong = identifier
+                presentAsModalWindow(vc)
             }
-            vc.numbers = numbers
-            vc.identifierStrong = identifier
-            presentAsModalWindow(vc)
+        } else {
+            doSearch(with: parameters[0])
         }
     }
 }

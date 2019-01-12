@@ -11,8 +11,8 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var urlDelegate: URLDelegate? {didSet{openUrlIfNeeded()}}
-    var urlToOpen: [String]? {didSet{openUrlIfNeeded()}}
+    private var urlDelegate: URLDelegate?
+    var urlToOpen: [String]?
     
     static var context: NSManagedObjectContext {
         return AppDelegate.shared.persistentContainer.newBackgroundContext()
@@ -33,15 +33,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private lazy var manager = CoreManager(AppDelegate.context)
     private var plistManager = PlistManager()
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
-        let em = NSAppleEventManager.shared()
-        em.setEventHandler(self, andSelector: #selector(self.getUrl(_:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
-    }
+//    func applicationDidFinishLaunching(_ aNotification: Notification) {
+//        // Insert code here to initialize your application
+//    }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
+//    func applicationWillTerminate(_ aNotification: Notification) {
+//        // Insert code here to tear down your application
+//    }
 
     // MARK: - Manager controls
     
@@ -66,17 +64,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // MARK: - URL control
     
-    @objc func getUrl(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
-        // Get the URL
-        let urlStr: String = event.paramDescriptor(forKeyword: keyDirectObject)!.stringValue!
+    func application(_ application: NSApplication, open urls: [URL]) {
+        guard urls.count > 0 else {return}
+        let urlStr: String = urls[0].absoluteString
         let count = AppDelegate.URLServerRoot.count
         let parameters = String(urlStr[urlStr.index(urlStr.startIndex, offsetBy: count)...])
         urlToOpen = parameters.split(separator: "/").map{String($0)}
+        openUrlIfNeeded()
+    }
+    
+    static func setDelegate(aDelegate: URLDelegate?) {
+        AppDelegate.shared.urlDelegate = aDelegate
+        AppDelegate.shared.openUrlIfNeeded()
     }
     
     private func openUrlIfNeeded() {
-        if urlToOpen != nil {
-            urlDelegate?.openedURL(with: urlToOpen!)
+        if urlToOpen != nil, urlDelegate != nil {
+            urlDelegate!.openedURL(with: urlToOpen!)
             urlToOpen = nil
         }
     }

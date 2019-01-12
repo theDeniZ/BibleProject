@@ -25,13 +25,13 @@ class MainViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AppDelegate.shared.urlDelegate = self
         loadVCs()
         updateUI()
         manager.addDelegate(self)
         print(plistManager.getAllModuleKeys())
-        
+        AppDelegate.setDelegate(aDelegate: self)
     }
+    
     
     @IBAction func textFieldDidEnter(_ sender: NSTextField) {
         doSearch(with: sender.stringValue)
@@ -69,6 +69,7 @@ class MainViewController: NSViewController {
                 manager.addDelegate(newVC)
             }
         }
+        arrangeAllViews()
     }
     
     private func updateUI() {
@@ -93,8 +94,17 @@ class MainViewController: NSViewController {
                 manager.addDelegate(newVC)
             }
         }
+        arrangeAllViews()
     }
 
+    private func arrangeAllViews() {
+        guard splitView.arrangedSubviews.count > 0 else {return}
+        let count = splitView.arrangedSubviews.count
+        let width = splitView.bounds.width / CGFloat(count)
+        for i in 0..<count - 1 {
+            splitView.setPosition(CGFloat(i + 1) * width, ofDividerAt: i)
+        }
+    }
 }
 
 extension MainViewController: ModelUpdateDelegate {
@@ -126,11 +136,17 @@ extension MainViewController: URLDelegate {
     }
 }
 
+enum OpenError: Error {
+    case message(String)
+    case ok
+}
+
 extension MainViewController: SplitViewDelegate {
     func splitViewWouldLikeToResign(being number: Int) {
         splitView.removeArrangedSubview(displayedModuleControllers[number].view)
         displayedModuleControllers.forEach {$0.removeSplitViewParticipant(displayedModuleControllers[number])}
         displayedModuleControllers.remove(at: number)
         manager.removeModule(at: number)
+        arrangeAllViews()
     }
 }

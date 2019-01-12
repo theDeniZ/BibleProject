@@ -229,6 +229,7 @@ extension CoreManager {
         if Chapter.isThere(with: number, in: book, context) {
             currentIndex.chapter = number
             plistManager.set(chapter: number)
+            currentIndex.verses = nil
             broadcastChanges()
         }
     }
@@ -237,6 +238,7 @@ extension CoreManager {
         if Chapter.isThere(with: currentIndex.chapter + 1, in: book, context) {
             currentIndex.chapter += 1
             plistManager.set(chapter: currentIndex.chapter)
+            currentIndex.verses = nil
             broadcastChanges()
         } else if let m = mainModule,
             Book.isThere(with: currentIndex.book + 1, in: m, context) {
@@ -244,6 +246,7 @@ extension CoreManager {
             currentIndex.chapter = 1
             plistManager.set(chapter: 1)
             plistManager.set(book: currentIndex.book)
+            currentIndex.verses = nil
             broadcastChanges()
         }
     }
@@ -251,6 +254,7 @@ extension CoreManager {
         if currentIndex.chapter > 1 {
             currentIndex.chapter -= 1
             plistManager.set(chapter: currentIndex.chapter)
+            currentIndex.verses = nil
             broadcastChanges()
         } else if let m = mainModule,
             Book.isThere(with: currentIndex.book - 1, in: m, context) {
@@ -258,6 +262,7 @@ extension CoreManager {
             currentIndex.chapter = book?.chapters?.array.count ?? 1
             plistManager.set(chapter: currentIndex.chapter)
             plistManager.set(book: currentIndex.book)
+            currentIndex.verses = nil
             broadcastChanges()
         }
     }
@@ -273,6 +278,7 @@ extension CoreManager {
             currentIndex.chapter = 1
             plistManager.set(chapter: 1)
             plistManager.set(book: number)
+            currentIndex.verses = nil
             broadcastChanges()
         }
     }
@@ -297,6 +303,7 @@ extension CoreManager {
             currentIndex.chapter = 1
             plistManager.set(chapter: 1)
             plistManager.set(book: n)
+            currentIndex.verses = nil
             broadcastChanges()
             return true
         }

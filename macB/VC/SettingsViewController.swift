@@ -12,10 +12,9 @@ class SettingsViewController: NSViewController {
 
     @IBOutlet weak var strongsSwitch: NSButton!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+        strongsSwitch.state = AppDelegate.coreManager.strongsNumbersIsOn ? .on : .off
     }
     
     @IBAction func strongsCheck(_ sender: NSButton) {

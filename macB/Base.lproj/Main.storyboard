@@ -515,17 +515,17 @@
             <objects>
                 <viewController id="Qa6-0m-U4W" customClass="MainViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="wvt-IZ-cas">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="742"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1040" height="761"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WdG-f2-s7U">
-                                <rect key="frame" x="20" y="20" width="960" height="702"/>
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CnG-YN-J9Q">
+                                <rect key="frame" x="20" y="0.0" width="1000" height="731"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="750" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MNV-Jo-Z7T">
-                                        <rect key="frame" x="404" y="679" width="153" height="23"/>
+                                        <rect key="frame" x="424" y="679" width="153" height="52"/>
                                         <subviews>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LHT-5J-ean">
-                                                <rect key="frame" x="0.0" y="1" width="96" height="22"/>
+                                                <rect key="frame" x="0.0" y="15" width="96" height="22"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="ajg-7k-IJv">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -536,7 +536,7 @@
                                                 </connections>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FHg-JB-pLc">
-                                                <rect key="frame" x="110" y="-6" width="49" height="32"/>
+                                                <rect key="frame" x="110" y="9" width="49" height="32"/>
                                                 <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="8fK-mv-iDP">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -556,9 +556,12 @@
                                         </customSpacing>
                                     </stackView>
                                     <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0z-xr-DLY">
-                                        <rect key="frame" x="255" y="0.0" width="450" height="659"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1000" height="659"/>
                                     </splitView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="G0z-xr-DLY" firstAttribute="width" secondItem="CnG-YN-J9Q" secondAttribute="width" id="7ZF-4m-ehB"/>
+                                </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
@@ -570,10 +573,10 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="WdG-f2-s7U" secondAttribute="bottom" constant="20" id="CyN-AV-y11"/>
-                            <constraint firstItem="WdG-f2-s7U" firstAttribute="top" secondItem="wvt-IZ-cas" secondAttribute="top" constant="20" id="ZMC-R6-Kxv"/>
-                            <constraint firstAttribute="trailing" secondItem="WdG-f2-s7U" secondAttribute="trailing" constant="20" id="sCo-2U-arl"/>
-                            <constraint firstItem="WdG-f2-s7U" firstAttribute="leading" secondItem="wvt-IZ-cas" secondAttribute="leading" constant="20" id="uln-De-tGa"/>
+                            <constraint firstItem="CnG-YN-J9Q" firstAttribute="top" secondItem="wvt-IZ-cas" secondAttribute="top" constant="30" id="BgC-GZ-e7J"/>
+                            <constraint firstAttribute="bottom" secondItem="CnG-YN-J9Q" secondAttribute="bottom" id="SYm-jI-FcY"/>
+                            <constraint firstItem="CnG-YN-J9Q" firstAttribute="leading" secondItem="wvt-IZ-cas" secondAttribute="leading" constant="20" id="YHq-W2-MGD"/>
+                            <constraint firstAttribute="trailing" secondItem="CnG-YN-J9Q" secondAttribute="trailing" constant="20" id="hke-ga-YuH"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1387,13 +1390,13 @@
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WYf-ue-wel">
                                 <rect key="frame" x="20" y="20" width="560" height="363"/>
                                 <subviews>
-                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="US0-tT-YOJ">
+                                    <scrollView autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="US0-tT-YOJ">
                                         <rect key="frame" x="0.0" y="114" width="560" height="249"/>
                                         <clipView key="contentView" id="A51-2d-w3W">
                                             <rect key="frame" x="1" y="1" width="558" height="247"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowSizeStyle="automatic" viewBased="YES" id="XBm-h1-NrF">
+                                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="19" rowSizeStyle="automatic" viewBased="YES" id="XBm-h1-NrF">
                                                     <rect key="frame" x="0.0" y="0.0" width="558" height="247"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -1412,12 +1415,12 @@
                                                             </buttonCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
-                                                                <tableCellView identifier="Sharing Cell" misplaced="YES" id="THF-Y1-28B" customClass="SharingTCV" customModule="macB" customModuleProvider="target">
-                                                                    <rect key="frame" x="1" y="1" width="555" height="17"/>
+                                                                <tableCellView identifier="Sharing Cell" id="THF-Y1-28B" customClass="SharingTCV" customModule="macB" customModuleProvider="target">
+                                                                    <rect key="frame" x="1" y="1" width="555" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hQW-Iz-q9y">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="557" height="16"/>
+                                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hQW-Iz-q9y">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="557" height="18"/>
                                                                             <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Fqf-Di-bvF">
                                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                                 <font key="font" metaFont="system"/>
@@ -1428,10 +1431,10 @@
                                                                         </button>
                                                                     </subviews>
                                                                     <constraints>
-                                                                        <constraint firstItem="hQW-Iz-q9y" firstAttribute="leading" secondItem="THF-Y1-28B" secondAttribute="leading" id="Loi-5p-Xu0"/>
+                                                                        <constraint firstItem="hQW-Iz-q9y" firstAttribute="leading" secondItem="THF-Y1-28B" secondAttribute="leading" constant="2" id="Loi-5p-Xu0"/>
                                                                         <constraint firstAttribute="trailing" secondItem="hQW-Iz-q9y" secondAttribute="trailing" id="Qu8-yG-m7A"/>
-                                                                        <constraint firstItem="hQW-Iz-q9y" firstAttribute="top" secondItem="THF-Y1-28B" secondAttribute="top" id="fHs-6d-dqK"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="hQW-Iz-q9y" secondAttribute="bottom" id="h6X-aC-rZV"/>
+                                                                        <constraint firstItem="hQW-Iz-q9y" firstAttribute="top" secondItem="THF-Y1-28B" secondAttribute="top" constant="3" id="fHs-6d-dqK"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="hQW-Iz-q9y" secondAttribute="bottom" constant="2" id="h6X-aC-rZV"/>
                                                                     </constraints>
                                                                     <connections>
                                                                         <outlet property="check" destination="hQW-Iz-q9y" id="7Xc-G0-x2i"/>
@@ -1509,7 +1512,7 @@
                 </viewController>
                 <customObject id="YxW-tn-7bz" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1666" y="1131"/>
+            <point key="canvasLocation" x="1666" y="1130.5"/>
         </scene>
         <!--Module View Controller-->
         <scene sceneID="46E-DE-Gsz">

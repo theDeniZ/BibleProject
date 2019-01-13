@@ -8,7 +8,7 @@ target 'macB' do
   use_frameworks!
 
   pod "FilesProvider"
-  pod 'Socket.swift', '~> 2.3'
+  pod 'SwiftSocket'
   pod "QRCoder"
   # Pods for macB
 

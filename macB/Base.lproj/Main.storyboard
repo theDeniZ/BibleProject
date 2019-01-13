@@ -1220,10 +1220,10 @@
             </objects>
             <point key="canvasLocation" x="2974" y="62"/>
         </scene>
-        <!--Strong Detail View Controller-->
+        <!--Strong Detail-->
         <scene sceneID="kjm-r4-sgd">
             <objects>
-                <viewController storyboardIdentifier="Detail Strong VC" id="4tw-tA-J2T" customClass="StrongDetailViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Strong Detail" storyboardIdentifier="Detail Strong VC" id="4tw-tA-J2T" customClass="StrongDetailViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="Wwa-8u-iaj">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="332"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1387,7 +1387,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="403"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WYf-ue-wel">
+                            <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="18" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WYf-ue-wel">
                                 <rect key="frame" x="20" y="20" width="560" height="363"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="21" horizontalPageScroll="10" verticalLineScroll="21" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="US0-tT-YOJ">
@@ -1458,20 +1458,31 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="300" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5f-pK-god">
-                                        <rect key="frame" x="0.0" y="0.0" width="523" height="96"/>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5f-pK-god">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="96"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VhN-dl-6HD">
-                                                <rect key="frame" x="-2" y="40" width="131" height="17"/>
-                                                <textFieldCell key="cell" lineBreakMode="clipping" title="http://localhost:7887" id="h7i-gx-4tN">
+                                            <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eGF-DO-rvh">
+                                                <rect key="frame" x="-6" y="31" width="77" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Listen" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LPJ-Li-OTD">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="actionButton:" target="lq6-Jz-KeI" id="0nU-im-Dhg"/>
+                                                </connections>
+                                            </button>
+                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VhN-dl-6HD">
+                                                <rect key="frame" x="83" y="40" width="363" height="17"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Not ready" id="h7i-gx-4tN">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="45N-s2-Ngp">
-                                                <rect key="frame" x="427" y="0.0" width="96" height="96"/>
+                                                <rect key="frame" x="464" y="0.0" width="96" height="96"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="width" secondItem="45N-s2-Ngp" secondAttribute="height" multiplier="1:1" id="bEG-z4-1UT"/>
                                                     <constraint firstAttribute="width" constant="96" id="pYb-rK-AgJ"/>
                                                 </constraints>
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="azI-Ft-kB6"/>
@@ -1480,13 +1491,18 @@
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
+                                            <integer value="1000"/>
                                         </visibilityPriorities>
                                         <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="c5f-pK-god" firstAttribute="width" secondItem="WYf-ue-wel" secondAttribute="width" id="xTf-BD-gJ2"/>
+                                </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
@@ -1505,6 +1521,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="actionButton" destination="eGF-DO-rvh" id="Jvk-R0-fws"/>
                         <outlet property="imageView" destination="45N-s2-Ngp" id="Xz9-8h-rMT"/>
                         <outlet property="linkLabel" destination="VhN-dl-6HD" id="PoP-kp-L7i"/>
                         <outlet property="table" destination="XBm-h1-NrF" id="hgv-up-AuB"/>

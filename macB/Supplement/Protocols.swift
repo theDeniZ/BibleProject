@@ -55,3 +55,7 @@ protocol SplitViewParticipant {
 protocol SharingSelectingDelegate {
     func sharingObjectWasSelected(with status: Bool, being: Int)
 }
+
+protocol SharingManagerDelegate {
+    func sharingManagerDidChangedStatus(to: SharingManagerStatus)
+}

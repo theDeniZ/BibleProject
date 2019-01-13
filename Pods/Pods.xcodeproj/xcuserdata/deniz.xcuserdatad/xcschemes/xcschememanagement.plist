@@ -39,7 +39,7 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>Socket.swift.xcscheme</key>
+		<key>SwiftSocket.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

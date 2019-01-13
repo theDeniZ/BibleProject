@@ -293,7 +293,7 @@ extension CoreManager {
         var regex = "(?i)\(name).*"
         if "0"..."9" ~= name[0] {
             var i = 1
-            while !("A"..."z" ~= name[i]) && i < name.count {
+            while i < name.count && !String(name[i]).matches("\\w"){
                 i += 1
             }
             regex = "\(name[0])[.]?\\s*(?i)\(name[i..<name.count]).*"

@@ -16,12 +16,10 @@ class StrongDetailViewController: NSViewController {
     
     @IBOutlet private var detailTextView: NSTextView!
     
-    private var original: String?
-    private var detail: String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
+        title = "Strong Detail (\(identifierStrong))"
     }
     
     private func updateUI() {
@@ -29,15 +27,9 @@ class StrongDetailViewController: NSViewController {
         if let n = numbers {
             for number in n {
                 if let s = Strong.get(number, by: identifierStrong, from: context) {
-                    let org = s.original ?? ""
-                    let mean = s.meaning ?? ""
-//                    if identifierStrong == StrongIdentifier.oldTestament {
-                        out += "<\(s.number)>\n\n"
-                    out += "\(org)\n\n"
-                    out += "\(mean)\n\n"
-//                    } else {
-//                        out += "<\(s.number)> - \(org)\n\(mean)\n\n"
-//                    }
+                    out += "<\(s.number)>\n\n"
+                    out += "\(s.original ?? "")\n\n"
+                    out += "\(s.meaning ?? "")\n\n"
                 }
             }
         }

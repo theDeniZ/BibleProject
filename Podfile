@@ -8,8 +8,7 @@ target 'macB' do
   use_frameworks!
 
   pod "FilesProvider"
-  pod 'SwiftSocket'
-  pod "QRCoder"
+  pod 'Bonjour'
   # Pods for macB
 
   target 'macBTests' do

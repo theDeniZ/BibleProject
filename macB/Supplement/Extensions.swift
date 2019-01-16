@@ -11,6 +11,7 @@ import Cocoa
 struct StrongIdentifier {
     static let oldTestament = "Hebrew"
     static let newTestament = "Greek"
+    static let plistIdentifier = "strong_keys"
 }
 
 extension CGRect {

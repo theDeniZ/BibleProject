@@ -27,7 +27,7 @@ class PlistManager {
     private let bookKey = "book"
     private let modulesKey = "modules"
     private let strongsKey = "strongsNumbers"
-    
+    private let sharingKey = "shared"
 
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -101,5 +101,15 @@ class PlistManager {
     
     func setStrong(on: Bool) {
         plistHandler.setValue(on, of: strongsKey)
+    }
+    
+    func getSharedObjects() -> [String:String] {
+        var obj: [String:String] = [:]
+        plistHandler.get(to: &obj, of: sharingKey)
+        return obj
+    }
+    
+    func setShared(objects: [String:String]) {
+        plistHandler.setValue(objects, of: sharingKey)
     }
 }

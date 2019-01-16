@@ -12,5 +12,7 @@
 	<true/>
 	<key>modules</key>
 	<array/>
+	<key>shared</key>
+	<dict/>
 </dict>
 </plist>

@@ -31,6 +31,8 @@ class PlistHandler {
                 variable = str as! T
             } else if let _ = variable as? [String], let str = opt as? [String] {
                 variable = str as! T
+            } else if let _ = variable as? [String:String], let str = opt as? [String:String] {
+                variable = str as! T
             } else if let _ = variable as? Int, let num = opt as? Int {
                 variable = num as! T
             } else if let _ = variable as? Bool, let boo = opt as? Bool {

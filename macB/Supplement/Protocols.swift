@@ -56,6 +56,9 @@ protocol SharingSelectingDelegate {
     func sharingObjectWasSelected(with status: Bool, being: Int)
 }
 
-protocol SharingManagerDelegate {
-    func sharingManagerDidChangedStatus(to: SharingManagerStatus)
+protocol BonjourManagerDelegate {
+    func bonjourDidChanged(isConnected: Bool, to host: String?, at port: Int?)
+    func bonjourServiceUpdated(to status: String)
+    func bonjourDidRead(message: String?)
+    func bonjourDidWrite()
 }

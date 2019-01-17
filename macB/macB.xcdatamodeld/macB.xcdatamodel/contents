@@ -35,7 +35,7 @@
         <attribute name="selectionRange" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" attributeType="String" syncable="YES"/>
         <relationship name="chapter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chapter" inverseName="verses" inverseEntity="Chapter" syncable="YES"/>
-        <relationship name="inHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="History" inverseName="verses" inverseEntity="History" syncable="YES"/>
+        <relationship name="inHistory" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="History" inverseName="verses" inverseEntity="History" syncable="YES"/>
     </entity>
     <elements>
         <element name="Book" positionX="32.01953125" positionY="29.36328125" width="128" height="103"/>

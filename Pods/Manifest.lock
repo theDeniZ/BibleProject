@@ -1,24 +1,20 @@
 PODS:
+  - Bonjour (1.0.1)
   - FilesProvider (0.25.1)
-  - QRCoder (1.1.0)
-  - SwiftSocket (2.0.2)
 
 DEPENDENCIES:
+  - Bonjour
   - FilesProvider
-  - QRCoder
-  - SwiftSocket
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Bonjour
     - FilesProvider
-    - QRCoder
-    - SwiftSocket
 
 SPEC CHECKSUMS:
+  Bonjour: c165bbefa078822ee785dbbc8a34ace61ee00488
   FilesProvider: f6ab75211d2fd4814720f19b427e43668dc24585
-  QRCoder: cbd2bee531cc86d286df7942334cfed94c803ae4
-  SwiftSocket: 6f4c9c63fbc5c1d61188936bb3c599fd546f40ae
 
-PODFILE CHECKSUM: dfb3a71605824fa270e63880711e4845c3dba9c8
+PODFILE CHECKSUM: 39715333d99c17a79b615f39bddc643dc6e2034c
 
 COCOAPODS: 1.5.3

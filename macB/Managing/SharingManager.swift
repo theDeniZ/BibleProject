@@ -16,6 +16,7 @@ enum BonjourClientState {
     case busy
     case deprecated
     case finished
+    case waiting
     case dead
 }
 
@@ -23,6 +24,7 @@ enum BonjourClientGreetingOption: String {
     case firstMeet = "hi, ready to get to know me?"
     case confirm = "yes"
     case ready = "ready to receive"
+    case finished = "are you ok?"
     case bye = "bye"
 //    case
 }
@@ -32,6 +34,8 @@ class SharingManager: NSObject {
     var delegate: BonjourManagerDelegate?
     var shared: [String:String]? {didSet{reteach()}}
     
+    private var selectedKeys: [String]?
+    
     private var type = "_thedenizbiblesync._tcp."
     
     private var currentStatus: BonjourClientState?
@@ -39,8 +43,7 @@ class SharingManager: NSObject {
     private var service: NetService?
     private var input: InputStream?
     private var output: OutputStream?
-    private var occupiedRunLoop: RunLoop?
-    private var operationInQueue: (() -> ())?
+    
     
     override init() {
         super.init()
@@ -67,27 +70,19 @@ class SharingManager: NSObject {
         input?.delegate = self
         output?.delegate = self
         
-        occupiedRunLoop = RunLoop.current
         input?.schedule(in: RunLoop.current, forMode: .default)
         output?.schedule(in: RunLoop.current, forMode: .default)
         
         input?.open()
         output?.open()
         
-        operationInQueue = {self.dealWithClientAccordingTo(status: .newborn)}
+        dealWithClientAccordingTo(status: .newborn)
     }
     
     private func serviceTerminate() {
-        if let loop = occupiedRunLoop {
-            print("service terminated")
-            input?.close()
-            output?.close()
-            input?.remove(from: loop, forMode: .default)
-            output?.remove(from: loop, forMode: .default)
-            input = nil
-            output = nil
-            occupiedRunLoop = nil
-        }
+        print("service terminated")
+        input?.close()
+        output?.close()
     }
     
     private func reloadClientData() {
@@ -105,8 +100,10 @@ class SharingManager: NSObject {
             print("sent greetings")
         case .alive:
             send(shared: shared ?? [:])
+        case .busy:
+            sendSelectedKeys()
         case .finished:
-            currentStatus = nil
+            send(greeting: .finished)
         case .dead:
             currentStatus = nil
         default:
@@ -118,7 +115,12 @@ class SharingManager: NSObject {
         print("reading")
         let s = String(data: data, encoding: .utf8)
         delegate?.bonjourDidRead(message: s)
-        guard let message = s, let status = currentStatus else {return}
+        guard let message = s, let status = currentStatus else {
+            if currentStatus != nil, (currentStatus == .ready || currentStatus == .waiting) {
+                parseSelected(data)
+            }
+            return
+        }
         if message == BonjourClientGreetingOption.bye.rawValue {
             dealWithClientAccordingTo(status: .finished)
             print("Finished")
@@ -137,7 +139,20 @@ class SharingManager: NSObject {
             if message == BonjourClientGreetingOption.ready.rawValue {
                 dealWithClientAccordingTo(status: .ready)
             }
+        case .finished:
+            if message == BonjourClientGreetingOption.confirm.rawValue {
+                dealWithClientAccordingTo(status: .waiting)
+            }
         default:break
+        }
+    }
+    
+    private func parseSelected(_ data: Data) {
+        if let unarchived = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String] {
+            selectedKeys = unarchived
+            dealWithClientAccordingTo(status: .busy)
+        } else {
+            print("Data cannot be unarchived")
         }
     }
     
@@ -146,14 +161,6 @@ class SharingManager: NSObject {
             dealWithClientAccordingTo(status: .newborn)
         }
     }
-    
-    private func streamWasOpened(_ stream: Stream) {
-        if stream == output {
-            operationInQueue?()
-            operationInQueue = nil
-        }
-    }
-    
 }
 
 extension SharingManager: NetServiceDelegate {
@@ -200,55 +207,6 @@ extension SharingManager: NetServiceDelegate {
     }
 }
 
-//extension SharingManager: BonjourServiceDelegate {
-//    func updateConnectionStatus(isConnected: Bool) {
-//        delegate?.bonjourDidChanged(isConnected: isConnected, to: nil, at: nil)
-//        print("-->DidUpdateTo \(isConnected)")
-////        dealWithClientAccordingTo(status: isConnected ? (currentStatus ?? .newborn) : .dead)
-//        if isConnected {serviceActivate()} else {serviceTerminate()}
-//    }
-//
-//    func didConnect(to host: String!, port: UInt16) {
-//        delegate?.bonjourDidChanged(isConnected: bonjour.isConnected, to: host, at: Int(port))
-//        print("-->DidConnect")
-//    }
-//
-//    func didAcceptNewSocket() {
-//        delegate?.bonjourDidChanged(isConnected: bonjour.isConnected, to: nil, at: nil)
-////        dealWithClientAccordingTo(status: .newborn)
-//        print("-->DidConnectSocket")
-//    }
-//
-//    func socketDidDisconnect() {
-//        delegate?.bonjourDidChanged(isConnected: bonjour.isConnected, to: nil, at: nil)
-//        print("-->DidDisconnectSocket")
-//    }
-//
-//    func didWriteData(tag: Int) {
-//        delegate?.bonjourDidWrite()
-//    }
-//
-//    func didRead(data: Data, tag: Int) {
-//        print("reading from the hell knows where")
-//        parse(data: data)
-//    }
-//
-//    func netServiceDidPublish(_ netService: NetService) {
-//        delegate?.bonjourServiceUpdated(to:
-//            "Did publish '\(netService.name)' at \(netService.hostName ?? ".local"):\(netService.port)"
-//        )
-//        self.service = netService
-//    }
-//
-//    func netServiceDidNotPublish(_ netService: NetService) {
-//        delegate?.bonjourServiceUpdated(to:
-//            "Did not publish '\(netService.name)' at \(netService.hostName ?? ".local"):\(netService.port)"
-//        )
-//    }
-//
-//
-//}
-
 extension SharingManager: StreamDelegate {
     func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
         switch (eventCode) {
@@ -258,7 +216,6 @@ extension SharingManager: StreamDelegate {
             } else {
                                 print("Input = openCompleted")
             }
-            streamWasOpened(aStream)
         case Stream.Event.errorOccurred:
             if(aStream === output) {
                                 print("output:Error Occurred\n")
@@ -272,6 +229,7 @@ extension SharingManager: StreamDelegate {
             } else {
                                 print("Input = endEncountered\n")
             }
+            serviceTerminate()
         case Stream.Event.hasSpaceAvailable:
             if(aStream === output) {
                                 print("output:hasSpaceAvailable\n")
@@ -342,5 +300,18 @@ extension SharingManager {
         } catch  {
             print("Sending shared data error: " + error.localizedDescription)
         }
+    }
+}
+
+extension SharingManager {
+    private func sendSelectedKeys() {
+        guard let selected = selectedKeys else {dealWithClientAccordingTo(status: .deprecated);return}
+        print("Sending \(selectedKeys)")
+        for key in selected {
+//            if let module = try? Module.get(by: key, from: AppDelegate.context) {
+//
+//            }
+        }
+        dealWithClientAccordingTo(status: .finished)
     }
 }

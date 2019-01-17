@@ -10,3 +10,8 @@
 #endif
 #endif
 
+#import "GCDAsyncSocket.h"
+
+FOUNDATION_EXPORT double BonjourVersionNumber;
+FOUNDATION_EXPORT const unsigned char BonjourVersionString[];
+

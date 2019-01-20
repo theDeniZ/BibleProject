@@ -60,6 +60,12 @@ class Strong: NSManagedObject {
         return try context.fetch(req).count > 0
     }
     
+    class func count(of type: String, in context: NSManagedObjectContext) -> Int {
+        let req: NSFetchRequest<Strong> = Strong.fetchRequest()
+        req.predicate = NSPredicate(format: "type = %@", argumentArray: [type])
+        return (try? context.fetch(req).count) ?? 0
+    }
+    
     static func printStats() {
         let context = AppDelegate.context
         if let 🧩 = try? Strong.get(by: StrongIdentifier.oldTestament, from: context) {

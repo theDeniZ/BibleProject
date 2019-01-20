@@ -93,6 +93,8 @@ class FileManager: NSObject {
             readINI(path, being: being, to: context, completed: completed)
         } else if rootPath.lowercased().hasSuffix(".htm") || rootPath.lowercased().hasSuffix(".html") {
             self.parseHtml(path: rootPath, completed: completed)
+        } else if documentProvider.fileManager.fileExists(atPath: rootPath + path + SpiritBookIdentifier.main.rawValue) {
+            SpiritHTMLParser.shared.parseSpiritBook(rootPath + path, with: delegate, completed: completed)
         } else {
             self.countOfCurrentDirectories -= 1
             self.delegate?.downloadCompleted(with: false, at: path)

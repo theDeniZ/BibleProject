@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22061ECB21F4821100F00B04 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ECA21F4821100F00B04 /* ListViewController.swift */; };
+		22061ECD21F4829C00F00B04 /* ListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ECC21F4829C00F00B04 /* ListManager.swift */; };
+		22061ECF21F4A4DC00F00B04 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ECE21F4A4DC00F00B04 /* Page.swift */; };
+		22061ED121F4A50A00F00B04 /* SpiritChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED021F4A50A00F00B04 /* SpiritChapter.swift */; };
+		22061ED321F4A52F00F00B04 /* SpiritBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED221F4A52F00F00B04 /* SpiritBook.swift */; };
+		22061ED521F4A76E00F00B04 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED421F4A76E00F00B04 /* Roman.swift */; };
+		22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */; };
 		221A3E9021D243B9007C269E /* ModuleManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */; };
 		221A3E9221D51233007C269E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E9121D51233007C269E /* DropView.swift */; };
 		221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */; };
@@ -72,6 +79,13 @@
 /* Begin PBXFileReference section */
 		0065D28A5CE3F9F2C96E85CD /* Pods-macB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macB/Pods-macB.debug.xcconfig"; sourceTree = "<group>"; };
 		0F4AE5F9062AC3626EDAE46A /* Pods_macBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22061ECA21F4821100F00B04 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		22061ECC21F4829C00F00B04 /* ListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListManager.swift; sourceTree = "<group>"; };
+		22061ECE21F4A4DC00F00B04 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		22061ED021F4A50A00F00B04 /* SpiritChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritChapter.swift; sourceTree = "<group>"; };
+		22061ED221F4A52F00F00B04 /* SpiritBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritBook.swift; sourceTree = "<group>"; };
+		22061ED421F4A76E00F00B04 /* Roman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Roman.swift; sourceTree = "<group>"; };
+		22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritHTMLParser.swift; sourceTree = "<group>"; };
 		221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleManagerViewController.swift; sourceTree = "<group>"; };
 		221A3E9121D51233007C269E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
 		221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongDetailViewController.swift; sourceTree = "<group>"; };
@@ -186,13 +200,13 @@
 				22BD921C21CBDEDB00019853 /* ViewController.swift */,
 				22BD922321CBDEDD00019853 /* Main.storyboard */,
 				22BD922621CBDEDD00019853 /* Info.plist */,
-				22BD925421CC1EC400019853 /* macB.xcdatamodeld */,
 				22CB04B121D90A42004110E0 /* Managing */,
 				22BD925D21CCD02400019853 /* CoreData */,
 				22BD927121CCDB1500019853 /* Supplement */,
 				22BD921A21CBDEDB00019853 /* AppDelegate.swift */,
 				22BD922121CBDEDD00019853 /* Assets.xcassets */,
 				22BD922721CBDEDD00019853 /* macB.entitlements */,
+				22BD925421CC1EC400019853 /* macB.xcdatamodeld */,
 				22B9F1F121DD221400E6E62C /* UserSettings.plist */,
 			);
 			path = macB;
@@ -226,6 +240,9 @@
 				22BD926A21CCD48100019853 /* ModuleOffline.swift */,
 				22BD926621CCD37F00019853 /* History.swift */,
 				22CB04AD21D907BA004110E0 /* Strong.swift */,
+				22061ECE21F4A4DC00F00B04 /* Page.swift */,
+				22061ED021F4A50A00F00B04 /* SpiritChapter.swift */,
+				22061ED221F4A52F00F00B04 /* SpiritBook.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -248,6 +265,7 @@
 				22BD926F21CCDB0E00019853 /* Protocols.swift */,
 				22BD924921CC159C00019853 /* Extensions.swift */,
 				2240220421EB479900DC8E2F /* Global.swift */,
+				22061ED421F4A76E00F00B04 /* Roman.swift */,
 			);
 			path = Supplement;
 			sourceTree = "<group>";
@@ -265,6 +283,7 @@
 				221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */,
 				22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */,
 				2274239321E8BB0B00AB71F9 /* SharingVC.swift */,
+				22061ECA21F4821100F00B04 /* ListViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -276,9 +295,11 @@
 				22F68BB121CF87EB001C96D3 /* CoreManager.swift */,
 				22234EC021D1453A00BC595D /* FileManager.swift */,
 				22234EC221D164A000BC595D /* HTMLParser.swift */,
+				22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */,
 				22B9F1EE21DD219A00E6E62C /* PlistManager.swift */,
 				22B9F1ED21DD219A00E6E62C /* plistHandler.swift */,
 				2240220221EB457300DC8E2F /* SharingManager.swift */,
+				22061ECC21F4829C00F00B04 /* ListManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -473,15 +494,15 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-macB/Pods-macB-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Bonjour/Bonjour.framework",
 				"${BUILT_PRODUCTS_DIR}/FilesProvider/FilesProvider.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bonjour.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FilesProvider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -540,9 +561,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				22BD926D21CCD62F00019853 /* DownloadCellView.swift in Sources */,
+				22061ED321F4A52F00F00B04 /* SpiritBook.swift in Sources */,
 				22BD927421CCFE0500019853 /* DownloadTableViewController.swift in Sources */,
 				2240220321EB457300DC8E2F /* SharingManager.swift in Sources */,
 				22BD926721CCD37F00019853 /* History.swift in Sources */,
+				22061ED521F4A76E00F00B04 /* Roman.swift in Sources */,
 				22BD926921CCD46700019853 /* DownloadManager.swift in Sources */,
 				221A3E9021D243B9007C269E /* ModuleManagerViewController.swift in Sources */,
 				22BD921D21CBDEDB00019853 /* ViewController.swift in Sources */,
@@ -551,10 +574,15 @@
 				22234EC121D1453A00BC595D /* FileManager.swift in Sources */,
 				22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */,
 				22234EBD21D13B6400BC595D /* TabViewController.swift in Sources */,
+				22061ECF21F4A4DC00F00B04 /* Page.swift in Sources */,
+				22061ECD21F4829C00F00B04 /* ListManager.swift in Sources */,
 				22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */,
 				2240220521EB479900DC8E2F /* Global.swift in Sources */,
+				22061ECB21F4821100F00B04 /* ListViewController.swift in Sources */,
 				221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */,
 				22BD926321CCD35E00019853 /* Book.swift in Sources */,
+				22061ED121F4A50A00F00B04 /* SpiritChapter.swift in Sources */,
+				22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */,
 				2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */,
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
 				2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */,

@@ -8,7 +8,7 @@ target 'macB' do
   use_frameworks!
 
   pod "FilesProvider"
-  pod 'Bonjour'
+  pod 'SwiftSoup'
   # Pods for macB
 
   target 'macBTests' do

@@ -14,6 +14,11 @@ struct StrongIdentifier {
     static let plistIdentifier = "strong_keys"
 }
 
+enum StrongNumbers: String, CaseIterable {
+    case oldTestament = "Hebrew"
+    case newTestament = "Greek"
+}
+
 extension CGRect {
     init(_ x: Double, _ y: Double, _ width: Double, _ height: Double) {
         self.init(x: x, y: y, width: width, height: height)
@@ -69,7 +74,7 @@ extension CGRect {
 
 extension String {
     
-    static let regexForBookRefference = "((?:\\d*\\s*)(?:\\w+))\\s*(\\d+)(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
+    static let regexForBookRefference = "((?:\\d*\\s*)(?:\\w+[^0-9:.,]))\\s*(\\d+)?(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
     static let regexForVerses = "(?!^)((?:[,.-])?\\d+)"
     
     func indicesOf(string: String) -> [Int] {

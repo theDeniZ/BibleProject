@@ -20,7 +20,10 @@ class ModuleViewController: NSViewController {
     private var textStorage: NSTextStorage?
     private var choise: [String] = []
     private var contentOffset: CGFloat {
-        return scrollView.documentVisibleRect.origin.y / (scrollView.documentView!.bounds.height - scrollView.contentSize.height)
+        let docView = scrollView.documentView!.bounds.height
+        let content = scrollView.contentSize.height
+        guard docView - content != 0 else {return 1.0}
+        return scrollView.documentVisibleRect.origin.y / (docView - content)
     }
     
     @IBOutlet private var textView: NSTextView! {didSet{updateUI()}}
@@ -43,6 +46,7 @@ class ModuleViewController: NSViewController {
             name: NSScrollView.didEndLiveScrollNotification,
             object: scrollView
         )
+        scrollView.verticalScroller?.isHidden = true
     }
     
     private func updateCombo() {
@@ -98,8 +102,9 @@ class ModuleViewController: NSViewController {
     
     @objc func scrollViewDidScroll(_ notification: Notification) {
 //        print(notification)
+        scrollView.verticalScroller?.isHidden = true
         if !scrollViewIsOccupied {
-            scrollView.verticalScroller?.isHidden = false
+//            scrollView.verticalScroller?.isHidden = false
             broadcastChanges()
         }
     }

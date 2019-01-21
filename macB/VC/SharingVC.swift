@@ -73,6 +73,19 @@ class SharingVC: NSViewController {
                 )
             )
         }
+        if let exists = try? SpiritBook.getAll(from: context), exists.count > 0 {
+            for book in exists {
+                if let code = book.code {
+                    options?.append(
+                        SharingObject(code,
+                            key: code, being: nil,
+                            selected: selected?.index(forKey: code) != nil,
+                            addInf: "Spirit"
+                        )
+                    )
+                }
+            }
+        }
         table.dataSource = self
         table.delegate = self
     }

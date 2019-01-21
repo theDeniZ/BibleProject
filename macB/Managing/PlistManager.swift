@@ -28,6 +28,7 @@ class PlistManager {
     private let modulesKey = "modules"
     private let strongsKey = "strongsNumbers"
     private let sharingKey = "shared"
+    private var spiritKey = "spirit"
 
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -111,5 +112,30 @@ class PlistManager {
     
     func setShared(objects: [String:String]) {
         plistHandler.setValue(objects, of: sharingKey)
+    }
+    
+    func setSpirit(indicies: [SpiritIndex]?) {
+        if let array = indicies {
+            var dict: [String:String] = [:]
+            for ind in array {
+                dict[ind.book] = "\(ind.chapter)"
+            }
+            plistHandler.setValue(dict, of: spiritKey)
+        }
+    }
+    
+    func getSpirit() -> [SpiritIndex]? {
+        var dict: [String:String] = [:]
+        plistHandler.get(to: &dict, of: spiritKey)
+        if dict.count > 0 {
+            var indices = [SpiritIndex]()
+            for (key, value) in dict {
+                if let n = Int(value) {
+                    indices.append(SpiritIndex(book: key, chapter: n))
+                }
+            }
+            return indices
+        }
+        return nil
     }
 }

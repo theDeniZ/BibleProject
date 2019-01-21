@@ -77,7 +77,7 @@ class SpiritHTMLParser: NSObject {
         if let html = try? String(contentsOfFile: path) {
             let stripped = html.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
 //                                .replacingOccurrences(of: "\r", with: "")
-            let array = stripped.split(separator: "\n").map {String($0)}
+            let array = stripped.split(separator: "\r\n").map {String($0)}
             let chapter = SpiritChapter(context: context)
             var i = 0
             var intro = ""

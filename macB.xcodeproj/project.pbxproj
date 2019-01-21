@@ -16,6 +16,8 @@
 		22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */; };
 		221A3E9021D243B9007C269E /* ModuleManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */; };
 		221A3E9221D51233007C269E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E9121D51233007C269E /* DropView.swift */; };
+		221A619321F64AE80003CCC0 /* SpiritViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A619221F64AE80003CCC0 /* SpiritViewController.swift */; };
+		221A619521F650820003CCC0 /* SpiritManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A619421F650820003CCC0 /* SpiritManager.swift */; };
 		221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */; };
 		22234EB921D1388C00BC595D /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EB821D1388C00BC595D /* FileManagerViewController.swift */; };
 		22234EBD21D13B6400BC595D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBC21D13B6400BC595D /* TabViewController.swift */; };
@@ -88,6 +90,8 @@
 		22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritHTMLParser.swift; sourceTree = "<group>"; };
 		221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleManagerViewController.swift; sourceTree = "<group>"; };
 		221A3E9121D51233007C269E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
+		221A619221F64AE80003CCC0 /* SpiritViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritViewController.swift; sourceTree = "<group>"; };
+		221A619421F650820003CCC0 /* SpiritManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritManager.swift; sourceTree = "<group>"; };
 		221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongDetailViewController.swift; sourceTree = "<group>"; };
 		22234EB821D1388C00BC595D /* FileManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
 		22234EBC21D13B6400BC595D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 				22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */,
 				2274239321E8BB0B00AB71F9 /* SharingVC.swift */,
 				22061ECA21F4821100F00B04 /* ListViewController.swift */,
+				221A619221F64AE80003CCC0 /* SpiritViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 			children = (
 				22BD926821CCD46700019853 /* DownloadManager.swift */,
 				22F68BB121CF87EB001C96D3 /* CoreManager.swift */,
+				221A619421F650820003CCC0 /* SpiritManager.swift */,
 				22234EC021D1453A00BC595D /* FileManager.swift */,
 				22234EC221D164A000BC595D /* HTMLParser.swift */,
 				22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */,
@@ -584,9 +590,11 @@
 				22061ED121F4A50A00F00B04 /* SpiritChapter.swift in Sources */,
 				22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */,
 				2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */,
+				221A619321F64AE80003CCC0 /* SpiritViewController.swift in Sources */,
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
 				2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */,
 				22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */,
+				221A619521F650820003CCC0 /* SpiritManager.swift in Sources */,
 				22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */,
 				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,
 				22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */,

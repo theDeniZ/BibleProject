@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftSoup
+import HTMLString
 
 enum SpiritBookIdentifier: String {
     case main = "first.htm"
@@ -28,7 +29,6 @@ class SpiritHTMLParser: NSObject {
         }
         
         guard let codeName = path.split(separator: "/").last else {finish();return}
-        print(String(codeName))
         let code = String(codeName)
         if let existed = try? SpiritBook.get(by: code, from: context), existed != nil {
             context.delete(existed!)
@@ -77,6 +77,7 @@ class SpiritHTMLParser: NSObject {
         if let html = try? String(contentsOfFile: path) {
             let stripped = html.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
 //                                .replacingOccurrences(of: "\r", with: "")
+                                .removingHTMLEntities
             let array = stripped.split(separator: "\r\n").map {String($0)}
             let chapter = SpiritChapter(context: context)
             var i = 0

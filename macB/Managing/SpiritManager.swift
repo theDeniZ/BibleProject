@@ -34,6 +34,12 @@ class SpiritManager: NSObject {
         return nil
     }
     
+    func set(spiritIndex: SpiritIndex, at position: Int) -> Int {
+        let pos = set(book: spiritIndex.book, at: position)
+        setChapter(number: spiritIndex.chapter, at: pos)
+        return pos
+    }
+    
     func set(book: String, at index: Int) -> Int {
         if currentIndesies == nil {
             currentIndesies = []

@@ -13,50 +13,46 @@ class SpiritViewController: NSViewController {
     var manager: SpiritManager = SpiritManager()
     var index = 0
     
-    @IBOutlet private weak var comboBook: NSComboBox!
-    @IBOutlet private weak var comboChapter: NSComboBox!
     @IBOutlet private weak var searchField: NSSearchField!
     @IBOutlet private var textView: NSTextView!
+    @IBOutlet weak var containerMenuView: NSSplitView!
+    
     
     private var books: [String] = []
     private var textStorage: NSTextStorage?
+    private var menuIsOn = false
+    private var listVC: ListViewController?
     
-    @IBAction func bookSelected(_ sender: NSComboBox) {
-        if sender.indexOfSelectedItem < books.count, sender.indexOfSelectedItem >= 0 {
-            index = manager.set(book: books[sender.indexOfSelectedItem], at: index)
-            loadChapters()
-        }
-        loadUI()
-    }
+    private var types: [ListType] = [.spirit]
     
-    @IBAction func chapterSelected(_ sender: NSComboBox) {
-        manager.setChapter(number: sender.indexOfSelectedItem, at: index)
-        updateUI()
-    }
-    @IBAction func didSearch(_ sender: NSSearchField) {
+    @IBAction private func didSearch(_ sender: NSSearchField) {
         
+    }
+    
+    func toggleMenu() -> Bool {
+        menuIsOn = !menuIsOn
+        containerMenuView.isHidden = !menuIsOn
+        return menuIsOn
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadUI()
-        if let (book, selected) = manager.readyToDisplay(at: index) {
-            loadChapters()
-            comboChapter.selectItem(at: selected)
-            if let bookIndex = books.firstIndex(of: book) {
-                comboBook.selectItem(at: bookIndex)
-            }
-            updateUI()
+        updateUI()
+        menuIsOn = AppDelegate.plistManager.isMenuOn()
+        
+        listVC = NSStoryboard.main?.instantiateController(withIdentifier: "List View Controller") as? ListViewController
+        if let list = listVC {
+            list.typesToDisplay = types
+            list.delegate = self
+            containerMenuView.addArrangedSubview(list.view)
+            containerMenuView.isHidden = !menuIsOn
+        }
+        
+        if let mainWindow = view.window?.windowController as? MainWindowController {
+            mainWindow.setMenuImage(selected: menuIsOn)
         }
     }
     
-    private func loadUI() {
-        if let books = manager.getAvailableBooks() {
-            self.books = books
-            comboBook?.removeAllItems()
-            comboBook?.addItems(withObjectValues: books)
-        }
-    }
     
     private func updateUI() {
         let textArray = manager[index]
@@ -80,11 +76,12 @@ class SpiritViewController: NSViewController {
         }
     }
     
-    private func loadChapters() {
-        if let chapters = manager.getAvailableChapters(index: index) {
-            comboChapter?.removeAllItems()
-            comboChapter?.addItems(withObjectValues: chapters)
-        }
-    }
     
+}
+
+extension SpiritViewController: SideMenuDelegate {
+    func sideMenuDidSelect(index spIndex: SpiritIndex) {
+        self.index = manager.set(spiritIndex: spIndex, at: self.index)
+        updateUI()
+    }
 }

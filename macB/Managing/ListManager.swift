@@ -8,6 +8,7 @@ struct ListRoot {
 struct ListObject {
     var title: String = ""
     var nested: [ListObject] = []
+    var index: SpiritIndex?
     
     init(_ title: String) {
         self.title = title
@@ -17,15 +18,47 @@ struct ListObject {
         self.title = title
         self.nested = nested
     }
+    
+    init(_ title: String, nested: [ListObject], index: SpiritIndex) {
+        self.init(title, nested: nested)
+        self.index = index
+    }
+}
+
+enum ListType {
+    case bible
+    case strong
+    case spirit
 }
 
 class ListManager: NSObject {
     
     var context = AppDelegate.context
+    var typesToDisplay: [ListType]?
+    
     
     func getListOfAll() -> [ListRoot] {
         var allOfThem = [ListRoot]()
         
+        if let selected = typesToDisplay {
+            if selected.contains(.bible) {
+                allOfThem.append(getBibles())
+            }
+            if selected.contains(.strong) {
+                allOfThem.append(getStrongs())
+            }
+            if selected.contains(.spirit) {
+                allOfThem.append(getSpirit())
+            }
+        } else {
+            allOfThem.append(getBibles())
+            allOfThem.append(getStrongs())
+            allOfThem.append(getSpirit())
+        }
+        return allOfThem
+    }
+    
+    private func getBibles() -> ListRoot {
         var bibles = ListRoot(typeName: "Bible", container: [])
         if let modules = try? Module.getAll(from: context) {
             for module in modules {
@@ -45,8 +78,10 @@ class ListManager: NSObject {
                 bibles.container.append(bible)
             }
         }
-        allOfThem.append(bibles)
-        
+        return bibles
+    }
+    
+    private func getStrongs() -> ListRoot {
         var strongs = ListRoot(typeName: "Strong's Numbers", container: [])
         for str in StrongNumbers.allCases {
             let count = Strong.count(of: str.rawValue, in: context)
@@ -55,24 +90,30 @@ class ListManager: NSObject {
                 strongs.container.append(s)
             }
         }
-        allOfThem.append(strongs)
-        
+        return strongs
+    }
+    
+    private func getSpirit() -> ListRoot {
+        var spirit = ListRoot(typeName: "Spirit of Prophecy", container: [])
         if let sp = try? SpiritBook.getAll(from: context) {
-            var spirit = ListRoot(typeName: "Spirit of Prophecy", container: [])
             for book in sp {
                 var bookNode = ListObject(book.name ?? "Error: unidentified book")
-                if let chapters = book.chapters?.array as? [SpiritChapter] {
+                if let code = book.code, let chapters = book.chapters?.array as? [SpiritChapter] {
                     let sorted = chapters.sorted(by: {$0.index < $1.index})
-                    for chapter in sorted {
-                        bookNode.nested.append(ListObject(chapter.title ?? "Chapter \(chapter.number)"))
+                    for i in 0..<sorted.count {
+                        bookNode.nested.append(
+                            ListObject(
+                                chapters[i].title ?? "Chapter \(chapters[i].number)",
+                                nested: [],
+                                index: SpiritIndex(book: code, chapter: i)
+                            )
+                        )
                     }
                 }
                 spirit.container.append(bookNode)
             }
-            allOfThem.append(spirit)
         }
-        
-        return allOfThem
+        return spirit
     }
     
 }

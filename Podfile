@@ -9,6 +9,7 @@ target 'macB' do
 
   pod "FilesProvider"
   pod 'SwiftSoup'
+  pod 'HTMLString', '~> 4.0'
   # Pods for macB
 
   target 'macBTests' do

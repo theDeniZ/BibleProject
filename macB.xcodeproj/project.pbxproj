@@ -32,7 +32,7 @@
 		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
 		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
 		22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD921A21CBDEDB00019853 /* AppDelegate.swift */; };
-		22BD921D21CBDEDB00019853 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD921C21CBDEDB00019853 /* ViewController.swift */; };
+		22BD921D21CBDEDB00019853 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD921C21CBDEDB00019853 /* MainWindowController.swift */; };
 		22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BD922121CBDEDD00019853 /* Assets.xcassets */; };
 		22BD922521CBDEDD00019853 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BD922321CBDEDD00019853 /* Main.storyboard */; };
 		22BD923121CBDEDD00019853 /* macBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD923021CBDEDD00019853 /* macBTests.swift */; };
@@ -107,7 +107,7 @@
 		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
 		22BD921721CBDEDB00019853 /* macB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = macB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BD921A21CBDEDB00019853 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		22BD921C21CBDEDB00019853 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		22BD921C21CBDEDB00019853 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		22BD922121CBDEDD00019853 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22BD922421CBDEDD00019853 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		22BD922621CBDEDD00019853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 			children = (
 				22BD926E21CCD63400019853 /* Views */,
 				22BD927221CCFDB900019853 /* VC */,
-				22BD921C21CBDEDB00019853 /* ViewController.swift */,
+				22BD921C21CBDEDB00019853 /* MainWindowController.swift */,
 				22BD922321CBDEDD00019853 /* Main.storyboard */,
 				22BD922621CBDEDD00019853 /* Info.plist */,
 				22CB04B121D90A42004110E0 /* Managing */,
@@ -501,6 +501,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-macB/Pods-macB-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FilesProvider/FilesProvider.framework",
+				"${BUILT_PRODUCTS_DIR}/HTMLString/HTMLString.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -508,6 +509,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FilesProvider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HTMLString.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -574,7 +576,7 @@
 				22061ED521F4A76E00F00B04 /* Roman.swift in Sources */,
 				22BD926921CCD46700019853 /* DownloadManager.swift in Sources */,
 				221A3E9021D243B9007C269E /* ModuleManagerViewController.swift in Sources */,
-				22BD921D21CBDEDB00019853 /* ViewController.swift in Sources */,
+				22BD921D21CBDEDB00019853 /* MainWindowController.swift in Sources */,
 				22BD925F21CCD03C00019853 /* Verse.swift in Sources */,
 				22BD927021CCDB0E00019853 /* Protocols.swift in Sources */,
 				22234EC121D1453A00BC595D /* FileManager.swift in Sources */,

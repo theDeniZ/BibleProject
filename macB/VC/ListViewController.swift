@@ -13,11 +13,13 @@ class ListViewController: NSViewController {
     @IBOutlet weak var outline: NSOutlineView!
     
     var listed: [ListRoot] = []
+    var typesToDisplay: [ListType]?
+    var delegate: SideMenuDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let manager = ListManager()
+        manager.typesToDisplay = typesToDisplay
         listed = manager.getListOfAll()
         outline.dataSource = self
         outline.delegate = self
@@ -66,6 +68,13 @@ extension ListViewController: NSOutlineViewDelegate {
             return list.title
         } else {
             return "Content"
+        }
+    }
+    
+    @objc func outlineViewSelectionDidChange(_ notification: Notification) {
+        if let selected = outline.item(atRow: outline.selectedRow) as? ListObject,
+            let index = selected.index {
+            delegate?.sideMenuDidSelect(index: index)
         }
     }
     

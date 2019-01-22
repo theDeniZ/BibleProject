@@ -29,6 +29,7 @@ class PlistManager {
     private let strongsKey = "strongsNumbers"
     private let sharingKey = "shared"
     private var spiritKey = "spirit"
+    private let menuKey = "menuIsOn"
 
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -137,5 +138,15 @@ class PlistManager {
             return indices
         }
         return nil
+    }
+    
+    func isMenuOn() -> Bool {
+        var isOn = false
+        plistHandler.get(to: &isOn, of: menuKey)
+        return isOn
+    }
+    
+    func setMenu(isOn: Bool) {
+        plistHandler.setValue(isOn, of: menuKey)
     }
 }

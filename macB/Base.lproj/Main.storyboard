@@ -480,37 +480,54 @@
             <objects>
                 <viewController title="Spirit of Prophecy" id="vUf-cG-xbd" customClass="SpiritViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="fGJ-hY-iYm">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1445" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LNw-Pf-1sB">
-                                <rect key="frame" x="0.0" y="678" width="1000" height="22"/>
+                            <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vpx-of-ogU">
+                                <rect key="frame" x="0.0" y="0.0" width="1445" height="700"/>
                                 <subviews>
-                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2eM-it-lxx">
-                                        <rect key="frame" x="0.0" y="1" width="212" height="20"/>
+                                    <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" translatesAutoresizingMaskIntoConstraints="NO" id="oc1-O6-cbp">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="700"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="vmn-In-uQY"/>
+                                        </constraints>
+                                    </splitView>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="30" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ihk-BD-Bch">
+                                        <rect key="frame" x="210" y="0.0" width="1235" height="700"/>
                                         <subviews>
-                                            <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dg1-qE-RMO">
-                                                <rect key="frame" x="0.0" y="-4" width="99" height="26"/>
-                                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="onr-Wv-Mxg">
+                                            <searchField wantsLayer="YES" horizontalHuggingPriority="247" verticalHuggingPriority="245" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dg5-Tu-Oyt">
+                                                <rect key="frame" x="0.0" y="678" width="1235" height="22"/>
+                                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="U6p-fF-nvr">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </comboBoxCell>
+                                                </searchFieldCell>
                                                 <connections>
-                                                    <action selector="bookSelected:" target="vUf-cG-xbd" id="OjO-DW-o4p"/>
+                                                    <action selector="didSearch:" target="vUf-cG-xbd" id="55h-68-a3l"/>
                                                 </connections>
-                                            </comboBox>
-                                            <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ScK-yg-xOJ">
-                                                <rect key="frame" x="116" y="-4" width="99" height="26"/>
-                                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="9UF-cD-54e">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </comboBoxCell>
-                                                <connections>
-                                                    <action selector="chapterSelected:" target="vUf-cG-xbd" id="8bl-jy-MLg"/>
-                                                </connections>
-                                            </comboBox>
+                                            </searchField>
+                                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AG-sI-eTY">
+                                                <rect key="frame" x="0.0" y="0.0" width="1000" height="648"/>
+                                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="sQt-Fr-gtf">
+                                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="648"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="pG2-VK-XwU">
+                                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="648"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <size key="minSize" width="1000" height="648"/>
+                                                            <size key="maxSize" width="1000" height="10000000"/>
+                                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        </textView>
+                                                    </subviews>
+                                                </clipView>
+                                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="tfG-Aa-HG1">
+                                                    <rect key="frame" x="984" y="0.0" width="16" height="648"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </scroller>
+                                            </scrollView>
                                         </subviews>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
@@ -521,18 +538,10 @@
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
-                                    <searchField wantsLayer="YES" horizontalHuggingPriority="247" verticalHuggingPriority="245" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dg5-Tu-Oyt">
-                                        <rect key="frame" x="232" y="0.0" width="768" height="22"/>
-                                        <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="U6p-fF-nvr">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </searchFieldCell>
-                                        <connections>
-                                            <action selector="didSearch:" target="vUf-cG-xbd" id="55h-68-a3l"/>
-                                        </connections>
-                                    </searchField>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="oc1-O6-cbp" firstAttribute="height" secondItem="vpx-of-ogU" secondAttribute="height" id="HZD-fX-ixI"/>
+                                </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
@@ -542,49 +551,23 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AG-sI-eTY">
-                                <rect key="frame" x="0.0" y="0.0" width="1000" height="648"/>
-                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="sQt-Fr-gtf">
-                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="648"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="pG2-VK-XwU">
-                                            <rect key="frame" x="0.0" y="0.0" width="1000" height="648"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="1000" height="648"/>
-                                            <size key="maxSize" width="1000" height="10000000"/>
-                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                        </textView>
-                                    </subviews>
-                                </clipView>
-                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="tfG-Aa-HG1">
-                                    <rect key="frame" x="984" y="0.0" width="16" height="648"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                            </scrollView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="LNw-Pf-1sB" firstAttribute="top" secondItem="fGJ-hY-iYm" secondAttribute="top" id="EE8-jS-rU7"/>
-                            <constraint firstItem="LNw-Pf-1sB" firstAttribute="leading" secondItem="fGJ-hY-iYm" secondAttribute="leading" id="H4i-qN-8iD"/>
-                            <constraint firstAttribute="trailing" secondItem="LNw-Pf-1sB" secondAttribute="trailing" id="TEd-8l-4sx"/>
-                            <constraint firstAttribute="trailing" secondItem="9AG-sI-eTY" secondAttribute="trailing" id="fxS-TW-MyG"/>
-                            <constraint firstItem="9AG-sI-eTY" firstAttribute="top" secondItem="LNw-Pf-1sB" secondAttribute="bottom" constant="30" id="hm1-n5-9OT"/>
-                            <constraint firstAttribute="bottom" secondItem="9AG-sI-eTY" secondAttribute="bottom" id="oVS-Fr-FhC"/>
-                            <constraint firstItem="9AG-sI-eTY" firstAttribute="leading" secondItem="fGJ-hY-iYm" secondAttribute="leading" id="zGt-4B-ksW"/>
+                            <constraint firstItem="vpx-of-ogU" firstAttribute="leading" secondItem="fGJ-hY-iYm" secondAttribute="leading" id="Jxt-uG-3qO"/>
+                            <constraint firstItem="vpx-of-ogU" firstAttribute="top" secondItem="fGJ-hY-iYm" secondAttribute="top" id="OXI-xl-Bip"/>
+                            <constraint firstAttribute="trailing" secondItem="vpx-of-ogU" secondAttribute="trailing" id="XJf-eN-JB3"/>
+                            <constraint firstAttribute="bottom" secondItem="vpx-of-ogU" secondAttribute="bottom" id="h8J-kO-la9"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="comboBook" destination="dg1-qE-RMO" id="LYH-0W-Ef0"/>
-                        <outlet property="comboChapter" destination="ScK-yg-xOJ" id="ebk-rB-hwN"/>
+                        <outlet property="containerMenuView" destination="oc1-O6-cbp" id="tCK-lb-Xg3"/>
                         <outlet property="searchField" destination="dg5-Tu-Oyt" id="U8I-or-kr1"/>
                         <outlet property="textView" destination="pG2-VK-XwU" id="WHC-IE-wK8"/>
                     </connections>
                 </viewController>
                 <customObject id="PY0-3i-UBs" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2141" y="461"/>
+            <point key="canvasLocation" x="-2207" y="461"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="2Ba-ID-iZV">
@@ -615,7 +598,7 @@
         <!--List View Controller-->
         <scene sceneID="Tfw-m4-bHW">
             <objects>
-                <viewController id="PaE-mn-mlk" customClass="ListViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="List View Controller" id="PaE-mn-mlk" customClass="ListViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="t9N-3Y-Ff2">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="700"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -639,7 +622,7 @@
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" identifier="List Outline Cell" title="Text Cell" id="gyM-cX-8e8">
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" identifier="List Outline Cell" title="Text Cell" id="gyM-cX-8e8">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -678,7 +661,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="MainWindowController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -697,8 +680,16 @@
                                         <segue destination="PaE-mn-mlk" kind="show" id="Bup-qs-osD"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="0B6BDE67-3690-4563-908E-9EA4357E9EAA" label="Menu" paletteLabel="Menu" tag="-1" image="menu" id="shN-Iy-DOL">
+                                    <size key="minSize" width="329" height="241"/>
+                                    <size key="maxSize" width="329" height="241"/>
+                                    <connections>
+                                        <action selector="leftMenuAction:" target="B8D-0N-5wS" id="dbn-kn-krB"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
+                                <toolbarItem reference="shN-Iy-DOL"/>
                                 <toolbarItem reference="ZL3-IJ-HSq"/>
                                 <toolbarItem reference="wDG-wS-X4R"/>
                             </defaultToolbarItems>
@@ -708,6 +699,7 @@
                         </connections>
                     </window>
                     <connections>
+                        <outlet property="menuItem" destination="shN-Iy-DOL" id="PCU-ab-956"/>
                         <segue destination="wZC-Dq-PNu" kind="relationship" relationship="window.shadowedContentViewController" id="00I-V0-vJh"/>
                     </connections>
                 </windowController>
@@ -1786,9 +1778,22 @@
             </objects>
             <point key="canvasLocation" x="18" y="2151"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="xbE-EV-BED">
+            <objects>
+                <viewController id="4rc-H3-cP6" sceneMemberID="viewController">
+                    <view key="view" id="taw-59-wWV">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="nTN-k5-Giy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="download" width="64" height="64"/>
         <image name="list" width="50" height="50"/>
+        <image name="menu" width="328.79998779296875" height="241"/>
     </resources>
 </document>

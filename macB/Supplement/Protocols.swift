@@ -62,3 +62,7 @@ protocol BonjourManagerDelegate {
     func bonjourDidRead(message: String?)
     func bonjourDidWrite()
 }
+
+protocol SideMenuDelegate {
+    func sideMenuDidSelect(index: SpiritIndex)
+}

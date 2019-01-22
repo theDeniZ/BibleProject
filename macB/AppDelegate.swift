@@ -108,6 +108,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    
+    
+    
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {

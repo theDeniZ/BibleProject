@@ -23,9 +23,16 @@ class SpiritViewController: NSViewController {
     private var listVC: ListViewController?
     
     private var types: [ListType] = [.spirit]
+    private var isInSearch: Bool = false
     
     @IBAction private func didSearch(_ sender: NSSearchField) {
-        
+        if sender.stringValue.count > 0 {
+            isInSearch = true
+            manager.doSearch(sender.stringValue)
+        } else {
+            manager.clearSearch()
+            isInSearch = false
+        }
     }
     
     func toggleMenu() -> Bool {
@@ -42,6 +49,8 @@ class SpiritViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        manager.index = index
+        manager.delegate = self
         updateUI()
         menuIsOn = AppDelegate.plistManager.isMenuOn()
         
@@ -64,14 +73,18 @@ class SpiritViewController: NSViewController {
             containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
             containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
         }
-        if let mainWindow = view.window?.windowController as? MainWindowController {
-            mainWindow.setMenuImage(selected: menuIsOn)
-        }
+//        if let mainWindow = view.window?.windowController as? MainWindowController {
+//            mainWindow.setMenuImage(selected: menuIsOn)
+//        }
     }
     
     
     private func updateUI() {
-        let textArray = manager[index]
+        if !isInSearch {
+            searchField.placeholderString = manager.shortPath
+            searchField.stringValue = ""
+        }
+        let textArray = manager.stringValue()
         if textArray.count > 0 {
             let attributedString = textArray.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
                 r.append(each)
@@ -97,7 +110,14 @@ class SpiritViewController: NSViewController {
 
 extension SpiritViewController: SideMenuDelegate {
     func sideMenuDidSelect(index spIndex: SpiritIndex) {
-        self.index = manager.set(spiritIndex: spIndex, at: self.index)
-        updateUI()
+        self.index = manager.set(spiritIndex: spIndex)
+    }
+}
+
+extension SpiritViewController: ModelUpdateDelegate {
+    func modelChanged() {
+        DispatchQueue.main.async {
+            self.updateUI()
+        }
     }
 }

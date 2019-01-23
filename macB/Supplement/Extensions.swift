@@ -77,6 +77,8 @@ extension String {
     static let regexForBookRefference = "((?:\\d*\\s*)(?:\\w+[^0-9:.,]))\\s*(\\d+)?(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
     static let regexForVerses = "(?!^)((?:[,.-])?\\d+)"
     
+    static let regexForSpiritIndex = "\\[?(\\w+[^:])(:)?(\\d+)\\]?"
+    
     func indicesOf(string: String) -> [Int] {
         var indices = [Int]()
         var searchStartIndex = self.startIndex

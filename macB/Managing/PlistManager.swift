@@ -115,27 +115,19 @@ class PlistManager {
         plistHandler.setValue(objects, of: sharingKey)
     }
     
-    func setSpirit(indicies: [SpiritIndex]?) {
-        if let array = indicies {
-            var dict: [String:String] = [:]
-            for ind in array {
-                dict[ind.book] = "\(ind.chapter)"
-            }
-            plistHandler.setValue(dict, of: spiritKey)
-        }
-    }
-    
-    func getSpirit() -> [SpiritIndex]? {
+    func setSpirit(_ index: SpiritIndex, at place: Int) {
         var dict: [String:String] = [:]
         plistHandler.get(to: &dict, of: spiritKey)
-        if dict.count > 0 {
-            var indices = [SpiritIndex]()
-            for (key, value) in dict {
-                if let n = Int(value) {
-                    indices.append(SpiritIndex(book: key, chapter: n))
-                }
-            }
-            return indices
+        dict["\(place)"] = "\(index.book)|\(index.chapter)"
+        plistHandler.setValue(dict, of: spiritKey)
+    }
+    
+    func getSpirit(from place: Int) -> SpiritIndex? {
+        var dict: [String:String] = [:]
+        plistHandler.get(to: &dict, of: spiritKey)
+        if dict.index(forKey: "\(place)") != nil {
+            let s = dict["\(place)"]!.split(separator: "|")
+            return SpiritIndex.init(book: String(s[0]), chapter: Int(s[1]) ?? 0)
         }
         return nil
     }

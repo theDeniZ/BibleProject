@@ -30,4 +30,10 @@ class SpiritBook: NSManagedObject {
         }
         return nil
     }
+    
+    class func exists(with code: String, in context: NSManagedObjectContext) -> Bool {
+        let request: NSFetchRequest<SpiritBook> = SpiritBook.fetchRequest()
+        request.predicate = NSPredicate(format: "code = %@", argumentArray: [code])
+        return (try? context.fetch(request).count > 0) ?? false
+    }
 }

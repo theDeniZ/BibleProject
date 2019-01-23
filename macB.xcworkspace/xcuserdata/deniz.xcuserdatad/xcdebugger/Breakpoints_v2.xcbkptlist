@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/AppDelegate.swift"
-            timestampString = "569943036.083672"
+            timestampString = "569962706.5373991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
@@ -176,22 +176,6 @@
             startingLineNumber = "41"
             endingLineNumber = "41"
             landmarkName = "doSearch(with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "macB/Supplement/Extensions.swift"
-            timestampString = "569692734.6507421"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "capturedGroups(withRegex:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

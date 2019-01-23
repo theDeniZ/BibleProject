@@ -17,91 +17,63 @@ struct SpiritIndex {
 class SpiritManager: NSObject {
     
     var context: NSManagedObjectContext = AppDelegate.context
-    var currentIndesies: [SpiritIndex]?
+    var currentIndex: SpiritIndex
     var fontSize: CGFloat
     var plistManager: PlistManager { return AppDelegate.plistManager }
+    var index: Int = 0
+    var delegate: ModelUpdateDelegate?
+    
+    
+    private var timings: Timer?
+    private var pages: [Page]? = nil
+    
+    var shortPath: String {
+        let number = Int(currentChapter()?.number ?? Int32(currentIndex.chapter + 1))
+        return currentIndex.book + ":\(number)"
+    }
     
     override init() {
+        currentIndex = AppDelegate.plistManager.getSpirit(from: index) ?? SpiritIndex(book: "", chapter: 0)
         fontSize = AppDelegate.plistManager.getFontSize()
-        currentIndesies = AppDelegate.plistManager.getSpirit()
+//        currentIndesies = AppDelegate.plistManager.getSpirit()
         super.init()
     }
     
-    func readyToDisplay(at index: Int) -> (String, Int)? {
-        if currentIndesies != nil, currentIndesies!.count > index {
-            return (currentIndesies![index].book, currentIndesies![index].chapter)
-        }
-        return nil
+    func readyToDisplay() -> (String, Int)? {
+        return (currentIndex.book, currentIndex.chapter)
     }
     
-    func set(spiritIndex: SpiritIndex, at position: Int) -> Int {
-        let pos = set(book: spiritIndex.book, at: position)
-        setChapter(number: spiritIndex.chapter, at: pos)
+    func set(spiritIndex: SpiritIndex) -> Int {
+        let pos = set(book: spiritIndex.book)
+        setChapter(number: spiritIndex.chapter)
+        broadcastChanges()
         return pos
     }
     
-    func set(book: String, at index: Int) -> Int {
-        if currentIndesies == nil {
-            currentIndesies = []
-        }
-        if currentIndesies!.count <= index {
-            currentIndesies!.append(SpiritIndex(book: book, chapter: 0))
-            plistManager.setSpirit(indicies: currentIndesies)
-            return currentIndesies!.count - 1
-        } else {
-            currentIndesies![index].book = book
-            plistManager.setSpirit(indicies: currentIndesies)
-            return index
-        }
+    func set(book: String) -> Int {
+        currentIndex.book = book
+        plistManager.setSpirit(currentIndex, at: index)
+        broadcastChanges()
+        return index
     }
     
-    func setChapter(number: Int, at index: Int) {
-        guard currentIndesies != nil, currentIndesies!.count > index else {return}
-        currentIndesies![index].chapter = number
-        plistManager.setSpirit(indicies: currentIndesies)
+    func setChapter(number: Int) {
+        currentIndex.chapter = number
+        plistManager.setSpirit(currentIndex, at: index)
+        broadcastChanges()
     }
     
-    func getAvailableBooks() -> [String]? {
-        if let books = try? SpiritBook.getAll(from: context), books.count > 0 {
-            var keys = [String]()
-            for book in books {
-                if book.code != nil {
-                    keys.append(book.code!)
-                }
-            }
-            return keys
-        }
-        return nil
+    private func currentBook() -> SpiritBook? {
+        return (try? SpiritBook.get(by: currentIndex.book, from: context)) ?? nil
     }
     
-    func getAvailableChapters(index: Int) -> [String]? {
-        if let book = currentBook(index: index) {
-            var names = [String]()
-            if let chapters = book.chapters?.array as? [SpiritChapter] {
-                for chapter in chapters {
-                    if let name = chapter.title {
-                        names.append(name)
-                    }
-                }
-            }
-            return names
-        }
-        return nil
-    }
-    
-    private func currentBook(index: Int) -> SpiritBook? {
-        guard currentIndesies != nil, currentIndesies!.count > index, let key = currentIndesies?[index].book else {return nil}
-        return (try? SpiritBook.get(by: key, from: context)) ?? nil
-    }
-    
-    private func currentChapter(index: Int) -> SpiritChapter? {
-        guard currentIndesies != nil, currentIndesies!.count > index, let number = currentIndesies?[index].chapter else {return nil}
-        if let book = currentBook(index: index), let chapters = book.chapters?.array as? [SpiritChapter] {
-            if chapters.count > number {
-                if chapters[number].index == Int32(number) {
-                    return chapters[number]
+    private func currentChapter() -> SpiritChapter? {
+        if let book = currentBook(), let chapters = book.chapters?.array as? [SpiritChapter] {
+            if chapters.count > currentIndex.chapter {
+                if chapters[currentIndex.chapter].index == Int32(currentIndex.chapter) {
+                    return chapters[currentIndex.chapter]
                 } else {
-                    let fil = chapters.filter({$0.index == number})
+                    let fil = chapters.filter({$0.index == currentIndex.chapter})
                     if fil.count == 1 {
                         return fil[0]
                     } else {
@@ -113,8 +85,8 @@ class SpiritManager: NSObject {
         return nil
     }
     
-    subscript(n: Int) -> [NSAttributedString] {
-        if let chapter = currentChapter(index: n) {
+    func stringValue() -> [NSAttributedString] {
+        if let chapter = currentChapter() {
             var result = [NSAttributedString]()
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .center
@@ -147,7 +119,7 @@ class SpiritManager: NSObject {
                         let paragraphs = text.split(separator: "\n")
                         for i in 0..<paragraphs.count {
                             let str = NSMutableAttributedString(string: String(paragraphs[i]), attributes: font)
-                            str.append(NSAttributedString(string: "  [\(currentIndesies![n].book) \(numberStr).\(i+1)] \n\n", attributes: smallFont))
+                            str.append(NSAttributedString(string: "  [\(currentIndex.book) \(numberStr).\(i+1)] \n\n", attributes: smallFont))
                             result.append(str)
                         }
                     }
@@ -159,4 +131,70 @@ class SpiritManager: NSObject {
         return []
     }
     
+    private func broadcastChanges() {
+        timings?.invalidate()
+        timings = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
+            self.delegate?.modelChanged()
+            t.invalidate()
+        }
+    }
+    
+    func doSearch(_ text: String) {
+        if text.matches(String.regexForSpiritIndex) {
+            let match = text.capturedGroups(withRegex: String.regexForSpiritIndex)!
+            if match.count > 0, SpiritBook.exists(with: match[0], in: context) {
+                currentIndex.book = match[0]
+                plistManager.setSpirit(currentIndex, at: index)
+                broadcastChanges()
+                if match.count > 1 {
+                    if match[1] == ":", match.count > 2 {
+                        currentIndex.chapter = Int(match[2])!
+                        plistManager.setSpirit(currentIndex, at: index)
+                        broadcastChanges()
+                        return
+                    } else {
+//                        pages = []
+//                        if let page = Page.get(with: Int(match[1]), from: SpiritBook.ge, searching: <#T##NSManagedObjectContext#>)
+                    }
+                }
+            }
+        }
+    }
+    
+    func clearSearch() {
+        pages = nil
+        broadcastChanges()
+    }
 }
+
+//
+//extension SpiritManager {
+//    func getAvailableBooks() -> [String]? {
+//        if let books = try? SpiritBook.getAll(from: context), books.count > 0 {
+//            var keys = [String]()
+//            for book in books {
+//                if book.code != nil {
+//                    keys.append(book.code!)
+//                }
+//            }
+//            return keys
+//        }
+//        return nil
+//    }
+//
+//    func getAvailableChapters() -> [String]? {
+//        if let book = currentBook() {
+//            var names = [String]()
+//            if let chapters = book.chapters?.array as? [SpiritChapter] {
+//                for chapter in chapters {
+//                    if let name = chapter.title {
+//                        names.append(name)
+//                    }
+//                }
+//            }
+//            return names
+//        }
+//        return nil
+//    }
+//
+//}

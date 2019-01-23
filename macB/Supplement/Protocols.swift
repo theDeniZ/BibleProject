@@ -11,11 +11,13 @@ import Foundation
 protocol DownloadDelegate {
     func initiateDownload(by key: String, completition: ((Bool) -> Void)?)
     func initiateRemoval(by key: String, completition: ((Bool) -> Void)?)
+    func initiateRemoval(by index: Int, completition: ((Bool) -> Void)?)
 }
 
 extension DownloadDelegate {
     func initiateDownload(by key: String, completition: ((Bool) -> Void)? = nil) {}
     func initiateRemoval(by key: String, completition: ((Bool) -> Void)? = nil) {}
+    func initiateRemoval(by index: Int, completition: ((Bool) -> Void)? = nil) {}
 }
 
 protocol ModelUpdateDelegate {

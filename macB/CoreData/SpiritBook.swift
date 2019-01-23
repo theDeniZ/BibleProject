@@ -11,7 +11,12 @@ import CoreData
 
 class SpiritBook: NSManagedObject {
     class func getAll(from context: NSManagedObjectContext) throws -> [SpiritBook] {
-        return try context.fetch(SpiritBook.fetchRequest())
+        let request: NSFetchRequest<SpiritBook> = SpiritBook.fetchRequest()
+        request.sortDescriptors = [
+            NSSortDescriptor(key: "index", ascending: true),
+            NSSortDescriptor(key: "lang", ascending: true)
+        ]
+        return try context.fetch(request)
     }
     
     class func get(by code: String, from context: NSManagedObjectContext) throws -> SpiritBook? {

@@ -8,43 +8,55 @@
 
 import Cocoa
 
+struct PresentedCoreObject {
+    var key: String
+    var title: String
+    var data: NSManagedObject
+}
+
 class ModuleManagerViewController: NSViewController {
 
     @IBOutlet weak var tableView: NSTableView!
     
     var context: NSManagedObjectContext = AppDelegate.context
     
-    private var modules: [Module] = []
+    private var modules: [PresentedCoreObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let m = try? Module.getAll(from: context, local: true) {
-            modules = m
-        }
+        reloadModules()
         tableView.dataSource = self
         tableView.delegate = self
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        if let m = try? Module.getAll(from: context, local: true) {
-            modules = m
-            tableView.reloadData()
-        }
+        reloadModules()
     }
     
     @IBAction func clearAll(_ sender: NSButton) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            self?.modules.forEach {self?.context.delete($0)}
+            self?.modules.forEach {self?.context.delete($0.data)}
             try? self?.context.save()
-            if self != nil, let m = try? Module.getAll(from: self!.context, local: true) {
-                self!.modules = m
-                self!.tableView.reloadData()
-            }
+            self?.reloadModules()
         }
     }
     
-    
+    private func reloadModules() {
+        modules = []
+        if let bibles = try? Module.getAll(from: context, local: true) {
+            modules.append(contentsOf: bibles.map({PresentedCoreObject(key: $0.key ?? "", title: $0.name ?? "", data: $0)}))
+        }
+//        if Strong.exists(StrongIdentifier.oldTestament, in: context) {
+//
+//        }
+        if let spirit = try? SpiritBook.getAll(from: context) {
+            modules.append(contentsOf: spirit.map({PresentedCoreObject(key: $0.code ?? "", title: $0.name ?? "", data: $0)}))
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
 }
 
 extension ModuleManagerViewController: NSTableViewDataSource {
@@ -67,11 +79,14 @@ extension ModuleManagerViewController: NSTableViewDelegate {
     //    }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Download Cell"), owner: self) as? DownloadCellView
-        cell?.left = modules[row].key
-        cell?.right = modules[row].name
-        cell?.loaded = true
-        cell?.delegate = self
+        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "Download Cell"), owner: self)
+        if let c = cell as? DownloadCellView {
+            c.left = modules[row].key
+            c.right = modules[row].title
+            c.loaded = true
+            c.delegate = self
+            c.index = row
+        }
         return cell
     }
     
@@ -97,6 +112,23 @@ extension ModuleManagerViewController: DownloadDelegate {
             } catch {
                 completition?(false)
             }
+        }
+    }
+    
+    func initiateRemoval(by index: Int, completition: ((Bool) -> Void)?) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if self != nil {
+                self!.context.delete(self!.modules[index].data)
+                self!.modules.remove(at: index)
+                try? self!.context.save()
+                DispatchQueue.main.async { [weak self] in
+                    self!.tableView.reloadData()
+                }
+                completition?(true)
+            } else {
+                completition?(false)
+            }
+            
         }
     }
 }

@@ -17,7 +17,6 @@ class SpiritViewController: NSViewController {
     @IBOutlet private var textView: NSTextView!
     @IBOutlet weak var containerMenuView: NSSplitView!
     
-    
     private var books: [String] = []
     private var textStorage: NSTextStorage?
     private var menuIsOn = false
@@ -31,7 +30,13 @@ class SpiritViewController: NSViewController {
     
     func toggleMenu() -> Bool {
         menuIsOn = !menuIsOn
-        containerMenuView.isHidden = !menuIsOn
+        AppDelegate.plistManager.setMenu(isOn: menuIsOn)
+        if menuIsOn {
+            containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
+            containerMenuView.setPosition(containerMenuView.bounds.width * 0.3, ofDividerAt: 0)
+        } else {
+            containerMenuView.removeArrangedSubview(listVC!.view)
+        }
         return menuIsOn
     }
     
@@ -44,10 +49,21 @@ class SpiritViewController: NSViewController {
         if let list = listVC {
             list.typesToDisplay = types
             list.delegate = self
-            containerMenuView.addArrangedSubview(list.view)
-            containerMenuView.isHidden = !menuIsOn
+//            if menuIsOn {
+//                containerMenuView.insertArrangedSubview(list.view, at: 0)
+//                containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
+//            }
+//            containerMenuView.addArrangedSubview(list.view)
+//            containerMenuView.isHidden = !menuIsOn
         }
-        
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        if menuIsOn {
+            containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
+            containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
+        }
         if let mainWindow = view.window?.windowController as? MainWindowController {
             mainWindow.setMenuImage(selected: menuIsOn)
         }

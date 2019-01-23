@@ -19,6 +19,7 @@ class DownloadCellView: NSTableCellView {
     var right: String? { didSet {updateUI()}}
     var loaded: Bool = false { didSet {updateUI()}}
     var loading: Bool = false { didSet {updateUI()}}
+    var index: Int = 0 
     
     var delegate: DownloadDelegate?
     
@@ -54,7 +55,7 @@ class DownloadCellView: NSTableCellView {
             activityindicator.isHidden = false
             button.isHidden = true
             if loaded {
-                delegate?.initiateRemoval(by: key) { [weak self] (done) in
+                delegate?.initiateRemoval(by: index) { [weak self] (done) in
                     DispatchQueue.main.async { [weak self] in
                         self?.activityindicator.stopAnimation(nil)
                         self?.activityindicator.isHidden = true

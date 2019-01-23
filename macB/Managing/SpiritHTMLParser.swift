@@ -12,17 +12,19 @@ import HTMLString
 
 enum SpiritBookIdentifier: String {
     case main = "first.htm"
+    case language = "lang"
+    case root = "root.htm"
 }
 
 class SpiritHTMLParser: NSObject {
     
     var context: NSManagedObjectContext = AppDelegate.context
     
-    private let pageNumberRegex = "\\[(\\d+)\\]"
+    private let pageNumberRegex = "\\[([0-9VLCMIXDvlcmixd]+)\\]"
     
     static var shared: SpiritHTMLParser = SpiritHTMLParser()
     
-    func parseSpiritBook(_ path: String, with delegate: DownloadProgressDelegate?, completed: (() -> ())? = nil) {
+    func parseSpiritBook(_ path: String, with delegate: DownloadProgressDelegate?, index: Int? = nil, withName: String? = nil, completed: (() -> ())? = nil) {
         func finish(_ status: Bool = false) {
             delegate?.downloadCompleted(with: status, at: path)
             completed?()
@@ -43,11 +45,21 @@ class SpiritHTMLParser: NSObject {
         if title == nil {
             title = try? doc.title()
         }
+        if title == nil {
+            title = withName
+        }
         guard title != nil else {print("Cannot find title"); finish(); return}
         
         let book = SpiritBook(context: context)
         book.code = code
         book.name = title
+        if index != nil {
+            book.index = Int32(index!)
+        }
+        if let lang = try? String(contentsOfFile: path + SpiritBookIdentifier.language.rawValue) {
+            book.lang = lang
+        }
+        
         
         var chapters = [SpiritChapter]()
         let linksArray = links.array()

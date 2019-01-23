@@ -58,6 +58,7 @@ class FileManagerViewController: NSViewController {
             output += "\(module.name)\t-\t\(module.status ? "success" : "failure")\n"
         }
         outputTextView.string = output
+        outputTextView.scrollToEndOfDocument(nil)
     }
 }
 

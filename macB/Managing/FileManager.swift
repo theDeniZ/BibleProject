@@ -8,6 +8,7 @@
 
 import Cocoa
 import FilesProvider
+import SwiftSoup
 
 class FileManager: NSObject {
 
@@ -49,6 +50,8 @@ class FileManager: NSObject {
     }
     
     private func parseMultipleDirectories(_ path: String) {
+        if parseSpiritDirectory(path) {return}
+        
         documentProvider.contentsOfDirectory(path: path) { (contents, error) in
             if error != nil {
                 print(error!.localizedDescription)
@@ -87,18 +90,61 @@ class FileManager: NSObject {
         }
     }
     
-    private func parseDirectory(_ path: String, being: Int, completed: (() -> ())? = nil) throws {
+    private func parseDirectory(_ path: String, being: Int, optionalTitle: String? = nil, completed: (() -> ())? = nil) throws {
         if documentProvider.fileManager.fileExists(atPath: rootPath + path + ININames.standart.rawValue) {
             let context = AppDelegate.context
             readINI(path, being: being, to: context, completed: completed)
         } else if rootPath.lowercased().hasSuffix(".htm") || rootPath.lowercased().hasSuffix(".html") {
             self.parseHtml(path: rootPath, completed: completed)
         } else if documentProvider.fileManager.fileExists(atPath: rootPath + path + SpiritBookIdentifier.main.rawValue) {
-            SpiritHTMLParser.shared.parseSpiritBook(rootPath + path, with: delegate, completed: completed)
+            SpiritHTMLParser.shared.parseSpiritBook(rootPath + path, with: delegate, index: being, withName: optionalTitle) {
+                completed?()
+                self.countOfCurrentDirectories -= 1
+            }
         } else {
             self.countOfCurrentDirectories -= 1
             self.delegate?.downloadCompleted(with: false, at: path)
             throw ModuleParseError.moduleNotFound
+        }
+    }
+    
+    private func parseSpiritDirectory(_ path: String) -> Bool{
+        if documentProvider.fileManager.fileExists(atPath: rootPath + path + SpiritBookIdentifier.root.rawValue) {
+            DispatchQueue.global(qos: .userInitiated).async {
+                guard let html = try? String(contentsOfFile: self.rootPath + path + SpiritBookIdentifier.root.rawValue),
+                        let doc: Document = try? SwiftSoup.parse(html),
+                        let links: Elements = try? doc.select("a")
+                else {return}
+                let linksArray = links.array()
+                self.countOfContent = linksArray.count
+                self.delegate?.downloadStarted(with: linksArray.count)
+                for i in 0..<linksArray.count {
+                    while(self.countOfCurrentDirectories >= self.countOfDirectoriesParsingAtOnce) { sleep(1) }
+                    if self.countOfCurrentDirectories < self.countOfDirectoriesParsingAtOnce {
+                        self.countOfCurrentDirectories += 1
+                        do {
+                            let linkHref: String = try linksArray[i].attr("href")
+                            let linkText: String = try linksArray[i].text()
+                            try self.parseDirectory(path + linkHref, being: i, optionalTitle: linkText) {
+                                self.countOfProceeded += 1
+                                if self.countOfProceeded == self.countOfContent {
+                                    self.delegate?.downloadFinished()
+                                }
+                            }
+                        } catch {
+                            self.countOfProceeded += 1
+                            if self.countOfProceeded == self.countOfContent {
+                                self.delegate?.downloadFinished()
+                            }
+//                            self.delegate?.downloadCompleted(with: false, at: "\(i)")
+                        }
+                    }
+                }
+            }
+            return true
+        } else {
+            print("not spirit")
+            return false
         }
     }
     

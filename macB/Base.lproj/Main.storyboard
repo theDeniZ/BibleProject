@@ -713,28 +713,28 @@
             <objects>
                 <viewController title="Bible" storyboardIdentifier="Bible VC" id="Qa6-0m-U4W" customClass="MainViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="wvt-IZ-cas">
-                        <rect key="frame" x="0.0" y="0.0" width="1040" height="761"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1156" height="761"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JN2-M8-vQv">
-                                <rect key="frame" x="0.0" y="0.0" width="1040" height="761"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1156" height="761"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="750" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qKh-Mp-kCb">
-                                        <rect key="frame" x="0.0" y="679" width="1040" height="82"/>
+                                        <rect key="frame" x="0.0" y="679" width="1156" height="82"/>
                                         <subviews>
-                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wVU-9C-11P">
-                                                <rect key="frame" x="0.0" y="30" width="983" height="22"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="t1e-6I-MfJ">
+                                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVd-w4-wuV">
+                                                <rect key="frame" x="0.0" y="30" width="1099" height="22"/>
+                                                <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="7YC-FY-Y4s">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
+                                                </searchFieldCell>
                                                 <connections>
-                                                    <action selector="textFieldDidEnter:" target="Qa6-0m-U4W" id="MhD-BA-Ewn"/>
+                                                    <action selector="textFieldDidEnter:" target="Qa6-0m-U4W" id="QJN-Lg-oPD"/>
                                                 </connections>
-                                            </textField>
+                                            </searchField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GzA-ve-QSO">
-                                                <rect key="frame" x="997" y="24" width="49" height="32"/>
+                                                <rect key="frame" x="1113" y="24" width="49" height="32"/>
                                                 <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pYR-7J-o5R">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -754,7 +754,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rju-Qy-dCn">
-                                        <rect key="frame" x="0.0" y="0.0" width="1040" height="659"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1156" height="659"/>
                                     </splitView>
                                 </subviews>
                                 <constraints>
@@ -780,7 +780,7 @@
                     </view>
                     <connections>
                         <outlet property="splitView" destination="Rju-Qy-dCn" id="oof-MG-Clh"/>
-                        <outlet property="textField" destination="wVU-9C-11P" id="jUl-ZQ-xqi"/>
+                        <outlet property="textField" destination="fVd-w4-wuV" id="lF6-JG-zzU"/>
                     </connections>
                 </viewController>
                 <customObject id="ZPp-Ct-EWM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1778,18 +1778,6 @@
                 <customObject id="etP-mp-3tY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="18" y="2151"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="xbE-EV-BED">
-            <objects>
-                <viewController id="4rc-H3-cP6" sceneMemberID="viewController">
-                    <view key="view" id="taw-59-wWV">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="nTN-k5-Giy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

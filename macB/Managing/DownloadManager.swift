@@ -26,6 +26,7 @@ class DownloadManager {
         } else {
             completition?(false, "No such object")
         }
+        AppDelegate.coreManager.broadcastChanges()
     }
     
     func downloadAsync(_ module: ModuleOffline, completition: ((Bool, String) -> Void)? = nil) {
@@ -71,6 +72,7 @@ class DownloadManager {
                 {
                     try? cont.save()
                     completition?(true, "")
+                    AppDelegate.coreManager.broadcastChanges()
                 } else {
                     completition?(false, "JSON parsing failed to write")
                 }

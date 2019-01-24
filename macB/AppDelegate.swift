@@ -43,6 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sharingManager.delegate = AppDelegate.shared
         rewriteSharingObjects()
         sharingManager.startEngine()
+        preloadDataBase()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -108,9 +109,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    
-    
-    
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
@@ -122,6 +120,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         })
         return container
     }()
+    
+    private func preloadDataBase() {
+//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
+//        let documentDirectory = paths[0] as! String
+//        let path = documentDirectory.appending("/macB.sqlite")
+//
+//
+//        let fileManager = Foundation.FileManager.init()
+//        fileManager.fileExists(atPath: ((NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true) as NSArray)[0] as! String).appending("/macB/macB.sqlite"))
+//        print(fileManager.fileExists(atPath: path))
+    }
 
     // MARK: - Core Data Saving and Undo support
 

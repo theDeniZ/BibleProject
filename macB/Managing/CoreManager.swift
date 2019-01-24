@@ -35,7 +35,9 @@ class CoreManager: NSObject {
         activeModules = []
         let modules = AppDelegate.plistManager.getAllModuleKeys()
         for module in modules {
-            activeModules.append(try! Module.get(by: module, from: context)!)
+            if let m = try? Module.get(by: module, from: context), m != nil {
+                activeModules.append(m!)
+            }
         }
         let index = AppDelegate.plistManager.getCurrentBookAndChapterIndexes()
         currentIndex = BibleIndex(book: index.bookIndex, chapter: index.chapterIndex, verses: nil)
@@ -101,12 +103,12 @@ class CoreManager: NSObject {
 // MARK: - Managing multiple modules
 
 extension CoreManager {
-    func getAllDownloadedModulesKey() -> [String] {
-        return getAllDownloadedModules().map { $0.key ?? "" }
+    func getAllDownloadedModulesKey(_ local: Bool = false) -> [String] {
+        return getAllDownloadedModules(local).map { $0.key ?? "" }
     }
     
-    func getAllDownloadedModules() -> [Module] {
-        return (try? Module.getAll(from: context)) ?? []
+    func getAllDownloadedModules(_ local: Bool = false) -> [Module] {
+        return (try? Module.getAll(from: context, local: local)) ?? []
     }
     
     func getAllAvailableModules() -> [Module] {

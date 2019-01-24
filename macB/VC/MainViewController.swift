@@ -14,7 +14,7 @@ class MainViewController: NSViewController {
     private var displayedModuleControllers: [ModuleViewController] = []
     
     @IBOutlet weak var splitView: NSSplitView!
-    @IBOutlet weak var textField: NSTextField!
+    @IBOutlet weak var textField: NSSearchField!
     @IBAction func addButton(_ sender: NSButton) {
         addVC()
     }
@@ -22,6 +22,7 @@ class MainViewController: NSViewController {
     private var plistManager: PlistManager {
         return AppDelegate.plistManager
     }
+    private var isInSearch: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class MainViewController: NSViewController {
     }
     
     
-    @IBAction func textFieldDidEnter(_ sender: NSTextField) {
+    @IBAction func textFieldDidEnter(_ sender: NSSearchField) {
         doSearch(with: sender.stringValue)
     }
     

@@ -175,6 +175,12 @@ class FileManager: NSObject {
             //        String(data: data, encoding: .isoLatin2)
             if let content = String(data: data, encoding: self.encoding ?? .utf8) {
                 written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path, to: context)
+            } else if let content = String(data: data, encoding: .isoLatin1) {
+                self.encoding = .isoLatin1
+                written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path, to: context)
+            } else if let content = String(data: data, encoding: .macOSRoman) {
+                self.encoding = .macOSRoman
+                written = self.parseINI(content: content.components(separatedBy: "\r\n"), in: path, to: context)
             }
 //            print("Writing from '\(path)' finished with \(written ? "success" : "faliure")")
             

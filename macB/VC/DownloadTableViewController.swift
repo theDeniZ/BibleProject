@@ -45,7 +45,7 @@ class DownloadTableViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        downloadedKeys = coreManager.getAllDownloadedModulesKey()
+        downloadedKeys = coreManager.getAllDownloadedModulesKey(false)
         tableView.dataSource = self
         tableView.delegate = self
     }

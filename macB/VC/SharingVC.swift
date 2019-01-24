@@ -38,10 +38,13 @@ class SharingVC: NSViewController {
         var writeable = [String:String]()
         for obj in objects.filter({$0.selected}) {
             if let key = obj.key {
-                writeable[key] = obj.title
-            } else if obj.additionalIdentificator == StrongIdentifier.oldTestament ||
-                obj.additionalIdentificator == StrongIdentifier.newTestament {
-                writeable[obj.additionalIdentificator!] = obj.additionalIdentificator!
+                if obj.additionalIdentificator == nil {
+                    writeable[key] = obj.title
+                } else if obj.additionalIdentificator == StrongIdentifier.plistIdentifier {
+                    writeable[key] = obj.title
+                } else {
+                    writeable[obj.additionalIdentificator! + "(\(key))"] = obj.title
+                }
             }
         }
         return writeable
@@ -57,19 +60,19 @@ class SharingVC: NSViewController {
         }
         if let exists = try? Strong.exists(StrongIdentifier.oldTestament, in: context), exists {
             options?.append(
-                SharingObject("Strong's Numbers (\(StrongIdentifier.oldTestament))", key: nil,
+                SharingObject("Strong's Numbers (\(StrongIdentifier.oldTestament))", key: StrongIdentifier.oldTestament,
                     being: nil,
                     selected: selected?.index(forKey: StrongIdentifier.oldTestament) != nil,
-                    addInf: StrongIdentifier.oldTestament
+                    addInf: StrongIdentifier.plistIdentifier
                 )
             )
         }
         if let exists = try? Strong.exists(StrongIdentifier.newTestament, in: context), exists {
             options?.append(
-                SharingObject("Strong's Numbers (\(StrongIdentifier.newTestament))", key: nil,
+                SharingObject("Strong's Numbers (\(StrongIdentifier.newTestament))", key: StrongIdentifier.newTestament,
                     being: nil,
                     selected: selected?.index(forKey: StrongIdentifier.newTestament) != nil,
-                    addInf: StrongIdentifier.newTestament
+                    addInf: StrongIdentifier.plistIdentifier
                 )
             )
         }

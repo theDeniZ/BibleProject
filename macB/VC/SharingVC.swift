@@ -39,11 +39,11 @@ class SharingVC: NSViewController {
         for obj in objects.filter({$0.selected}) {
             if let key = obj.key {
                 if obj.additionalIdentificator == nil {
-                    writeable[key] = obj.title
+                    writeable[SharingRegex.module(key)] = obj.title
                 } else if obj.additionalIdentificator == StrongIdentifier.plistIdentifier {
-                    writeable[key] = obj.title
+                    writeable[SharingRegex.strong(key)] = obj.title
                 } else {
-                    writeable[obj.additionalIdentificator! + "(\(key))"] = obj.title
+                    writeable[SharingRegex.spirit(key)] = obj.title
                 }
             }
         }
@@ -54,15 +54,16 @@ class SharingVC: NSViewController {
         super.viewDidLoad()
         
         selected = AppDelegate.plistManager.getSharedObjects()
+        
         if let modules = try? Module.getAll(from: context) {
             options = modules.filter({$0.key != nil}).map
-                {SharingObject($0.name!, key: $0.key!, being: $0, selected: selected?.index(forKey: $0.key!) != nil)}
+                {SharingObject($0.name!, key: $0.key!, being: $0, selected: selected?.index(forKey: SharingRegex.module($0.key!)) != nil)}
         }
         if let exists = try? Strong.exists(StrongIdentifier.oldTestament, in: context), exists {
             options?.append(
                 SharingObject("Strong's Numbers (\(StrongIdentifier.oldTestament))", key: StrongIdentifier.oldTestament,
                     being: nil,
-                    selected: selected?.index(forKey: StrongIdentifier.oldTestament) != nil,
+                    selected: selected?.index(forKey: SharingRegex.strong(StrongIdentifier.oldTestament)) != nil,
                     addInf: StrongIdentifier.plistIdentifier
                 )
             )
@@ -71,7 +72,7 @@ class SharingVC: NSViewController {
             options?.append(
                 SharingObject("Strong's Numbers (\(StrongIdentifier.newTestament))", key: StrongIdentifier.newTestament,
                     being: nil,
-                    selected: selected?.index(forKey: StrongIdentifier.newTestament) != nil,
+                    selected: selected?.index(forKey: SharingRegex.strong(StrongIdentifier.newTestament)) != nil,
                     addInf: StrongIdentifier.plistIdentifier
                 )
             )
@@ -82,7 +83,7 @@ class SharingVC: NSViewController {
                     options?.append(
                         SharingObject(code,
                             key: code, being: nil,
-                            selected: selected?.index(forKey: code) != nil,
+                            selected: selected?.index(forKey: SharingRegex.spirit(code)) != nil,
                             addInf: "Spirit"
                         )
                     )

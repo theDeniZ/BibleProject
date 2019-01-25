@@ -253,3 +253,24 @@ extension NSAttributedString: StrongsLinkEmbeddable {
     
     
 }
+
+extension Data {
+    func chunking(_ size: Int) -> [Data] {
+        var chunks = [Data]()
+        withUnsafeBytes { (u8Ptr: UnsafePointer<UInt8>) in
+            let mutRawPointer = UnsafeMutableRawPointer(mutating: u8Ptr)
+            let uploadChunkSize = size
+            let totalSize = count
+            var offset = 0
+            
+            while offset < totalSize {
+                
+                let chunkSize = offset + uploadChunkSize > totalSize ? totalSize - offset : uploadChunkSize
+                let chunk = Data(bytesNoCopy: mutRawPointer+offset, count: chunkSize, deallocator: Data.Deallocator.none)
+                offset += chunkSize
+                chunks.append(chunk)
+            }
+        }
+        return chunks
+    }
+}

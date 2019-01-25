@@ -25,7 +25,7 @@
 		22234EC121D1453A00BC595D /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC021D1453A00BC595D /* FileManager.swift */; };
 		22234EC321D164A000BC595D /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC221D164A000BC595D /* HTMLParser.swift */; };
 		2240220321EB457300DC8E2F /* SharingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240220221EB457300DC8E2F /* SharingManager.swift */; };
-		2240220521EB479900DC8E2F /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240220421EB479900DC8E2F /* Global.swift */; };
+		2240220521EB479900DC8E2F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240220421EB479900DC8E2F /* Types.swift */; };
 		2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239321E8BB0B00AB71F9 /* SharingVC.swift */; };
 		2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239521E8C0F600AB71F9 /* SharingTCV.swift */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
@@ -99,7 +99,7 @@
 		22234EC021D1453A00BC595D /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		22234EC221D164A000BC595D /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		2240220221EB457300DC8E2F /* SharingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingManager.swift; sourceTree = "<group>"; };
-		2240220421EB479900DC8E2F /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		2240220421EB479900DC8E2F /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		2274239321E8BB0B00AB71F9 /* SharingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingVC.swift; sourceTree = "<group>"; };
 		2274239521E8C0F600AB71F9 /* SharingTCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTCV.swift; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 			children = (
 				22BD926F21CCDB0E00019853 /* Protocols.swift */,
 				22BD924921CC159C00019853 /* Extensions.swift */,
-				2240220421EB479900DC8E2F /* Global.swift */,
+				2240220421EB479900DC8E2F /* Types.swift */,
 				22061ED421F4A76E00F00B04 /* Roman.swift */,
 			);
 			path = Supplement;
@@ -585,7 +585,7 @@
 				22061ECF21F4A4DC00F00B04 /* Page.swift in Sources */,
 				22061ECD21F4829C00F00B04 /* ListManager.swift in Sources */,
 				22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */,
-				2240220521EB479900DC8E2F /* Global.swift in Sources */,
+				2240220521EB479900DC8E2F /* Types.swift in Sources */,
 				22061ECB21F4821100F00B04 /* ListViewController.swift in Sources */,
 				221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */,
 				22BD926321CCD35E00019853 /* Book.swift in Sources */,

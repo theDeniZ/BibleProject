@@ -8,26 +8,6 @@
 
 import Foundation
 
-enum BonjourClientState {
-    case newborn
-    case alive
-    case wise
-    case ready
-    case busy
-    case deprecated
-    case finished
-    case waiting
-    case dead
-}
-
-enum BonjourClientGreetingOption: String {
-    case firstMeet = "hi, ready to get to know me?"
-    case confirm = "yes"
-    case ready = "ready to receive"
-    case finished = "are you ok?"
-    case bye = "bye"
-//    case
-}
 
 class SharingManager: NSObject {
     
@@ -279,13 +259,13 @@ extension SharingManager: StreamDelegate {
 }
 
 extension SharingManager {
-    func write(message: String) {
+    func send(message: String) {
         let p = ([UInt8])(message.utf8)
         output?.write(p, maxLength: p.count)
     }
     
     private func send(greeting: BonjourClientGreetingOption) {
-        write(message: greeting.rawValue)
+        send(message: greeting.rawValue)
     }
     
     private func send(data: Data) {
@@ -306,11 +286,20 @@ extension SharingManager {
 extension SharingManager {
     private func sendSelectedKeys() {
         guard let selected = selectedKeys else {dealWithClientAccordingTo(status: .deprecated);return}
-        print("Sending \(selectedKeys)")
         for key in selected {
-//            if let module = try? Module.get(by: key, from: AppDelegate.context) {
-//
-//            }
+            if key.matches(SharingRegex.strong) {
+                let type = key.capturedGroups(withRegex: SharingRegex.strong)![0]
+                if let strongs = try? Strong.get(by: type, from: AppDelegate.context) {
+                    print("Sending strong \(type)")
+                    let shared = strongs.map {SyncStrong.init(number: Int($0.number), meaning: $0.meaning, original: $0.original) }
+                    if let data = try? NSKeyedArchiver.archivedData(withRootObject: shared, requiringSecureCoding: true) {
+                        let chunks = data.chunking(4096)
+                        send(message: SharingRegex.sync(type, counting: chunks.count))
+                        // wait?
+                    }
+                    send(greeting: .done)
+                }
+            }
         }
         dealWithClientAccordingTo(status: .finished)
     }

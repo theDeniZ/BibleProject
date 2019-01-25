@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/AppDelegate.swift"
-            timestampString = "570043959.773569"
+            timestampString = "570103570.828838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/Managing/SharingManager.swift"
-            timestampString = "570043959.7740411"
+            timestampString = "570103570.829246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "netService(_:didAcceptConnectionWith:outputStream:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,28 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/Managing/SharingManager.swift"
-            timestampString = "570043959.7743911"
+            timestampString = "570103570.829601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "dealWithClientAccordingTo(status:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "macB/Managing/SharingManager.swift"
-            timestampString = "570043959.77477"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
-            landmarkName = "stream(_:handle:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

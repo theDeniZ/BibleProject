@@ -24,6 +24,9 @@ class SharingManager: NSObject {
     private var input: InputStream?
     private var output: OutputStream?
     
+    private var syncThread: Thread?
+    private var syncConfirmationFlag = false
+    private var chunkSize = 4096
     
     override init() {
         super.init()
@@ -39,12 +42,6 @@ class SharingManager: NSObject {
         serviceTerminate()
         service?.stop()
     }
-//
-//    private func serviceActivate() {
-//        guard let service = service else {return}
-//        service.getInputStream(&input, outputStream: &output)
-//        resolveConnection()
-//    }
     
     private func resolveConnection() {
         input?.delegate = self
@@ -61,6 +58,8 @@ class SharingManager: NSObject {
     
     private func serviceTerminate() {
         print("service terminated")
+        syncThread?.cancel()
+        syncThread = nil
         input?.close()
         output?.close()
     }
@@ -75,13 +74,13 @@ class SharingManager: NSObject {
         currentStatus = status
         switch status {
         case .newborn:
-            print("sending greetings")
             send(greeting: .firstMeet)
-            print("sent greetings")
         case .alive:
             send(shared: shared ?? [:])
         case .busy:
-            sendSelectedKeys()
+            syncThread = Thread(target: self, selector: #selector(sendSelectedKeys), object: nil)
+            syncThread!.start()
+//            sendSelectedKeys()
         case .finished:
             send(greeting: .finished)
         case .dead:
@@ -119,6 +118,10 @@ class SharingManager: NSObject {
             if message == BonjourClientGreetingOption.ready.rawValue {
                 dealWithClientAccordingTo(status: .ready)
             }
+        case .busy:
+            if message == BonjourClientGreetingOption.confirm.rawValue {
+                syncConfirmationFlag = true
+            }
         case .finished:
             if message == BonjourClientGreetingOption.confirm.rawValue {
                 dealWithClientAccordingTo(status: .waiting)
@@ -141,6 +144,7 @@ class SharingManager: NSObject {
             dealWithClientAccordingTo(status: .newborn)
         }
     }
+    
 }
 
 extension SharingManager: NetServiceDelegate {
@@ -210,18 +214,18 @@ extension SharingManager: StreamDelegate {
                                 print("Input = endEncountered\n")
             }
             serviceTerminate()
-        case Stream.Event.hasSpaceAvailable:
-            if(aStream === output) {
-                                print("output:hasSpaceAvailable\n")
-            } else {
-                                print("Input = hasSpaceAvailable\n")
-            }
+        case Stream.Event.hasSpaceAvailable:break
+//            if(aStream === output) {
+//                                print("output:hasSpaceAvailable\n")
+//            } else {
+//                                print("Input = hasSpaceAvailable\n")
+//            }
         case Stream.Event.hasBytesAvailable:
             if(aStream === output) {
-                                print("output:hasBytesAvailable\n")
+//                                print("output:hasBytesAvailable\n")
             } else if aStream === input {
-                                print("Input:hasBytesAvailable\n")
-                var buffer = [UInt8](repeating: 0, count: 4096)
+//                                print("Input:hasBytesAvailable\n")
+                var buffer = [UInt8](repeating: 0, count: chunkSize)
                 
                 while input != nil, self.input!.hasBytesAvailable {
                     let len = input!.read(&buffer, maxLength: buffer.count)
@@ -284,23 +288,95 @@ extension SharingManager {
 }
 
 extension SharingManager {
-    private func sendSelectedKeys() {
+    @objc private func sendSelectedKeys() {
         guard let selected = selectedKeys else {dealWithClientAccordingTo(status: .deprecated);return}
         for key in selected {
             if key.matches(SharingRegex.strong) {
-                let type = key.capturedGroups(withRegex: SharingRegex.strong)![0]
-                if let strongs = try? Strong.get(by: type, from: AppDelegate.context) {
-                    print("Sending strong \(type)")
-                    let shared = strongs.map {SyncStrong.init(number: Int($0.number), meaning: $0.meaning, original: $0.original) }
-                    if let data = try? NSKeyedArchiver.archivedData(withRootObject: shared, requiringSecureCoding: true) {
-                        let chunks = data.chunking(4096)
-                        send(message: SharingRegex.sync(type, counting: chunks.count))
-                        // wait?
-                    }
-                    send(greeting: .done)
-                }
+                sendStrongs(type: key.capturedGroups(withRegex: SharingRegex.strong)![0])
+            } else if key.matches(SharingRegex.module) {
+                sendModule(key: key.capturedGroups(withRegex: SharingRegex.module)![0])
+            } else if key.matches(SharingRegex.spirit) {
+//                sendSpirit(name: key.capturedGroups(withRegex: SharingRegex.spirit)![0])
             }
         }
         dealWithClientAccordingTo(status: .finished)
+    }
+    
+    private func sendStrongs(type: String) {
+        let context = AppDelegate.context
+        if let strongs = try? Strong.get(by: type, from: context) {
+            print("Sending strong \(type)")
+            var shared = [SyncStrong]()
+            for s in strongs {
+                shared.append(SyncStrong(number: Int(s.number), meaning: s.meaning, original: s.original))
+            }
+//            let shared = strongs.map {SyncStrong.init(number: Int($0.number), meaning: $0.meaning, original: $0.original) }
+            do {
+                let data = try NSKeyedArchiver.archivedData(withRootObject: shared, requiringSecureCoding: true)
+                let chunks = data.chunking(chunkSize)
+                let message = SharingRegex.sync(SharingRegex.strong(type), counting: chunks.count - 1, last: chunks.last!.count )
+//                print(message)
+//                print("real number: \(chunks.count) with last \(chunks.last!.count)")
+                send(message: message)
+                while(!syncConfirmationFlag) {sleep(1)}
+                syncConfirmationFlag = false
+//                print("------------got confirm")
+                let count = chunks.count
+                for i in 0..<count {
+                    send(data: chunks[i])
+//                    if i % 35 == 0 {usleep(1000)}
+                    usleep(1000)
+//                    print("Sent \(i) from \(count)")
+                }
+                while(!syncConfirmationFlag) {sleep(1)}
+                syncConfirmationFlag = false
+//                print("------------got confirm one more time")
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    private func sendModule(key: String) {
+        let context = AppDelegate.context
+        if let m = try? Module.get(by: key, from: context), let module = m {
+            print("Sending Module \(key)")
+            let shared = SyncModule(key: key, name: module.name, local: module.local)
+            for book in module.books!.array as! [Book] {
+                let syncBook = SyncBook(number: Int(book.number), name: book.name)
+                for chapter in book.chapters!.array as! [Chapter] {
+                    let syncChapter = SyncChapter(number: Int(chapter.number))
+                    for verse in chapter.verses!.array as! [Verse] {
+                        syncChapter.verses.append(SyncVerse(number: Int(verse.number), text: verse.text ?? ""))
+                    }
+                    syncBook.chapters.append(syncChapter)
+                }
+                shared.books.append(syncBook)
+            }
+            //            let shared = strongs.map {SyncStrong.init(number: Int($0.number), meaning: $0.meaning, original: $0.original) }
+            do {
+                let data = try NSKeyedArchiver.archivedData(withRootObject: shared, requiringSecureCoding: true)
+                let chunks = data.chunking(chunkSize)
+                let message = SharingRegex.sync(SharingRegex.module(key), counting: chunks.count - 1, last: chunks.last!.count )
+//                print(message)
+//                print("real number: \(chunks.count) with last \(chunks.last!.count)")
+                send(message: message)
+                while(!syncConfirmationFlag) {sleep(1)}
+                syncConfirmationFlag = false
+                print("------------got confirm")
+                let count = chunks.count
+                for i in 0..<count {
+                    send(data: chunks[i])
+                    //                    if i % 35 == 0 {usleep(1000)}
+                    usleep(1000)
+                    //                    print("Sent \(i) from \(count)")
+                }
+                while(!syncConfirmationFlag) {sleep(1)}
+                syncConfirmationFlag = false
+                print("------------got confirm one more time")
+            } catch {
+                print(error)
+            }
+        }
     }
 }

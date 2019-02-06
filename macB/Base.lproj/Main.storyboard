@@ -1783,6 +1783,6 @@
     <resources>
         <image name="download" width="64" height="64"/>
         <image name="list" width="50" height="50"/>
-        <image name="menu" width="328.79998779296875" height="241"/>
+        <image name="menu" width="50" height="50"/>
     </resources>
 </document>

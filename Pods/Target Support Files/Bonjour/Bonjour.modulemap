@@ -1,6 +1,0 @@
-framework module Bonjour {
-  umbrella header "Bonjour-umbrella.h"
-
-  export *
-  module * { export * }
-}

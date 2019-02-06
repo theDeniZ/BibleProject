@@ -10,6 +10,54 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Split Text View Controller-->
+        <scene sceneID="0dm-j2-1id">
+            <objects>
+                <viewController storyboardIdentifier="CenterViewController" id="wKi-bI-f7K" customClass="SplitTextViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bOW-KD-sG2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jBW-l6-0ee">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E6p-h2-eeq">
+                                        <rect key="frame" x="0.0" y="0.0" width="182.66666666666666" height="734"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yQ4-Wt-IH2">
+                                        <rect key="frame" x="192.66666666666663" y="0.0" width="182.33333333333337" height="734"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KLL-a5-b4v" firstAttribute="trailing" secondItem="jBW-l6-0ee" secondAttribute="trailing" id="9pv-jN-oOh"/>
+                            <constraint firstItem="jBW-l6-0ee" firstAttribute="top" secondItem="KLL-a5-b4v" secondAttribute="top" id="Xlm-H0-0gC"/>
+                            <constraint firstItem="KLL-a5-b4v" firstAttribute="bottom" secondItem="jBW-l6-0ee" secondAttribute="bottom" id="YnG-v0-6Ui"/>
+                            <constraint firstItem="jBW-l6-0ee" firstAttribute="leading" secondItem="KLL-a5-b4v" secondAttribute="leading" id="fM3-JA-KiJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KLL-a5-b4v"/>
+                    </view>
+                    <connections>
+                        <outlet property="leftTextView" destination="E6p-h2-eeq" id="lH7-Rx-ck4"/>
+                        <outlet property="rightTextView" destination="yQ4-Wt-IH2" id="B9D-wE-ndT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pCE-Td-u8q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="926" y="-27"/>
+        </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="3dg-YH-dLC">
             <objects>
@@ -42,7 +90,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egq-Zv-QK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-951" y="-27"/>
+            <point key="canvasLocation" x="-8.8000000000000007" y="-27.339901477832512"/>
         </scene>
         <!--Download-->
         <scene sceneID="LfN-uT-Ocv">
@@ -157,7 +205,7 @@
         <!--Center View Controller-->
         <scene sceneID="21z-9C-VlR">
             <objects>
-                <viewController storyboardIdentifier="CenterViewController" title="Center View Controller" id="JnF-gd-Bwh" customClass="CenterVersesViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CenterViewController old" title="Center View Controller" id="JnF-gd-Bwh" customClass="CenterVersesViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YML-uV-Exn"/>
                         <viewControllerLayoutGuide type="bottom" id="snW-Nn-kps"/>
@@ -214,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cbZ-Ge-ybu" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14" y="-27"/>
+            <point key="canvasLocation" x="1999" y="324"/>
         </scene>
         <!--Strong View Controller-->
         <scene sceneID="HPY-ca-juT">
@@ -264,13 +312,14 @@
                         <viewLayoutGuide key="safeArea" id="cTa-7z-rIr"/>
                     </view>
                     <connections>
+                        <outlet property="closeButton" destination="HlC-AS-fuL" id="3gM-nq-bxz"/>
                         <outlet property="mainTextView" destination="1Ya-uW-Ksi" id="7gz-AM-auH"/>
                         <outlet property="titleLabel" destination="Pxk-EK-luw" id="f02-AQ-npA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="339-gA-ulV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1141" y="364"/>
+            <point key="canvasLocation" x="927" y="743"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="W02-eU-bMz">
@@ -424,7 +473,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WbE-Vh-Rxa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1058" y="-553"/>
+            <point key="canvasLocation" x="1999.2" y="-553.44827586206895"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="O8h-TT-Kld">
@@ -560,7 +609,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLR-jZ-0XP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42" y="-763"/>
+            <point key="canvasLocation" x="900" y="-763.30049261083752"/>
         </scene>
         <!--Sync View Controller-->
         <scene sceneID="Ye2-QK-eQR">

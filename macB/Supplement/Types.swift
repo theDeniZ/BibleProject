@@ -20,6 +20,21 @@ enum BonjourClientState {
     case dead
 }
 
+enum BonjourServerState {
+    case greeting
+    case teaching
+    case waiting
+    case inSync
+}
+
+enum SyncingState {
+    case none
+    case strongs(String)
+    case module(String)
+    case spirit
+}
+
+
 enum BonjourClientGreetingOption: String {
     case firstMeet = "hi, ready to get to know me?"
     case confirm = "yes"
@@ -27,7 +42,7 @@ enum BonjourClientGreetingOption: String {
     case done = "ok, next"
     case finished = "are you ok?"
     case bye = "bye"
-    //    case
+    case regexForSync = "Sync\\((.+)\\):(\\d+)\\+(\\d+)"
 }
 
 struct SharingRegex {

@@ -22,7 +22,6 @@
 		221E37F7220AE628003D8E40 /* OpenBible.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 221E37F5220AE628003D8E40 /* OpenBible.xcdatamodeld */; };
 		221E37F9220AE665003D8E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E37F8220AE664003D8E40 /* AppDelegate.swift */; };
 		221E37FF220AE6AC003D8E40 /* Bonjour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E37FB220AE6AC003D8E40 /* Bonjour.swift */; };
-		221E3800220AE6AC003D8E40 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E37FC220AE6AC003D8E40 /* Types.swift */; };
 		221E3801220AE6AC003D8E40 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E37FD220AE6AC003D8E40 /* Extensions.swift */; };
 		221E3802220AE6AC003D8E40 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E37FE220AE6AC003D8E40 /* Protocols.swift */; };
 		221E3805220AE6D7003D8E40 /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 221E3804220AE6D7003D8E40 /* UserSettings.plist */; };
@@ -69,6 +68,8 @@
 		221E3856220AEA01003D8E40 /* DownloadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E384F220AEA01003D8E40 /* DownloadCell.swift */; };
 		221E3857220AEA01003D8E40 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3850220AEA01003D8E40 /* CustomTextView.swift */; };
 		221E385A220AEC65003D8E40 /* Verse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3859220AEC64003D8E40 /* Verse.swift */; };
+		221E385B220AF3E7003D8E40 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240220421EB479900DC8E2F /* Types.swift */; };
+		221E385D220AF674003D8E40 /* SplitTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E385C220AF674003D8E40 /* SplitTextViewController.swift */; };
 		221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */; };
 		22234EB921D1388C00BC595D /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EB821D1388C00BC595D /* FileManagerViewController.swift */; };
 		22234EBD21D13B6400BC595D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBC21D13B6400BC595D /* TabViewController.swift */; };
@@ -128,7 +129,6 @@
 		221E37F6220AE628003D8E40 /* OpenBible.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenBible.xcdatamodel; sourceTree = "<group>"; };
 		221E37F8220AE664003D8E40 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		221E37FB220AE6AC003D8E40 /* Bonjour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bonjour.swift; sourceTree = "<group>"; };
-		221E37FC220AE6AC003D8E40 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		221E37FD220AE6AC003D8E40 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		221E37FE220AE6AC003D8E40 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		221E3804220AE6D7003D8E40 /* UserSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
@@ -166,6 +166,7 @@
 		221E384F220AEA01003D8E40 /* DownloadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadCell.swift; sourceTree = "<group>"; };
 		221E3850220AEA01003D8E40 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		221E3859220AEC64003D8E40 /* Verse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
+		221E385C220AF674003D8E40 /* SplitTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTextViewController.swift; sourceTree = "<group>"; };
 		221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongDetailViewController.swift; sourceTree = "<group>"; };
 		22234EB821D1388C00BC595D /* FileManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
 		22234EBC21D13B6400BC595D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
@@ -259,7 +260,6 @@
 				221E37FB220AE6AC003D8E40 /* Bonjour.swift */,
 				221E37FD220AE6AC003D8E40 /* Extensions.swift */,
 				221E37FE220AE6AC003D8E40 /* Protocols.swift */,
-				221E37FC220AE6AC003D8E40 /* Types.swift */,
 			);
 			path = Supplement;
 			sourceTree = "<group>";
@@ -278,11 +278,11 @@
 			children = (
 				221E380D220AE999003D8E40 /* CoreSyncManager.swift */,
 				221E3812220AE99A003D8E40 /* DownloadManager.swift */,
+				221E380E220AE999003D8E40 /* VerseManager.swift */,
 				221E3811220AE99A003D8E40 /* Manager.swift */,
 				221E380F220AE999003D8E40 /* plistHandler.swift */,
 				221E3813220AE99A003D8E40 /* PlistManager.swift */,
 				221E3810220AE999003D8E40 /* SyncManager.swift */,
-				221E380E220AE999003D8E40 /* VerseManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -290,11 +290,11 @@
 		221E3825220AE9CE003D8E40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				221E382A220AE9D6003D8E40 /* CustomDebugLayoutManager.swift */,
+				221E3827220AE9D6003D8E40 /* VerseTextManager.swift */,
 				221E3828220AE9D6003D8E40 /* TextManager.swift */,
 				221E382B220AE9D6003D8E40 /* TwoColumnContainer.swift */,
 				221E3826220AE9D6003D8E40 /* TwoColumnPositioningManager.swift */,
-				221E3827220AE9D6003D8E40 /* VerseTextManager.swift */,
+				221E382A220AE9D6003D8E40 /* CustomDebugLayoutManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -302,6 +302,7 @@
 		221E3832220AE9DE003D8E40 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				221E385C220AF674003D8E40 /* SplitTextViewController.swift */,
 				221E3839220AE9EE003D8E40 /* CenterVersesViewController.swift */,
 				221E3836220AE9ED003D8E40 /* CenterViewController.swift */,
 				221E3837220AE9ED003D8E40 /* ContainerViewController.swift */,
@@ -321,12 +322,12 @@
 			isa = PBXGroup;
 			children = (
 				221E384D220AEA01003D8E40 /* BookTableViewCell.swift */,
+				221E384E220AEA01003D8E40 /* VerseTextView.swift */,
 				221E3850220AEA01003D8E40 /* CustomTextView.swift */,
 				221E384F220AEA01003D8E40 /* DownloadCell.swift */,
 				221E384A220AEA00003D8E40 /* NumberCollectionViewCell.swift */,
 				221E384B220AEA00003D8E40 /* SearchTextField.swift */,
 				221E384C220AEA00003D8E40 /* ServiceTableViewCell.swift */,
-				221E384E220AEA01003D8E40 /* VerseTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -676,14 +677,15 @@
 				221E3815220AE99A003D8E40 /* VerseManager.swift in Sources */,
 				221E385A220AEC65003D8E40 /* Verse.swift in Sources */,
 				221E3818220AE99A003D8E40 /* Manager.swift in Sources */,
+				221E385B220AF3E7003D8E40 /* Types.swift in Sources */,
 				221E3821220AE9B0003D8E40 /* Strong.swift in Sources */,
 				221E3842220AE9EE003D8E40 /* ContainerViewController.swift in Sources */,
 				221E37FF220AE6AC003D8E40 /* Bonjour.swift in Sources */,
 				221E3854220AEA01003D8E40 /* BookTableViewCell.swift in Sources */,
-				221E3800220AE6AC003D8E40 /* Types.swift in Sources */,
 				221E3841220AE9EE003D8E40 /* CenterViewController.swift in Sources */,
 				221E382D220AE9D6003D8E40 /* VerseTextManager.swift in Sources */,
 				221E3846220AE9EE003D8E40 /* HistoryViewController.swift in Sources */,
+				221E385D220AF674003D8E40 /* SplitTextViewController.swift in Sources */,
 				221E3844220AE9EE003D8E40 /* CenterVersesViewController.swift in Sources */,
 				221E3853220AEA01003D8E40 /* ServiceTableViewCell.swift in Sources */,
 				221E381A220AE99A003D8E40 /* PlistManager.swift in Sources */,

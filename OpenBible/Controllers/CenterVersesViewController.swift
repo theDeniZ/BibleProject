@@ -156,7 +156,6 @@ class CenterVersesViewController: CenterViewController {
     
     @objc private func touchLink(sender: UITapGestureRecognizer) {
         let link = verseTextView.getSelectionLink(at: sender.location(in: verseTextView))
-        print(link)
         if let text = link {
             let start = text.index(text.startIndex, offsetBy: AppDelegate.URLServerRoot.count)
             openedURL(with: text[start...].split(separator: "/").map{String($0)})

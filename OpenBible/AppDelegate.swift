@@ -94,8 +94,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true;
         }
         let urlString = url.absoluteString
-        let queryArray = urlString.components(separatedBy: "/")
-        let query = queryArray[2]
+        let startIndex = urlString.index(urlString.startIndex, offsetBy: AppDelegate.URLServerRoot.count)
+        let query = urlString[startIndex...]
         
         urlToOpen = query.split(separator: "/").map{String($0)}
         

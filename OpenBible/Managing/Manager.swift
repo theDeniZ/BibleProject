@@ -55,6 +55,16 @@ class Manager {
         return nil
     }
     
+    init() {
+        self.context = AppDelegate.context
+        let last = plistManager.getCurrentBookAndChapterIndexes()
+        bookNumber = last.0 > 0 ? last.0 : 1
+        chapterNumber = last.1 > 0 ? last.1 : 1
+        initMainModule()
+        initSecondModule()
+        assertModuleConsistency()
+    }
+    
     init(in context: NSManagedObjectContext) {
         self.context = context
         let last = plistManager.getCurrentBookAndChapterIndexes()

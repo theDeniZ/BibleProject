@@ -14,6 +14,18 @@ struct StrongIdentifier {
     static let plistIdentifier = "strong_keys"
 }
 
+extension CGPoint {
+    init(_ x: Double, _ y: Double) {
+        self.init(x: x, y: y)
+    }
+    init(_ x: CGFloat, _ y: CGFloat) {
+        self.init(x: x, y: y)
+    }
+    init(_ x: Int, _ y: Int) {
+        self.init(x: x, y: y)
+    }
+}
+
 extension CGRect {
     init(_ x: Double, _ y: Double, _ width: Double, _ height: Double) {
         self.init(x: x, y: y, width: width, height: height)

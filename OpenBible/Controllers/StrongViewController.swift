@@ -17,6 +17,7 @@ class StrongViewController: UIViewController {
 
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var mainTextView: UITextView!
+    @IBOutlet weak var closeButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,11 @@ class StrongViewController: UIViewController {
                 }
             }
             mainTextView.text = out
+        }
+        if navigationController != nil {
+            navigationItem.title = titleLabel.text
+            titleLabel.isHidden = true
+            closeButton.isHidden = true
         }
     }
     

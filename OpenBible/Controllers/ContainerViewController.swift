@@ -11,7 +11,7 @@ class ContainerViewController: UIViewController {
     var manager: VerseManager? = VerseManager(in: AppDelegate.context)
     
   var centerNavigationController: UINavigationController!
-  var centerViewController: CenterVersesViewController!
+  var centerViewController: SplitTextViewController!
   
   var currentState: SlideOutState = .collapsed {
     didSet {
@@ -28,7 +28,7 @@ class ContainerViewController: UIViewController {
     
     centerViewController = UIStoryboard.centerViewController()
     centerViewController.delegate = self
-    centerViewController.verseManager = manager
+    centerViewController.verseManager = manager!
     
     centerNavigationController = UINavigationController(rootViewController: centerViewController)
     view.addSubview(centerNavigationController.view)
@@ -123,8 +123,8 @@ extension UIStoryboard {
     return main().instantiateViewController(withIdentifier: "LeftViewController") as? LeftSelectionViewController
   }
   
-  static func centerViewController() -> CenterVersesViewController? {
-    return main().instantiateViewController(withIdentifier: "CenterViewController") as? CenterVersesViewController
+  static func centerViewController() -> SplitTextViewController? {
+    return main().instantiateViewController(withIdentifier: "CenterViewController") as? SplitTextViewController
   }
   
   static func StartViewController() -> UIViewController? {

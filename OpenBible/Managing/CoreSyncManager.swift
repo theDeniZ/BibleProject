@@ -64,11 +64,12 @@ class CoreSyncManager: NSObject {
         NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "macB.SyncChapter")
         NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "macB.SyncVerse")
         do {
-            let obj = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! SyncModule
+            let unarchived = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data)
+            guard let obj = unarchived as? SyncModule else {return false}
             let module = Module(context: context)
             module.key = obj.key
             module.name = obj.name
-            module.local = obj.local
+            module.local = true//obj.local
             var books = [Book]()
             for boo in obj.books {
                 let book = Book(context: context)

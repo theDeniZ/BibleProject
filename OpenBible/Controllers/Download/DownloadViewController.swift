@@ -32,53 +32,16 @@ class DownloadViewController: UIViewController {
 //        backSelectionView.backgroundColor = UIColor.green
 //        table.allowsMultipleSelection = true
 //        table.allowsSelectionDuringEditing = true
-        modules = [
-            ModuleOffline("King James Version", "kjv"),
-            ModuleOffline("Schlachter 1951", "schlachter"),
-//            ModuleOffline("KJV Easy Read", "akjv"),
-//            ModuleOffline("American Standard Version", "asv"),
-//            ModuleOffline("World English Bible", "web"),
-            ModuleOffline("Luther (1912)", "luther1912"),
-//            ModuleOffline("Elberfelder (1871)", "elberfelder"),
-//            ModuleOffline("Elberfelder (1905)", "elberfelder1905"),
-            ModuleOffline("Luther (1545)", "luther1545"),
-//            ModuleOffline("Textus Receptus", "text"),
-//            ModuleOffline("NT Textus Receptus (1550 1894) Parsed", "textusreceptus"),
-//            ModuleOffline("Hebrew Modern", "modernhebrew"),
-//            ModuleOffline("Aleppo Codex", "aleppo"),
-//            ModuleOffline("OT Westminster Leningrad Codex", "codex"),
-//            ModuleOffline("Hungarian Karoli", "karoli"),
-//            ModuleOffline("Vulgata Clementina", "vulgate"),
-//            ModuleOffline("Almeida Atualizada", "almeida"),
-//            ModuleOffline("Cornilescu", "cornilescu"),
-            ModuleOffline("Synodal Translation (1876)", "synodal")
-//            ModuleOffline("Makarij Translation Pentateuch (1825)", "makarij"),
-//            ModuleOffline("Sagradas Escrituras", "sse"),
-//            ModuleOffline("NT (P Kulish 1871)", "ukranian")
-        ]
-        
-        if let downloaded = manager.getAvailableModules() {
-            modulesDownloaded = downloaded.map() {$0.key?.lowercased() ?? ""}
-        }
-        
-        if let local = try? Module.getAll(from: context, local: true) {
-            localModules = local
-        }
-        
-        if let b = try? Strong.exists(StrongIdentifier.oldTestament, in: context), b {
-            strongsNumbersNames.append(StrongIdentifier.oldTestament)
-        }
-        if let b = try? Strong.exists(StrongIdentifier.newTestament, in: context), b {
-            strongsNumbersNames.append(StrongIdentifier.newTestament)
-        }
-        
-        if let spirit = try? SpiritBook.getAll(from: context) {
-            localSpirit = spirit
-        }
-        
         table.isHidden = false
         containerView.isHidden = true
         table.delegate = self; table.dataSource = self
+        
+//        loadInfo()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadInfo()
     }
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
@@ -103,6 +66,56 @@ class DownloadViewController: UIViewController {
 //        table.reloadData()
 //    }
     
+    private func loadInfo() {
+        localModules = []
+        strongsNumbersNames = []
+        localSpirit = []
+        modules = [
+            ModuleOffline("King James Version", "kjv"),
+            ModuleOffline("Schlachter 1951", "schlachter"),
+            //            ModuleOffline("KJV Easy Read", "akjv"),
+            //            ModuleOffline("American Standard Version", "asv"),
+            //            ModuleOffline("World English Bible", "web"),
+            ModuleOffline("Luther (1912)", "luther1912"),
+            //            ModuleOffline("Elberfelder (1871)", "elberfelder"),
+            //            ModuleOffline("Elberfelder (1905)", "elberfelder1905"),
+            ModuleOffline("Luther (1545)", "luther1545"),
+            //            ModuleOffline("Textus Receptus", "text"),
+            //            ModuleOffline("NT Textus Receptus (1550 1894) Parsed", "textusreceptus"),
+            //            ModuleOffline("Hebrew Modern", "modernhebrew"),
+            //            ModuleOffline("Aleppo Codex", "aleppo"),
+            //            ModuleOffline("OT Westminster Leningrad Codex", "codex"),
+            //            ModuleOffline("Hungarian Karoli", "karoli"),
+            //            ModuleOffline("Vulgata Clementina", "vulgate"),
+            //            ModuleOffline("Almeida Atualizada", "almeida"),
+            //            ModuleOffline("Cornilescu", "cornilescu"),
+            ModuleOffline("Synodal Translation (1876)", "synodal")
+            //            ModuleOffline("Makarij Translation Pentateuch (1825)", "makarij"),
+            //            ModuleOffline("Sagradas Escrituras", "sse"),
+            //            ModuleOffline("NT (P Kulish 1871)", "ukranian")
+        ]
+        
+        if let downloaded = manager.getAvailableModules() {
+            modulesDownloaded = downloaded.map() {$0.key?.lowercased() ?? ""}
+        }
+        
+        if let local = try? Module.getAll(from: context, local: true) {
+            localModules = local
+        }
+        
+        if let b = try? Strong.exists(StrongIdentifier.oldTestament, in: context), b {
+            strongsNumbersNames.append(StrongIdentifier.oldTestament)
+        }
+        if let b = try? Strong.exists(StrongIdentifier.newTestament, in: context), b {
+            strongsNumbersNames.append(StrongIdentifier.newTestament)
+        }
+        
+        if let spirit = try? SpiritBook.getAll(from: context) {
+            localSpirit = spirit
+        }
+        table.beginUpdates()
+        table.endUpdates()
+    }
 }
 
 

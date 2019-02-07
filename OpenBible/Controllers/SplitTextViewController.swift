@@ -12,11 +12,15 @@ class SplitTextViewController: UIViewController {
 
     @IBOutlet weak var leftTextView: UITextView!
     @IBOutlet weak var rightTextView: UITextView!
+    @IBOutlet weak var searchTextField: UITextField!
+    
     
     private var leftTextStorage: NSTextStorage?
     private var rightTextStorage: NSTextStorage?
     private var presentedVC: UIViewController?
     private var draggedScrollView: Int = 0
+    
+    private var isInSearch: Bool = false {didSet{updateSearchUI()}}
     
     var verseManager = VerseManager()
     var delegate: CenterViewControllerDelegate?
@@ -28,7 +32,27 @@ class SplitTextViewController: UIViewController {
         loadTextViews()
         leftTextView.delegate = self
         rightTextView.delegate = self
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "menu"), style: .plain, target: self, action: #selector(toggleMenu))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "menu"),
+            style: .plain,
+            target: self,
+            action: #selector(toggleMenu)
+        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "search"),
+            style: .plain,
+            target: self,
+            action: #selector(toggleSearch)
+        )
+        
+    }
+    
+    @IBAction func searchTextFieldDidEnter(_ sender: UITextField) {
+        if let text = sender.text {
+            doSearch(text: text)
+        }
+        toggleSearch()
     }
     
     func loadTextViews() {
@@ -44,7 +68,10 @@ class SplitTextViewController: UIViewController {
                 r.append(each)
                 return r
             }
+            rightTextView.isHidden = false
             rightTextView.attributedText = attributedString
+        } else {
+            rightTextView.isHidden = true
         }
         rightTextView.contentOffset = CGPoint(0,0)
         leftTextView.contentOffset = CGPoint(0,0)
@@ -52,6 +79,52 @@ class SplitTextViewController: UIViewController {
 
     @objc private func toggleMenu() {
         delegate?.toggleLeftPanel?()
+    }
+    
+    @objc private func toggleSearch() {
+        isInSearch = !isInSearch
+    }
+    
+    private func updateSearchUI() {
+        if isInSearch {
+            searchTextField.isHidden = false
+            if overlapped {
+                toggleMenu()
+            }
+            searchTextField.becomeFirstResponder()
+        } else {
+            searchTextField.isHidden = true
+            searchTextField.text = nil
+            view.endEditing(true)
+        }
+    }
+    
+    private func doSearch(text: String) {
+        if text.matches(String.regexForChapter) {
+            let m = text.capturedGroups(withRegex: String.regexForChapter)!
+            verseManager.setChapter(number: Int(m[0])!)
+        } else if text.matches(String.regexForBookRefference) {
+            let match = text.capturedGroups(withRegex: String.regexForBookRefference)!
+            if verseManager.setBook(by: match[0]),
+                match.count > 1,
+                let n = Int(match[1]) {
+                verseManager.setChapter(number: n)
+                if match.count > 2,
+                    let verseMatch = text.replacingOccurrences(of: " ", with: "").matches(withRegex: String.regexForVerses),
+                    verseMatch[0][0] == match[1] {
+                    let v = verseMatch[1...]
+                    verseManager.setVerses(from: v.map {$0[0]})
+                }
+            }
+        } else if text.matches(String.regexForVerses) {
+            let verseMatch = text.replacingOccurrences(of: " ", with: "").matches(withRegex: String.regexForVerses)!
+            verseManager.setChapter(number: Int(verseMatch[0][0])!)
+            let v = verseMatch[1...]
+            if v.count > 0 {
+                verseManager.setVerses(from: v.map {$0[0]})
+            }
+        }
+        loadTextViews()
     }
 }
 

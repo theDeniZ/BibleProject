@@ -302,18 +302,12 @@
 		221E3832220AE9DE003D8E40 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				221E385C220AF674003D8E40 /* SplitTextViewController.swift */,
+				221E3861220C238F003D8E40 /* Manage */,
+				221E3860220C236F003D8E40 /* Containers */,
+				221E385F220C235E003D8E40 /* Present */,
 				221E3839220AE9EE003D8E40 /* CenterVersesViewController.swift */,
 				221E3836220AE9ED003D8E40 /* CenterViewController.swift */,
-				221E3837220AE9ED003D8E40 /* ContainerViewController.swift */,
-				221E3838220AE9ED003D8E40 /* DownloadViewController.swift */,
-				221E383B220AE9EE003D8E40 /* HistoryViewController.swift */,
-				221E383A220AE9EE003D8E40 /* LeftSelectionViewController.swift */,
-				221E3833220AE9ED003D8E40 /* MainTabBarController.swift */,
-				221E3834220AE9ED003D8E40 /* ModalViewController.swift */,
-				221E383D220AE9EE003D8E40 /* SidePanelViewController.swift */,
-				221E3835220AE9ED003D8E40 /* StrongViewController.swift */,
-				221E383C220AE9EE003D8E40 /* SyncViewController.swift */,
+				221E385E220C233A003D8E40 /* Download */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -338,6 +332,44 @@
 				221E3859220AEC64003D8E40 /* Verse.swift */,
 			);
 			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		221E385E220C233A003D8E40 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				221E3838220AE9ED003D8E40 /* DownloadViewController.swift */,
+				221E383C220AE9EE003D8E40 /* SyncViewController.swift */,
+			);
+			path = Download;
+			sourceTree = "<group>";
+		};
+		221E385F220C235E003D8E40 /* Present */ = {
+			isa = PBXGroup;
+			children = (
+				221E385C220AF674003D8E40 /* SplitTextViewController.swift */,
+				221E383B220AE9EE003D8E40 /* HistoryViewController.swift */,
+				221E3835220AE9ED003D8E40 /* StrongViewController.swift */,
+			);
+			path = Present;
+			sourceTree = "<group>";
+		};
+		221E3860220C236F003D8E40 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				221E3833220AE9ED003D8E40 /* MainTabBarController.swift */,
+				221E3837220AE9ED003D8E40 /* ContainerViewController.swift */,
+				221E383D220AE9EE003D8E40 /* SidePanelViewController.swift */,
+			);
+			path = Containers;
+			sourceTree = "<group>";
+		};
+		221E3861220C238F003D8E40 /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				221E383A220AE9EE003D8E40 /* LeftSelectionViewController.swift */,
+				221E3834220AE9ED003D8E40 /* ModalViewController.swift */,
+			);
+			path = Manage;
 			sourceTree = "<group>";
 		};
 		22BD920E21CBDEDB00019853 = {

@@ -23,6 +23,7 @@ class MainWindowController: NSWindowController {
         super.windowDidLoad()
         window?.setFrame(NSRect(x: 0, y: 0, width: 1000, height: 700), display: true)
         setMenuImage(selected: AppDelegate.plistManager.isMenuOn())
+        
     }
     
 }

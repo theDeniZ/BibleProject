@@ -22,7 +22,6 @@ class MainViewController: NSViewController {
     private var plistManager: PlistManager {
         return AppDelegate.plistManager
     }
-    private var isInSearch: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +38,11 @@ class MainViewController: NSViewController {
     }
     
     private func doSearch(with text: String) {
-        if let match = text.capturedGroups(withRegex: String.regexForBookRefference),
-            match.count > 0 {
+        if text.matches(String.regexForChapter) {
+            let m = text.capturedGroups(withRegex: String.regexForChapter)!
+            manager.changeChapter(to: Int(m[0])!)
+        } else if text.matches(String.regexForBookRefference) {
+            let match = text.capturedGroups(withRegex: String.regexForBookRefference)!
             if manager.changeBook(by: match[0]),
                 match.count > 1,
                 let n = Int(match[1]) {
@@ -51,6 +53,13 @@ class MainViewController: NSViewController {
                     let v = verseMatch[1...]
                     manager.setVerses(from: v.map {$0[0]})
                 }
+            }
+        } else if text.matches(String.regexForVerses) {
+            let verseMatch = text.replacingOccurrences(of: " ", with: "").matches(withRegex: String.regexForVerses)!
+            manager.changeChapter(to: Int(verseMatch[0][0])!)
+            let v = verseMatch[1...]
+            if v.count > 0 {
+                manager.setVerses(from: v.map {$0[0]})
             }
         }
         updateUI()

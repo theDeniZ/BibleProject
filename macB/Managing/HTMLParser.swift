@@ -111,7 +111,7 @@ class HTMLParser: NSObject {
     private func matchesChapter(_ text: String, with name: String) -> ChapterPattern? {
         for pattern in ChapterPattern.allCases {
             if pattern == .withNameInFront {
-                if text.matches(name + pattern.rawValue) {
+                if text.matches("^" + name + pattern.rawValue) {
                     return pattern
                 }
             } else {
@@ -206,7 +206,7 @@ class HTMLParser: NSObject {
 
 enum ChapterPattern: String, CaseIterable {
     case withNameInFront = "[,]? (\\d+)[.]?$"
-    case withChapter = "(?i)Chapter (\\d+)[.]?$"
+    case withChapter = "^(?i)Chapter (\\d+)[.]?$"
     case withNumber = "^(\\d+)[.]?$"
     case withCustomName = "^\\w+ (\\d+)[.]?$"
 }

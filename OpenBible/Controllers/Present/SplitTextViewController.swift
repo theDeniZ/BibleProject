@@ -174,6 +174,7 @@ extension SplitTextViewController: URLDelegate {
             default: break
             }
         } else {
+            doSearch(text: parameters[0])
 //            parseSearch(text: parameters[0])
         }
     }

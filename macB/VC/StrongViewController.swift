@@ -11,7 +11,7 @@ import Cocoa
 class StrongViewController: NSViewController {
 
     var context: NSManagedObjectContext = AppDelegate.context
-    var identifierStrong: String = StrongIdentifier.oldTestament
+    var identifierStrong: String = StrongId.oldTestament
     
     @IBOutlet private weak var table: NSTableView!
     @IBOutlet weak var searchField: NSTextField!
@@ -41,9 +41,9 @@ class StrongViewController: NSViewController {
     
     @IBAction func selectedSegment(_ sender: NSSegmentedCell) {
         if sender.selectedSegment == 0 {
-            identifierStrong = StrongIdentifier.oldTestament
+            identifierStrong = StrongId.oldTestament
         } else {
-            identifierStrong = StrongIdentifier.newTestament
+            identifierStrong = StrongId.newTestament
         }
         load()
     }

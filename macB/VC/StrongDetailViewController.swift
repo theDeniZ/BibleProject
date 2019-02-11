@@ -11,7 +11,7 @@ import Cocoa
 class StrongDetailViewController: NSViewController {
 
     var numbers: [Int]?
-    var identifierStrong: String = StrongIdentifier.oldTestament
+    var identifierStrong: String = StrongId.oldTestament
     var context: NSManagedObjectContext = AppDelegate.context
     
     @IBOutlet private var detailTextView: NSTextView!

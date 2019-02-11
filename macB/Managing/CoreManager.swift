@@ -24,7 +24,7 @@ class CoreManager: NSObject {
     var strongsNumbersIsOn: Bool = true {didSet {plistManager.setStrong(on: strongsNumbersIsOn);broadcastChanges()}}
     
     var currentTestament: String {
-        return currentIndex.book <= 39 ? StrongIdentifier.oldTestament : StrongIdentifier.newTestament
+        return currentIndex.book <= 39 ? StrongId.oldTestament : StrongId.newTestament
     }
     
     private var delegates: [ModelUpdateDelegate]?

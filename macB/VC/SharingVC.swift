@@ -40,7 +40,7 @@ class SharingVC: NSViewController {
             if let key = obj.key {
                 if obj.additionalIdentificator == nil {
                     writeable[SharingRegex.module(key)] = obj.title
-                } else if obj.additionalIdentificator == StrongIdentifier.plistIdentifier {
+                } else if obj.additionalIdentificator == StrongId.plistIdentifier {
                     writeable[SharingRegex.strong(key)] = obj.title
                 } else {
                     writeable[SharingRegex.spirit(key)] = obj.title
@@ -59,21 +59,21 @@ class SharingVC: NSViewController {
             options = modules.filter({$0.key != nil}).map
                 {SharingObject($0.name!, key: $0.key!, being: $0, selected: selected?.index(forKey: SharingRegex.module($0.key!)) != nil)}
         }
-        if let exists = try? Strong.exists(StrongIdentifier.oldTestament, in: context), exists {
+        if let exists = try? Strong.exists(StrongId.oldTestament, in: context), exists {
             options?.append(
-                SharingObject("Strong's Numbers (\(StrongIdentifier.oldTestament))", key: StrongIdentifier.oldTestament,
+                SharingObject("Strong's Numbers (\(StrongId.oldTestament))", key: StrongId.oldTestament,
                     being: nil,
-                    selected: selected?.index(forKey: SharingRegex.strong(StrongIdentifier.oldTestament)) != nil,
-                    addInf: StrongIdentifier.plistIdentifier
+                    selected: selected?.index(forKey: SharingRegex.strong(StrongId.oldTestament)) != nil,
+                    addInf: StrongId.plistIdentifier
                 )
             )
         }
-        if let exists = try? Strong.exists(StrongIdentifier.newTestament, in: context), exists {
+        if let exists = try? Strong.exists(StrongId.newTestament, in: context), exists {
             options?.append(
-                SharingObject("Strong's Numbers (\(StrongIdentifier.newTestament))", key: StrongIdentifier.newTestament,
+                SharingObject("Strong's Numbers (\(StrongId.newTestament))", key: StrongId.newTestament,
                     being: nil,
-                    selected: selected?.index(forKey: SharingRegex.strong(StrongIdentifier.newTestament)) != nil,
-                    addInf: StrongIdentifier.plistIdentifier
+                    selected: selected?.index(forKey: SharingRegex.strong(StrongId.newTestament)) != nil,
+                    addInf: StrongId.plistIdentifier
                 )
             )
         }

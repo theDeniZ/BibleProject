@@ -128,7 +128,7 @@ extension MainViewController: ModelUpdateDelegate {
 extension MainViewController: URLDelegate {
     func openedURL(with parameters: [String]) {
         if parameters.count > 1,
-            [StrongIdentifier.newTestament, StrongIdentifier.oldTestament].contains(parameters[0]) {
+            [StrongId.newTestament, StrongId.oldTestament].contains(parameters[0]) {
             if let vc = NSStoryboard.main?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Detail Strong VC")) as? StrongDetailViewController {
                 var numbers: [Int] = []
                 let identifier = parameters[0]

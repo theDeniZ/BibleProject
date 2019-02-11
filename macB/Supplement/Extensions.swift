@@ -8,7 +8,7 @@
 
 import Cocoa
 
-struct StrongIdentifier {
+struct StrongId {
     static let oldTestament = "Hebrew"
     static let newTestament = "Greek"
     static let plistIdentifier = "strong_keys"

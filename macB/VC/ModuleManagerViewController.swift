@@ -47,7 +47,7 @@ class ModuleManagerViewController: NSViewController {
         if let bibles = try? Module.getAll(from: context, local: true) {
             modules.append(contentsOf: bibles.map({PresentedCoreObject(key: $0.key ?? "", title: $0.name ?? "", data: $0)}))
         }
-//        if Strong.exists(StrongIdentifier.oldTestament, in: context) {
+//        if Strong.exists(StrongId.oldTestament, in: context) {
 //
 //        }
         if let spirit = try? SpiritBook.getAll(from: context) {

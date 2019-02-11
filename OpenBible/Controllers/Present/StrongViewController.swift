@@ -13,7 +13,7 @@ class StrongViewController: UIViewController {
     
     var context: NSManagedObjectContext = AppDelegate.context
     var numbers: [Int] = []
-    var identifier = StrongIdentifier.oldTestament
+    var identifier = StrongId.oldTestament
 
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var mainTextView: UITextView!
@@ -27,7 +27,7 @@ class StrongViewController: UIViewController {
             for number in numbers {
                 if let strong = Strong.get(number, by: identifier, from: context) {
                     if let org = strong.original {
-                        out += "\(org)\n"
+                        out += "\(org)\n\n"
                     }
                     if let mean = strong.meaning {
                         out += "\(mean)\n\n"

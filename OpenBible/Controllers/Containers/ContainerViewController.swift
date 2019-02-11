@@ -21,7 +21,14 @@ class ContainerViewController: UIViewController {
   }
   var leftViewController: LeftSelectionViewController?
   
-  let centerPanelExpandedOffset: CGFloat = 60
+    var centerPanelExpandedOffset: CGFloat {
+        switch UIDevice.current.orientation {
+        case .landscapeLeft, .landscapeRight:
+            return view.bounds.width / 2.0
+        default:
+            return view.bounds.width / 5.0
+        }
+    }
   
   override func viewDidLoad() {
     super.viewDidLoad()

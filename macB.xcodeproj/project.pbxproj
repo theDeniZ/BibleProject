@@ -52,10 +52,8 @@
 		221E383E220AE9EE003D8E40 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3833220AE9ED003D8E40 /* MainTabBarController.swift */; };
 		221E383F220AE9EE003D8E40 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3834220AE9ED003D8E40 /* ModalViewController.swift */; };
 		221E3840220AE9EE003D8E40 /* StrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3835220AE9ED003D8E40 /* StrongViewController.swift */; };
-		221E3841220AE9EE003D8E40 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3836220AE9ED003D8E40 /* CenterViewController.swift */; };
 		221E3842220AE9EE003D8E40 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3837220AE9ED003D8E40 /* ContainerViewController.swift */; };
 		221E3843220AE9EE003D8E40 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3838220AE9ED003D8E40 /* DownloadViewController.swift */; };
-		221E3844220AE9EE003D8E40 /* CenterVersesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3839220AE9EE003D8E40 /* CenterVersesViewController.swift */; };
 		221E3845220AE9EE003D8E40 /* LeftSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E383A220AE9EE003D8E40 /* LeftSelectionViewController.swift */; };
 		221E3846220AE9EE003D8E40 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E383B220AE9EE003D8E40 /* HistoryViewController.swift */; };
 		221E3847220AE9EE003D8E40 /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E383C220AE9EE003D8E40 /* SyncViewController.swift */; };
@@ -150,10 +148,8 @@
 		221E3833220AE9ED003D8E40 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		221E3834220AE9ED003D8E40 /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		221E3835220AE9ED003D8E40 /* StrongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrongViewController.swift; sourceTree = "<group>"; };
-		221E3836220AE9ED003D8E40 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		221E3837220AE9ED003D8E40 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		221E3838220AE9ED003D8E40 /* DownloadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
-		221E3839220AE9EE003D8E40 /* CenterVersesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterVersesViewController.swift; sourceTree = "<group>"; };
 		221E383A220AE9EE003D8E40 /* LeftSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSelectionViewController.swift; sourceTree = "<group>"; };
 		221E383B220AE9EE003D8E40 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		221E383C220AE9EE003D8E40 /* SyncViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
@@ -305,8 +301,6 @@
 				221E3861220C238F003D8E40 /* Manage */,
 				221E3860220C236F003D8E40 /* Containers */,
 				221E385F220C235E003D8E40 /* Present */,
-				221E3839220AE9EE003D8E40 /* CenterVersesViewController.swift */,
-				221E3836220AE9ED003D8E40 /* CenterViewController.swift */,
 				221E385E220C233A003D8E40 /* Download */,
 			);
 			path = Controllers;
@@ -714,11 +708,9 @@
 				221E3842220AE9EE003D8E40 /* ContainerViewController.swift in Sources */,
 				221E37FF220AE6AC003D8E40 /* Bonjour.swift in Sources */,
 				221E3854220AEA01003D8E40 /* BookTableViewCell.swift in Sources */,
-				221E3841220AE9EE003D8E40 /* CenterViewController.swift in Sources */,
 				221E382D220AE9D6003D8E40 /* VerseTextManager.swift in Sources */,
 				221E3846220AE9EE003D8E40 /* HistoryViewController.swift in Sources */,
 				221E385D220AF674003D8E40 /* SplitTextViewController.swift in Sources */,
-				221E3844220AE9EE003D8E40 /* CenterVersesViewController.swift in Sources */,
 				221E3853220AEA01003D8E40 /* ServiceTableViewCell.swift in Sources */,
 				221E381A220AE99A003D8E40 /* PlistManager.swift in Sources */,
 			);
@@ -893,6 +885,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -948,6 +942,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;

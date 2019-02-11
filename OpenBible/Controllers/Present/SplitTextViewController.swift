@@ -46,6 +46,16 @@ class SplitTextViewController: UIViewController {
             action: #selector(toggleSearch)
         )
         
+        let left = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft))
+        let right = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight))
+        left.direction = .left
+        right.direction = .right
+        view.addGestureRecognizer(left)
+        view.addGestureRecognizer(right)
+        
+        let pan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgePan(_:)))
+        pan.edges = .left
+        view.addGestureRecognizer(pan)
     }
     
     @IBAction func searchTextFieldDidEnter(_ sender: UITextField) {
@@ -143,6 +153,9 @@ extension SplitTextViewController: UITextViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if overlapped {
+            toggleMenu()
+        }
         if let textView = scrollView as? UITextView {
             if textView == leftTextView {
                 draggedScrollView = 1
@@ -159,6 +172,9 @@ extension SplitTextViewController: UITextViewDelegate {
 
 extension SplitTextViewController: URLDelegate {
     func openedURL(with parameters: [String]) {
+        if overlapped {
+            toggleMenu()
+        }
         if parameters.count > 1 {
             switch parameters[0] {
             case "Hebrew", "Greek":
@@ -180,7 +196,6 @@ extension SplitTextViewController: URLDelegate {
     }
 }
 
-
 extension SplitTextViewController: SidePanelViewControllerDelegate {
     func didSelect(chapter: Int, in book: Int) {
         delegate?.collapseSidePanels?()
@@ -188,9 +203,30 @@ extension SplitTextViewController: SidePanelViewControllerDelegate {
         verseManager.bookNumber = book
         loadTextViews()
     }
-    
     func setNeedsReload() {
         loadTextViews()
     }
-    
+}
+
+extension SplitTextViewController {
+    @objc private func swipeLeft() {
+        if overlapped {
+            toggleMenu()
+        }
+        verseManager.next()
+        loadTextViews()
+    }
+    @objc private func swipeRight() {
+        if overlapped {
+            toggleMenu()
+        }
+        verseManager.previous()
+        loadTextViews()
+    }
+    @objc private func edgePan(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        if recognizer.state == .began {
+            toggleMenu()
+            recognizer.state = .ended
+        }
+    }
 }

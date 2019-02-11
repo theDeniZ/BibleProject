@@ -61,10 +61,6 @@ class DownloadViewController: UIViewController {
         modules = [
             ModuleOffline("King James Version", "kjv"),
             ModuleOffline("Schlachter 1951", "schlachter"),
-<<<<<<< HEAD
-=======
-            ModuleOffline("Luther (1912)", "luther1912"),
->>>>>>> 401a9fe51ee57e2a00b5d4883160a068927642e3
             ModuleOffline("Luther (1545)", "luther1545"),
             ModuleOffline("Synodal Translation (1876)", "synodal")
         ]
@@ -74,24 +70,8 @@ class DownloadViewController: UIViewController {
         if let b = try? Strong.exists(StrongId.oldTestament, in: context), b {
             strongsNumbersNames.append(StrongId.oldTestament)
         }
-<<<<<<< HEAD
         if let b = try? Strong.exists(StrongId.newTestament, in: context), b {
             strongsNumbersNames.append(StrongId.newTestament)
-=======
-        
-        if let local = try? Module.getAll(from: context, local: true) {
-            localModules = local
-        }
-        
-        if let b = try? Strong.exists(StrongId.oldTestament, in: context), b {
-            strongsNumbersNames.append(StrongId.oldTestament)
-        }
-        if let b = try? Strong.exists(StrongId.newTestament, in: context), b {
-            strongsNumbersNames.append(StrongId.newTestament)
-        }
-        if let spirit = try? SpiritBook.getAll(from: context) {
-            localSpirit = spirit
->>>>>>> 401a9fe51ee57e2a00b5d4883160a068927642e3
         }
         table.beginUpdates()
         table.endUpdates()
@@ -151,7 +131,7 @@ extension DownloadViewController: UITableViewDataSource {
         
         return cell
     }
-
+    
 }
 
 extension DownloadViewController: UITableViewDelegate {
@@ -173,7 +153,7 @@ extension DownloadViewController: UITableViewDelegate {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-
+    
     private func deleteOrDownloadModule(at indexPath: IndexPath, cell: DownloadCell) {
         cell.setSelected(false, animated: true)
         if cell.accessoryType == .none {
@@ -236,7 +216,7 @@ extension DownloadViewController: UITableViewDelegate {
             }
         }
     }
-
+    
     private func deleteLocalBible(at index: Int) {
         let s = localModules[index]
         DispatchQueue.global(qos: .userInteractive).async {

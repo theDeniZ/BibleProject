@@ -18,67 +18,27 @@ class DownloadViewController: UIViewController {
     private var modulesDownloaded: [String] = []
     private var modulesDownloading: [IndexPath]? = []
     private var context = AppDelegate.context
-    private var downloadManager: DownloadManager = DownloadManager(in: AppDelegate.context)
+    private var downloadManager = DownloadManager(in: AppDelegate.context)
     private var manager: Manager = Manager(in: AppDelegate.context)
     
-    private var sections = ["Bible", "Local Bible", "Strong Numbers", "Spirit of Prophesy"]
+    private var sections = ["Bible", "Local Bible",
+                            "Strong Numbers", "Spirit of Prophesy"]
     private var localModules: [Module] = []
     private var strongsNumbersNames: [String] = []
     private var localSpirit: [SpiritBook] = []
     
-//    private let backSelectionView = UIView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        backSelectionView.backgroundColor = UIColor.green
-//        table.allowsMultipleSelection = true
-//        table.allowsSelectionDuringEditing = true
-        modules = [
-            ModuleOffline("King James Version", "kjv"),
-            ModuleOffline("Schlachter 1951", "schlachter"),
-//            ModuleOffline("KJV Easy Read", "akjv"),
-//            ModuleOffline("American Standard Version", "asv"),
-//            ModuleOffline("World English Bible", "web"),
-            ModuleOffline("Luther (1912)", "luther1912"),
-//            ModuleOffline("Elberfelder (1871)", "elberfelder"),
-//            ModuleOffline("Elberfelder (1905)", "elberfelder1905"),
-            ModuleOffline("Luther (1545)", "luther1545"),
-//            ModuleOffline("Textus Receptus", "text"),
-//            ModuleOffline("NT Textus Receptus (1550 1894) Parsed", "textusreceptus"),
-//            ModuleOffline("Hebrew Modern", "modernhebrew"),
-//            ModuleOffline("Aleppo Codex", "aleppo"),
-//            ModuleOffline("OT Westminster Leningrad Codex", "codex"),
-//            ModuleOffline("Hungarian Karoli", "karoli"),
-//            ModuleOffline("Vulgata Clementina", "vulgate"),
-//            ModuleOffline("Almeida Atualizada", "almeida"),
-//            ModuleOffline("Cornilescu", "cornilescu"),
-            ModuleOffline("Synodal Translation (1876)", "synodal")
-//            ModuleOffline("Makarij Translation Pentateuch (1825)", "makarij"),
-//            ModuleOffline("Sagradas Escrituras", "sse"),
-//            ModuleOffline("NT (P Kulish 1871)", "ukranian")
-        ]
-        
-        if let downloaded = manager.getAvailableModules() {
-            modulesDownloaded = downloaded.map() {$0.key?.lowercased() ?? ""}
-        }
-        
-        if let local = try? Module.getAll(from: context, local: true) {
-            localModules = local
-        }
-        
-        if let b = try? Strong.exists(StrongIdentifier.oldTestament, in: context), b {
-            strongsNumbersNames.append(StrongIdentifier.oldTestament)
-        }
-        if let b = try? Strong.exists(StrongIdentifier.newTestament, in: context), b {
-            strongsNumbersNames.append(StrongIdentifier.newTestament)
-        }
-        
-        if let spirit = try? SpiritBook.getAll(from: context) {
-            localSpirit = spirit
-        }
-        
         table.isHidden = false
         containerView.isHidden = true
         table.delegate = self; table.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadInfo()
     }
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
@@ -94,15 +54,28 @@ class DownloadViewController: UIViewController {
         }
     }
     
-    
-//    private func update() {
-//        performSelector(onMainThread: #selector(updateUI), with: nil, waitUntilDone: false)
-//    }
-//
-//    @objc private func updateUI() {
-//        table.reloadData()
-//    }
-    
+    private func loadInfo() {
+        localModules = []
+        strongsNumbersNames = []
+        localSpirit = []
+        modules = [
+            ModuleOffline("King James Version", "kjv"),
+            ModuleOffline("Schlachter 1951", "schlachter"),
+            ModuleOffline("Luther (1545)", "luther1545"),
+            ModuleOffline("Synodal Translation (1876)", "synodal")
+        ]
+        modulesDownloaded = manager.getAvailableModules()?.map() {$0.key?.lowercased() ?? ""} ?? []
+        localModules = (try? Module.getAll(from: context, local: true)) ?? []
+        localSpirit = (try? SpiritBook.getAll(from: context)) ?? []
+        if let b = try? Strong.exists(StrongId.oldTestament, in: context), b {
+            strongsNumbersNames.append(StrongId.oldTestament)
+        }
+        if let b = try? Strong.exists(StrongId.newTestament, in: context), b {
+            strongsNumbersNames.append(StrongId.newTestament)
+        }
+        table.beginUpdates()
+        table.endUpdates()
+    }
 }
 
 
@@ -158,7 +131,7 @@ extension DownloadViewController: UITableViewDataSource {
         
         return cell
     }
-
+    
 }
 
 extension DownloadViewController: UITableViewDelegate {
@@ -181,14 +154,6 @@ extension DownloadViewController: UITableViewDelegate {
         tableView.endUpdates()
     }
     
-//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        guard let cell = tableView.cellForRow(at: indexPath) else {return}
-//        if cell.selectedBackgroundView == backSelectionView {
-//            cell.setSelected(true, animated: false)
-//        }
-//        print("deselected")
-//    }
-
     private func deleteOrDownloadModule(at indexPath: IndexPath, cell: DownloadCell) {
         cell.setSelected(false, animated: true)
         if cell.accessoryType == .none {
@@ -216,12 +181,6 @@ extension DownloadViewController: UITableViewDelegate {
                                 cell.isLoading = false
                             }
                         }
-                        //                        DispatchQueue.main.async {
-                        //                            cell.selectedBackgroundView = nil
-                        //                            cell.setSelected(false, animated: false)
-                        //                            tableView.beginUpdates()
-                        //                            tableView.endUpdates()
-                        //                        }
                     }
                 }
             }
@@ -257,7 +216,7 @@ extension DownloadViewController: UITableViewDelegate {
             }
         }
     }
-
+    
     private func deleteLocalBible(at index: Int) {
         let s = localModules[index]
         DispatchQueue.global(qos: .userInteractive).async {

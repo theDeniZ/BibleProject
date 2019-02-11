@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/Managing/HTMLParser.swift"
-            timestampString = "571075975.0689861"
+            timestampString = "571585370.714852"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/Managing/HTMLParser.swift"
-            timestampString = "571075975.069049"
+            timestampString = "571585370.7153029"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "153"
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/Managing/CoreManager.swift"
-            timestampString = "570043959.773429"
+            timestampString = "571500476.317452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "setVerses(from:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/Managing/CoreManager.swift"
-            timestampString = "570043959.773494"
+            timestampString = "571500476.317502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "67"
@@ -144,22 +144,6 @@
             startingLineNumber = "74"
             endingLineNumber = "74"
             landmarkName = "dealWithClientAccordingTo(status:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "macB/VC/MainViewController.swift"
-            timestampString = "571142098.015723"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "doSearch(with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -173,7 +173,8 @@ extension SyncViewController: SyncManagerDelegate {
             self?.progressBar.isHidden = false
             self?.progressBar.progress = 0.0
             self?.statuses[index] = .started
-            self?.infoTable.reloadData()
+            self?.infoTable.beginUpdates()
+            self?.infoTable.endUpdates()
         }
     }
     
@@ -187,7 +188,8 @@ extension SyncViewController: SyncManagerDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.progressBar.progress = 1.0
             self?.statuses[index] = status ? .success : .failure
-            self?.infoTable.reloadData()
+            self?.infoTable.beginUpdates()
+            self?.infoTable.endUpdates()
             Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (t) in
                 self?.progressBar.isHidden = true
                 t.invalidate()
@@ -221,6 +223,7 @@ extension SyncViewController: SyncManagerDelegate {
         if let dict = manager?.sharedObjects {
             sharedKeys = []
             sharedValues = []
+            statuses = []
             for (key, value) in dict {
                 sharedKeys!.append(key)
                 sharedValues!.append(value)
@@ -229,6 +232,7 @@ extension SyncViewController: SyncManagerDelegate {
         } else {
             sharedValues = nil
             sharedKeys = nil
+            statuses = []
         }
         DispatchQueue.main.async {
             self.infoTable.reloadData()

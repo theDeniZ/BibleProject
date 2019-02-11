@@ -103,12 +103,15 @@ class CoreManager: NSObject {
 // MARK: - Managing multiple modules
 
 extension CoreManager {
-    func getAllDownloadedModulesKey(_ local: Bool = false) -> [String] {
-        return getAllDownloadedModules(local).map { $0.key ?? "" }
+    func getAllDownloadedModulesKey(_ local: Bool? = nil) -> [String] {
+        return getAllDownloadedModules().map { $0.key ?? "" }
     }
     
-    func getAllDownloadedModules(_ local: Bool = false) -> [Module] {
-        return (try? Module.getAll(from: context, local: local)) ?? []
+    func getAllDownloadedModules(_ local: Bool? = nil) -> [Module] {
+        if let local = local {
+            return (try? Module.getAll(from: context, local: local)) ?? []
+        }
+        return (try? Module.getAll(from: context)) ?? []
     }
     
     func getAllAvailableModules() -> [Module] {

@@ -14,7 +14,7 @@ class VerseManager: Manager {
     var fontSize: CGFloat = AppDelegate.plistManager.getFontSize()
     
     private var currentTestament: String {
-        return bookNumber <= 39 ? StrongIdentifier.oldTestament : StrongIdentifier.newTestament
+        return bookNumber <= 39 ? StrongId.oldTestament : StrongId.newTestament
     }
     
     private var defaultModule: Module? {

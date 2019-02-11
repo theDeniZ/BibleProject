@@ -26,6 +26,11 @@ class ServiceTableViewCell: UITableViewCell {
         updateUI()
     }
     
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        updateUI()
+    }
+    
     private func updateUI() {
         nameLabel?.text = name
         switcher?.isOn = select
@@ -57,6 +62,5 @@ class ServiceTableViewCell: UITableViewCell {
     @IBAction func switched(_ sender: UISwitch) {
         delegate?.sharingTableCellWasSelected(sender.isOn, at: index)
     }
-    
 
 }

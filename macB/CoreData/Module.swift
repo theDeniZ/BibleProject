@@ -20,7 +20,7 @@ class Module: NSManagedObject {
     
     class func getAll(from context: NSManagedObjectContext, local: Bool) throws -> [Module] {
         let request: NSFetchRequest<Module> = Module.fetchRequest()
-        request.predicate = NSPredicate(format: "local = %@", argumentArray: [true])
+        request.predicate = NSPredicate(format: "local = %@", argumentArray: [local])
         return try context.fetch(request)
     }
     

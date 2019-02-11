@@ -68,7 +68,7 @@ class Strong: NSManagedObject {
     
     static func printStats() {
         let context = AppDelegate.context
-        if let 🧩 = try? Strong.get(by: StrongIdentifier.oldTestament, from: context) {
+        if let 🧩 = try? Strong.get(by: StrongId.oldTestament, from: context) {
             print("Hebrews:\n\(🧩.count) total")
             if 🧩.count > 0, 🧩.count != 🧩[🧩.count - 1].number {
                 print("Missing something..")
@@ -84,7 +84,7 @@ class Strong: NSManagedObject {
                 print("Nothing is missing")
             }
         }
-        if let 🧩 = try? Strong.get(by: StrongIdentifier.newTestament, from: context) {
+        if let 🧩 = try? Strong.get(by: StrongId.newTestament, from: context) {
             print("Greek:\n\(🧩.count) total")
             if 🧩.count > 0, Int(🧩[🧩.count - 1].number) - 🧩.count != 101 {
                 print("Missing something..")

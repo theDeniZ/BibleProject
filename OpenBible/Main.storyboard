@@ -71,7 +71,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pCE-Td-u8q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="-27"/>
+            <point key="canvasLocation" x="-46" y="-27"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="3dg-YH-dLC">
@@ -105,7 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egq-Zv-QK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-8.8000000000000007" y="-27.339901477832512"/>
+            <point key="canvasLocation" x="-951" y="-27"/>
         </scene>
         <!--Download-->
         <scene sceneID="LfN-uT-Ocv">
@@ -217,68 +217,6 @@
             </objects>
             <point key="canvasLocation" x="-951" y="744"/>
         </scene>
-        <!--Center View Controller-->
-        <scene sceneID="21z-9C-VlR">
-            <objects>
-                <viewController storyboardIdentifier="CenterViewController old" title="Center View Controller" id="JnF-gd-Bwh" customClass="CenterVersesViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YML-uV-Exn"/>
-                        <viewControllerLayoutGuide type="bottom" id="snW-Nn-kps"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="PeR-QO-5oU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ox3-Gi-gnJ">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
-                            </scrollView>
-                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="rev7:15" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sn1-2d-jgR" customClass="SearchTextField" customModule="OpenBible" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="375" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="searchDidEnd:" destination="JnF-gd-Bwh" eventType="editingDidEnd" id="OXd-xp-yZ0"/>
-                                </connections>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Ox3-Gi-gnJ" firstAttribute="bottom" secondItem="qdl-D1-zBv" secondAttribute="bottom" id="FKL-JT-fYZ"/>
-                            <constraint firstItem="Ox3-Gi-gnJ" firstAttribute="top" secondItem="qdl-D1-zBv" secondAttribute="top" id="JeI-1h-eBG"/>
-                            <constraint firstItem="qdl-D1-zBv" firstAttribute="top" secondItem="Sn1-2d-jgR" secondAttribute="top" id="QVx-Bv-7Kw"/>
-                            <constraint firstItem="qdl-D1-zBv" firstAttribute="trailing" secondItem="Sn1-2d-jgR" secondAttribute="trailing" id="SCx-XP-J9K"/>
-                            <constraint firstItem="qdl-D1-zBv" firstAttribute="trailing" secondItem="Ox3-Gi-gnJ" secondAttribute="trailing" id="cb4-aI-3ta"/>
-                            <constraint firstItem="Sn1-2d-jgR" firstAttribute="leading" secondItem="qdl-D1-zBv" secondAttribute="leading" id="jVk-m2-JnQ"/>
-                            <constraint firstItem="Ox3-Gi-gnJ" firstAttribute="leading" secondItem="qdl-D1-zBv" secondAttribute="leading" id="rtt-yC-vgM"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="qdl-D1-zBv"/>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Center" id="3VO-XY-H6e">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" image="menu" id="mwn-83-W29">
-                            <connections>
-                                <action selector="menuAction:" destination="JnF-gd-Bwh" id="D3W-bn-0tY"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="search" image="search" id="V1B-ej-jim">
-                            <connections>
-                                <action selector="searchAction:" destination="JnF-gd-Bwh" id="1rU-BF-1Lg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="scrollView" destination="Ox3-Gi-gnJ" id="Vgw-Ws-eFr"/>
-                        <outlet property="search" destination="Sn1-2d-jgR" id="oOM-fO-bCA"/>
-                        <outlet property="topScrollConstraint" destination="JeI-1h-eBG" id="Bjj-18-aic"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cbZ-Ge-ybu" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1999" y="324"/>
-        </scene>
         <!--Strong View Controller-->
         <scene sceneID="HPY-ca-juT">
             <objects>
@@ -334,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="339-gA-ulV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="927" y="743"/>
+            <point key="canvasLocation" x="863" y="-27"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="W02-eU-bMz">
@@ -416,7 +354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uzy-Wi-whL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1056.8" y="-1297.536945812808"/>
+            <point key="canvasLocation" x="-47" y="-733"/>
         </scene>
         <!--Modal View Controller-->
         <scene sceneID="XPh-nK-CP6">
@@ -488,7 +426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WbE-Vh-Rxa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1999.2" y="-553.44827586206895"/>
+            <point key="canvasLocation" x="-47" y="-1388"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="O8h-TT-Kld">
@@ -624,7 +562,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLR-jZ-0XP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="900" y="-763.30049261083752"/>
+            <point key="canvasLocation" x="-951" y="-896"/>
         </scene>
         <!--Sync View Controller-->
         <scene sceneID="Ye2-QK-eQR">
@@ -761,14 +699,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hd-YE-4vT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-44" y="743.7192118226601"/>
+            <point key="canvasLocation" x="-47" y="744"/>
         </scene>
     </scenes>
     <resources>
         <image name="book" width="75" height="75"/>
         <image name="done" width="75" height="75"/>
         <image name="load" width="75" height="75"/>
-        <image name="menu" width="75" height="75"/>
-        <image name="search" width="75" height="75"/>
     </resources>
 </document>

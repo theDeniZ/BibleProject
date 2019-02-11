@@ -10,10 +10,15 @@ import UIKit
 
 class SplitTextViewController: UIViewController {
 
+    var verseManager = VerseManager()
+    var delegate: CenterViewControllerDelegate?
+    var overlapped: Bool = false
+    
+    // MARK: Private implementation
+    
     @IBOutlet weak var leftTextView: UITextView!
     @IBOutlet weak var rightTextView: UITextView!
     @IBOutlet weak var searchTextField: UITextField!
-    
     
     private var leftTextStorage: NSTextStorage?
     private var rightTextStorage: NSTextStorage?
@@ -22,9 +27,7 @@ class SplitTextViewController: UIViewController {
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
     
-    var verseManager = VerseManager()
-    var delegate: CenterViewControllerDelegate?
-    var overlapped: Bool = false
+    // MARK: - Actions
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,18 +37,18 @@ class SplitTextViewController: UIViewController {
         rightTextView.delegate = self
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "menu"),
-            style: .plain,
-            target: self,
-            action: #selector(toggleMenu)
+            image: UIImage(named: "menu"), style: .plain,
+            target: self, action: #selector(toggleMenu)
         )
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "search"),
-            style: .plain,
-            target: self,
-            action: #selector(toggleSearch)
+            image: UIImage(named: "search"), style: .plain,
+            target: self, action: #selector(toggleSearch)
         )
         
+        addGestures()
+    }
+    
+    private func addGestures() {
         let left = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft))
         let right = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight))
         left.direction = .left
@@ -68,13 +71,15 @@ class SplitTextViewController: UIViewController {
     func loadTextViews() {
         navigationItem.title = "\(verseManager.get1BookName()) \(verseManager.chapterNumber)"
         let verses = verseManager.getVerses()
-        let attributedString = verses.0.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
+        let attributedString = verses.0.reduce(NSMutableAttributedString()) {
+            (r, each) -> NSMutableAttributedString in
             r.append(each)
             return r
         }
         leftTextView.attributedText = attributedString
         if let second = verses.1 {
-            let attributedString = second.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
+            let attributedString = second.reduce(NSMutableAttributedString()) {
+                (r, each) -> NSMutableAttributedString in
                 r.append(each)
                 return r
             }
@@ -109,7 +114,10 @@ class SplitTextViewController: UIViewController {
         }
     }
     
-    private func doSearch(text: String) {
+    // MARK: Search
+    
+    private func doSearch(text arrived: String) {
+        let text = arrived.replacingOccurrences(of: " ", with: "")
         if text.matches(String.regexForChapter) {
             let m = text.capturedGroups(withRegex: String.regexForChapter)!
             verseManager.setChapter(number: Int(m[0])!)
@@ -120,14 +128,14 @@ class SplitTextViewController: UIViewController {
                 let n = Int(match[1]) {
                 verseManager.setChapter(number: n)
                 if match.count > 2,
-                    let verseMatch = text.replacingOccurrences(of: " ", with: "").matches(withRegex: String.regexForVerses),
+                    let verseMatch = text.matches(withRegex: String.regexForVerses),
                     verseMatch[0][0] == match[1] {
                     let v = verseMatch[1...]
                     verseManager.setVerses(from: v.map {$0[0]})
                 }
             }
         } else if text.matches(String.regexForVerses) {
-            let verseMatch = text.replacingOccurrences(of: " ", with: "").matches(withRegex: String.regexForVerses)!
+            let verseMatch = text.matches(withRegex: String.regexForVerses)!
             verseManager.setChapter(number: Int(verseMatch[0][0])!)
             let v = verseMatch[1...]
             if v.count > 0 {
@@ -137,6 +145,8 @@ class SplitTextViewController: UIViewController {
         loadTextViews()
     }
 }
+
+// MARK: - UITextViewDelegate
 
 extension SplitTextViewController: UITextViewDelegate {
     
@@ -170,6 +180,8 @@ extension SplitTextViewController: UITextViewDelegate {
     }
 }
 
+// MARK: URLDelegate
+
 extension SplitTextViewController: URLDelegate {
     func openedURL(with parameters: [String]) {
         if overlapped {
@@ -178,7 +190,9 @@ extension SplitTextViewController: URLDelegate {
         if parameters.count > 1 {
             switch parameters[0] {
             case "Hebrew", "Greek":
-                let vc = UIStoryboard.main().instantiateViewController(withIdentifier: "StrongVC") as! StrongViewController
+                let vc = UIStoryboard.main()
+                    .instantiateViewController(withIdentifier: "StrongVC")
+                    as! StrongViewController
                 vc.identifier = parameters[0]
                 vc.numbers = parameters[1].split(separator: "+").map {Int(String($0))!}
                 if let nav = navigationController {
@@ -196,6 +210,8 @@ extension SplitTextViewController: URLDelegate {
     }
 }
 
+// MARK: SidePanelViewControllerDelegate
+
 extension SplitTextViewController: SidePanelViewControllerDelegate {
     func didSelect(chapter: Int, in book: Int) {
         delegate?.collapseSidePanels?()
@@ -207,6 +223,8 @@ extension SplitTextViewController: SidePanelViewControllerDelegate {
         loadTextViews()
     }
 }
+
+// MARK: GestureRecognizers
 
 extension SplitTextViewController {
     @objc private func swipeLeft() {

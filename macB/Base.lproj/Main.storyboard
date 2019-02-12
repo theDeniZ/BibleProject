@@ -668,7 +668,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="1000" height="700"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <toolbar key="toolbar" implicitIdentifier="5BAC2CAE-BCAD-4762-A475-203F0A1D270E" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="small" id="4wv-ye-7ds">
+                        <toolbar key="toolbar" implicitIdentifier="5BAC2CAE-BCAD-4762-A475-203F0A1D270E" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="4wv-ye-7ds">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="aOg-QB-ZzV"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="3sq-9V-2fD"/>
@@ -681,16 +681,8 @@
                                         <segue destination="PaE-mn-mlk" kind="show" id="Bup-qs-osD"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="0B6BDE67-3690-4563-908E-9EA4357E9EAA" label="Menu" paletteLabel="Menu" tag="-1" image="menu" id="shN-Iy-DOL">
-                                    <size key="minSize" width="329" height="241"/>
-                                    <size key="maxSize" width="329" height="241"/>
-                                    <connections>
-                                        <action selector="leftMenuAction:" target="B8D-0N-5wS" id="dbn-kn-krB"/>
-                                    </connections>
-                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
-                                <toolbarItem reference="shN-Iy-DOL"/>
                                 <toolbarItem reference="ZL3-IJ-HSq"/>
                                 <toolbarItem reference="wDG-wS-X4R"/>
                             </defaultToolbarItems>
@@ -700,7 +692,7 @@
                         </connections>
                     </window>
                     <connections>
-                        <outlet property="menuItem" destination="shN-Iy-DOL" id="PCU-ab-956"/>
+                        <outlet property="toolbar" destination="4wv-ye-7ds" id="tqA-Qb-gje"/>
                         <segue destination="wZC-Dq-PNu" kind="relationship" relationship="window.shadowedContentViewController" id="00I-V0-vJh"/>
                     </connections>
                 </windowController>
@@ -1783,6 +1775,5 @@
     <resources>
         <image name="download" width="64" height="64"/>
         <image name="list" width="50" height="50"/>
-        <image name="menu" width="50" height="50"/>
     </resources>
 </document>

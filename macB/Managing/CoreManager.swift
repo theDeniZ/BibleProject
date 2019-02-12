@@ -71,7 +71,7 @@ class CoreManager: NSObject {
                                             let attributedVerse = verse.attributedCompound(size: fontSize)
                                             //check for strong's numbers
                                             if attributedVerse.strongNumbersAvailable {
-                                                result.append(attributedVerse.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize, linking: strongsNumbersIsOn))
+                                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn))
                                             } else {
                                                 result.append(attributedVerse)
                                             }
@@ -80,7 +80,7 @@ class CoreManager: NSObject {
                                     return result
                                 } else {
                                     if verses[0].attributedCompound.strongNumbersAvailable {
-                                        return verses.map {$0.attributedCompound.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize, linking: strongsNumbersIsOn)}
+                                        return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn)}
                                     }
                                     return verses.map {$0.attributedCompound(size: fontSize)}
                                 }

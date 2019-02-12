@@ -236,8 +236,10 @@ extension NSAttributedString: StrongsLinkEmbeddable {
                     s.addAttributes(c, range: NSRange(0..<s.length))
                 }
                 if linking, numbers.count > 0 {
-                    let url = link + numbers.map({String($0)}).joined(separator: "+")
-                    s.addAttribute(NSAttributedString.Key.link, value: url, range: NSRange(0..<s.length - 1))
+                    let ns = numbers.map({String($0)}).joined(separator: "+")
+                    let url = AppDelegate.URLServerRoot + link + "/" + ns
+                    s.addAttribute(.link, value: url, range: NSRange(0..<s.length - 1))
+                    s.addAttribute(.toolTip, value: StrongManager.getTooltip(from: ns, type: link), range: NSRange(0..<s.length - 1))
 //                    s.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single, range: NSRange(0..<s.length - 1))
                 }
                 s.addAttributes([.font: NSFont.systemFont(ofSize: size)], range: NSRange(0..<s.length))

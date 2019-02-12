@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SpiritViewController: NSViewController {
+class SpiritViewController: NSSplitViewController {
 
     var manager: SpiritManager = SpiritManager()
     var index = 0
@@ -33,6 +33,10 @@ class SpiritViewController: NSViewController {
             manager.clearSearch()
             isInSearch = false
         }
+    }
+    
+    override func toggleSidebar(_ sender: Any?) {
+        toggleMenu()
     }
     
     func toggleMenu() -> Bool {
@@ -121,3 +125,4 @@ extension SpiritViewController: ModelUpdateDelegate {
         }
     }
 }
+

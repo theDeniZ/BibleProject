@@ -69,6 +69,7 @@
 		221E385B220AF3E7003D8E40 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240220421EB479900DC8E2F /* Types.swift */; };
 		221E385D220AF674003D8E40 /* SplitTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E385C220AF674003D8E40 /* SplitTextViewController.swift */; };
 		221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */; };
+		222222A32213108700AFDE40 /* StrongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222222A22213108700AFDE40 /* StrongManager.swift */; };
 		22234EB921D1388C00BC595D /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EB821D1388C00BC595D /* FileManagerViewController.swift */; };
 		22234EBD21D13B6400BC595D /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBC21D13B6400BC595D /* TabViewController.swift */; };
 		22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBE21D13FB500BC595D /* DropImageView.swift */; };
@@ -164,6 +165,7 @@
 		221E3859220AEC64003D8E40 /* Verse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
 		221E385C220AF674003D8E40 /* SplitTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTextViewController.swift; sourceTree = "<group>"; };
 		221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongDetailViewController.swift; sourceTree = "<group>"; };
+		222222A22213108700AFDE40 /* StrongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongManager.swift; sourceTree = "<group>"; };
 		22234EB821D1388C00BC595D /* FileManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
 		22234EBC21D13B6400BC595D /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		22234EBE21D13FB500BC595D /* DropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropImageView.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				22B9F1ED21DD219A00E6E62C /* plistHandler.swift */,
 				2240220221EB457300DC8E2F /* SharingManager.swift */,
 				22061ECC21F4829C00F00B04 /* ListManager.swift */,
+				222222A22213108700AFDE40 /* StrongManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
 				2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */,
 				22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */,
+				222222A32213108700AFDE40 /* StrongManager.swift in Sources */,
 				221A619521F650820003CCC0 /* SpiritManager.swift in Sources */,
 				22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */,
 				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,

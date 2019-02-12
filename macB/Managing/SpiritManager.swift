@@ -119,7 +119,7 @@ class SpiritManager: NSObject {
                         let paragraphs = text.split(separator: "\n")
                         for i in 0..<paragraphs.count {
                             let str = NSMutableAttributedString(string: String(paragraphs[i]), attributes: font)
-                            str.append(NSAttributedString(string: "  [\(currentIndex.book) \(numberStr).\(i+1)] \n\n", attributes: smallFont))
+                            str.append(NSAttributedString(string: "  \(currentIndex.book) \(numberStr).\(i+1) \n\n", attributes: smallFont))
                             result.append(str)
                         }
                     }

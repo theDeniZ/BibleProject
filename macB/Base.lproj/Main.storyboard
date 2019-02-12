@@ -713,17 +713,17 @@
             <objects>
                 <viewController title="Bible" storyboardIdentifier="Bible VC" id="Qa6-0m-U4W" customClass="MainViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="wvt-IZ-cas">
-                        <rect key="frame" x="0.0" y="0.0" width="1156" height="761"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1196" height="761"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JN2-M8-vQv">
-                                <rect key="frame" x="0.0" y="0.0" width="1156" height="761"/>
+                                <rect key="frame" x="20" y="0.0" width="1156" height="751"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="750" verticalHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qKh-Mp-kCb">
-                                        <rect key="frame" x="0.0" y="679" width="1156" height="82"/>
+                                        <rect key="frame" x="0.0" y="679" width="1156" height="72"/>
                                         <subviews>
                                             <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVd-w4-wuV">
-                                                <rect key="frame" x="0.0" y="30" width="1099" height="22"/>
+                                                <rect key="frame" x="0.0" y="25" width="1099" height="22"/>
                                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" bezelStyle="round" sendsWholeSearchString="YES" id="7YC-FY-Y4s">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -734,7 +734,7 @@
                                                 </connections>
                                             </searchField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GzA-ve-QSO">
-                                                <rect key="frame" x="1113" y="24" width="49" height="32"/>
+                                                <rect key="frame" x="1113" y="19" width="49" height="32"/>
                                                 <buttonCell key="cell" type="push" title="+" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pYR-7J-o5R">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -772,10 +772,10 @@
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="JN2-M8-vQv" firstAttribute="top" secondItem="wvt-IZ-cas" secondAttribute="top" id="9e8-0a-a75"/>
-                            <constraint firstItem="JN2-M8-vQv" firstAttribute="leading" secondItem="wvt-IZ-cas" secondAttribute="leading" id="UlS-l0-3gR"/>
+                            <constraint firstItem="JN2-M8-vQv" firstAttribute="top" secondItem="wvt-IZ-cas" secondAttribute="top" constant="10" id="9e8-0a-a75"/>
+                            <constraint firstItem="JN2-M8-vQv" firstAttribute="leading" secondItem="wvt-IZ-cas" secondAttribute="leading" constant="20" id="UlS-l0-3gR"/>
                             <constraint firstAttribute="bottom" secondItem="JN2-M8-vQv" secondAttribute="bottom" id="XQb-lE-Bxf"/>
-                            <constraint firstAttribute="trailing" secondItem="JN2-M8-vQv" secondAttribute="trailing" id="trZ-Ks-TH5"/>
+                            <constraint firstAttribute="trailing" secondItem="JN2-M8-vQv" secondAttribute="trailing" constant="20" id="trZ-Ks-TH5"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1693,15 +1693,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1000" height="719"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="15" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YPL-2I-4rc">
-                                        <rect key="frame" x="423" y="687" width="154" height="32"/>
+                                        <rect key="frame" x="420" y="687" width="161" height="32"/>
                                         <subviews>
                                             <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AF2-qS-jMu">
-                                                <rect key="frame" x="0.0" y="6" width="102" height="19"/>
+                                                <rect key="frame" x="0.0" y="4" width="103" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="mge-vY-bmf"/>
                                                 </constraints>
-                                                <comboBoxCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" buttonBordered="NO" numberOfVisibleItems="25" id="cwr-lJ-Dzt">
-                                                    <font key="font" metaFont="miniSystem"/>
+                                                <comboBoxCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" numberOfVisibleItems="25" id="cwr-lJ-Dzt">
+                                                    <font key="font" metaFont="smallSystem"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </comboBoxCell>
@@ -1710,10 +1710,10 @@
                                                 </connections>
                                             </comboBox>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ovV-12-Nma">
-                                                <rect key="frame" x="115" y="8" width="39" height="15"/>
-                                                <buttonCell key="cell" type="roundRect" title="Close" bezelStyle="roundedRect" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6x-cR-WnL">
+                                                <rect key="frame" x="110" y="1" width="56" height="27"/>
+                                                <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6x-cR-WnL">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="miniSystem"/>
+                                                    <font key="font" metaFont="smallSystem"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="closeAction:" target="tca-dp-LBm" id="dAr-Th-3yF"/>

@@ -30,8 +30,9 @@ class MainViewController: NSViewController {
         manager.addDelegate(self)
         print(plistManager.getAllModuleKeys())
         AppDelegate.setDelegate(aDelegate: self)
+//        textField.bounds.size.width /= 2
+//        textField.setFrameSize(NSSize(width: view.bounds.width / 2, height: textField.bounds.height))
     }
-    
     
     @IBAction func textFieldDidEnter(_ sender: NSSearchField) {
         doSearch(with: sender.stringValue)

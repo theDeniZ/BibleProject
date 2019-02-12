@@ -671,7 +671,7 @@
                         <toolbar key="toolbar" implicitIdentifier="5BAC2CAE-BCAD-4762-A475-203F0A1D270E" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="4wv-ye-7ds">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="aOg-QB-ZzV"/>
-                                <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="3sq-9V-2fD"/>
+                                <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" explicitItemIdentifier="NSToolbarPrintItemm" id="3sq-9V-2fD"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="dTD-jq-s2e"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="ZL3-IJ-HSq"/>
                                 <toolbarItem implicitItemIdentifier="D7DB9F8F-5122-4F1C-947D-7F102C378509" label="List" paletteLabel="List" tag="-1" image="list" id="wDG-wS-X4R">

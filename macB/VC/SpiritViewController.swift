@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class SpiritViewController: NSSplitViewController {
+class SpiritViewController: NSViewController {
 
     var manager: SpiritManager = SpiritManager()
     var index = 0
@@ -25,6 +25,8 @@ class SpiritViewController: NSSplitViewController {
     private var types: [ListType] = [.spirit]
     private var isInSearch: Bool = false
     
+    override var acceptsFirstResponder: Bool {return true}
+    
     @IBAction private func didSearch(_ sender: NSSearchField) {
         if sender.stringValue.count > 0 {
             isInSearch = true
@@ -35,9 +37,9 @@ class SpiritViewController: NSSplitViewController {
         }
     }
     
-    override func toggleSidebar(_ sender: Any?) {
-        toggleMenu()
-    }
+//    @IBAction open func toggleSidebar(_ sender: Any?) {
+//        toggleMenu()
+//    }
     
     func toggleMenu() -> Bool {
         menuIsOn = !menuIsOn
@@ -71,15 +73,28 @@ class SpiritViewController: NSSplitViewController {
         }
     }
     
+    
     override func viewWillAppear() {
         super.viewWillAppear()
         if menuIsOn {
             containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
             containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
         }
+        if let w = NSApp.windows.first {
+            w.toolbar?.insertItem(withItemIdentifier: .toggleSidebar, at: 0)
+        }
 //        if let mainWindow = view.window?.windowController as? MainWindowController {
 //            mainWindow.setMenuImage(selected: menuIsOn)
 //        }
+    }
+    
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        if let w = NSApp.windows.first {
+            if w.toolbar?.items[0].itemIdentifier == .toggleSidebar {
+                w.toolbar?.removeItem(at: 0)
+            }
+        }
     }
     
     

@@ -392,14 +392,14 @@
             <objects>
                 <viewController title="Spirit of Prophecy" id="vUf-cG-xbd" customClass="SpiritViewController" customModule="macB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="fGJ-hY-iYm">
-                        <rect key="frame" x="0.0" y="0.0" width="1334" height="700"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1334" height="710"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oc1-O6-cbp">
-                                <rect key="frame" x="0.0" y="0.0" width="1334" height="700"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1334" height="710"/>
                                 <subviews>
                                     <customView id="kKe-py-zUy">
-                                        <rect key="frame" x="0.0" y="0.0" width="1334" height="700"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1334" height="710"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
                                             <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ukT-ew-PSw">
@@ -454,7 +454,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="ukT-ew-PSw" firstAttribute="leading" secondItem="kKe-py-zUy" secondAttribute="leading" id="83u-ff-sF0"/>
-                                            <constraint firstItem="ukT-ew-PSw" firstAttribute="top" secondItem="kKe-py-zUy" secondAttribute="top" id="SZQ-vV-A0f"/>
+                                            <constraint firstItem="ukT-ew-PSw" firstAttribute="top" secondItem="kKe-py-zUy" secondAttribute="top" constant="10" id="SZQ-vV-A0f"/>
                                             <constraint firstAttribute="bottom" secondItem="ukT-ew-PSw" secondAttribute="bottom" id="nq4-DR-AHL"/>
                                             <constraint firstAttribute="trailing" secondItem="ukT-ew-PSw" secondAttribute="trailing" id="rNL-xM-DyX"/>
                                         </constraints>

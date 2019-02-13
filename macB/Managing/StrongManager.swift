@@ -14,7 +14,7 @@ class StrongManager: NSObject {
         let context = AppDelegate.context
         var result = ""
         for n in sp {
-            if let s = try? Strong.get(Int(String(n))!, by: type, from: context), let number = s {
+            if let number = Strong.get(Int(String(n))!, by: type, from: context) {
                 if number.original != nil {result += number.original! + "\n"}
                 if number.meaning != nil {result += number.meaning! + "\n"}
             }

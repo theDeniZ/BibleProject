@@ -31,6 +31,7 @@ class PlistManager {
     private var spiritKey = "spirit"
     private let menuKey = "menuIsOn"
     private let fontKey = "font"
+    private let fontBoldKey = "fontBold"
 
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -151,5 +152,15 @@ class PlistManager {
     
     func setFont(named: String) {
         plistHandler.setValue(named, of: fontKey)
+    }
+    
+    func getFontBold() -> String? {
+        var s = ""
+        plistHandler.get(to: &s, of: fontBoldKey)
+        return s.count > 0 ? s : nil
+    }
+    
+    func setFontBold(named: String) {
+        plistHandler.setValue(named, of: fontBoldKey)
     }
 }

@@ -10,6 +10,8 @@
 	<string>15.0</string>
 	<key>font</key>
 	<string>TimesNewRomanPS</string>
+	<key>fontBold</key>
+	<string></string>
 	<key>chapter</key>
 	<string>1</string>
 	<key>book</key>

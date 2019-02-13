@@ -83,6 +83,7 @@
 		2240CDA7221425F300942F84 /* OutlineCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240CDA6221425F300942F84 /* OutlineCellView.swift */; };
 		2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239321E8BB0B00AB71F9 /* SharingVC.swift */; };
 		2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239521E8C0F600AB71F9 /* SharingTCV.swift */; };
+		227DD8A42214A27000BF4327 /* Judges-str.htm in Resources */ = {isa = PBXBuildFile; fileRef = 227DD8A32214A27000BF4327 /* Judges-str.htm */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
 		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
 		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
@@ -183,6 +184,7 @@
 		2240CDA6221425F300942F84 /* OutlineCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineCellView.swift; sourceTree = "<group>"; };
 		2274239321E8BB0B00AB71F9 /* SharingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingVC.swift; sourceTree = "<group>"; };
 		2274239521E8C0F600AB71F9 /* SharingTCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTCV.swift; sourceTree = "<group>"; };
+		227DD8A32214A27000BF4327 /* Judges-str.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "Judges-str.htm"; path = "../../../Data/Modules_chosen/Bible_English_KJV_Strong/Judges-str.htm"; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
 		22B9F1EE21DD219A00E6E62C /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 				22061ECA21F4821100F00B04 /* ListViewController.swift */,
 				221A619221F64AE80003CCC0 /* SpiritViewController.swift */,
 				2235F68822142D3100E46411 /* OutlineViewController.swift */,
+				227DD8A32214A27000BF4327 /* Judges-str.htm */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 			files = (
 				223DE52C2213610C0040F120 /* macB.sqlite in Resources */,
 				22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */,
+				227DD8A42214A27000BF4327 /* Judges-str.htm in Resources */,
 				22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */,
 				22BD922521CBDEDD00019853 /* Main.storyboard in Resources */,
 			);

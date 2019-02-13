@@ -93,11 +93,10 @@ class SpiritManager: NSObject {
             var normalFont: NSFont = NSFont.systemFont(ofSize: fontSize)
             var boldFont: NSFont = NSFont.boldSystemFont(ofSize: fontSize)
             var smallFontValue: NSFont = NSFont.systemFont(ofSize: fontSize * 0.6)
-            plistManager.setFont(named: "TimesNewRomanPS")
             if let namedFont = plistManager.getFont() {
-                normalFont = NSFont(name: namedFont + "MT", size: fontSize)!
-                boldFont = NSFont(name: namedFont + "-BoldMT", size: fontSize)!
-                smallFontValue = NSFont(name: namedFont + "MT", size: fontSize * 0.6)!
+                normalFont = NSFont(name: namedFont, size: fontSize)!
+                boldFont = NSFont(name: namedFont, size: fontSize)!
+                smallFontValue = NSFont(name: namedFont, size: fontSize * 0.6)!
             }
             
             let font: [NSAttributedString.Key:Any] = [

@@ -30,7 +30,7 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
                                             <connections>
-                                                <segue destination="Iax-tL-AU6" kind="modal" id="1gR-5u-Pmv"/>
+                                                <segue destination="Iax-tL-AU6" kind="show" id="1gR-5u-Pmv"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
@@ -992,20 +992,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xEA-su-WC2">
-                                <rect key="frame" x="42" y="213" width="145" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Strong's Numbers" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="93M-hB-w5Z">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="strongsCheck:" target="Iax-tL-AU6" id="Jjg-ec-G6F"/>
-                                </connections>
-                            </button>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37i-PL-2NW">
+                                <rect key="frame" x="20" y="226" width="440" height="54"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xEA-su-WC2">
+                                        <rect key="frame" x="-2" y="38" width="132" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Strong's Numbers" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="93M-hB-w5Z">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="strongsCheck:" target="Iax-tL-AU6" id="Jjg-ec-G6F"/>
+                                        </connections>
+                                    </button>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="30" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="249" verticalHuggingPriority="249" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AEQ-vn-K07">
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="20"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3hh-kP-He4">
+                                                <rect key="frame" x="-2" y="3" width="32" height="17"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Font" id="QlD-RE-OYL">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jbc-4O-Tmn">
+                                                <rect key="frame" x="58" y="-4" width="385" height="26"/>
+                                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="ZGq-p8-f0n">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </comboBoxCell>
+                                                <connections>
+                                                    <action selector="chosedFont:" target="Iax-tL-AU6" id="PNp-JK-PYA"/>
+                                                </connections>
+                                            </comboBox>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="AEQ-vn-K07" firstAttribute="width" secondItem="37i-PL-2NW" secondAttribute="width" id="vrp-ha-vBr"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="37i-PL-2NW" firstAttribute="top" secondItem="k5r-mM-nHD" secondAttribute="top" constant="20" symbolic="YES" id="3NK-r0-WIN"/>
+                            <constraint firstAttribute="trailing" secondItem="37i-PL-2NW" secondAttribute="trailing" constant="20" id="HkG-bw-UZG"/>
+                            <constraint firstItem="37i-PL-2NW" firstAttribute="leading" secondItem="k5r-mM-nHD" secondAttribute="leading" constant="20" symbolic="YES" id="na2-ka-d0g"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="fontCombo" destination="jbc-4O-Tmn" id="G0f-gN-mb8"/>
                         <outlet property="strongsSwitch" destination="xEA-su-WC2" id="JXc-FR-1xw"/>
                     </connections>
                 </viewController>

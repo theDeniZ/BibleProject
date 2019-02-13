@@ -100,7 +100,9 @@ class SpiritViewController: NSViewController {
                 containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
             }
         } else {
-            containerMenuView.removeArrangedSubview(listVC!.view)
+            if let list = listVC {
+                containerMenuView.removeArrangedSubview(list.view)
+            }
         }
 //        arrangeAllViews()
     }

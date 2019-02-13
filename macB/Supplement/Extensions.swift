@@ -210,8 +210,8 @@ extension NSAttributedString: StrongsLinkEmbeddable {
         var normalFont = NSFont.systemFont(ofSize: size)
         var smallFont = NSFont.systemFont(ofSize: size * 0.666)
         if let named = AppDelegate.plistManager.getFont() {
-            normalFont = NSFont(name: named + "MT", size: size)!
-            smallFont = NSFont(name: named + "MT", size: size * 0.6)!
+            normalFont = NSFont(name: named, size: size)!
+            smallFont = NSFont(name: named, size: size * 0.6)!
         }
         
         var colorAttribute: [NSAttributedString.Key: Any]?

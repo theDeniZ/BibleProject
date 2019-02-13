@@ -51,8 +51,8 @@ class Verse: NSManagedObject {
         var font = NSFont.systemFont(ofSize: size)
         var smallFont = NSFont.systemFont(ofSize: size * 0.6)
         if let named = AppDelegate.plistManager.getFont() {
-            font = NSFont(name: named + "MT", size: size)!
-            smallFont = NSFont(name: named + "MT", size: size * 0.6)!
+            font = NSFont(name: named, size: size)!
+            smallFont = NSFont(name: named, size: size * 0.6)!
         }
         let upperAttribute: [NSAttributedString.Key: Any] =
             [NSAttributedString.Key.baselineOffset : size * 0.3,

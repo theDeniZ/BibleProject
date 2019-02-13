@@ -90,16 +90,24 @@ class SpiritManager: NSObject {
             var result = [NSAttributedString]()
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .center
+            var normalFont: NSFont = NSFont.systemFont(ofSize: fontSize)
+            var boldFont: NSFont = NSFont.boldSystemFont(ofSize: fontSize)
+            var smallFontValue: NSFont = NSFont.systemFont(ofSize: fontSize * 0.6)
+            if let namedFont = plistManager.getFont() {
+                normalFont = NSFont(name: namedFont, size: fontSize)!
+                boldFont = NSFont(name: namedFont, size: fontSize)!
+                smallFontValue = NSFont(name: namedFont, size: fontSize * 0.6)!
+            }
             
             let font: [NSAttributedString.Key:Any] = [
-                .font : NSFont.systemFont(ofSize: fontSize)
+                .font : normalFont
             ]
             let note: [NSAttributedString.Key:Any] = [
-                .font : NSFont.boldSystemFont(ofSize: fontSize),
+                .font : boldFont,
                 .paragraphStyle: titleParagraphStyle
             ]
             let smallFont: [NSAttributedString.Key:Any] = [
-                .font : NSFont.systemFont(ofSize: fontSize * 0.6),
+                .font : smallFontValue,
                 .foregroundColor: NSColor.blue.cgColor
             ]
             
@@ -119,7 +127,7 @@ class SpiritManager: NSObject {
                         let paragraphs = text.split(separator: "\n")
                         for i in 0..<paragraphs.count {
                             let str = NSMutableAttributedString(string: String(paragraphs[i]), attributes: font)
-                            str.append(NSAttributedString(string: "  [\(currentIndex.book) \(numberStr).\(i+1)] \n\n", attributes: smallFont))
+                            str.append(NSAttributedString(string: "  \(currentIndex.book) \(numberStr).\(i+1) \n\n", attributes: smallFont))
                             result.append(str)
                         }
                     }

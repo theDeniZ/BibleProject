@@ -46,8 +46,12 @@ class CoreManager: NSObject {
         super.init()
     }
     
+    /// Subscript of manager with Int
+    ///
+    /// - Parameter n: index of needed Module to get Verses from
+    ///
+    /// - Returns: Array of verses texts ready to be shown
     subscript(n: Int) -> [NSAttributedString] {
-
         if n < activeModules.count {
             let module = activeModules[n]
             if let books = module.books?.array as? [Book] {
@@ -67,7 +71,7 @@ class CoreManager: NSObject {
                                             let attributedVerse = verse.attributedCompound(size: fontSize)
                                             //check for strong's numbers
                                             if attributedVerse.strongNumbersAvailable {
-                                                result.append(attributedVerse.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize, linking: strongsNumbersIsOn))
+                                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn))
                                             } else {
                                                 result.append(attributedVerse)
                                             }
@@ -76,7 +80,7 @@ class CoreManager: NSObject {
                                     return result
                                 } else {
                                     if verses[0].attributedCompound.strongNumbersAvailable {
-                                        return verses.map {$0.attributedCompound.embedStrongs(to: AppDelegate.URLServerRoot + currentTestament + "/", using: fontSize, linking: strongsNumbersIsOn)}
+                                        return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn)}
                                     }
                                     return verses.map {$0.attributedCompound(size: fontSize)}
                                 }
@@ -90,6 +94,8 @@ class CoreManager: NSObject {
         
     }
     
+    /// Triggers method .modelChanged() at all delegates once
+    /// after 0.1 seconds from the last call.
     func broadcastChanges() {
         timings?.invalidate()
         timings = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
@@ -97,7 +103,7 @@ class CoreManager: NSObject {
             t.invalidate()
         }
     }
-
+    
 }
 
 // MARK: - Managing multiple modules
@@ -107,6 +113,10 @@ extension CoreManager {
         return getAllDownloadedModules().map { $0.key ?? "" }
     }
     
+    /// Get all modules
+    ///
+    /// - Parameter local: if specified, return only local/non local modules
+    /// - Returns: Array of modules. May be empty.
     func getAllDownloadedModules(_ local: Bool? = nil) -> [Module] {
         if let local = local {
             return (try? Module.getAll(from: context, local: local)) ?? []
@@ -114,14 +124,26 @@ extension CoreManager {
         return (try? Module.getAll(from: context)) ?? []
     }
     
+    /// Get all modules, except that is currently in use
+    ///
+    /// - Returns: Array of modules. May be empty.
     func getAllAvailableModules() -> [Module] {
         return getAllDownloadedModules().filter {!activeModules.contains($0)}
     }
     
+    /// Get all keys from available modules
+    ///
+    /// - Returns: Array of Strings - module keys
     func getAllAvailableModulesKey() -> [String] {
         return getAllAvailableModules().map { $0.key ?? "" }
     }
     
+    /// Set a module to be used at a place
+    ///
+    /// - Parameters:
+    ///   - module: Module instance
+    ///   - place: index to place module to
+    /// - Returns: same module if success, nil otherwise
     func setActive(_ module: Module, at place: Int) -> Module? {
         if place < activeModules.count, let k = module.key {
             activeModules[place] = module
@@ -131,6 +153,12 @@ extension CoreManager {
         return nil
     }
     
+    /// Set a module to be used at a place
+    ///
+    /// - Parameters:
+    ///   - key: Key of a specific existing module
+    ///   - place: index to place module to
+    /// - Returns: placed module if success, nil otherwise
     func setActive(_ key: String, at place: Int) -> Module? {
         if let m = try? Module.get(by: key, from: context), let module = m {
             plistManager.set(module: key, at: place)
@@ -139,6 +167,9 @@ extension CoreManager {
         return nil
     }
     
+    /// Creates a place for the first available module and stores it there.
+    ///
+    /// - Returns: A pair of module and index of it in store if success, nil otherwise
     func createNewActiveModule() -> (Module, Int)? {
         let available = getAllAvailableModules()
         if available.count > 0, let key = available[0].key {
@@ -149,6 +180,9 @@ extension CoreManager {
         return nil
     }
     
+    /// Remove stored module from place
+    ///
+    /// - Parameter index: index of module to be removed
     func removeModule(at index: Int) {
         if index < activeModules.count {
             activeModules.remove(at: index)
@@ -161,6 +195,7 @@ extension CoreManager {
 
 extension CoreManager {
     
+    /// Either current book in use at first active module, or nil
     var book: Book? {
         if activeModules.count > 0,
             let f = activeModules[0].books?.array as? [Book] {
@@ -171,6 +206,7 @@ extension CoreManager {
         }
         return nil
     }
+    /// Either first active module, or nil
     var mainModule: Module? {
         if activeModules.count > 0 {
             return activeModules[0]
@@ -178,6 +214,7 @@ extension CoreManager {
         return nil
     }
     
+    /// Quick refference to current book and chapter
     override var description: String {
         if let b = book, let n = b.name {
             return "\(n) \(currentIndex.chapter)"
@@ -189,6 +226,9 @@ extension CoreManager {
 // MARK: - Verse managing
 
 extension CoreManager {
+    /// Sets ranges of desired verses from an array of String
+    ///
+    /// - Parameter strArray: Array of String. Acceptable format for each String: "[-.,]?\\d+"
     func setVerses(from strArray: [String]) {
         var verseRanges = [Range<Int>]()
         var pendingRange: Range<Int>? = nil

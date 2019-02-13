@@ -25,6 +25,8 @@ class SpiritViewController: NSViewController {
     private var types: [ListType] = [.spirit]
     private var isInSearch: Bool = false
     
+    override var acceptsFirstResponder: Bool {return true}
+    
     @IBAction private func didSearch(_ sender: NSSearchField) {
         if sender.stringValue.count > 0 {
             isInSearch = true
@@ -34,6 +36,10 @@ class SpiritViewController: NSViewController {
             isInSearch = false
         }
     }
+    
+//    @IBAction open func toggleSidebar(_ sender: Any?) {
+//        toggleMenu()
+//    }
     
     func toggleMenu() -> Bool {
         menuIsOn = !menuIsOn
@@ -53,7 +59,7 @@ class SpiritViewController: NSViewController {
         manager.delegate = self
         updateUI()
         menuIsOn = AppDelegate.plistManager.isMenuOn()
-        
+        dealWithMenu()
         listVC = NSStoryboard.main?.instantiateController(withIdentifier: "List View Controller") as? ListViewController
         if let list = listVC {
             list.typesToDisplay = types
@@ -67,16 +73,48 @@ class SpiritViewController: NSViewController {
         }
     }
     
+    
     override func viewWillAppear() {
         super.viewWillAppear()
         if menuIsOn {
             containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
             containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
         }
+        menuIsOn = AppDelegate.plistManager.isMenuOn()
+        
+        if let w = NSApp.windows.first,
+            let toolbar = w.toolbar,
+            let f = toolbar.items.first,
+            f.itemIdentifier != .toggleSidebar {
+            toolbar.insertItem(withItemIdentifier: .toggleSidebar, at: 0)
+        }
 //        if let mainWindow = view.window?.windowController as? MainWindowController {
 //            mainWindow.setMenuImage(selected: menuIsOn)
 //        }
     }
+    
+    private func dealWithMenu() {
+        if menuIsOn {
+            if let list = listVC {
+                containerMenuView.insertArrangedSubview(list.view, at: 0)
+                containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
+            }
+        } else {
+            if let list = listVC {
+                containerMenuView.removeArrangedSubview(list.view)
+            }
+        }
+//        arrangeAllViews()
+    }
+    
+//    override func viewWillDisappear() {
+//        super.viewWillDisappear()
+//        if let w = NSApp.windows.first {
+//            if w.toolbar?.items[0].itemIdentifier == .toggleSidebar {
+//                w.toolbar?.removeItem(at: 0)
+//            }
+//        }
+//    }
     
     
     private func updateUI() {
@@ -121,3 +159,4 @@ extension SpiritViewController: ModelUpdateDelegate {
         }
     }
 }
+

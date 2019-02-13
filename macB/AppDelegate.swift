@@ -34,16 +34,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return AppDelegate.shared.plistManager
     }
 
-    private lazy var manager = CoreManager(AppDelegate.context)
+    private lazy var manager: CoreManager = CoreManager(AppDelegate.context)
     private var plistManager = PlistManager()
     private var sharingManager = SharingManager() {didSet{rewriteSharingObjects()}}
+    
+    override init() {
+        if !AppDelegate.isAppAlreadyLaunchedOnce {AppDelegate.preloadDataBase()}
+        super.init()
+    }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         sharingManager.delegate = AppDelegate.shared
         rewriteSharingObjects()
         sharingManager.startEngine()
-        preloadDataBase()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -51,6 +55,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         sharingManager.delegate = nil
         sharingManager.stopEngine()
         print("terminated")
+    }
+    
+    static var isAppAlreadyLaunchedOnce: Bool {
+        let defaults = UserDefaults.standard
+        if defaults.string(forKey: "isAppAlreadyLaunchedOnce") != nil {
+            return true
+        } else {
+            defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
+            return false
+        }
     }
     
     // MARK: - Manager controls
@@ -121,15 +135,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return container
     }()
     
-    private func preloadDataBase() {
-//        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-//        let documentDirectory = paths[0] as! String
-//        let path = documentDirectory.appending("/macB.sqlite")
-//
-//
-//        let fileManager = Foundation.FileManager.init()
-//        fileManager.fileExists(atPath: ((NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true) as NSArray)[0] as! String).appending("/macB/macB.sqlite"))
+    private static func preloadDataBase() {
+        let path = ((NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true) as NSArray)[0] as! String).appending("/macB/macB.sqlite")
+        let storeURL = URL(fileURLWithPath: path)
+
+        let fileManager = Foundation.FileManager.init()
 //        print(fileManager.fileExists(atPath: path))
+
+
+        if fileManager.fileExists(atPath: storeURL.path) {
+            let storeDirectory = storeURL.deletingLastPathComponent()
+            let enumerator = fileManager.enumerator(at: storeDirectory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles, errorHandler: nil)
+            let storeName = String(storeURL.lastPathComponent.split(separator: ".")[0])
+            for u in enumerator! {
+                if let url = u as? URL {
+                    if !url.lastPathComponent.hasPrefix(storeName) {
+                        continue
+                    }
+                    try? fileManager.removeItem(at: url)
+                }
+            }
+            // handle error
+        }
+
+        let bundleDbPath = Bundle.main.path(forResource: "macB", ofType: "sqlite")
+        try? fileManager.copyItem(atPath: bundleDbPath ?? "", toPath: storeURL.path)
+//        manager.broadcastChanges()
     }
 
     // MARK: - Core Data Saving and Undo support

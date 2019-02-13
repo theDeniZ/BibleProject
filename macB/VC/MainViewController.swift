@@ -18,6 +18,8 @@ class MainViewController: NSViewController {
     @IBAction func addButton(_ sender: NSButton) {
         addVC()
     }
+    private var listVC: OutlineViewController?
+    private lazy var isMenuOn = AppDelegate.plistManager.isMenuOn()
     
     private var plistManager: PlistManager {
         return AppDelegate.plistManager
@@ -25,16 +27,49 @@ class MainViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        listVC = NSStoryboard.main?.instantiateController(withIdentifier: "Outline View Controller") as? OutlineViewController
+        if let list = listVC {
+            list.delegate = self
+        }
         loadVCs()
         updateUI()
         manager.addDelegate(self)
         print(plistManager.getAllModuleKeys())
         AppDelegate.setDelegate(aDelegate: self)
+        dealWithMenu()
     }
     
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        isMenuOn = AppDelegate.plistManager.isMenuOn()
+        dealWithMenu()
+        if let w = NSApp.windows.first,
+            let toolbar = w.toolbar,
+            let f = toolbar.items.first,
+            f.itemIdentifier != .toggleSidebar {
+            toolbar.insertItem(withItemIdentifier: .toggleSidebar, at: 0)
+        }
+    }
     
     @IBAction func textFieldDidEnter(_ sender: NSSearchField) {
         doSearch(with: sender.stringValue)
+    }
+    
+    func toggleMenu() {
+        isMenuOn = !isMenuOn
+        AppDelegate.plistManager.setMenu(isOn: isMenuOn)
+        dealWithMenu()
+    }
+    
+    private func dealWithMenu() {
+        if isMenuOn {
+            if let list = listVC {
+                splitView.insertArrangedSubview(list.view, at: 0)
+            }
+        } else {
+            splitView.removeArrangedSubview(listVC!.view)
+        }
+        arrangeAllViews()
     }
     
     private func doSearch(with text: String) {
@@ -110,9 +145,18 @@ class MainViewController: NSViewController {
     private func arrangeAllViews() {
         guard splitView.arrangedSubviews.count > 0 else {return}
         let count = splitView.arrangedSubviews.count
-        let width = splitView.bounds.width / CGFloat(count)
-        for i in 0..<count - 1 {
-            splitView.setPosition(CGFloat(i + 1) * width, ofDividerAt: i)
+        if isMenuOn {
+            let smallAmountOfWindow = splitView.bounds.width / 5.0
+            splitView.setPosition(smallAmountOfWindow, ofDividerAt: 0)
+            let width = (splitView.bounds.width - smallAmountOfWindow ) / CGFloat(count - 1)
+            for i in 1..<count - 1 {
+                splitView.setPosition(smallAmountOfWindow + CGFloat(i) * width, ofDividerAt: i)
+            }
+        } else {
+            let width = splitView.bounds.width / CGFloat(count)
+            for i in 0..<count - 1 {
+                splitView.setPosition(CGFloat(i + 1) * width, ofDividerAt: i)
+            }
         }
     }
 }
@@ -158,5 +202,12 @@ extension MainViewController: SplitViewDelegate {
         displayedModuleControllers.remove(at: number)
         manager.removeModule(at: number)
         arrangeAllViews()
+    }
+}
+
+extension MainViewController: OutlineSelectionDelegate {
+    func outlineSelectionViewDidSelect(chapter: Int, book: Int, module: String?) {
+        manager.changeBook(to: book)
+        manager.changeChapter(to: chapter)
     }
 }

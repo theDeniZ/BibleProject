@@ -9,6 +9,8 @@ struct ListObject {
     var title: String = ""
     var nested: [ListObject] = []
     var index: SpiritIndex?
+    var moduleKey: String?
+    var numberInOrder: Int?
     
     init(_ title: String) {
         self.title = title
@@ -66,11 +68,14 @@ class ListManager: NSObject {
                 var bible = ListObject(name)
                 if let books = module.books?.array as? [Book] {
                     let sorted = books.sorted {$0.number < $1.number}
-                    for book in sorted {
+                    for i in 0..<sorted.count {
+                        let book = sorted[i]
                         let bookName = book.name ?? "Book \(book.number)"
                         var listBook = ListObject(bookName)
                         let count = book.chapters?.array.count ?? 0
-                        let number = ListObject("\(count) Chapter\(count > 1 ? "s" : "")")
+                        var number = ListObject("\(count) Chapter\(count > 1 ? "s" : "")")
+                        number.numberInOrder = i
+                        number.moduleKey = module.key
                         listBook.nested = [number]
                         bible.nested.append(listBook)
                     }

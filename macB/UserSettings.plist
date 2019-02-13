@@ -3,15 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>menuIsOn</key>
-	<false/>
+	<true/>
 	<key>spirit</key>
 	<dict/>
 	<key>font size</key>
 	<string>15.0</string>
+	<key>font</key>
+	<string>TimesNewRomanPS</string>
+	<key>fontBold</key>
+	<string></string>
 	<key>chapter</key>
-	<string></string>
+	<string>1</string>
 	<key>book</key>
-	<string></string>
+	<string>1</string>
 	<key>strongsNumbers</key>
 	<true/>
 	<key>modules</key>

@@ -59,7 +59,7 @@ class SpiritViewController: NSViewController {
         manager.delegate = self
         updateUI()
         menuIsOn = AppDelegate.plistManager.isMenuOn()
-        
+        dealWithMenu()
         listVC = NSStoryboard.main?.instantiateController(withIdentifier: "List View Controller") as? ListViewController
         if let list = listVC {
             list.typesToDisplay = types
@@ -80,22 +80,39 @@ class SpiritViewController: NSViewController {
             containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
             containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
         }
-        if let w = NSApp.windows.first {
-            w.toolbar?.insertItem(withItemIdentifier: .toggleSidebar, at: 0)
+        menuIsOn = AppDelegate.plistManager.isMenuOn()
+        
+        if let w = NSApp.windows.first,
+            let toolbar = w.toolbar,
+            let f = toolbar.items.first,
+            f.itemIdentifier != .toggleSidebar {
+            toolbar.insertItem(withItemIdentifier: .toggleSidebar, at: 0)
         }
 //        if let mainWindow = view.window?.windowController as? MainWindowController {
 //            mainWindow.setMenuImage(selected: menuIsOn)
 //        }
     }
     
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-        if let w = NSApp.windows.first {
-            if w.toolbar?.items[0].itemIdentifier == .toggleSidebar {
-                w.toolbar?.removeItem(at: 0)
+    private func dealWithMenu() {
+        if menuIsOn {
+            if let list = listVC {
+                containerMenuView.insertArrangedSubview(list.view, at: 0)
+                containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
             }
+        } else {
+            containerMenuView.removeArrangedSubview(listVC!.view)
         }
+//        arrangeAllViews()
     }
+    
+//    override func viewWillDisappear() {
+//        super.viewWillDisappear()
+//        if let w = NSApp.windows.first {
+//            if w.toolbar?.items[0].itemIdentifier == .toggleSidebar {
+//                w.toolbar?.removeItem(at: 0)
+//            }
+//        }
+//    }
     
     
     private func updateUI() {

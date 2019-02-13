@@ -22,7 +22,7 @@ class PlistManager {
     
     private var plistPath: String?
     
-    private let fontKey = "font size"
+    private let fontSizeKey = "font size"
     private let chapterKey = "chapter"
     private let bookKey = "book"
     private let modulesKey = "modules"
@@ -30,6 +30,7 @@ class PlistManager {
     private let sharingKey = "shared"
     private var spiritKey = "spirit"
     private let menuKey = "menuIsOn"
+    private let fontKey = "font"
 
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
@@ -93,12 +94,12 @@ class PlistManager {
     
     func getFontSize() -> CGFloat {
         var s: CGFloat = 30.0
-        plistHandler.get(to: &s, of: fontKey)
+        plistHandler.get(to: &s, of: fontSizeKey)
         return s
     }
     
     func setFont(size: CGFloat) {
-        plistHandler.setValue(size.description, of: fontKey)
+        plistHandler.setValue(size.description, of: fontSizeKey)
     }
     
     func setStrong(on: Bool) {
@@ -140,5 +141,15 @@ class PlistManager {
     
     func setMenu(isOn: Bool) {
         plistHandler.setValue(isOn, of: menuKey)
+    }
+    
+    func getFont() -> String? {
+        var s = ""
+        plistHandler.get(to: &s, of: fontKey)
+        return s.count > 0 ? s : nil
+    }
+    
+    func setFont(named: String) {
+        plistHandler.setValue(named, of: fontKey)
     }
 }

@@ -18,14 +18,17 @@ class MainWindowController: NSWindowController {
         window?.setFrame(NSRect(x: 0, y: 0, width: 1000, height: 700), display: true)
 //        setMenuImage(selected: AppDelegate.plistManager.isMenuOn())
 //        let n = NSToolbarItem(itemIdentifier: .toggleSidebar)
-//        toolbar.insertItem(withItemIdentifier: .toggleSidebar, at: 0)
+        toolbar.insertItem(withItemIdentifier: .toggleSidebar, at: 0)
 //        becomeFirstResponder()
     }
     
     @IBAction open func toggleSidebar(_ sender: Any?) {
-        if let content = contentViewController as? NSTabViewController,
-            let vc = content.children[content.selectedTabViewItemIndex] as? SpiritViewController {
-            _=vc.toggleMenu()
+        if let content = contentViewController as? NSTabViewController {
+            if let vc = content.children[content.selectedTabViewItemIndex] as? SpiritViewController {
+                _=vc.toggleMenu()
+            } else if let vc = content.children[content.selectedTabViewItemIndex] as? MainViewController {
+                _=vc.toggleMenu()
+            }
         }
     }
     

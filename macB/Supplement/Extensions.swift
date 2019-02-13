@@ -207,10 +207,17 @@ extension NSAttributedString: StrongsLinkEmbeddable {
     
     func embedStrongs(to link: String, using size: CGFloat, linking: Bool = true) -> NSAttributedString {
         let newMAString = NSMutableAttributedString()
+        var normalFont = NSFont.systemFont(ofSize: size)
+        var smallFont = NSFont.systemFont(ofSize: size * 0.666)
+        if let named = AppDelegate.plistManager.getFont() {
+            normalFont = NSFont(name: named + "MT", size: size)!
+            smallFont = NSFont(name: named + "MT", size: size * 0.6)!
+        }
+        
         var colorAttribute: [NSAttributedString.Key: Any]?
         var upperAttribute: [NSAttributedString.Key: Any] =
             [NSAttributedString.Key.baselineOffset : size * 0.333,
-             NSAttributedString.Key.font : NSFont.systemFont(ofSize: size * 0.666)]
+             NSAttributedString.Key.font : smallFont]
         
         if let c = NSColor(named: NSColor.Name("textColor")) {
             colorAttribute = [NSAttributedString.Key.foregroundColor : c]
@@ -242,7 +249,7 @@ extension NSAttributedString: StrongsLinkEmbeddable {
                     s.addAttribute(.toolTip, value: StrongManager.getTooltip(from: ns, type: link), range: NSRange(0..<s.length - 1))
 //                    s.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single, range: NSRange(0..<s.length - 1))
                 }
-                s.addAttributes([.font: NSFont.systemFont(ofSize: size)], range: NSRange(0..<s.length))
+                s.addAttributes([.font: normalFont], range: NSRange(0..<s.length))
                 newMAString.append(s)
             }
             i += 1

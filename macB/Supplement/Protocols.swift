@@ -68,3 +68,7 @@ protocol BonjourManagerDelegate {
 protocol SideMenuDelegate {
     func sideMenuDidSelect(index: SpiritIndex)
 }
+
+protocol OutlineSelectionDelegate {
+    func outlineSelectionViewDidSelect(chapter: Int, book: Int, module: String?)
+}

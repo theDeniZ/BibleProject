@@ -15,12 +15,12 @@
 		22061ED321F4A52F00F00B04 /* SpiritBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED221F4A52F00F00B04 /* SpiritBook.swift */; };
 		22061ED521F4A76E00F00B04 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED421F4A76E00F00B04 /* Roman.swift */; };
 		22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */; };
+		22091E842216C3C000DCDA22 /* OpenBible.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 221E37F5220AE628003D8E40 /* OpenBible.xcdatamodeld */; };
 		221A3E9021D243B9007C269E /* ModuleManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */; };
 		221A3E9221D51233007C269E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E9121D51233007C269E /* DropView.swift */; };
 		221A619321F64AE80003CCC0 /* SpiritViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A619221F64AE80003CCC0 /* SpiritViewController.swift */; };
 		221A619521F650820003CCC0 /* SpiritManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A619421F650820003CCC0 /* SpiritManager.swift */; };
 		221E37EE220AE500003D8E40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 221E37EC220AE500003D8E40 /* LaunchScreen.storyboard */; };
-		221E37F7220AE628003D8E40 /* OpenBible.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 221E37F5220AE628003D8E40 /* OpenBible.xcdatamodeld */; };
 		221E37F9220AE665003D8E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E37F8220AE664003D8E40 /* AppDelegate.swift */; };
 		221E37FF220AE6AC003D8E40 /* Bonjour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E37FB220AE6AC003D8E40 /* Bonjour.swift */; };
 		221E3801220AE6AC003D8E40 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E37FD220AE6AC003D8E40 /* Extensions.swift */; };
@@ -284,13 +284,13 @@
 		221E380C220AE990003D8E40 /* Managing */ = {
 			isa = PBXGroup;
 			children = (
-				221E380D220AE999003D8E40 /* CoreSyncManager.swift */,
 				221E3812220AE99A003D8E40 /* DownloadManager.swift */,
 				221E380E220AE999003D8E40 /* VerseManager.swift */,
 				221E3811220AE99A003D8E40 /* Manager.swift */,
 				221E380F220AE999003D8E40 /* plistHandler.swift */,
 				221E3813220AE99A003D8E40 /* PlistManager.swift */,
 				221E3810220AE999003D8E40 /* SyncManager.swift */,
+				221E380D220AE999003D8E40 /* CoreSyncManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -704,7 +704,6 @@
 				221E37F9220AE665003D8E40 /* AppDelegate.swift in Sources */,
 				221E3823220AE9B0003D8E40 /* SpiritChapter.swift in Sources */,
 				221E3848220AE9EE003D8E40 /* SidePanelViewController.swift in Sources */,
-				221E37F7220AE628003D8E40 /* OpenBible.xcdatamodeld in Sources */,
 				221E3816220AE99A003D8E40 /* plistHandler.swift in Sources */,
 				221E3802220AE6AC003D8E40 /* Protocols.swift in Sources */,
 				221E381C220AE9B0003D8E40 /* Chapter.swift in Sources */,
@@ -726,6 +725,7 @@
 				221E385B220AF3E7003D8E40 /* Types.swift in Sources */,
 				221E3821220AE9B0003D8E40 /* Strong.swift in Sources */,
 				221E3842220AE9EE003D8E40 /* ContainerViewController.swift in Sources */,
+				22091E842216C3C000DCDA22 /* OpenBible.xcdatamodeld in Sources */,
 				221E37FF220AE6AC003D8E40 /* Bonjour.swift in Sources */,
 				221E3854220AEA01003D8E40 /* BookTableViewCell.swift in Sources */,
 				221E382D220AE9D6003D8E40 /* VerseTextManager.swift in Sources */,

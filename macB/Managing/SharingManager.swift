@@ -57,7 +57,7 @@ class SharingManager: NSObject {
     }
     
     private func serviceTerminate() {
-        print("service terminated")
+//        print("service terminated")
         syncThread?.cancel()
         syncThread = nil
         input?.close()
@@ -91,7 +91,7 @@ class SharingManager: NSObject {
     }
     
     private func parse(data: Data) {
-        print("reading")
+//        print("reading")
         let s = String(data: data, encoding: .utf8)
         delegate?.bonjourDidRead(message: s)
         guard let message = s, let status = currentStatus else {
@@ -102,7 +102,7 @@ class SharingManager: NSObject {
         }
         if message == BonjourClientGreetingOption.bye.rawValue {
             dealWithClientAccordingTo(status: .finished)
-            print("Finished")
+//            print("Finished")
             return
         }
         switch status {
@@ -363,7 +363,7 @@ extension SharingManager {
                 send(message: message)
                 while(!syncConfirmationFlag) {sleep(1)}
                 syncConfirmationFlag = false
-                print("------------got confirm")
+//                print("------------got confirm")
                 let count = chunks.count
                 for i in 0..<count {
                     send(data: chunks[i])
@@ -373,7 +373,7 @@ extension SharingManager {
                 }
                 while(!syncConfirmationFlag) {sleep(1)}
                 syncConfirmationFlag = false
-                print("------------got confirm one more time")
+//                print("------------got confirm one more time")
             } catch {
                 print(error)
             }

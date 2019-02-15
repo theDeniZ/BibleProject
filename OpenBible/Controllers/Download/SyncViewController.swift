@@ -141,10 +141,11 @@ extension SyncViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Info Table Cell", for: indexPath)
             if let c = cell as? ServiceTableViewCell {
                 c.name = sharedValues?[indexPath.row]
-                c.select = true
+                c.select = manager?.selectedObjects?[indexPath.row] ?? false
                 c.index = indexPath.row
                 c.delegate = self
                 c.status = statuses[indexPath.row]
+                print("updated to \(c.status) at \(indexPath.row)")
             }
             return cell
         }
@@ -169,12 +170,14 @@ extension SyncViewController: UITableViewDelegate {
 
 extension SyncViewController: SyncManagerDelegate {
     func syncManagerDidStartSync(at index: Int) {
+        statuses[index] = .started
+        print("started at \(index)")
         DispatchQueue.main.async { [weak self] in
             self?.progressBar.isHidden = false
             self?.progressBar.progress = 0.0
-            self?.statuses[index] = .started
-            self?.infoTable.beginUpdates()
-            self?.infoTable.endUpdates()
+//            self?.infoTable.beginUpdates()
+//            self?.infoTable.endUpdates()
+            self?.infoTable.reloadData()
         }
     }
     

@@ -32,6 +32,7 @@ class CoreSyncManager: NSObject {
             NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "macB.SyncStrong")
             let obj = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data)
             if let parsedArray = obj as? [SyncStrong] {
+                Strong.remove(type, from: context)
                 for parsed in parsedArray {
                     let strong = Strong(context: context)
                     strong.meaning = parsed.meaning
@@ -66,6 +67,9 @@ class CoreSyncManager: NSObject {
         do {
             let unarchived = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data)
             guard let obj = unarchived as? SyncModule else {return false}
+            if let m = try? Module.get(by: obj.key, from: context), m != nil {
+                context.delete(m!)
+            }
             let module = Module(context: context)
             module.key = obj.key
             module.name = obj.name

@@ -64,6 +64,21 @@ class SettingsViewController: NSViewController {
         }
     }
     
+    @IBAction func dumpAction(_ sender: NSButton) {
+        let context = AppDelegate.context
+        let core = SyncCore(in: context)
+        do {
+            let archive = try NSKeyedArchiver.archivedData(withRootObject: core, requiringSecureCoding: true)
+            let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
+            let url = URL(fileURLWithPath: path + "/" + Date().description + ".dmp")
+            try archive.write(to: url)
+        } catch {
+            print(error)
+        }
+        
+    }
+    
+    
     private func addFontItem(_ font: FontNames, with name: String) {
         let f = NSAttributedString(
             string: name,

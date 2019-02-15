@@ -32,6 +32,7 @@ class ServiceTableViewCell: UITableViewCell {
     }
     
     private func updateUI() {
+//        print("Updated \(name), \(status)")
         nameLabel?.text = name
         switcher?.isOn = select
         nameLabel?.sizeToFit()

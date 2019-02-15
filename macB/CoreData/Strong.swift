@@ -60,6 +60,16 @@ class Strong: NSManagedObject {
         return try context.fetch(req).count > 0
     }
     
+    class func remove(_ type: String, from context: NSManagedObjectContext) {
+        let req: NSFetchRequest<Strong> = Strong.fetchRequest()
+        req.predicate = NSPredicate(format: "type = %@", argumentArray: [type])
+        if let match = try? context.fetch(req), match.count > 0 {
+            for m in match {
+                context.delete(m)
+            }
+        }
+    }
+    
     class func count(of type: String, in context: NSManagedObjectContext) -> Int {
         let req: NSFetchRequest<Strong> = Strong.fetchRequest()
         req.predicate = NSPredicate(format: "type = %@", argumentArray: [type])

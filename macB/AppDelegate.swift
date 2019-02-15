@@ -45,7 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        sharingManager.delegate = AppDelegate.shared
+//        sharingManager.delegate = AppDelegate.shared
         rewriteSharingObjects()
         sharingManager.startEngine()
     }

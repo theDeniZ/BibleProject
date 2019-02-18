@@ -45,11 +45,6 @@
 		221E3822220AE9B0003D8E40 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ECE21F4A4DC00F00B04 /* Page.swift */; };
 		221E3823220AE9B0003D8E40 /* SpiritChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED021F4A50A00F00B04 /* SpiritChapter.swift */; };
 		221E3824220AE9B0003D8E40 /* SpiritBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED221F4A52F00F00B04 /* SpiritBook.swift */; };
-		221E382C220AE9D6003D8E40 /* TwoColumnPositioningManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3826220AE9D6003D8E40 /* TwoColumnPositioningManager.swift */; };
-		221E382D220AE9D6003D8E40 /* VerseTextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3827220AE9D6003D8E40 /* VerseTextManager.swift */; };
-		221E382E220AE9D6003D8E40 /* TextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3828220AE9D6003D8E40 /* TextManager.swift */; };
-		221E3830220AE9D6003D8E40 /* CustomDebugLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E382A220AE9D6003D8E40 /* CustomDebugLayoutManager.swift */; };
-		221E3831220AE9D6003D8E40 /* TwoColumnContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E382B220AE9D6003D8E40 /* TwoColumnContainer.swift */; };
 		221E383E220AE9EE003D8E40 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3833220AE9ED003D8E40 /* MainTabBarController.swift */; };
 		221E383F220AE9EE003D8E40 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3834220AE9ED003D8E40 /* ModalViewController.swift */; };
 		221E3840220AE9EE003D8E40 /* StrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3835220AE9ED003D8E40 /* StrongViewController.swift */; };
@@ -63,9 +58,7 @@
 		221E3852220AEA01003D8E40 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E384B220AEA00003D8E40 /* SearchTextField.swift */; };
 		221E3853220AEA01003D8E40 /* ServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E384C220AEA00003D8E40 /* ServiceTableViewCell.swift */; };
 		221E3854220AEA01003D8E40 /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E384D220AEA01003D8E40 /* BookTableViewCell.swift */; };
-		221E3855220AEA01003D8E40 /* VerseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E384E220AEA01003D8E40 /* VerseTextView.swift */; };
 		221E3856220AEA01003D8E40 /* DownloadCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E384F220AEA01003D8E40 /* DownloadCell.swift */; };
-		221E3857220AEA01003D8E40 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3850220AEA01003D8E40 /* CustomTextView.swift */; };
 		221E385A220AEC65003D8E40 /* Verse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3859220AEC64003D8E40 /* Verse.swift */; };
 		221E385B220AF3E7003D8E40 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240220421EB479900DC8E2F /* Types.swift */; };
 		221E385D220AF674003D8E40 /* SplitTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E385C220AF674003D8E40 /* SplitTextViewController.swift */; };
@@ -83,7 +76,6 @@
 		2240CDA7221425F300942F84 /* OutlineCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240CDA6221425F300942F84 /* OutlineCellView.swift */; };
 		2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239321E8BB0B00AB71F9 /* SharingVC.swift */; };
 		2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239521E8C0F600AB71F9 /* SharingTCV.swift */; };
-		227DD8A42214A27000BF4327 /* Judges-str.htm in Resources */ = {isa = PBXBuildFile; fileRef = 227DD8A32214A27000BF4327 /* Judges-str.htm */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
 		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
 		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
@@ -147,11 +139,6 @@
 		221E3811220AE99A003D8E40 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		221E3812220AE99A003D8E40 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		221E3813220AE99A003D8E40 /* PlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
-		221E3826220AE9D6003D8E40 /* TwoColumnPositioningManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnPositioningManager.swift; sourceTree = "<group>"; };
-		221E3827220AE9D6003D8E40 /* VerseTextManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerseTextManager.swift; sourceTree = "<group>"; };
-		221E3828220AE9D6003D8E40 /* TextManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextManager.swift; sourceTree = "<group>"; };
-		221E382A220AE9D6003D8E40 /* CustomDebugLayoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDebugLayoutManager.swift; sourceTree = "<group>"; };
-		221E382B220AE9D6003D8E40 /* TwoColumnContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoColumnContainer.swift; sourceTree = "<group>"; };
 		221E3833220AE9ED003D8E40 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		221E3834220AE9ED003D8E40 /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		221E3835220AE9ED003D8E40 /* StrongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrongViewController.swift; sourceTree = "<group>"; };
@@ -165,9 +152,7 @@
 		221E384B220AEA00003D8E40 /* SearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		221E384C220AEA00003D8E40 /* ServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceTableViewCell.swift; sourceTree = "<group>"; };
 		221E384D220AEA01003D8E40 /* BookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
-		221E384E220AEA01003D8E40 /* VerseTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerseTextView.swift; sourceTree = "<group>"; };
 		221E384F220AEA01003D8E40 /* DownloadCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadCell.swift; sourceTree = "<group>"; };
-		221E3850220AEA01003D8E40 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		221E3859220AEC64003D8E40 /* Verse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verse.swift; sourceTree = "<group>"; };
 		221E385C220AF674003D8E40 /* SplitTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTextViewController.swift; sourceTree = "<group>"; };
 		221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongDetailViewController.swift; sourceTree = "<group>"; };
@@ -184,7 +169,6 @@
 		2240CDA6221425F300942F84 /* OutlineCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineCellView.swift; sourceTree = "<group>"; };
 		2274239321E8BB0B00AB71F9 /* SharingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingVC.swift; sourceTree = "<group>"; };
 		2274239521E8C0F600AB71F9 /* SharingTCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTCV.swift; sourceTree = "<group>"; };
-		227DD8A32214A27000BF4327 /* Judges-str.htm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "Judges-str.htm"; path = "../../../Data/Modules_chosen/Bible_English_KJV_Strong/Judges-str.htm"; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
 		22B9F1EE21DD219A00E6E62C /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
@@ -248,7 +232,6 @@
 				221E37F8220AE664003D8E40 /* AppDelegate.swift */,
 				221E3849220AE9F6003D8E40 /* Views */,
 				221E3832220AE9DE003D8E40 /* Controllers */,
-				221E3825220AE9CE003D8E40 /* Model */,
 				221E380C220AE990003D8E40 /* Managing */,
 				221E3858220AEC51003D8E40 /* Core Data */,
 				221E37FA220AE693003D8E40 /* Supplement */,
@@ -295,18 +278,6 @@
 			path = Managing;
 			sourceTree = "<group>";
 		};
-		221E3825220AE9CE003D8E40 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				221E3827220AE9D6003D8E40 /* VerseTextManager.swift */,
-				221E3828220AE9D6003D8E40 /* TextManager.swift */,
-				221E382B220AE9D6003D8E40 /* TwoColumnContainer.swift */,
-				221E3826220AE9D6003D8E40 /* TwoColumnPositioningManager.swift */,
-				221E382A220AE9D6003D8E40 /* CustomDebugLayoutManager.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		221E3832220AE9DE003D8E40 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,8 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				221E384D220AEA01003D8E40 /* BookTableViewCell.swift */,
-				221E384E220AEA01003D8E40 /* VerseTextView.swift */,
-				221E3850220AEA01003D8E40 /* CustomTextView.swift */,
 				221E384F220AEA01003D8E40 /* DownloadCell.swift */,
 				221E384A220AEA00003D8E40 /* NumberCollectionViewCell.swift */,
 				221E384B220AEA00003D8E40 /* SearchTextField.swift */,
@@ -477,7 +446,6 @@
 				22061ECA21F4821100F00B04 /* ListViewController.swift */,
 				221A619221F64AE80003CCC0 /* SpiritViewController.swift */,
 				2235F68822142D3100E46411 /* OutlineViewController.swift */,
-				227DD8A32214A27000BF4327 /* Judges-str.htm */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -624,7 +592,6 @@
 			files = (
 				223DE52C2213610C0040F120 /* macB.sqlite in Resources */,
 				22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */,
-				227DD8A42214A27000BF4327 /* Judges-str.htm in Resources */,
 				22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */,
 				22BD922521CBDEDD00019853 /* Main.storyboard in Resources */,
 			);
@@ -688,7 +655,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				221E382E220AE9D6003D8E40 /* TextManager.swift in Sources */,
 				221E381D220AE9B0003D8E40 /* Book.swift in Sources */,
 				221E3851220AEA01003D8E40 /* NumberCollectionViewCell.swift in Sources */,
 				221E383E220AE9EE003D8E40 /* MainTabBarController.swift in Sources */,
@@ -696,7 +662,6 @@
 				221E3814220AE99A003D8E40 /* CoreSyncManager.swift in Sources */,
 				221E3847220AE9EE003D8E40 /* SyncViewController.swift in Sources */,
 				221E3820220AE9B0003D8E40 /* History.swift in Sources */,
-				221E3855220AEA01003D8E40 /* VerseTextView.swift in Sources */,
 				221E383F220AE9EE003D8E40 /* ModalViewController.swift in Sources */,
 				221E381E220AE9B0003D8E40 /* Module.swift in Sources */,
 				221E3801220AE6AC003D8E40 /* Extensions.swift in Sources */,
@@ -713,10 +678,6 @@
 				221E3845220AE9EE003D8E40 /* LeftSelectionViewController.swift in Sources */,
 				221E3840220AE9EE003D8E40 /* StrongViewController.swift in Sources */,
 				221E3824220AE9B0003D8E40 /* SpiritBook.swift in Sources */,
-				221E3830220AE9D6003D8E40 /* CustomDebugLayoutManager.swift in Sources */,
-				221E382C220AE9D6003D8E40 /* TwoColumnPositioningManager.swift in Sources */,
-				221E3831220AE9D6003D8E40 /* TwoColumnContainer.swift in Sources */,
-				221E3857220AEA01003D8E40 /* CustomTextView.swift in Sources */,
 				221E381F220AE9B0003D8E40 /* ModuleOffline.swift in Sources */,
 				221E3819220AE99A003D8E40 /* DownloadManager.swift in Sources */,
 				221E3815220AE99A003D8E40 /* VerseManager.swift in Sources */,
@@ -728,7 +689,6 @@
 				22091E842216C3C000DCDA22 /* OpenBible.xcdatamodeld in Sources */,
 				221E37FF220AE6AC003D8E40 /* Bonjour.swift in Sources */,
 				221E3854220AEA01003D8E40 /* BookTableViewCell.swift in Sources */,
-				221E382D220AE9D6003D8E40 /* VerseTextManager.swift in Sources */,
 				221E3846220AE9EE003D8E40 /* HistoryViewController.swift in Sources */,
 				221E385D220AF674003D8E40 /* SplitTextViewController.swift in Sources */,
 				221E3853220AEA01003D8E40 /* ServiceTableViewCell.swift in Sources */,

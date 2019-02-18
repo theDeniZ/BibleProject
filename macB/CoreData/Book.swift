@@ -70,4 +70,28 @@ class Book: NSManagedObject {
         }
         return nil
     }
+    
+    /// Get a book with a given number from a Module.
+    ///
+    /// - Parameters:
+    ///   - number: a Book number
+    ///   - concerning: a Module in whitch the book is to be found
+    ///   - context: NSManageObjectContext
+    /// - Returns: a Book object or nil
+    /// - Throws: fetch error or assert error
+    class func get(by number: Int, concerning module: Module, in context: NSManagedObjectContext) throws -> Book? {
+        let req: NSFetchRequest<Book> = Book.fetchRequest()
+        req.predicate = NSPredicate(format: "number = %@ AND module = %@", argumentArray: [number, module])
+        
+        do {
+            let match = try context.fetch(req)
+            if match.count > 0 {
+                assert(match.count == 1, "CoreData error (Book.get(by \(number)): Database inconsistency")
+                return match[0]
+            }
+        } catch {
+            throw error
+        }
+        return nil
+    }
 }

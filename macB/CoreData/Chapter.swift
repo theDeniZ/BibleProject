@@ -48,4 +48,36 @@ class Chapter: NSManagedObject {
         }
         return false
     }
+    
+    class func get(by number: Int, concerning book: Book, in context: NSManagedObjectContext) throws -> Chapter? {
+        let req: NSFetchRequest<Chapter> = Chapter.fetchRequest()
+        req.predicate = NSPredicate(format: "number = %@ AND book = %@", argumentArray: [number, book])
+        
+        do {
+            let match = try context.fetch(req)
+            if match.count > 0 {
+                assert(match.count == 1, "CoreData (Chapter.get(by \(number)): Database inconsistency")
+                return match[0]
+            }
+        } catch {
+            throw error
+        }
+        return nil
+    }
+    
+    class func get(by index: BibleIndex, concerning module: Module, in context: NSManagedObjectContext) throws -> Chapter? {
+        let req: NSFetchRequest<Chapter> = Chapter.fetchRequest()
+        req.predicate = NSPredicate(format: "number = %@ AND book.number = %@ AND book.module = %@", argumentArray: [index.chapter, index.book, module])
+        
+        do {
+            let match = try context.fetch(req)
+            if match.count > 0 {
+                assert(match.count == 1, "CoreData (Chapter.get(by \(index)): Database inconsistency")
+                return match[0]
+            }
+        } catch {
+            throw error
+        }
+        return nil
+    }
 }

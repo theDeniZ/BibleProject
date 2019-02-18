@@ -37,7 +37,7 @@ protocol DownloadProgressDelegate {
 
 protocol StrongsLinkEmbeddable {
     var strongNumbersAvailable: Bool {get}
-    func embedStrongs(to link: String, using size: CGFloat, linking: Bool) -> NSAttributedString
+    func embedStrongs(to link: String, using size: CGFloat, linking: Bool, withTooltip: Bool) -> NSAttributedString
 }
 
 protocol URLDelegate {

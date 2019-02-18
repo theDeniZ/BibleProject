@@ -211,23 +211,17 @@ extension NSAttributedString: StrongsLinkEmbeddable {
     
     func embedStrongs(to link: String, using size: CGFloat, linking: Bool = true) -> NSAttributedString {
         let newMAString = NSMutableAttributedString(string: " ", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: size)])
-//        var colorAttribute: [NSAttributedString.Key: Any]?
         let upperAttribute: [NSAttributedString.Key: Any] =
             [NSAttributedString.Key.baselineOffset : size * 0.333,
              NSAttributedString.Key.font : UIFont.systemFont(ofSize: size * 0.666)]
-        
-//        if let c = NSColor(named: NSColor.Name("textColor")) {
-//            colorAttribute = [NSAttributedString.Key.foregroundColor : c]
-//            upperAttribute[NSAttributedString.Key.foregroundColor] = c
-//        }
         let splited = string.replacingOccurrences(of: "\r\n", with: "").split(separator: " ").map {String($0)}
         newMAString.append(NSAttributedString(string: splited[0] + " ", attributes: upperAttribute))
         var i = 1
         while i < splited.count {
-            if !splited[i].matches("\\d+") {
+            if !("0"..."9" ~= splited[i][0]) { //splited[i].matches("\\d+") {
                 let s = NSMutableAttributedString(string: splited[i])
                 var numbers: [Int] = []
-                while i < splited.count - 1, splited[i + 1].matches("\\d+") {
+                while i < splited.count - 1, ("0"..."9" ~= splited[i + 1][0]) {//splited[i + 1].matches("\\d+") {
                     i += 1
                     let numberStr = splited[i].capturedGroups(withRegex: "(\\d+)")![0]
                     numbers.append(Int(numberStr)!)
@@ -236,22 +230,16 @@ extension NSAttributedString: StrongsLinkEmbeddable {
                     }
                 }
                 s.append(NSAttributedString(string: " "))
-//                if let c = colorAttribute {
-//                    s.addAttributes(c, range: NSRange(0..<s.length))
-//                }
                 if linking, numbers.count > 0 {
                     let url = link + numbers.map({String($0)}).joined(separator: "+")
                     s.addAttribute(NSAttributedString.Key.link, value: url, range: NSRange(0..<s.length - 1))
-                    //                    s.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single, range: NSRange(0..<s.length - 1))
                 }
                 s.addAttributes([.font: UIFont.systemFont(ofSize: size)], range: NSRange(0..<s.length))
                 newMAString.append(s)
             }
             i += 1
         }
-//        if !newMAString.string.hasSuffix("\n ") {
-            newMAString.append(NSAttributedString(string: "\r\n"))
-//        }
+        newMAString.append(NSAttributedString(string: "\r\n"))
         return newMAString
     }
     

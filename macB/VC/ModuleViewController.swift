@@ -83,7 +83,9 @@ class ModuleViewController: NSViewController {
             }
 //            textView?.setSelectedRange(NSMakeRange(textView.string.count, 0))
         }
-        loadTooltip()
+        if AppDelegate.plistManager.isTooltipOn {
+            loadTooltip()
+        }
     }
     
     private func loadTooltip() {

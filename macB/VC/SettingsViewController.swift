@@ -25,12 +25,13 @@ enum FontNames: String {
 class SettingsViewController: NSViewController {
 
     @IBOutlet weak var strongsSwitch: NSButton!
-    
+    @IBOutlet weak var tooltipSwitch: NSButton!
     @IBOutlet weak var fontCombo: NSComboBox!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         strongsSwitch.state = AppDelegate.plistManager.isStrongsIsOn ? .on : .off
+        tooltipSwitch.state = AppDelegate.plistManager.isTooltipOn ? .on : .off
         addFontItem(.timesNewRoman, with: "Times New Roman")
         addFontItem(.georgia, with: "Georgia")
         addFontItem(.arial, with: "Arial")
@@ -98,4 +99,9 @@ class SettingsViewController: NSViewController {
     @IBAction func strongsCheck(_ sender: NSButton) {
         AppDelegate.coreManager.strongsNumbersIsOn = sender.state.rawValue != 0
     }
+    
+    @IBAction func tooltipAction(_ sender: NSButton) {
+        AppDelegate.plistManager.isTooltipOn = sender.state == .on
+    }
+    
 }

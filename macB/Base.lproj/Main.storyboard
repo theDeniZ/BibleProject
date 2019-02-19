@@ -993,16 +993,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37i-PL-2NW">
-                                <rect key="frame" x="20" y="185" width="440" height="95"/>
+                                <rect key="frame" x="20" y="151" width="440" height="129"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xEA-su-WC2">
-                                        <rect key="frame" x="-2" y="79" width="132" height="18"/>
+                                        <rect key="frame" x="-2" y="113" width="132" height="18"/>
                                         <buttonCell key="cell" type="check" title="Strong's Numbers" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="93M-hB-w5Z">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
                                             <action selector="strongsCheck:" target="Iax-tL-AU6" id="Jjg-ec-G6F"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Aep-7x-Pul">
+                                        <rect key="frame" x="-2" y="79" width="169" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Tooltip (may glitch a bit)" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="eWx-xZ-cDB">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="tooltipAction:" target="Iax-tL-AU6" id="xQ6-GI-xbO"/>
                                         </connections>
                                     </button>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="30" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" horizontalHuggingPriority="249" verticalHuggingPriority="249" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AEQ-vn-K07">
@@ -1056,8 +1066,10 @@
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -1073,6 +1085,7 @@
                     <connections>
                         <outlet property="fontCombo" destination="jbc-4O-Tmn" id="G0f-gN-mb8"/>
                         <outlet property="strongsSwitch" destination="xEA-su-WC2" id="JXc-FR-1xw"/>
+                        <outlet property="tooltipSwitch" destination="Aep-7x-Pul" id="TH8-ln-gbK"/>
                     </connections>
                 </viewController>
                 <customObject id="ehm-Ky-vLC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

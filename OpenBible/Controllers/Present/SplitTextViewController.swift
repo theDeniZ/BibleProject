@@ -134,8 +134,8 @@ class SplitTextViewController: UIViewController {
                     verseManager.setVerses(from: v.map {$0[0]})
                 }
             }
-        } else if text.matches(String.regexForVerses) {
-            let verseMatch = text.matches(withRegex: String.regexForVerses)!
+        } else if text.matches(String.regexForVersesOnly) {
+            let verseMatch = text.matches(withRegex: String.regexForVersesOnly)!
             verseManager.setChapter(number: Int(verseMatch[0][0])!)
             let v = verseMatch[1...]
             if v.count > 0 {

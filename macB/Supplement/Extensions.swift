@@ -74,8 +74,9 @@ extension CGRect {
 
 extension String {
     
-    static let regexForBookRefference = "((?:\\d*\\s*)(?:\\w+[^0-9:.,]))\\s*(\\d+)?(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
+    static let regexForBookRefference = "^((?:\\d*\\s*)(?:\\w+[^0-9:.,]))\\s*(\\d+)?(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
     static let regexForVerses = "(?!^)((?:[,.-])?\\d+)"
+    static let regexForVersesOnly = "((?:[,.-])?\\d+)"
     static let regexForSpiritIndex = "\\[?(\\w+[^:])(:)?(\\d+)\\]?"
     static let regexForChapter = "^(\\d+)$"
     
@@ -253,6 +254,8 @@ extension NSAttributedString: StrongsLinkEmbeddable {
                     s.addAttribute(.link, value: url + ns, range: NSRange(0..<s.length - 1))
                     if withTooltip {
                         s.addAttribute(.toolTip, value: StrongManager.getTooltip(from: ns, type: link), range: NSRange(0..<s.length - 1))
+                    } else {
+                        s.addAttribute(.toolTip, value: "Turn on toolitp in settings", range: NSRange(0..<s.length - 1))
                     }
 //                    s.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single, range: NSRange(0..<s.length - 1))
                 }

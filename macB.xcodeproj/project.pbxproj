@@ -76,6 +76,7 @@
 		2240CDA7221425F300942F84 /* OutlineCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240CDA6221425F300942F84 /* OutlineCellView.swift */; };
 		2274239421E8BB0B00AB71F9 /* SharingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239321E8BB0B00AB71F9 /* SharingVC.swift */; };
 		2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239521E8C0F600AB71F9 /* SharingTCV.swift */; };
+		227A4642221D8DCC0080F7CC /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
 		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
 		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
@@ -169,6 +170,7 @@
 		2240CDA6221425F300942F84 /* OutlineCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineCellView.swift; sourceTree = "<group>"; };
 		2274239321E8BB0B00AB71F9 /* SharingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingVC.swift; sourceTree = "<group>"; };
 		2274239521E8C0F600AB71F9 /* SharingTCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTCV.swift; sourceTree = "<group>"; };
+		227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
 		22B9F1EE21DD219A00E6E62C /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				221E3813220AE99A003D8E40 /* PlistManager.swift */,
 				221E3810220AE999003D8E40 /* SyncManager.swift */,
 				221E380D220AE999003D8E40 /* CoreSyncManager.swift */,
+				227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				221E3843220AE9EE003D8E40 /* DownloadViewController.swift in Sources */,
 				221E3814220AE99A003D8E40 /* CoreSyncManager.swift in Sources */,
 				221E3847220AE9EE003D8E40 /* SyncViewController.swift in Sources */,
+				227A4642221D8DCC0080F7CC /* ConsistencyManager.swift in Sources */,
 				221E3820220AE9B0003D8E40 /* History.swift in Sources */,
 				221E383F220AE9EE003D8E40 /* ModalViewController.swift in Sources */,
 				221E381E220AE9B0003D8E40 /* Module.swift in Sources */,

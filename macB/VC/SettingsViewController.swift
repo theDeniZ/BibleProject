@@ -79,6 +79,25 @@ class SettingsViewController: NSViewController {
         
     }
     
+    @IBAction func lightDump(_ sender: NSButton) {
+        let context = AppDelegate.context
+        let core = SyncCore()
+        if let m = try? Module.get(by: "kjv", from: context), let kjv = m {
+            core.modules.append(SyncModule(module: kjv))
+        } else {
+            return
+        }
+        do {
+            let archive = try NSKeyedArchiver.archivedData(withRootObject: core, requiringSecureCoding: true)
+            let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
+            let url = URL(fileURLWithPath: path + "/Light " + Date().description + ".dmp")
+            try archive.write(to: url)
+        } catch {
+            print(error)
+        }
+    }
+    
+    
     
     private func addFontItem(_ font: FontNames, with name: String) {
         let f = NSAttributedString(

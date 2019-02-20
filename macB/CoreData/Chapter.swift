@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 
 class Chapter: NSManagedObject {
+    
     class func create(in context: NSManagedObjectContext) -> Chapter {
         return Chapter(context: context)
     }
@@ -63,6 +64,19 @@ class Chapter: NSManagedObject {
             throw error
         }
         return nil
+    }
+    
+    class func from(_ sync: SyncChapter, in context: NSManagedObjectContext) -> Chapter {
+        let new = Chapter(context: context)
+        new.number = Int32(sync.number)
+        var verses = [Verse]()
+        for v in sync.verses {
+            let verse = Verse.from(v, in: context)
+            verse.chapter = new
+            verses.append(verse)
+        }
+        new.verses = NSOrderedSet(array: verses)
+        return new
     }
 
 }

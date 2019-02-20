@@ -66,4 +66,22 @@ class Module: NSManagedObject {
     class func count(in context: NSManagedObjectContext) -> Int {
         return (try? context.fetch(Module.fetchRequest()).count) ?? 0
     }
+    
+    class func from(_ sync: SyncModule, in context: NSManagedObjectContext) -> Module {
+        if let existed = try? Module.get(by: sync.key, from: context), existed != nil {
+            context.delete(existed!)
+        }
+        let new = Module(context: context)
+        new.key = sync.key
+        new.name = sync.name
+        new.local = false
+        var books: [Book] = []
+        for b in sync.books {
+            let book = Book.from(b, in:context)
+            book.module = new
+            books.append(book)
+        }
+        new.books = NSOrderedSet(array: books)
+        return new
+    }
 }

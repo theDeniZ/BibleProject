@@ -94,4 +94,18 @@ class Book: NSManagedObject {
         }
         return nil
     }
+    
+    class func from(_ sync: SyncBook, in context: NSManagedObjectContext) -> Book {
+        let new = Book(context: context)
+        new.name = sync.name
+        new.number = Int32(sync.number)
+        var chapters = [Chapter]()
+        for c in sync.chapters {
+            let chapter = Chapter.from(c, in: context)
+            chapter.book = new
+            chapters.append(chapter)
+        }
+        new.chapters = NSOrderedSet(array: chapters)
+        return new
+    }
 }

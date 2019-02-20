@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private var plistManager = PlistManager()
+    private var consistentManager = ConsistencyManager()
     
 //    @objc func getUrl(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
 //        // Get the URL
@@ -48,6 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    static var viewContext: NSManagedObjectContext {
+        return AppDelegate.persistantContainer.viewContext
+    }
+    
     static var isAppAlreadyLaunchedOnce: Bool {
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "isAppAlreadyLaunchedOnce") != nil {
@@ -59,8 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey:Any]?) -> Bool {
-//        let em = NSAppleEventManager.shared()
-//        em.setEventHandler(self, andSelector: #selector(self.getUrl(_:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        if !AppDelegate.isAppAlreadyLaunchedOnce {
+            consistentManager.initialiseCoreData()
+        }
         return true
     }
 

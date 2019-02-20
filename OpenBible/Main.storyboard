@@ -84,7 +84,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="gxE-eX-D2Y" kind="relationship" relationship="viewControllers" id="SGl-mv-NKw"/>
-                        <segue destination="uyW-6v-FBA" kind="relationship" relationship="viewControllers" id="3bh-ju-rUc"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0W-z3-y6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -116,7 +115,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Z2Z-Zv-dqI">
-                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dyz-S6-hmx">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="29"/>
@@ -129,7 +128,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fZ4-VI-bIa">
-                                        <rect key="frame" x="0.0" y="38" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="38" width="375" height="696"/>
                                         <subviews>
                                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tJh-Bn-sWo">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
@@ -188,7 +187,7 @@
                                                 </prototypes>
                                             </tableView>
                                             <containerView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="6Gp-6j-XHi">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="696"/>
                                                 <connections>
                                                     <segue destination="YWT-lV-igg" kind="embed" id="5jd-R0-iHt"/>
                                                 </connections>
@@ -569,17 +568,17 @@
             <objects>
                 <viewController id="YWT-lV-igg" customClass="SyncViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hL6-gG-X5W">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="696"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UcW-y1-j2T">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="593"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="642"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="n8O-fi-cWV">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="570"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCc-18-wcS">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="250.66666666666666"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Services Table Cell" textLabel="Tcz-Qm-KK3" style="IBUITableViewCellStyleDefault" id="6pB-mN-CTu">
@@ -602,7 +601,7 @@
                                                 </prototypes>
                                             </tableView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cse-72-2MY">
-                                                <rect key="frame" x="0.0" y="270.66666666666669" width="375" height="250.33333333333331"/>
+                                                <rect key="frame" x="0.0" y="295" width="375" height="275"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Info Table Cell" id="PjN-ir-1ks" customClass="ServiceTableViewCell" customModule="OpenBible" customModuleProvider="target">
@@ -656,10 +655,10 @@
                                         </subviews>
                                     </stackView>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="jvL-Mz-tHB">
-                                        <rect key="frame" x="0.0" y="541" width="375" height="2"/>
+                                        <rect key="frame" x="0.0" y="590" width="375" height="2"/>
                                     </progressView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tUX-lg-Jq2">
-                                        <rect key="frame" x="0.0" y="563" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="612" width="375" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HO3-I5-voJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="30"/>

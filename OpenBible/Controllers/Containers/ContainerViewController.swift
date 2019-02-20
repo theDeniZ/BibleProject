@@ -8,7 +8,7 @@ class ContainerViewController: UIViewController {
     case leftPanelExpanded
   }
   
-    var manager: VerseManager? = VerseManager(in: AppDelegate.context)
+    var manager: VerseManager? = VerseManager(in: AppDelegate.viewContext)
     
   var centerNavigationController: UINavigationController!
   var centerViewController: SplitTextViewController!

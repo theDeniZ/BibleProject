@@ -1047,20 +1047,43 @@
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYj-Eu-E8S">
-                                        <rect key="frame" x="-6" y="-7" width="452" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Dump Core" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qJV-gc-7Ik">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="dumpAction:" target="Iax-tL-AU6" id="Tyx-8Y-YaD"/>
-                                        </connections>
-                                    </button>
+                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JsQ-ut-a2R">
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="21"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OYj-Eu-E8S">
+                                                <rect key="frame" x="-6" y="-7" width="227" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Dump Core" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qJV-gc-7Ik">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="dumpAction:" target="Iax-tL-AU6" id="Tyx-8Y-YaD"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4yC-Mu-dKi">
+                                                <rect key="frame" x="219" y="-7" width="227" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Light Dump" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="M4q-y8-TQj">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="lightDump:" target="Iax-tL-AU6" id="9s1-c6-xZk"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="JsQ-ut-a2R" firstAttribute="width" secondItem="37i-PL-2NW" secondAttribute="width" id="fNr-DG-Bve"/>
                                     <constraint firstItem="AEQ-vn-K07" firstAttribute="width" secondItem="37i-PL-2NW" secondAttribute="width" id="vrp-ha-vBr"/>
-                                    <constraint firstItem="OYj-Eu-E8S" firstAttribute="centerX" secondItem="37i-PL-2NW" secondAttribute="centerX" id="wZj-d9-kpJ"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>

@@ -79,6 +79,7 @@
 		227A4642221D8DCC0080F7CC /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */; };
 		227A4649221D9A2B0080F7CC /* Light.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A4647221D9A2A0080F7CC /* Light.dmp */; };
 		227A464A221D9A2B0080F7CC /* Full.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A4648221D9A2B0080F7CC /* Full.dmp */; };
+		227A464C221DE01F0080F7CC /* Consistent.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A464B221DE01F0080F7CC /* Consistent.dmp */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
 		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
 		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
@@ -175,6 +176,7 @@
 		227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
 		227A4647221D9A2A0080F7CC /* Light.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Light.dmp; sourceTree = "<group>"; };
 		227A4648221D9A2B0080F7CC /* Full.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Full.dmp; sourceTree = "<group>"; };
+		227A464B221DE01F0080F7CC /* Consistent.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Consistent.dmp; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
 		22B9F1EE21DD219A00E6E62C /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				221E37F5220AE628003D8E40 /* OpenBible.xcdatamodeld */,
 				227A4648221D9A2B0080F7CC /* Full.dmp */,
 				227A4647221D9A2A0080F7CC /* Light.dmp */,
+				227A464B221DE01F0080F7CC /* Consistent.dmp */,
 			);
 			path = OpenBible;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				221E3809220AE953003D8E40 /* Main.storyboard in Resources */,
 				221E380B220AE972003D8E40 /* Assets.xcassets in Resources */,
 				221E3805220AE6D7003D8E40 /* UserSettings.plist in Resources */,
+				227A464C221DE01F0080F7CC /* Consistent.dmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

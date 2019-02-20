@@ -29,20 +29,25 @@ class ConsistencyManager: NSObject {
             write(sync)
             delegate?.consistentManagerDidChangedModel()
         }
-        fillCoreDataWithAll()
     }
     
-    func fillCoreDataWithAll() {
+    func startConsistencyCheck() {
+        let context = AppDelegate.context
         DispatchQueue.global(qos: .background).async {
-            self.timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { (t) in
-                if let data = self.readFile(named: self.fullDumpName),
-                    let sync = self.parse(data) {
-                    self.write(sync)
+            var inconsistent = [String]()
+            if let data = self.readFile(named: self.consistentDumpName),
+                let dict = self.parseConsistency(data) {
+                for (key, value) in dict {
+                    if Module.checkConsistency(of: key, in: context) != value {
+                        inconsistent.append(key)
+                    }
+                }
+                if inconsistent.count > 0 {
+                    self.makeConsistent(inconsistent, context: context)
                     self.delegate?.consistentManagerDidChangedModel()
                 }
-                self.timer = nil
-                t.invalidate()
-            })
+            }
+            print("Consistency check is done")
         }
     }
     
@@ -52,6 +57,18 @@ class ConsistencyManager: NSObject {
         }
         try? context.save()
         
+    }
+    
+    private func makeConsistent(_ array: [String], context: NSManagedObjectContext) {
+        if let data = readFile(named: fullDumpName),
+            let sync = parse(data) {
+            for module in sync.modules {
+                if array.contains(module.key) {
+                    _ = Module.from(module, in: context)
+                    try? context.save()
+                }
+            }
+        }
     }
     
     private func readFile(named: String) -> Data? {
@@ -80,6 +97,16 @@ class ConsistencyManager: NSObject {
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SyncCore
             return core
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+    
+    private func parseConsistency(_ data: Data) -> [String:Int]? {
+        do {
+            let d = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String:Int]
+            return d
         } catch {
             print(error)
         }

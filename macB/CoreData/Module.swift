@@ -90,7 +90,7 @@ class Module: NSManagedObject {
     /// - Parameter module: a Module object
     /// - Parameter context: NSManagedOblectContext
     /// - Returns: a verses count
-    class func checkConsistency(in module: Module, in context: NSManagedObjectContext) -> Int {
+    class func checkConsistency(of module: Module, in context: NSManagedObjectContext) -> Int {
         let req: NSFetchRequest<Verse> = Verse.fetchRequest()
         req.predicate = NSPredicate(format: "chapter.book.module = %@", argumentArray: [module])
         req.resultType = .countResultType
@@ -99,6 +99,18 @@ class Module: NSManagedObject {
             return count
         } catch {
             print("Module CoreData checkConsistency error: \(error)")
+        }
+        return 0
+    }
+    
+    /// How many verses are asociated with this module
+    ///
+    /// - Parameter key: a Module key
+    /// - Parameter context: NSManagedOblectContext
+    /// - Returns: a verses count
+    class func checkConsistency(of key: String, in context: NSManagedObjectContext) -> Int {
+        if let m = try? Module.get(by: key, from: context), let module = m {
+            return Module.checkConsistency(of: module, in: context)
         }
         return 0
     }

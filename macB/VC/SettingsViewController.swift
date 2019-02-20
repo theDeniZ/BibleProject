@@ -102,7 +102,7 @@ class SettingsViewController: NSViewController {
         if let modules = try? Module.getAll(from: context) {
             var dict = [String:Int]()
             for module in modules {
-                let count = Module.checkConsistency(in: module, in: context)
+                let count = Module.checkConsistency(of: module, in: context)
                 dict[module.key!] = count
             }
             do {

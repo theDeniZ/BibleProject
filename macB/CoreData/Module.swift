@@ -84,4 +84,22 @@ class Module: NSManagedObject {
         new.books = NSOrderedSet(array: books)
         return new
     }
+    
+    /// How many verses are asociated with this module
+    ///
+    /// - Parameter module: a Module object
+    /// - Parameter context: NSManagedOblectContext
+    /// - Returns: a verses count
+    class func checkConsistency(in module: Module, in context: NSManagedObjectContext) -> Int {
+        let req: NSFetchRequest<Verse> = Verse.fetchRequest()
+        req.predicate = NSPredicate(format: "chapter.book.module = %@", argumentArray: [module])
+        req.resultType = .countResultType
+        do {
+            let count = try context.count(for: req)
+            return count
+        } catch {
+            print("Module CoreData checkConsistency error: \(error)")
+        }
+        return 0
+    }
 }

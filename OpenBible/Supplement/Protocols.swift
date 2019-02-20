@@ -53,3 +53,7 @@ protocol SyncManagerDelegate {
     func syncManagerDidEndSync(at: Int, with: Bool)
     func syncManagerDidFinished()
 }
+
+protocol ConsistencyManagerDelegate {
+    func consistentManagerDidChangedModel()
+}

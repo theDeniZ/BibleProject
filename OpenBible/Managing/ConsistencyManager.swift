@@ -10,19 +10,39 @@ import Foundation
 import CoreData
 
 class ConsistencyManager: NSObject {
+    var context: NSManagedObjectContext
+    var delegate: ConsistencyManagerDelegate?
+    
     private let lightDumpName = "Light.dmp"
     private let fullDumpName = "Full.dmp"
+    private let consistentDumpName = "Consistent.dmp"
     
-    private let context: NSManagedObjectContext = AppDelegate.context
+    private var timer: Timer?
     
-    var isConsistent: Bool {
-        return true
+    init(context: NSManagedObjectContext) {
+        self.context = context
     }
     
     func initialiseCoreData() {
         if let data = readFile(named: lightDumpName),
             let sync = parse(data) {
             write(sync)
+            delegate?.consistentManagerDidChangedModel()
+        }
+        fillCoreDataWithAll()
+    }
+    
+    func fillCoreDataWithAll() {
+        DispatchQueue.global(qos: .background).async {
+            self.timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { (t) in
+                if let data = self.readFile(named: self.fullDumpName),
+                    let sync = self.parse(data) {
+                    self.write(sync)
+                    self.delegate?.consistentManagerDidChangedModel()
+                }
+                self.timer = nil
+                t.invalidate()
+            })
         }
     }
     
@@ -48,6 +68,15 @@ class ConsistencyManager: NSObject {
     }
     
     private func parse(_ data: Data) -> SyncCore? {
+        NSKeyedUnarchiver.setClass(SyncCore.self, forClassName: "macB.SyncCore")
+        NSKeyedUnarchiver.setClass(SyncModule.self, forClassName: "macB.SyncModule")
+        NSKeyedUnarchiver.setClass(SyncBook.self, forClassName: "macB.SyncBook")
+        NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "macB.SyncChapter")
+        NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "macB.SyncVerse")
+        NSKeyedUnarchiver.setClass(SyncSpiritBook.self, forClassName: "macB.SyncSpiritBook")
+        NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "macB.SyncSpiritPage")
+        NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "macB.SyncSpiritChapter")
+        NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "macB.SyncStrong")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SyncCore
             return core

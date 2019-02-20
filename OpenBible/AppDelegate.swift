@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private var plistManager = PlistManager()
-    private var consistentManager = ConsistencyManager()
+    private var consistentManager: ConsistencyManager!
     
 //    @objc func getUrl(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
 //        // Get the URL
@@ -64,9 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey:Any]?) -> Bool {
+        consistentManager = ConsistencyManager(context: persistentContainer.newBackgroundContext())
+        consistentManager.delegate = self
         if !AppDelegate.isAppAlreadyLaunchedOnce {
             consistentManager.initialiseCoreData()
         }
+        print("initialised")
         return true
     }
 
@@ -163,3 +166,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension AppDelegate: ConsistencyManagerDelegate {
+    func consistentManagerDidChangedModel() {
+        print("modelChanged")
+    }
+}

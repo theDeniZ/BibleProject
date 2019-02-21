@@ -308,7 +308,7 @@ extension SharingManager {
             print("Sending strong \(type)")
             var shared = [SyncStrong]()
             for s in strongs {
-                shared.append(SyncStrong(number: Int(s.number), meaning: s.meaning, original: s.original))
+                shared.append(SyncStrong(number: Int(s.number), meaning: s.meaning, original: s.original, type: type))
             }
 //            let shared = strongs.map {SyncStrong.init(number: Int($0.number), meaning: $0.meaning, original: $0.original) }
             do {

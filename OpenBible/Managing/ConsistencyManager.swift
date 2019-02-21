@@ -11,12 +11,14 @@ import CoreData
 
 class ConsistencyManager: NSObject {
     var context: NSManagedObjectContext
-    var delegate: ConsistencyManagerDelegate?
+    var delegates: [ConsistencyManagerDelegate]?
     
     private let lightDumpName = "Light.dmp"
     private let fullDumpName = "Full.dmp"
     private let consistentDumpName = "Consistent.dmp"
     
+    private var overallCountOfEntitiesToLoad = 0
+    private var processedEntities = 0
     private var timer: Timer?
     
     init(context: NSManagedObjectContext) {
@@ -27,24 +29,41 @@ class ConsistencyManager: NSObject {
         if let data = readFile(named: lightDumpName),
             let sync = parse(data) {
             write(sync)
-            delegate?.consistentManagerDidChangedModel()
+            self.broadcastChange()
         }
     }
     
     func startConsistencyCheck() {
         let context = AppDelegate.context
         DispatchQueue.global(qos: .background).async {
-            var inconsistent = [String]()
+            self.overallCountOfEntitiesToLoad = 0
+            self.processedEntities = 0
+            var inconsistentModules = [String]()
+            var inconsistentStrongs = [String]()
+            var inconsistentBooks = [String]()
             if let data = self.readFile(named: self.consistentDumpName),
                 let dict = self.parseConsistency(data) {
                 for (key, value) in dict {
-                    if Module.checkConsistency(of: key, in: context) != value {
-                        inconsistent.append(key)
+                    if let module = SharingRegex.parseModule(key),
+                        Module.checkConsistency(of: module, in: context) != value {
+                        inconsistentModules.append(module)
+                        self.overallCountOfEntitiesToLoad += value
+                    } else if let strong = SharingRegex.parseStrong(key),
+                        Strong.count(of: strong, in: context) != value {
+                        inconsistentStrongs.append(strong)
+                        self.overallCountOfEntitiesToLoad += value
+                    } else if let book = SharingRegex.parseSpirit(key),
+                        SpiritBook.checkConsistency(of: book, in: context) != value {
+                        inconsistentBooks.append(book)
+//                        self.overallCountOfEntitiesToLoad += value
                     }
                 }
-                if inconsistent.count > 0 {
-                    self.makeConsistent(inconsistent, context: context)
-                    self.delegate?.consistentManagerDidChangedModel()
+                if let syncData = self.readFile(named: self.fullDumpName),
+                    let sync = self.parse(syncData) {
+                    self.makeConsistent(modules: inconsistentModules, context: context, sync: sync)
+                    self.makeConsistent(strongs: inconsistentStrongs, context: context, sync: sync)
+//                    self.makeConsistent(books: inconsistentBooks, context: context, sync: sync)
+                    self.broadcastChange()
                 }
             }
             print("Consistency check is done")
@@ -56,17 +75,38 @@ class ConsistencyManager: NSObject {
             _ = Module.from(m, in: context)
         }
         try? context.save()
-        
     }
     
-    private func makeConsistent(_ array: [String], context: NSManagedObjectContext) {
-        if let data = readFile(named: fullDumpName),
-            let sync = parse(data) {
-            for module in sync.modules {
-                if array.contains(module.key) {
-                    _ = Module.from(module, in: context)
-                    try? context.save()
-                }
+    private func makeConsistent(modules array: [String], context: NSManagedObjectContext, sync: SyncCore) {
+        guard array.count > 0 else {return}
+        for module in sync.modules {
+            if array.contains(module.key) {
+                _ = Module.from(module, in: context)
+                processedEntities += 1
+                broadCastProgress()
+                try? context.save()
+            }
+        }
+    }
+    
+    private func makeConsistent(strongs array: [String], context: NSManagedObjectContext, sync: SyncCore) {
+        guard array.count > 0 else {return}
+        for strong in array {
+            sync.strongs.filter({$0.type == strong}).forEach {_ = Strong.from($0, in: context);processedEntities += 1;broadCastProgress()}
+            do {
+                try context.save()
+            } catch {print(error)}
+        }
+    }
+    
+    private func makeConsistent(books array: [String], context: NSManagedObjectContext, sync: SyncCore) {
+        guard array.count > 0 else {return}
+        for book in sync.spirit {
+            if array.contains(book.code) {
+                _ = SpiritBook.from(book, in: context)
+                processedEntities += 1
+                broadCastProgress()
+                try? context.save()
             }
         }
     }
@@ -111,5 +151,32 @@ class ConsistencyManager: NSObject {
             print(error)
         }
         return nil
+    }
+    
+    private func broadCastProgress() {
+        delegates?.forEach {$0.condidtentManagerDidUpdatedProgress?(to: Double(processedEntities) / Double(overallCountOfEntitiesToLoad))}
+    }
+    
+    private func broadcastChange() {
+        delegates?.forEach {$0.consistentManagerDidChangedModel?()}
+    }
+}
+
+extension ConsistencyManager {
+    func addDelegate(_ del: ConsistencyManagerDelegate) {
+        switch delegates {
+        case .none:
+            delegates = [del]
+        case .some(_):
+            delegates!.append(del)
+        }
+    }
+    
+    func removeDelegate(_ del: ConsistencyManagerDelegate) {
+        switch delegates {
+        case .some(var some):
+            some.removeAll {$0.hashValue == del.hashValue}
+        default: break
+        }
     }
 }

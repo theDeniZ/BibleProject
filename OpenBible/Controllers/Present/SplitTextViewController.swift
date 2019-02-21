@@ -19,6 +19,7 @@ class SplitTextViewController: UIViewController {
     @IBOutlet weak var leftTextView: UITextView!
     @IBOutlet weak var rightTextView: UITextView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var progressView: ProgressView!
     
     private var leftTextStorage: NSTextStorage?
     private var rightTextStorage: NSTextStorage?
@@ -31,6 +32,9 @@ class SplitTextViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        progressView.progressLineWidth = 2.0
+        progressView.progressColor = UIColor.blue
+        AppDelegate.shared.consistentManager.addDelegate(self)
         AppDelegate.shared.urlDelegate = self
         loadTextViews()
         leftTextView.delegate = self
@@ -44,7 +48,7 @@ class SplitTextViewController: UIViewController {
             image: UIImage(named: "search"), style: .plain,
             target: self, action: #selector(toggleSearch)
         )
-        
+
         addGestures()
     }
     
@@ -245,6 +249,15 @@ extension SplitTextViewController {
         if recognizer.state == .began {
             toggleMenu()
             recognizer.state = .ended
+        }
+    }
+}
+
+extension SplitTextViewController: ConsistencyManagerDelegate {
+    func condidtentManagerDidUpdatedProgress(to value: Double) {
+        print("Progress = \(value)")
+        DispatchQueue.main.async {
+            self.progressView.progress = CGFloat(value) * 100
         }
     }
 }

@@ -14,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var urlDelegate: URLDelegate? {didSet{openUrlIfNeeded()}}
+    var consistentManager: ConsistencyManager!
+    
+    
     private var urlToOpen: [String]? {didSet{openUrlIfNeeded()}}
     
     static var URLServerRoot = "x-com-thedeniz-bible://"
@@ -27,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private var plistManager = PlistManager()
-    private var consistentManager: ConsistencyManager!
     
 //    @objc func getUrl(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
 //        // Get the URL
@@ -65,11 +67,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey:Any]?) -> Bool {
         consistentManager = ConsistencyManager(context: persistentContainer.newBackgroundContext())
-        consistentManager.delegate = self
+        consistentManager.addDelegate(self)
         if !AppDelegate.isAppAlreadyLaunchedOnce {
+            print("initialised")
             consistentManager.initialiseCoreData()
         }
-        print("initialised")
         return true
     }
 
@@ -170,6 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate: ConsistencyManagerDelegate {
+    
     func consistentManagerDidChangedModel() {
         print("modelChanged")
     }

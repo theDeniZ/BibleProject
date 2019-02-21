@@ -99,20 +99,22 @@ class SettingsViewController: NSViewController {
     
     @IBAction func makeStatsAction(_ sender: NSButton) {
         let context = AppDelegate.context
+        var dict = [String:Int]()
         if let modules = try? Module.getAll(from: context) {
-            var dict = [String:Int]()
-            for module in modules {
-                let count = Module.checkConsistency(of: module, in: context)
-                dict[module.key!] = count
-            }
-            do {
-                let archive = try NSKeyedArchiver.archivedData(withRootObject: dict, requiringSecureCoding: true)
-                let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
-                let url = URL(fileURLWithPath: path + "/Consistent.dmp")
-                try archive.write(to: url)
-            } catch {
-                print(error)
-            }
+            modules.forEach {dict[SharingRegex.module($0.key!)] = Module.checkConsistency(of: $0, in: context)}
+        }
+        dict[SharingRegex.strong(StrongId.oldTestament)] = Strong.count(of: StrongId.oldTestament, in: context)
+        dict[SharingRegex.strong(StrongId.newTestament)] = Strong.count(of: StrongId.newTestament, in: context)
+        if let spirit = try? SpiritBook.getAll(from: context) {
+            spirit.forEach {dict[SharingRegex.spirit($0.code!)] = SpiritBook.checkConsistency(of: $0, in: context)}
+        }
+        do {
+            let archive = try NSKeyedArchiver.archivedData(withRootObject: dict, requiringSecureCoding: true)
+            let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
+            let url = URL(fileURLWithPath: path + "/Consistent.dmp")
+            try archive.write(to: url)
+        } catch {
+            print(error)
         }
     }
     

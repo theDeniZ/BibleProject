@@ -54,6 +54,9 @@ protocol SyncManagerDelegate {
     func syncManagerDidFinished()
 }
 
+@objc
 protocol ConsistencyManagerDelegate {
-    func consistentManagerDidChangedModel()
+    var hashValue: Int {get}
+    @objc optional func consistentManagerDidChangedModel()
+    @objc optional func condidtentManagerDidUpdatedProgress(to: Double)
 }

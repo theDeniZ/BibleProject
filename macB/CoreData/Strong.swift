@@ -76,6 +76,18 @@ class Strong: NSManagedObject {
         return (try? context.fetch(req).count) ?? 0
     }
     
+    class func from(_ sync: SyncStrong, in context: NSManagedObjectContext) -> Strong {
+        if let old = Strong.get(sync.number, by: sync.type, from: context) {
+            context.delete(old)
+        }
+        let new = Strong(context: context)
+        new.number = Int32(sync.number)
+        new.meaning = sync.meaning
+        new.original = sync.original
+        new.type = sync.type
+        return new
+    }
+    
     static func printStats() {
         let context = AppDelegate.context
         if let 🧩 = try? Strong.get(by: StrongId.oldTestament, from: context) {

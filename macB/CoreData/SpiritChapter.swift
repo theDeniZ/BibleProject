@@ -10,5 +10,16 @@ import Foundation
 import CoreData
 
 class SpiritChapter: NSManagedObject {
-    
+    class func from(_ sync: SyncSpiritChapter, in context: NSManagedObjectContext) -> SpiritChapter {
+        let new = SpiritChapter(context: context)
+        new.number = Int32(sync.number)
+        var pages = [Page]()
+        for v in sync.pages {
+            let page = Page.from(v, in: context)
+            page.chapter = new
+            pages.append(page)
+        }
+        new.pages = NSOrderedSet(array: pages)
+        return new
+    }
 }

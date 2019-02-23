@@ -35,7 +35,7 @@ class ConsistencyManager: NSObject {
     
     func startConsistencyCheck() {
         let context = AppDelegate.context
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             self.overallCountOfEntitiesToLoad = 0
             self.processedEntities = 0
             var inconsistentModules = [String]()
@@ -81,8 +81,8 @@ class ConsistencyManager: NSObject {
         guard array.count > 0 else {return}
         for module in sync.modules {
             if array.contains(module.key) {
-                _ = Module.from(module, in: context)
-                processedEntities += 1
+                let m = Module.from(module, in: context)
+                processedEntities += Module.checkConsistency(of: m, in: context)
                 broadCastProgress()
                 try? context.save()
             }
@@ -91,20 +91,34 @@ class ConsistencyManager: NSObject {
     
     private func makeConsistent(strongs array: [String], context: NSManagedObjectContext, sync: SyncCore) {
         guard array.count > 0 else {return}
-        for strong in array {
-            sync.strongs.filter({$0.type == strong}).forEach {_ = Strong.from($0, in: context);processedEntities += 1;broadCastProgress()}
-            do {
-                try context.save()
-            } catch {print(error)}
+        if array.count == 1 {
+            for strong in array {
+                sync.strongs.filter({$0.type == strong}).forEach {_ = Strong.from($0, in: context);processedEntities += 1;broadCastProgress()}
+            }
+        } else { // array count == 2, which means, all of them
+            Strong.remove(array[0], from: context)
+            Strong.remove(array[1], from: context)
+            for s in sync.strongs {
+                let strong = Strong(context: context)
+                strong.meaning = s.meaning
+                strong.number = Int32(s.number)
+                strong.original = s.original
+                strong.type = s.type
+                processedEntities += 1
+                broadCastProgress()
+            }
         }
+        do {
+            try context.save()
+        } catch {print(error)}
     }
     
     private func makeConsistent(books array: [String], context: NSManagedObjectContext, sync: SyncCore) {
         guard array.count > 0 else {return}
         for book in sync.spirit {
             if array.contains(book.code) {
-                _ = SpiritBook.from(book, in: context)
-                processedEntities += 1
+                let b = SpiritBook.from(book, in: context)
+                processedEntities += SpiritBook.checkConsistency(of: b, in: context)
                 broadCastProgress()
                 try? context.save()
             }

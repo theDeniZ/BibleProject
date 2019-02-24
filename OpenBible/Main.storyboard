@@ -93,6 +93,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="gxE-eX-D2Y" kind="relationship" relationship="viewControllers" id="SGl-mv-NKw"/>
+                        <segue destination="BLx-jU-nzV" kind="relationship" relationship="viewControllers" id="VPv-A9-pSH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0W-z3-y6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -114,6 +115,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egq-Zv-QK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-951" y="-27"/>
+        </scene>
+        <!--Download-->
+        <scene sceneID="YPX-7P-10K">
+            <objects>
+                <viewController id="BLx-jU-nzV" customClass="DownloadVC" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ox2-MU-Bin">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8Fs-ud-PrN">
+                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Og-oZ-R5i">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Download Cell" textLabel="1XY-Ea-8lH" detailTextLabel="pKl-vf-4fL" style="IBUITableViewCellStyleValue2" id="jcQ-60-sAi">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jcQ-60-sAi" id="Xfi-Rq-VUo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="336" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1XY-Ea-8lH">
+                                                            <rect key="frame" x="15" y="19" width="91" height="12"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pKl-vf-4fL">
+                                                            <rect key="frame" x="112.00000000000001" y="12.999999999999998" width="41.666666666666664" height="19.333333333333332"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8Fs-ud-PrN" firstAttribute="leading" secondItem="rfB-J5-gyq" secondAttribute="leading" id="3Ms-Ml-1Yd"/>
+                            <constraint firstItem="rfB-J5-gyq" firstAttribute="bottom" secondItem="8Fs-ud-PrN" secondAttribute="bottom" id="Yff-F6-12O"/>
+                            <constraint firstItem="8Fs-ud-PrN" firstAttribute="top" secondItem="rfB-J5-gyq" secondAttribute="top" id="oLx-Ga-GiD"/>
+                            <constraint firstItem="rfB-J5-gyq" firstAttribute="trailing" secondItem="8Fs-ud-PrN" secondAttribute="trailing" id="voS-Ia-RNq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rfB-J5-gyq"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Download" image="load" id="Uq7-Ca-AWV"/>
+                    <connections>
+                        <outlet property="table" destination="9Og-oZ-R5i" id="0sY-IV-qCD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eQW-VV-sJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2183" y="1000"/>
         </scene>
         <!--Download-->
         <scene sceneID="LfN-uT-Ocv">
@@ -151,7 +214,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UjM-nw-JtY">
-                                                                    <rect key="frame" x="20" y="10.000000000000002" width="335" height="23.666666666666671"/>
+                                                                    <rect key="frame" x="20" y="10" width="335" height="23.666666666666671"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YVr-vC-cZW">
                                                                             <rect key="frame" x="0.0" y="0.0" width="305" height="23.666666666666668"/>

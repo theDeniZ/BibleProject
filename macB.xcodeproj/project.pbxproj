@@ -78,7 +78,6 @@
 		2274239621E8C0F600AB71F9 /* SharingTCV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2274239521E8C0F600AB71F9 /* SharingTCV.swift */; };
 		227A4642221D8DCC0080F7CC /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */; };
 		227A4649221D9A2B0080F7CC /* Light.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A4647221D9A2A0080F7CC /* Light.dmp */; };
-		227A464A221D9A2B0080F7CC /* Full.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A4648221D9A2B0080F7CC /* Full.dmp */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
 		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
 		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
@@ -101,7 +100,7 @@
 		22CB04AF21D907BA004110E0 /* Strong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04AD21D907BA004110E0 /* Strong.swift */; };
 		22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B221D911F2004110E0 /* StrongViewController.swift */; };
 		22CB04B521D9155B004110E0 /* LabelCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B421D9155B004110E0 /* LabelCellView.swift */; };
-		22E6F593221F0C7300A6915D /* Consistent.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 22E6F592221F0C7300A6915D /* Consistent.dmp */; };
+		22D424BD2222A15600D8EB8F /* DownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D424BC2222A15600D8EB8F /* DownloadVC.swift */; };
 		22E6F597221F1DBA00A6915D /* Progressable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6F596221F1DBA00A6915D /* Progressable.swift */; };
 		22E6F599221F341300A6915D /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6F598221F341300A6915D /* ProgressView.swift */; };
 		22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB121CF87EB001C96D3 /* CoreManager.swift */; };
@@ -177,7 +176,6 @@
 		2274239521E8C0F600AB71F9 /* SharingTCV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTCV.swift; sourceTree = "<group>"; };
 		227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
 		227A4647221D9A2A0080F7CC /* Light.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Light.dmp; sourceTree = "<group>"; };
-		227A4648221D9A2B0080F7CC /* Full.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Full.dmp; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
 		22B9F1EE21DD219A00E6E62C /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
@@ -203,7 +201,7 @@
 		22CB04AD21D907BA004110E0 /* Strong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strong.swift; sourceTree = "<group>"; };
 		22CB04B221D911F2004110E0 /* StrongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongViewController.swift; sourceTree = "<group>"; };
 		22CB04B421D9155B004110E0 /* LabelCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellView.swift; sourceTree = "<group>"; };
-		22E6F592221F0C7300A6915D /* Consistent.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Consistent.dmp; sourceTree = "<group>"; };
+		22D424BC2222A15600D8EB8F /* DownloadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadVC.swift; sourceTree = "<group>"; };
 		22E6F595221F1DBA00A6915D /* Progressable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Progressable.h; sourceTree = "<group>"; };
 		22E6F596221F1DBA00A6915D /* Progressable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progressable.swift; sourceTree = "<group>"; };
 		22E6F598221F341300A6915D /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
@@ -254,9 +252,7 @@
 				221E3806220AE6DE003D8E40 /* Localizable.strings */,
 				221E3804220AE6D7003D8E40 /* UserSettings.plist */,
 				221E37F5220AE628003D8E40 /* OpenBible.xcdatamodeld */,
-				227A4648221D9A2B0080F7CC /* Full.dmp */,
 				227A4647221D9A2A0080F7CC /* Light.dmp */,
-				22E6F592221F0C7300A6915D /* Consistent.dmp */,
 			);
 			path = OpenBible;
 			sourceTree = "<group>";
@@ -333,6 +329,7 @@
 			children = (
 				221E3838220AE9ED003D8E40 /* DownloadViewController.swift */,
 				221E383C220AE9EE003D8E40 /* SyncViewController.swift */,
+				22D424BC2222A15600D8EB8F /* DownloadVC.swift */,
 			);
 			path = Download;
 			sourceTree = "<group>";
@@ -609,11 +606,9 @@
 				227A4649221D9A2B0080F7CC /* Light.dmp in Resources */,
 				221E3807220AE6DE003D8E40 /* Localizable.strings in Resources */,
 				221E37EE220AE500003D8E40 /* LaunchScreen.storyboard in Resources */,
-				227A464A221D9A2B0080F7CC /* Full.dmp in Resources */,
 				221E3809220AE953003D8E40 /* Main.storyboard in Resources */,
 				221E380B220AE972003D8E40 /* Assets.xcassets in Resources */,
 				221E3805220AE6D7003D8E40 /* UserSettings.plist in Resources */,
-				22E6F593221F0C7300A6915D /* Consistent.dmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +703,7 @@
 				221E381C220AE9B0003D8E40 /* Chapter.swift in Sources */,
 				221E3856220AEA01003D8E40 /* DownloadCell.swift in Sources */,
 				221E3817220AE99A003D8E40 /* SyncManager.swift in Sources */,
+				22D424BD2222A15600D8EB8F /* DownloadVC.swift in Sources */,
 				221E3822220AE9B0003D8E40 /* Page.swift in Sources */,
 				221E3845220AE9EE003D8E40 /* LeftSelectionViewController.swift in Sources */,
 				221E3840220AE9EE003D8E40 /* StrongViewController.swift in Sources */,

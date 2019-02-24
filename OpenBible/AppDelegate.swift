@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private var urlToOpen: [String]? {didSet{openUrlIfNeeded()}}
     
-    static var URLServerRoot = "x-com-thedeniz-bible://"
+    static let URLServerRoot = "x-com-thedeniz-bible://"
+    static let downloadServerURL = "http://192.168.178.25:3000/"
     
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate

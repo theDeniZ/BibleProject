@@ -41,6 +41,12 @@ class Module: NSManagedObject {
         return nil
     }
     
+    class func exists(key: String, in context: NSManagedObjectContext) -> Bool {
+        let req: NSFetchRequest<Module> = Module.fetchRequest()
+        req.predicate = NSPredicate(format: "key = %@", argumentArray: [key])
+        return (try? context.fetch(req).count > 0) ?? false
+    }
+    
     class func create(from json: [String:Any], with name: String, in context: NSManagedObjectContext) -> Module? {
         guard let key = json["version_ref"] as? String,
             let jbooks = json["version"] as? [String:Any]

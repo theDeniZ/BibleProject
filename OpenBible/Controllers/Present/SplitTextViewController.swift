@@ -27,7 +27,7 @@ class SplitTextViewController: UIViewController {
     private var rightTextStorage: NSTextStorage?
     private var presentedVC: UIViewController?
     private var draggedScrollView: Int = 0
-    private var isLoadInProgress: Bool = false
+//    private var isLoadInProgress: Bool = false
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
     
@@ -36,8 +36,6 @@ class SplitTextViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mainStackView.spacing = 0
-        progressView.progressLineWidth = 2.0
-        progressView.progressColor = UIColor.blue
         progressView.isHidden = true
         AppDelegate.shared.consistentManager.addDelegate(self)
         AppDelegate.shared.urlDelegate = self
@@ -264,18 +262,31 @@ extension SplitTextViewController {
 }
 
 extension SplitTextViewController: ConsistencyManagerDelegate {
-    func condidtentManagerDidUpdatedProgress(to value: Double) {
-        print("Progress = \(value)")
+//    func condidtentManagerDidUpdatedProgress(to value: Double) {
+//        print("Progress = \(value)")
+//        DispatchQueue.main.async {
+//            if !self.isLoadInProgress {
+//                self.isLoadInProgress = true
+//                self.progressView.isHidden = false
+//            }
+//            if 1.0 - value < 0.000001 {
+//                self.isLoadInProgress = false
+//                self.progressView.isHidden = true
+//            }
+//            self.progressView.progress = CGFloat(value) * 100
+//        }
+//    }
+    func consistentManagerDidStartUpdate() {
         DispatchQueue.main.async {
-            if !self.isLoadInProgress {
-                self.isLoadInProgress = true
-                self.progressView.isHidden = false
-            }
-            if 1.0 - value < 0.000001 {
-                self.isLoadInProgress = false
-                self.progressView.isHidden = true
-            }
-            self.progressView.progress = CGFloat(value) * 100
+            self.progressView.isHidden = false
+            self.progressView.startAnimating()
+        }
+    }
+    
+    func consistentManagerDidEndUpdate() {
+        DispatchQueue.main.async {
+            self.progressView.isHidden = true
+            self.progressView.stopAnimating()
         }
     }
 }

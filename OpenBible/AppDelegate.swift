@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var urlToOpen: [String]? {didSet{openUrlIfNeeded()}}
     
     static let URLServerRoot = "x-com-thedeniz-bible://"
-    static let downloadServerURL = "http://192.168.178.25:3000/"
+    static let downloadServerURL = "https://sword-ground.herokuapp.com" //"http://192.168.178.25:3000/"
     
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -92,9 +92,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        DispatchQueue.global(qos: .utility).async {
-            self.consistentManager.backThread()
-        }
+//        DispatchQueue.global(qos: .utility).async {
+            consistentManager.backThread()
+//        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

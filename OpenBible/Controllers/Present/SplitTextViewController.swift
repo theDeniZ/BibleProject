@@ -27,7 +27,8 @@ class SplitTextViewController: UIViewController {
     private var rightTextStorage: NSTextStorage?
     private var presentedVC: UIViewController?
     private var draggedScrollView: Int = 0
-//    private var isLoadInProgress: Bool = false
+    private var viewIsOnTop: Bool = false
+    private var executeOnAppear: (() -> ())?
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
     
@@ -53,6 +54,18 @@ class SplitTextViewController: UIViewController {
         )
 
         addGestures()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        executeOnAppear?()
+//        executeOnAppear = nil
+        viewIsOnTop = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewIsOnTop = false
     }
     
     private func addGestures() {
@@ -277,16 +290,32 @@ extension SplitTextViewController: ConsistencyManagerDelegate {
 //        }
 //    }
     func consistentManagerDidStartUpdate() {
-        DispatchQueue.main.async {
-            self.progressView.isHidden = false
-            self.progressView.startAnimating()
+        print("Start animating")
+        func start() {
+            DispatchQueue.main.async {
+                self.progressView.startAnimating()
+                self.progressView.isHidden = false
+            }
+        }
+        if viewIsOnTop {
+            start()
+        } else {
+            executeOnAppear = start
         }
     }
     
     func consistentManagerDidEndUpdate() {
-        DispatchQueue.main.async {
-            self.progressView.isHidden = true
-            self.progressView.stopAnimating()
+        print("Stop animating")
+        func stop() {
+            DispatchQueue.main.async {
+                self.progressView.isHidden = true
+                self.progressView.stopAnimating()
+            }
+        }
+        if viewIsOnTop {
+            stop()
+        } else {
+            executeOnAppear = stop
         }
     }
 }

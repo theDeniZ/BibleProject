@@ -36,7 +36,7 @@ class ConsistencyManager: NSObject {
     }
 
     func backThread() {
-        didStartUpdate()
+//        didStartUpdate()
     }
     
     private func readFile(named: String) -> Data? {
@@ -54,35 +54,42 @@ class ConsistencyManager: NSObject {
     
     func download(file: String, completition: @escaping (Bool) -> () ) {
         guard let url = URL(string: AppDelegate.downloadServerURL + file) else {completition(false);return}
+        didStartUpdate()
         overallCountOfEntitiesToLoad += 1
         Downloader.load(url: url) { (tempPath) in
-            guard let temp = tempPath else {completition(false);return}
+            guard let temp = tempPath else {
+                self.processedEntities += 1
+                self.broadcastProgress()
+                completition(false)
+                return
+            }
             do {
                 let data = try Data(contentsOf: temp)
                 if file.matches(SharingRegex.module),
                     let module = self.parse(module: data) {
                     _ = Module.from(module, in: self.context)
+                    try? self.context.save()
                     self.processedEntities += 1//Module.checkConsistency(of: m, in: self.context)
                     self.broadcastProgress()
-                    try? self.context.save()
                 } else if file.matches(SharingRegex.strong),
                     let sync = self.parse(strong: data) {
-                    self.overallCountOfEntitiesToLoad += sync.count
                     for str in sync {
                         _ = Strong.from(str, in: self.context)
                     }
+                    try? self.context.save()
                     self.processedEntities += 1
                     self.broadcastProgress()
-                    try? self.context.save()
                 } else if file.matches(SharingRegex.spirit),
                     let spirit = self.parse(spirit: data) {
                     _ = SpiritBook.from(spirit, in: self.context)
+                    try? self.context.save()
                     self.processedEntities += 1//SpiritBook.checkConsistency(of: b, in: self.context)
                     self.broadcastChange()
-                    try? self.context.save()
                 }
             } catch {
                 print(error)
+                self.processedEntities += 1
+                self.broadcastProgress()
                 completition(false)
             }
             completition(true)
@@ -91,6 +98,7 @@ class ConsistencyManager: NSObject {
     
     func remove(_ code: String, completition: @escaping () -> ()) {
         overallCountOfEntitiesToLoad += 1
+        didStartUpdate()
         DispatchQueue.global(qos: .userInitiated).async {
             if let key = SharingRegex.parseModule(code) {
                 if let module = try? Module.get(by: key, from: self.context), module != nil {
@@ -124,11 +132,13 @@ class ConsistencyManager: NSObject {
             updateIsOngoing = true
             didStartUpdate()
         }
-        if processedEntities >= overallCountOfEntitiesToLoad {
-            delegates?.forEach {$0.consistentManagerDidUpdatedProgress?(to: Double(processedEntities) / Double(overallCountOfEntitiesToLoad))}
+        if processedEntities < overallCountOfEntitiesToLoad {
+//            delegates?.forEach {$0.consistentManagerDidUpdatedProgress?(to: Double(processedEntities) / Double(overallCountOfEntitiesToLoad))}
         } else {
             didEndUpdate()
             updateIsOngoing = false
+            processedEntities = 0
+            overallCountOfEntitiesToLoad = 0
         }
 //        delegates?.forEach {$0.condidtentManagerDidUpdatedProgress?(to: Double(processedEntities) / Double(overallCountOfEntitiesToLoad))}
     }

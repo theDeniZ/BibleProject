@@ -28,9 +28,7 @@ class DownloadVC: UIViewController {
     }
     
     private func readFromServer() {
-        modules = []
-        strongs = []
-        spirit = []
+        guard modules.count == 0, strongs.count == 0, spirit.count == 0 else {return}
         let context = AppDelegate.context
         guard let url = URL(string: AppDelegate.downloadServerURL) else {return}
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in

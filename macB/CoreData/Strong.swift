@@ -77,9 +77,9 @@ class Strong: NSManagedObject {
     }
     
     class func from(_ sync: SyncStrong, in context: NSManagedObjectContext) -> Strong {
-        if let old = Strong.get(sync.number, by: sync.type, from: context) {
-            context.delete(old)
-        }
+//        if let old = Strong.get(sync.number, by: sync.type, from: context) {
+//            context.delete(old)
+//        }   // useless code
         let new = Strong(context: context)
         new.number = Int32(sync.number)
         new.meaning = sync.meaning

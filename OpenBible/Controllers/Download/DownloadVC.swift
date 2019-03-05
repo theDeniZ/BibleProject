@@ -15,17 +15,24 @@ class DownloadVC: UIViewController {
     private var modules = [(String, String, Bool, String)]()
     private var strongs = [(String, String, Bool, String)]()
     private var spirit = [(String, String, Bool, String)]()
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         table.dataSource = self
         table.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Load data from server")
+        refreshControl.addTarget(self, action: #selector(refreshOnDemand(_:)), for: UIControl.Event.valueChanged)
+        table.addSubview(refreshControl)
+        refreshControl.beginRefreshing()
         readFromServer()
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        readFromServer()
+//    }
     
     private func readFromServer() {
         guard modules.count == 0, strongs.count == 0, spirit.count == 0 else {return}
@@ -49,10 +56,10 @@ class DownloadVC: UIViewController {
                         } else if let type = SharingRegex.parseStrong(name) {
                             let exist = (try? Strong.exists(type, in: context)) ?? false
                             self.strongs.append((file["size"]!, type, exist, path))
-                        } else if let code = SharingRegex.parseSpirit(name) {
+                        }/* else if let code = SharingRegex.parseSpirit(name) {
                             let exist = SpiritBook.exists(with: code, in: context)
                             self.spirit.append((file["size"]!, code, exist, path))
-                        }
+                        }*/ // we are not ready for this
                     }
                 }
             } else {
@@ -60,9 +67,17 @@ class DownloadVC: UIViewController {
             }
             DispatchQueue.main.async {
                 self.table.reloadData()
+                self.refreshControl.endRefreshing()
             }
         }
         task.resume()
+    }
+    
+    @objc func refreshOnDemand(_ sender: AnyObject) {
+        modules = []
+        strongs = []
+        spirit = []
+        readFromServer()
     }
 
 }
@@ -158,6 +173,11 @@ extension DownloadVC: UITableViewDelegate {
                 AppDelegate.shared.consistentManager.download(file: text, completition: { (downloaded) in
                     DispatchQueue.main.async {
                         cell?.accessoryType = downloaded ? .checkmark : .none
+                        if !downloaded {
+                            let alertErr = UIAlertController(title: "Error", message: "An unknown error is caught. Please, try again later", preferredStyle: .alert)
+                            alertErr.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: nil))
+                            self.present(alertErr, animated: true, completion: nil)
+                        }
                     }
                 })
             }))

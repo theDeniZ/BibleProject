@@ -27,7 +27,6 @@ class SplitTextViewController: UIViewController {
     private var rightTextStorage: NSTextStorage?
     private var presentedVC: UIViewController?
     private var draggedScrollView: Int = 0
-    private var viewIsOnTop: Bool = false
     private var executeOnAppear: (() -> ())?
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
@@ -59,13 +58,6 @@ class SplitTextViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         executeOnAppear?()
-//        executeOnAppear = nil
-        viewIsOnTop = true
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        viewIsOnTop = false
     }
     
     private func addGestures() {
@@ -297,11 +289,8 @@ extension SplitTextViewController: ConsistencyManagerDelegate {
                 self.progressView.isHidden = false
             }
         }
-        if viewIsOnTop {
-            start()
-        } else {
-            executeOnAppear = start
-        }
+        start()
+        executeOnAppear = start
     }
     
     func consistentManagerDidEndUpdate() {
@@ -312,10 +301,7 @@ extension SplitTextViewController: ConsistencyManagerDelegate {
                 self.progressView.stopAnimating()
             }
         }
-        if viewIsOnTop {
-            stop()
-        } else {
-            executeOnAppear = stop
-        }
+        stop()
+        executeOnAppear = stop
     }
 }

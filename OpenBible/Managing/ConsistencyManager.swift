@@ -54,6 +54,7 @@ class ConsistencyManager: NSObject {
     
     func download(file: String, completition: @escaping (Bool) -> () ) {
         guard let url = URL(string: AppDelegate.downloadServerURL + file) else {completition(false);return}
+        let context = AppDelegate.context
         didStartUpdate()
         overallCountOfEntitiesToLoad += 1
         Downloader.load(url: url) { (tempPath) in
@@ -67,22 +68,22 @@ class ConsistencyManager: NSObject {
                 let data = try Data(contentsOf: temp)
                 if file.matches(SharingRegex.module),
                     let module = self.parse(module: data) {
-                    _ = Module.from(module, in: self.context)
-                    try? self.context.save()
+                    _ = Module.from(module, in: context)
+                    try? context.save()
                     self.processedEntities += 1//Module.checkConsistency(of: m, in: self.context)
                     self.broadcastProgress()
                 } else if file.matches(SharingRegex.strong),
                     let sync = self.parse(strong: data) {
                     for str in sync {
-                        _ = Strong.from(str, in: self.context)
+                        _ = Strong.from(str, in: context)
                     }
-                    try? self.context.save()
+                    try? context.save()
                     self.processedEntities += 1
                     self.broadcastProgress()
                 } else if file.matches(SharingRegex.spirit),
                     let spirit = self.parse(spirit: data) {
-                    _ = SpiritBook.from(spirit, in: self.context)
-                    try? self.context.save()
+                    _ = SpiritBook.from(spirit, in: context)
+                    try? context.save()
                     self.processedEntities += 1//SpiritBook.checkConsistency(of: b, in: self.context)
                     self.broadcastChange()
                 }
@@ -97,30 +98,31 @@ class ConsistencyManager: NSObject {
     }
     
     func remove(_ code: String, completition: @escaping () -> ()) {
+        let context = AppDelegate.context
         overallCountOfEntitiesToLoad += 1
         didStartUpdate()
         DispatchQueue.global(qos: .userInitiated).async {
             if let key = SharingRegex.parseModule(code) {
-                if let module = try? Module.get(by: key, from: self.context), module != nil {
-                    self.context.delete(module!)
-                    try? self.context.save()
+                if let module = try? Module.get(by: key, from: context), module != nil {
+                    context.delete(module!)
+                    try? context.save()
                 }
                 self.processedEntities += 1
                 self.broadcastProgress()
                 completition()
                 
             } else if let type = SharingRegex.parseStrong(code) {
-                Strong.remove(type, from: self.context)
+                Strong.remove(type, from: context)
                 self.processedEntities += 1
                 self.broadcastProgress()
-                try? self.context.save()
+                try? context.save()
                 completition()
             } else if let c = SharingRegex.parseSpirit(code) {
-                if let b = try? SpiritBook.get(by: c, from: self.context), b != nil {
-                    self.context.delete(b!)
+                if let b = try? SpiritBook.get(by: c, from: context), b != nil {
+                    context.delete(b!)
                     self.processedEntities += 1
                     self.broadcastProgress()
-                    try? self.context.save()
+                    try? context.save()
                 }
                 completition()
             }

@@ -66,7 +66,7 @@ class Book: NSManagedObject {
                 return Int(match[0].number)
             }
         } catch {
-            print("Error: Book.isThereBook: \(error)")
+            print("Error: Book.find(by \(regex)): \(error)")
         }
         return nil
     }

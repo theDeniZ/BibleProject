@@ -100,40 +100,20 @@ class VerseManager: Manager {
         return nil
     }
     
-    func setBook(by title: String) -> Bool {
-        let t = title.lowercased()
-        if let books = module1.books?.array as? [Book] {
-            for book in books {
-                if let name = book.name?.lowercased(),
-                    name.starts(with: t) {
-                    bookNumber = Int(book.number)
-                    chapterNumber = 1
-                    versesRanges = nil
-                    return true
-                }
+    func setBook(by name: String) -> Bool {
+        var regex = "(?i)\(name).*"
+        if "0"..."9" ~= name[0] {
+            var i = 1
+            while i < name.count && !String(name[i]).matches("\\w"){
+                i += 1
             }
+            regex = "\(name[0])[.]?\\s*(?i)\(name[i..<name.count]).*"
         }
-        if let books = module2?.books?.array as? [Book] {
-            for book in books {
-                if let name = book.name?.lowercased(),
-                    name.starts(with: t) {
-                    bookNumber = Int(book.number)
-                    chapterNumber = 1
-                    versesRanges = nil
-                    return true
-                }
-            }
-        }
-        if let books = defaultModule?.books?.array as? [Book] {
-            for book in books {
-                if let name = book.name?.lowercased(),
-                    name.starts(with: t) {
-                    bookNumber = Int(book.number)
-                    chapterNumber = 1
-                    versesRanges = nil
-                    return true
-                }
-            }
+        if let n = Book.find(by: regex, in: context) {
+            bookNumber = n
+            chapterNumber = 1
+            versesRanges = nil
+            return true
         }
         return false
     }

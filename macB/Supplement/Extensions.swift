@@ -74,8 +74,9 @@ extension CGRect {
 
 extension String {
     
-    static let regexForBookRefference = "((?:\\d*\\s*)(?:\\w+[^0-9:.,]))\\s*(\\d+)?(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
+    static let regexForBookRefference = "^((?:\\d*\\s*)(?:\\w+[^0-9:.,]))\\s*(\\d+)?(?:\\s*[:,]?\\s*(\\d+)(\\s*[,.-]?\\s*(\\d+))*)?"
     static let regexForVerses = "(?!^)((?:[,.-])?\\d+)"
+    static let regexForVersesOnly = "((?:[,.-])?\\d+)"
     static let regexForSpiritIndex = "\\[?(\\w+[^:])(:)?(\\d+)\\]?"
     static let regexForChapter = "^(\\d+)$"
     
@@ -202,10 +203,10 @@ extension Range where Bound: FixedWidthInteger {
 
 extension NSAttributedString: StrongsLinkEmbeddable {
     var strongNumbersAvailable: Bool {
-        return self.string.matches("( \\d+ )")
+        return self.string.matches("(\\w \\d+ )")
     }
     
-    func embedStrongs(to link: String, using size: CGFloat, linking: Bool = true) -> NSAttributedString {
+    func embedStrongs(to link: String, using size: CGFloat, linking: Bool = true, withTooltip: Bool = false) -> NSAttributedString {
         let newMAString = NSMutableAttributedString()
         var normalFont = NSFont.systemFont(ofSize: size)
         var smallFont = NSFont.systemFont(ofSize: size * 0.666)
@@ -225,17 +226,22 @@ extension NSAttributedString: StrongsLinkEmbeddable {
         }
         let splited = string.replacingOccurrences(of: "\r\n", with: "").split(separator: " ").map {String($0)}
         newMAString.append(NSAttributedString(string: splited[0] + " ", attributes: upperAttribute))
+        let url = AppDelegate.URLServerRoot + link + "/"
         var i = 1
         while i < splited.count {
-            if !splited[i].matches("\\d+") {
+            if !("0"..."9" ~= splited[i][0]) {// !splited[i].matches("\\d+") {
                 let s = NSMutableAttributedString(string: splited[i])
                 var numbers: [Int] = []
-                while i < splited.count - 1, splited[i + 1].matches("\\d+") {
+                while i < splited.count - 1, ("0"..."9" ~= splited[i + 1][0]) {//splited[i + 1].matches("\\d+") {
                     i += 1
-                    let numberStr = splited[i].capturedGroups(withRegex: "(\\d+)")![0]
-                    numbers.append(Int(numberStr)!)
-                    if splited[i].count != numberStr.count {
-                        s.append(NSAttributedString(string: splited[i].replacingOccurrences(of: numberStr, with: "")))
+                    if let n = Int(splited[i]) {
+                        numbers.append(n)
+                    } else {
+                        let numberStr = splited[i].capturedGroups(withRegex: "(\\d+)")![0]
+                        numbers.append(Int(numberStr)!)
+                        if splited[i].count != numberStr.count {
+                            s.append(NSAttributedString(string: splited[i].replacingOccurrences(of: numberStr, with: "")))
+                        }
                     }
                 }
                 s.append(NSAttributedString(string: " "))
@@ -244,9 +250,13 @@ extension NSAttributedString: StrongsLinkEmbeddable {
                 }
                 if linking, numbers.count > 0 {
                     let ns = numbers.map({String($0)}).joined(separator: "+")
-                    let url = AppDelegate.URLServerRoot + link + "/" + ns
-                    s.addAttribute(.link, value: url, range: NSRange(0..<s.length - 1))
-                    s.addAttribute(.toolTip, value: StrongManager.getTooltip(from: ns, type: link), range: NSRange(0..<s.length - 1))
+                    
+                    s.addAttribute(.link, value: url + ns, range: NSRange(0..<s.length - 1))
+                    if withTooltip {
+                        s.addAttribute(.toolTip, value: StrongManager.getTooltip(from: ns, type: link), range: NSRange(0..<s.length - 1))
+                    } else {
+                        s.addAttribute(.toolTip, value: "Turn on toolitp in settings", range: NSRange(0..<s.length - 1))
+                    }
 //                    s.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single, range: NSRange(0..<s.length - 1))
                 }
                 s.addAttributes([.font: normalFont], range: NSRange(0..<s.length))

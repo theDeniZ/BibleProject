@@ -53,4 +53,11 @@ class Verse: NSManagedObject {
              .foregroundColor : UIColor.gray.withAlphaComponent(0.7)]
         return attributedCompound(font: font, upperBaseline: upperAttribute)
     }
+    
+    class func from(_ sync: SyncVerse, in context: NSManagedObjectContext) -> Verse {
+        let new = Verse(context: context)
+        new.number = Int32(sync.number)
+        new.text = sync.text
+        return new
+    }
 }

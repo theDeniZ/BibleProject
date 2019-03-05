@@ -52,46 +52,36 @@ class CoreManager: NSObject {
     ///
     /// - Returns: Array of verses texts ready to be shown
     subscript(n: Int) -> [NSAttributedString] {
-        if n < activeModules.count {
-            let module = activeModules[n]
-            if let books = module.books?.array as? [Book] {
-                let filteredBook = books.filter {$0.number == currentIndex.book}
-                if filteredBook.count > 0 {
-                    let book = filteredBook[0]
-                    if let chapters = book.chapters?.array as? [Chapter] {
-                        let filteredChapter = chapters.filter {$0.number == currentIndex.chapter}
-                        if filteredChapter.count > 0 {
-                            let chapter = filteredChapter[0]
-                            if let verses = chapter.verses?.array as? [Verse] {
-                                if let vs = currentIndex.verses {
-                                    var result = [NSAttributedString]()
-                                    for range in vs {
-                                        let versesFiltered = verses.filter {range.contains(Int($0.number))}
-                                        for verse in versesFiltered {
-                                            let attributedVerse = verse.attributedCompound(size: fontSize)
-                                            //check for strong's numbers
-                                            if attributedVerse.strongNumbersAvailable {
-                                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn))
-                                            } else {
-                                                result.append(attributedVerse)
-                                            }
-                                        }
-                                    }
-                                    return result
-                                } else {
-                                    if verses[0].attributedCompound.strongNumbersAvailable {
-                                        return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn)}
-                                    }
-                                    return verses.map {$0.attributedCompound(size: fontSize)}
-                                }
+        return getAttributedString(from: n, loadingTooltip: false)
+    }
+    
+    func getAttributedString(from index: Int, loadingTooltip: Bool) -> [NSAttributedString] {
+        if let chapter = chapter(index) {
+            if let verses = chapter.verses?.array as? [Verse] {
+                if let vs = currentIndex.verses {
+                    var result = [NSAttributedString]()
+                    for range in vs {
+                        let versesFiltered = verses.filter {range.contains(Int($0.number))}
+                        for verse in versesFiltered {
+                            let attributedVerse = verse.attributedCompound(size: fontSize)
+                            //check for strong's numbers
+                            if attributedVerse.strongNumbersAvailable {
+                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip))
+                            } else {
+                                result.append(attributedVerse)
                             }
                         }
                     }
+                    return result
+                } else {
+                    if verses[0].attributedCompound.strongNumbersAvailable {
+                        return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip)}
+                    }
+                    return verses.map {$0.attributedCompound(size: fontSize)}
                 }
             }
         }
         return []
-        
     }
     
     /// Triggers method .modelChanged() at all delegates once
@@ -191,25 +181,70 @@ extension CoreManager {
     }
 }
 
-// MARK: - String convertable convenience
+// MARK: - Convenience
 
 extension CoreManager {
     
     /// Either current book in use at first active module, or nil
     var book: Book? {
-        if activeModules.count > 0,
-            let f = activeModules[0].books?.array as? [Book] {
-            let filter = f.filter {$0.number == currentIndex.book}
-            if filter.count > 0 {
-                return filter[0]
+        do {
+            if let module = mainModule,
+                let b = try Book.get(by: currentIndex.book, concerning: module, in: context) {
+                return b
             }
+        } catch {
+            print(error)
         }
         return nil
     }
+    
+    /// Either a book from a module with index, or nil
+    ///
+    /// - Parameter index: index of a module
+    /// - Returns: a Book object or nil
+    func book(_ index: Int) -> Book? {
+        do {
+            if let module = module(index),
+                let b = try Book.get(by: currentIndex.book, concerning: module, in: context) {
+                return b
+            }
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+    
+    /// Either current chapter in current book from module at index, or nil
+    ///
+    /// - Parameter index: index of a module
+    /// - Returns: a Chapter object or nil
+    func chapter(_ index: Int) -> Chapter? {
+        do {
+            if let b = book(index),
+                let c = try Chapter.get(by: currentIndex.chapter, concerning: b, in: context) {
+                return c
+            }
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+    
     /// Either first active module, or nil
     var mainModule: Module? {
         if activeModules.count > 0 {
             return activeModules[0]
+        }
+        return nil
+    }
+    
+    /// Either module at index, or nil
+    ///
+    /// - Parameter index: index of a moudle
+    /// - Returns: a Module object or nil
+    func module(_ index: Int) -> Module? {
+        if activeModules.count > 0, activeModules.count > index {
+            return activeModules[index]
         }
         return nil
     }

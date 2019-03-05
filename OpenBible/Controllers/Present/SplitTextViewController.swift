@@ -19,11 +19,16 @@ class SplitTextViewController: UIViewController {
     @IBOutlet weak var leftTextView: UITextView!
     @IBOutlet weak var rightTextView: UITextView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var progressView: ProgressView!
+    @IBOutlet weak var mainStackView: UIStackView!
+    
     
     private var leftTextStorage: NSTextStorage?
     private var rightTextStorage: NSTextStorage?
     private var presentedVC: UIViewController?
     private var draggedScrollView: Int = 0
+    private var viewIsOnTop: Bool = false
+    private var executeOnAppear: (() -> ())?
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
     
@@ -31,6 +36,9 @@ class SplitTextViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mainStackView.spacing = 0
+        progressView.isHidden = true
+        AppDelegate.shared.consistentManager.addDelegate(self)
         AppDelegate.shared.urlDelegate = self
         loadTextViews()
         leftTextView.delegate = self
@@ -44,8 +52,20 @@ class SplitTextViewController: UIViewController {
             image: UIImage(named: "search"), style: .plain,
             target: self, action: #selector(toggleSearch)
         )
-        
+
         addGestures()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        executeOnAppear?()
+//        executeOnAppear = nil
+        viewIsOnTop = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewIsOnTop = false
     }
     
     private func addGestures() {
@@ -98,6 +118,11 @@ class SplitTextViewController: UIViewController {
     
     @objc private func toggleSearch() {
         isInSearch = !isInSearch
+        if isInSearch {
+            mainStackView.spacing = 10
+        } else {
+            mainStackView.spacing = 0
+        }
     }
     
     private func updateSearchUI() {
@@ -134,8 +159,8 @@ class SplitTextViewController: UIViewController {
                     verseManager.setVerses(from: v.map {$0[0]})
                 }
             }
-        } else if text.matches(String.regexForVerses) {
-            let verseMatch = text.matches(withRegex: String.regexForVerses)!
+        } else if text.matches(String.regexForVersesOnly) {
+            let verseMatch = text.matches(withRegex: String.regexForVersesOnly)!
             verseManager.setChapter(number: Int(verseMatch[0][0])!)
             let v = verseMatch[1...]
             if v.count > 0 {
@@ -245,6 +270,52 @@ extension SplitTextViewController {
         if recognizer.state == .began {
             toggleMenu()
             recognizer.state = .ended
+        }
+    }
+}
+
+extension SplitTextViewController: ConsistencyManagerDelegate {
+//    func condidtentManagerDidUpdatedProgress(to value: Double) {
+//        print("Progress = \(value)")
+//        DispatchQueue.main.async {
+//            if !self.isLoadInProgress {
+//                self.isLoadInProgress = true
+//                self.progressView.isHidden = false
+//            }
+//            if 1.0 - value < 0.000001 {
+//                self.isLoadInProgress = false
+//                self.progressView.isHidden = true
+//            }
+//            self.progressView.progress = CGFloat(value) * 100
+//        }
+//    }
+    func consistentManagerDidStartUpdate() {
+        print("Start animating")
+        func start() {
+            DispatchQueue.main.async {
+                self.progressView.startAnimating()
+                self.progressView.isHidden = false
+            }
+        }
+        if viewIsOnTop {
+            start()
+        } else {
+            executeOnAppear = start
+        }
+    }
+    
+    func consistentManagerDidEndUpdate() {
+        print("Stop animating")
+        func stop() {
+            DispatchQueue.main.async {
+                self.progressView.isHidden = true
+                self.progressView.stopAnimating()
+            }
+        }
+        if viewIsOnTop {
+            stop()
+        } else {
+            executeOnAppear = stop
         }
     }
 }

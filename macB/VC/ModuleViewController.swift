@@ -10,7 +10,7 @@ import Cocoa
 
 class ModuleViewController: NSViewController {
 
-    var moduleManager: CoreManager? {didSet{updateUI()}}
+    var moduleManager: CoreManager?
     var currentModule: Module!
     var index: Int!
     var delegate: SplitViewDelegate?
@@ -25,15 +25,15 @@ class ModuleViewController: NSViewController {
         guard docView - content != 0 else {return 1.0}
         return scrollView.documentVisibleRect.origin.y / (docView - content)
     }
+    private var updateTimer: Timer?
     
-    @IBOutlet private var textView: NSTextView! {didSet{updateUI()}}
-    @IBOutlet weak var modulePicker: NSComboBox! {didSet{updateUI()}}
-    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet private var textView: NSTextView!
+    @IBOutlet private weak var modulePicker: NSComboBox!
+    @IBOutlet private weak var scrollView: NSScrollView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(scrollViewDidScroll),
@@ -49,6 +49,11 @@ class ModuleViewController: NSViewController {
         scrollView.verticalScroller?.isHidden = true
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        updateUI()
+    }
+    
     private func updateCombo() {
         modulePicker?.removeAllItems()
         modulePicker?.addItem(withObjectValue: currentModule.key ?? currentModule.name ?? "Bible")
@@ -61,24 +66,47 @@ class ModuleViewController: NSViewController {
     
     private func updateUI() {
         updateCombo()
-        if let i = index, let strings = moduleManager?[i] {
-            let attributedString = strings.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
-                r.append(each)
-//                r.append("\n")
-                return r
+        guard let manager = moduleManager, let index = index else {return}
+        
+        let strings: [NSAttributedString] = manager[index]
+        
+        let attributedString = strings.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
+            r.append(each)
+            return r
+        }
+        if let lm = textView?.layoutManager {
+            textStorage?.removeLayoutManager(lm)
+            textStorage = NSTextStorage(attributedString: attributedString)
+            textStorage!.addLayoutManager(lm)
+            if let c = NSColor(named: NSColor.Name("linkTextColor")) {
+                textView?.linkTextAttributes = [.foregroundColor: c, .cursor: NSCursor.contextualMenu]
             }
-//            if let c = NSColor(named: NSColor.Name("textColor")) {
-//                attributedString.addAttribute(.foregroundColor, value: c, range: NSRange(0..<attributedString.length))
-//            }
-            if let lm = textView?.layoutManager {
-                textStorage?.removeLayoutManager(lm)
-                textStorage = NSTextStorage(attributedString: attributedString)
-                textStorage!.addLayoutManager(lm)
-                if let c = NSColor(named: NSColor.Name("linkTextColor")) {
-                    textView?.linkTextAttributes = [.foregroundColor: c, .cursor: NSCursor.contextualMenu]
+//            textView?.setSelectedRange(NSMakeRange(textView.string.count, 0))
+        }
+        if AppDelegate.plistManager.isTooltipOn {
+            loadTooltip()
+        }
+    }
+    
+    private func loadTooltip() {
+        guard let manager = moduleManager, let index = index else {return}
+        DispatchQueue.global(qos: .background).async {
+            self.updateTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) {
+                (_) in
+                let strings = manager.getAttributedString(from: index, loadingTooltip: true)
+                let attributedString = strings.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
+                    r.append(each)
+                    return r
                 }
-                textView?.setSelectedRange(NSMakeRange(textView.string.count, 0))
+                DispatchQueue.main.async {
+                    if let lm = self.textView?.layoutManager {
+                        self.textStorage = NSTextStorage(attributedString: attributedString)
+                        self.textStorage!.addLayoutManager(lm)
+                    }
+                    self.updateTimer = nil
+                }
             }
+            self.updateTimer?.fire()
         }
     }
     

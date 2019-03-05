@@ -21,8 +21,15 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jBW-l6-0ee">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyd-zb-X0D" customClass="ProgressView" customModule="OpenBible" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="5" id="xjT-T8-USJ"/>
+                                        </constraints>
+                                    </view>
                                     <textField hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CTs-cD-vDK">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="10" width="375" height="0.0"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
@@ -31,10 +38,10 @@
                                         </connections>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fhY-qn-gAM">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
+                                        <rect key="frame" x="0.0" y="15" width="375" height="719"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E6p-h2-eeq">
-                                                <rect key="frame" x="0.0" y="0.0" width="182.66666666666666" height="734"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="182.66666666666666" height="719"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -42,7 +49,7 @@
                                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                             </textView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yQ4-Wt-IH2">
-                                                <rect key="frame" x="192.66666666666663" y="0.0" width="182.33333333333337" height="734"/>
+                                                <rect key="frame" x="192.66666666666663" y="0.0" width="182.33333333333337" height="719"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -65,6 +72,8 @@
                     </view>
                     <connections>
                         <outlet property="leftTextView" destination="E6p-h2-eeq" id="lH7-Rx-ck4"/>
+                        <outlet property="mainStackView" destination="jBW-l6-0ee" id="dgD-8t-6zS"/>
+                        <outlet property="progressView" destination="jyd-zb-X0D" id="p6v-6f-0C4"/>
                         <outlet property="rightTextView" destination="yQ4-Wt-IH2" id="B9D-wE-ndT"/>
                         <outlet property="searchTextField" destination="CTs-cD-vDK" id="xv1-2u-9ZX"/>
                     </connections>
@@ -84,12 +93,12 @@
                     </tabBar>
                     <connections>
                         <segue destination="gxE-eX-D2Y" kind="relationship" relationship="viewControllers" id="SGl-mv-NKw"/>
-                        <segue destination="uyW-6v-FBA" kind="relationship" relationship="viewControllers" id="3bh-ju-rUc"/>
+                        <segue destination="BLx-jU-nzV" kind="relationship" relationship="viewControllers" id="VPv-A9-pSH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0W-z3-y6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2103" y="248"/>
+            <point key="canvasLocation" x="-2182" y="273"/>
         </scene>
         <!--Read-->
         <scene sceneID="dKQ-e3-XIG">
@@ -108,6 +117,68 @@
             <point key="canvasLocation" x="-951" y="-27"/>
         </scene>
         <!--Download-->
+        <scene sceneID="YPX-7P-10K">
+            <objects>
+                <viewController id="BLx-jU-nzV" customClass="DownloadVC" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ox2-MU-Bin">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8Fs-ud-PrN">
+                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Og-oZ-R5i">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="685"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Download Cell" textLabel="1XY-Ea-8lH" detailTextLabel="pKl-vf-4fL" style="IBUITableViewCellStyleValue2" id="jcQ-60-sAi">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jcQ-60-sAi" id="Xfi-Rq-VUo">
+                                                    <rect key="frame" x="0.0" y="0.0" width="336" height="43.666666666666664"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1XY-Ea-8lH">
+                                                            <rect key="frame" x="15" y="19" width="91" height="12"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pKl-vf-4fL">
+                                                            <rect key="frame" x="112.00000000000001" y="12.999999999999998" width="41.666666666666664" height="19.333333333333332"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8Fs-ud-PrN" firstAttribute="leading" secondItem="rfB-J5-gyq" secondAttribute="leading" id="3Ms-Ml-1Yd"/>
+                            <constraint firstItem="rfB-J5-gyq" firstAttribute="bottom" secondItem="8Fs-ud-PrN" secondAttribute="bottom" id="Yff-F6-12O"/>
+                            <constraint firstItem="8Fs-ud-PrN" firstAttribute="top" secondItem="rfB-J5-gyq" secondAttribute="top" id="oLx-Ga-GiD"/>
+                            <constraint firstItem="rfB-J5-gyq" firstAttribute="trailing" secondItem="8Fs-ud-PrN" secondAttribute="trailing" id="voS-Ia-RNq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rfB-J5-gyq"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Download" image="load" id="Uq7-Ca-AWV"/>
+                    <connections>
+                        <outlet property="table" destination="9Og-oZ-R5i" id="0sY-IV-qCD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eQW-VV-sJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2183" y="1000"/>
+        </scene>
+        <!--Download-->
         <scene sceneID="LfN-uT-Ocv">
             <objects>
                 <viewController id="uyW-6v-FBA" customClass="DownloadViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
@@ -116,7 +187,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Z2Z-Zv-dqI">
-                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dyz-S6-hmx">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="29"/>
@@ -129,10 +200,10 @@
                                         </connections>
                                     </segmentedControl>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="fZ4-VI-bIa">
-                                        <rect key="frame" x="0.0" y="38" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="38" width="375" height="696"/>
                                         <subviews>
-                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tJh-Bn-sWo">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tJh-Bn-sWo">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="348"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Module Cell" id="Agh-UN-RoC" customClass="DownloadCell" customModule="OpenBible" customModuleProvider="target">
@@ -143,7 +214,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UjM-nw-JtY">
-                                                                    <rect key="frame" x="20" y="10.000000000000002" width="335" height="23.666666666666671"/>
+                                                                    <rect key="frame" x="20" y="10" width="335" height="23.666666666666671"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YVr-vC-cZW">
                                                                             <rect key="frame" x="0.0" y="0.0" width="305" height="23.666666666666668"/>
@@ -188,7 +259,7 @@
                                                 </prototypes>
                                             </tableView>
                                             <containerView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="6Gp-6j-XHi">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                                <rect key="frame" x="0.0" y="348" width="375" height="348"/>
                                                 <connections>
                                                     <segue destination="YWT-lV-igg" kind="embed" id="5jd-R0-iHt"/>
                                                 </connections>
@@ -569,17 +640,17 @@
             <objects>
                 <viewController id="YWT-lV-igg" customClass="SyncViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hL6-gG-X5W">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="348"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UcW-y1-j2T">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="593"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="294"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="n8O-fi-cWV">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="521"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gCc-18-wcS">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="250.66666666666666"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="101"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Services Table Cell" textLabel="Tcz-Qm-KK3" style="IBUITableViewCellStyleDefault" id="6pB-mN-CTu">
@@ -602,7 +673,7 @@
                                                 </prototypes>
                                             </tableView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cse-72-2MY">
-                                                <rect key="frame" x="0.0" y="270.66666666666669" width="375" height="250.33333333333331"/>
+                                                <rect key="frame" x="0.0" y="121" width="375" height="101"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Info Table Cell" id="PjN-ir-1ks" customClass="ServiceTableViewCell" customModule="OpenBible" customModuleProvider="target">
@@ -656,10 +727,10 @@
                                         </subviews>
                                     </stackView>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="jvL-Mz-tHB">
-                                        <rect key="frame" x="0.0" y="541" width="375" height="2"/>
+                                        <rect key="frame" x="0.0" y="242" width="375" height="2"/>
                                     </progressView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="tUX-lg-Jq2">
-                                        <rect key="frame" x="0.0" y="563" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="264" width="375" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HO3-I5-voJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="30"/>

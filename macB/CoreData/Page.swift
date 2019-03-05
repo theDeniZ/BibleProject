@@ -21,4 +21,12 @@ class Page: NSManagedObject {
         }
         return nil
     }
+    
+    class func from(_ sync: SyncSpiritPage, in context: NSManagedObjectContext) -> Page {
+        let new = Page(context: context)
+        new.number = Int32(sync.number)
+        new.roman = sync.roman
+        new.text = sync.text
+        return new
+    }
 }

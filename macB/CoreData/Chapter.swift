@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 
 class Chapter: NSManagedObject {
+    
     class func create(in context: NSManagedObjectContext) -> Chapter {
         return Chapter(context: context)
     }
@@ -48,4 +49,34 @@ class Chapter: NSManagedObject {
         }
         return false
     }
+    
+    class func get(by number: Int, concerning book: Book, in context: NSManagedObjectContext) throws -> Chapter? {
+        let req: NSFetchRequest<Chapter> = Chapter.fetchRequest()
+        req.predicate = NSPredicate(format: "number = %@ AND book = %@", argumentArray: [number, book])
+        
+        do {
+            let match = try context.fetch(req)
+            if match.count > 0 {
+                assert(match.count == 1, "CoreData (Chapter.get(by \(number)): Database inconsistency")
+                return match[0]
+            }
+        } catch {
+            throw error
+        }
+        return nil
+    }
+    
+    class func from(_ sync: SyncChapter, in context: NSManagedObjectContext) -> Chapter {
+        let new = Chapter(context: context)
+        new.number = Int32(sync.number)
+        var verses = [Verse]()
+        for v in sync.verses {
+            let verse = Verse.from(v, in: context)
+            verse.chapter = new
+            verses.append(verse)
+        }
+        new.verses = NSOrderedSet(array: verses)
+        return new
+    }
+
 }

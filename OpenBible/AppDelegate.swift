@@ -14,9 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var urlDelegate: URLDelegate? {didSet{openUrlIfNeeded()}}
+    var consistentManager: ConsistencyManager!
+    
+    
     private var urlToOpen: [String]? {didSet{openUrlIfNeeded()}}
     
-    static var URLServerRoot = "x-com-thedeniz-bible://"
+    static let URLServerRoot = "x-com-thedeniz-bible://"
+    static let downloadServerURL = "https://sword-ground.herokuapp.com" //"http://192.168.178.25:3000/"
     
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
@@ -48,6 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    static var viewContext: NSManagedObjectContext {
+        return AppDelegate.persistantContainer.viewContext
+    }
+    
     static var isAppAlreadyLaunchedOnce: Bool {
         let defaults = UserDefaults.standard
         if defaults.string(forKey: "isAppAlreadyLaunchedOnce") != nil {
@@ -59,8 +67,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey:Any]?) -> Bool {
-//        let em = NSAppleEventManager.shared()
-//        em.setEventHandler(self, andSelector: #selector(self.getUrl(_:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        consistentManager = ConsistencyManager(context: persistentContainer.newBackgroundContext())
+        consistentManager.addDelegate(self)
+        if !AppDelegate.isAppAlreadyLaunchedOnce {
+            print("initialised")
+            consistentManager.initialiseCoreData()
+        }
         return true
     }
 
@@ -78,9 +90,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 //    }
 //
-//    func applicationDidBecomeActive(_ application: UIApplication) {
-//        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-//    }
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+//        DispatchQueue.global(qos: .utility).async {
+            consistentManager.backThread()
+//        }
+    }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -157,3 +172,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension AppDelegate: ConsistencyManagerDelegate {
+    
+    func consistentManagerDidChangedModel() {
+        print("modelChanged")
+    }
+}

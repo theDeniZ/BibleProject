@@ -32,7 +32,19 @@ class PlistManager {
     private let menuKey = "menuIsOn"
     private let fontKey = "font"
     private let fontBoldKey = "fontBold"
+    private let tooltipKey = "tooltip"
 
+    var isTooltipOn: Bool {
+        get {
+            var o = false
+            plistHandler.get(to: &o, of: tooltipKey)
+            return o
+        }
+        set {
+            plistHandler.setValue(newValue, of: tooltipKey)
+        }
+    }
+    
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         let documentDirectory = paths[0] as! String

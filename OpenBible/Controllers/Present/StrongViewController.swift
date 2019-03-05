@@ -11,7 +11,7 @@ import CoreData
 
 class StrongViewController: UIViewController {
     
-    var context: NSManagedObjectContext = AppDelegate.context
+    var context: NSManagedObjectContext = AppDelegate.viewContext
     var numbers: [Int] = []
     var identifier = StrongId.oldTestament
 

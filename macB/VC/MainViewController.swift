@@ -89,8 +89,8 @@ class MainViewController: NSViewController {
                     manager.setVerses(from: v.map {$0[0]})
                 }
             }
-        } else if text.matches(String.regexForVerses) {
-            let verseMatch = text.replacingOccurrences(of: " ", with: "").matches(withRegex: String.regexForVerses)!
+        } else if text.matches(String.regexForVersesOnly) {
+            let verseMatch = text.replacingOccurrences(of: " ", with: "").matches(withRegex: String.regexForVersesOnly)!
             manager.changeChapter(to: Int(verseMatch[0][0])!)
             let v = verseMatch[1...]
             if v.count > 0 {

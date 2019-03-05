@@ -66,14 +66,35 @@ struct SharingRegex {
     static func sync(_ name: String, counting: Int, last: Int) -> String {
         return "Sync(\(name)):\(counting)+\(last)"
     }
+    
+    static func parseModule(_ str: String) -> String? {
+        if str.matches(SharingRegex.module) {
+            return str.capturedGroups(withRegex: SharingRegex.module)![0]
+        }
+        return nil
+    }
+    static func parseStrong(_ str: String) -> String? {
+        if str.matches(SharingRegex.strong) {
+            return str.capturedGroups(withRegex: SharingRegex.strong)![0]
+        }
+        return nil
+    }
+    static func parseSpirit(_ str: String) -> String? {
+        if str.matches(SharingRegex.spirit) {
+            return str.capturedGroups(withRegex: SharingRegex.spirit)![0]
+        }
+        return nil
+    }
 }
 
 /// A Core Data model Strong representation for Coding/Decoding
+///
+/// Contains: number: Int, meaning: String?, original: String?, type: String?
 class SyncStrong: NSObject, NSSecureCoding {
     var number: Int
     var meaning: String?
     var original: String?
-    var type: String?
+    var type: String
     
     /// Initialise SyncStrong object with a given parameters
     ///
@@ -81,8 +102,8 @@ class SyncStrong: NSObject, NSSecureCoding {
     ///   - number: Strong number
     ///   - meaning: Strong meaning
     ///   - original: Strong original
-    ///   - type: Strong type. Default: nil
-    init(number: Int, meaning: String?, original: String?, type: String? = nil) {
+    ///   - type: Strong type
+    init(number: Int, meaning: String?, original: String?, type: String) {
         self.number = number
         self.meaning = meaning
         self.original = original
@@ -96,14 +117,14 @@ class SyncStrong: NSObject, NSSecureCoding {
         self.number = Int(strong.number)
         self.meaning = strong.meaning
         self.original = strong.original
-        self.type = strong.type
+        self.type = strong.type!
     }
     
     required init?(coder aDecoder: NSCoder) {
         number = aDecoder.decodeInteger(forKey: "number")
         meaning = aDecoder.decodeObject(forKey: "meaning") as? String
         original = aDecoder.decodeObject(forKey: "original") as? String
-        type = aDecoder.decodeObject(forKey: "type") as? String
+        type = aDecoder.decodeObject(forKey: "type") as? String ?? StrongId.oldTestament
     }
     
     static var supportsSecureCoding: Bool {
@@ -119,6 +140,8 @@ class SyncStrong: NSObject, NSSecureCoding {
 }
 
 /// A Core Data model Module representation for Coding/Decoding
+///
+/// Contains: key: String, local: Bool, name: String?, books: [SyncBook]
 class SyncModule: NSObject, NSSecureCoding {
     var key: String
     var local: Bool
@@ -172,6 +195,8 @@ class SyncModule: NSObject, NSSecureCoding {
 }
 
 /// A Core Data model Book representation for Coding/Decoding
+///
+/// Contains: number: Int, name: String?, chapters: [SyncChapter]
 class SyncBook: NSObject, NSSecureCoding {
     var number: Int
     var name: String?
@@ -219,6 +244,8 @@ class SyncBook: NSObject, NSSecureCoding {
 }
 
 /// A Core Data model Chapter representation for Coding/Decoding
+///
+/// Contains: number: Int, verses: [SyncVerse]
 class SyncChapter: NSObject, NSSecureCoding {
     var number: Int
     var verses: [SyncVerse] = []
@@ -259,6 +286,8 @@ class SyncChapter: NSObject, NSSecureCoding {
 }
 
 /// A Core Data model Verse representation for Coding/Decoding
+///
+/// Contains: number: Int, text: String
 class SyncVerse: NSObject, NSSecureCoding {
     var number: Int
     var text: String
@@ -461,6 +490,10 @@ class SyncCore: NSObject, NSSecureCoding {
     var modules: [SyncModule] = []
     var strongs: [SyncStrong] = []
     var spirit: [SyncSpiritBook] = []
+    
+    override init() {
+        super.init()
+    }
     
     init(in context: NSManagedObjectContext) {
         if let m = try? Module.getAll(from: context) {

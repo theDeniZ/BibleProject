@@ -199,5 +199,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         return .terminateNow
     }
-
 }

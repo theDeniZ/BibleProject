@@ -8,10 +8,14 @@ class ContainerViewController: UIViewController {
     case leftPanelExpanded
   }
   
-    var manager: VerseManager? = VerseManager(in: AppDelegate.viewContext)
+    var manager: VerseManager? = AppDelegate.manager
     
   var centerNavigationController: UINavigationController!
-  var centerViewController: SplitTextViewController!
+    var centerViewController: SplitTextViewController? {
+        get {
+            return centerNavigationController.visibleViewController as? SplitTextViewController
+        }
+    }
   
   var currentState: SlideOutState = .collapsed {
     didSet {
@@ -33,17 +37,27 @@ class ContainerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    centerViewController = UIStoryboard.centerViewController()
-    centerViewController.delegate = self
-    centerViewController.verseManager = manager!
+//    centerViewController =
     
-    centerNavigationController = UINavigationController(rootViewController: centerViewController)
+    
+    centerNavigationController = UIStoryboard.centerViewController()//UINavigationController(rootViewController: centerViewController)
     view.addSubview(centerNavigationController.view)
     addChild(centerNavigationController)
     
     centerNavigationController.didMove(toParent: self)
     
+    centerViewController?.delegate = self
+    centerViewController?.verseManager = manager!
+    
   }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.current.orientation.isLandscape {
+            print("Landscape")
+        } else {
+            print("Portrait")
+        }
+        collapseSidePanels()
+    }
 }
 
 // MARK: CenterViewController delegate
@@ -114,10 +128,10 @@ extension ContainerViewController:CenterViewControllerDelegate {
   func showShadowForCenterViewController(_ shouldShowShadow: Bool) {
     if shouldShowShadow {
       centerNavigationController.view.layer.shadowOpacity = 0.8
-        centerViewController.overlapped = true
+        centerViewController?.overlapped = true
     } else {
       centerNavigationController.view.layer.shadowOpacity = 0.0
-        centerViewController.overlapped = false
+        centerViewController?.overlapped = false
     }
   }
 }
@@ -130,8 +144,8 @@ extension UIStoryboard {
     return main().instantiateViewController(withIdentifier: "LeftViewController") as? LeftSelectionViewController
   }
   
-  static func centerViewController() -> SplitTextViewController? {
-    return main().instantiateViewController(withIdentifier: "CenterViewController") as? SplitTextViewController
+  static func centerViewController() -> UINavigationController? {
+    return main().instantiateViewController(withIdentifier: "CenterViewController") as? UINavigationController
   }
   
   static func StartViewController() -> UIViewController? {

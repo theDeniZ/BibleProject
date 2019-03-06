@@ -30,6 +30,17 @@ class Verse: NSManagedObject {
         return " \(number)"
     }
     
+    var refference: String {
+        var res = ""
+        if chapter != nil,
+            chapter!.book != nil {
+            res += chapter!.book!.name ?? ""
+            res += " \(chapter!.number):"
+            res += "\(number)"
+        }
+        return res
+    }
+    
     var attributedCompound: NSAttributedString {
         let att = NSMutableAttributedString(string: compound)
         return att
@@ -59,5 +70,27 @@ class Verse: NSManagedObject {
         new.number = Int32(sync.number)
         new.text = sync.text
         return new
+    }
+    
+    class func find(containing text: String, moduling: [Module], in context: NSManagedObjectContext) throws -> [Verse] {
+        guard moduling.count > 0 else {return []}
+        var moduleReg = "chapter.book.module = %@"
+        var array: [Any] = [".*(" + text + ").*", moduling[0]]
+        for i in 1..<moduling.count {
+            moduleReg += " OR chapter.book.module = %@"
+            array.append(moduling[i])
+        }
+        
+        let request: NSFetchRequest<Verse> = Verse.fetchRequest()
+        request.predicate = NSPredicate(
+            format: "text MATCHES %@ AND (" + moduleReg + ")",
+            argumentArray: array
+        )
+        let bookSD = NSSortDescriptor(key: "chapter.book.number", ascending: true)
+        let chapterSD = NSSortDescriptor(key: "chapter.number", ascending: true)
+        let verseSD = NSSortDescriptor(key: "number", ascending: true)
+        request.sortDescriptors = [bookSD, chapterSD, verseSD]
+        
+        return try context.fetch(request)
     }
 }

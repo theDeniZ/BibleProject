@@ -69,22 +69,25 @@ extension OutlineViewController: NSOutlineViewDelegate {
         
         if let root = item as? ListRoot {
             let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier.init("Outline Cell"), owner: self)
-            let c = cell as! OutlineCellView
-            c.title = root.typeName
+            if let c = cell as? OutlineCellView {
+                c.title = root.typeName
+            }
             return cell
         } else if let list = item as? ListObject {
             if list.nested.count > 0 {
                 let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier.init("Outline Cell"), owner: self)
-                let c = cell as! OutlineCellView
-                c.title = list.title
+                if let c = cell as? OutlineCellView {
+                    c.title = list.title
+                }
                 return cell
             } else {
                 let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier.init("Outline Cell Selection"), owner: self)
-                let c = cell as! OutlineSelectionCellView
-                c.count = Int(list.title.split(separator: " ")[0])!
-                c.delegate = delegate
-                c.indexInOverall = list.numberInOrder ?? 0
-                c.module = list.moduleKey
+                if let c = cell as? OutlineSelectionCellView {
+                    c.count = Int(list.title.split(separator: " ")[0]) ?? 0
+                    c.delegate = delegate
+                    c.indexInOverall = list.numberInOrder ?? 0
+                    c.module = list.moduleKey
+                }
                 return cell
             }
         }

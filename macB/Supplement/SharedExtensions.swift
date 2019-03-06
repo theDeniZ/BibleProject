@@ -35,8 +35,8 @@ extension String {
         return index(startIndex, offsetBy: number)
     }
     
-    subscript(n: Int) -> Character {
-        return self[index(n)]
+    subscript(num: Int) -> Character {
+        return self[index(num)]
     }
     
     subscript (bounds: CountableClosedRange<Int>) -> String {

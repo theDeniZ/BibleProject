@@ -12,6 +12,7 @@ import CoreData
 class Manager {
     
     var context: NSManagedObjectContext!
+    var delegate: ManagerDelegate?
     
     var module1: Module! {
         didSet {
@@ -22,6 +23,10 @@ class Manager {
     
     var bookNumber: Int { didSet { write() } }
     var chapterNumber: Int { didSet { write() } }
+    
+    var modules: [Module] {
+        return module2 == nil ? [module1] : [module1, module2!]
+    }
     
     private var plistManager = PlistManager()
     private var timerToWrite: Timer?
@@ -233,13 +238,14 @@ class Manager {
     }
     
     private func write() {
+        delegate?.managerDidUpdate()
         timerToWrite?.invalidate()
-        timerToWrite = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] (t) in
+        timerToWrite = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] (timer) in
             self?.plistManager.set(book: self!.bookNumber, chapter:self!.chapterNumber)
             if let ch = self?.chapter1 {
                 History.add(to: self!.context, chapter: ch)
             }
-            t.invalidate()
+            timer.invalidate()
             self?.timerToWrite = nil
         }
     }

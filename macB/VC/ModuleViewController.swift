@@ -70,9 +70,9 @@ class ModuleViewController: NSViewController {
         
         let strings: [NSAttributedString] = manager[index]
         
-        let attributedString = strings.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
-            r.append(each)
-            return r
+        let attributedString = strings.reduce(NSMutableAttributedString()) { (res, each) -> NSMutableAttributedString in
+            res.append(each)
+            return res
         }
         if let lm = textView?.layoutManager {
             textStorage?.removeLayoutManager(lm)

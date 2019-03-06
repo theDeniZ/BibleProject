@@ -19,16 +19,16 @@ protocol SidePanelViewControllerDelegate {
     func setNeedsReload()
 }
 
-protocol TextViewDelegate {
-    func textViewDidResize(to size: CGSize)
-}
-
 protocol BookTableViewCellDelegate {
     func bookTableViewCellDidSelect(chapter: Int, in book: Int)
 }
 
 protocol ModalDelegate {
     func modalViewWillResign()
+}
+
+protocol ManagerDelegate {
+    func managerDidUpdate()
 }
 
 protocol StrongsLinkEmbeddable {
@@ -40,20 +40,6 @@ protocol URLDelegate {
     func openedURL(with parameters: [String])
 }
 
-protocol SharingObjectTableCellDelegate {
-    func sharingTableCellWasSelected(_ state: Bool, at index: Int)
-}
-
-protocol SyncManagerDelegate {
-    func syncManagerDidGetUpdate()
-    func syncManagerDidTerminate()
-    
-    func syncManagerDidStartSync(at: Int)
-    func syncManagerDidSync(_ progress: Float)
-    func syncManagerDidEndSync(at: Int, with: Bool)
-    func syncManagerDidFinished()
-}
-
 @objc
 protocol ConsistencyManagerDelegate {
     var hashValue: Int {get}
@@ -61,4 +47,9 @@ protocol ConsistencyManagerDelegate {
     @objc optional func consistentManagerDidStartUpdate()
     @objc optional func consistentManagerDidUpdatedProgress(to: Double)
     @objc optional func consistentManagerDidEndUpdate()
+}
+
+protocol SearchManagerDelegate {
+    func searchManagerDidGetUpdate(results: [SearchResult]?)
+    func searchManagerDidGetError(error: Error)
 }

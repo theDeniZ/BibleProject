@@ -8,23 +8,7 @@
 
 import UIKit
 
-class PlistHandler {
-    
-    // MARK: Public API
-    var plistPath: String?
-    
-    func setValue(_ value: Any?, of key: String) {
-        if let path = plistPath, let dict = NSMutableDictionary(contentsOfFile: path) {
-            dict.setValue(value, forKey: key)
-            if (!dict.write(toFile: path, atomically: true)) {
-                print("PlistHandler:setValue(\(String(describing: value)), of: \(key) - failing")
-                if (!dict.write(toFile: path, atomically: false)) {
-                    print("PlistHandler:setValue(\(String(describing: value)), of: \(key) - failed")
-                }
-            }
-        }
-    }
-    
+extension PlistHandler {
     func get<T> (to variable: inout T, of key: String) {
         if let path = plistPath, let dict = NSDictionary(contentsOfFile: path), let opt = dict[key] {
             if let _ = variable as? String, let str = opt as? String {
@@ -54,14 +38,5 @@ class PlistHandler {
                 variable = color as! T
             }
         }
-    }
-    
-    // MARK: initializations
-    init() {
-        plistPath = nil
-    }
-    
-    init(_ path: String?) {
-        plistPath = path
     }
 }

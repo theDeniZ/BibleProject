@@ -1,4 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Book" representedClassName=".Book" syncable="YES" codeGenerationType="category">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="chapters" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Chapter" inverseName="book" inverseEntity="Chapter" syncable="YES"/>
+        <relationship name="module" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Module" inverseName="books" inverseEntity="Module" syncable="YES"/>
+    </entity>
+    <entity name="Chapter" representedClassName=".Chapter" syncable="YES" codeGenerationType="category">
+        <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="chapters" inverseEntity="Book" syncable="YES"/>
+        <relationship name="inHistory" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="History" inverseName="chapter" inverseEntity="History" syncable="YES"/>
+        <relationship name="verses" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Verse" inverseName="chapter" inverseEntity="Verse" syncable="YES"/>
+    </entity>
+    <entity name="History" representedClassName=".History" syncable="YES" codeGenerationType="category">
+        <attribute name="added" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="chapter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chapter" inverseName="inHistory" inverseEntity="Chapter" syncable="YES"/>
+        <relationship name="verses" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Verse" inverseName="inHistory" inverseEntity="Verse" syncable="YES"/>
+    </entity>
+    <entity name="Module" representedClassName=".Module" syncable="YES" codeGenerationType="category">
+        <attribute name="key" attributeType="String" syncable="YES"/>
+        <attribute name="local" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Book" inverseName="module" inverseEntity="Book" syncable="YES"/>
+    </entity>
+    <entity name="Page" representedClassName=".Page" syncable="YES" codeGenerationType="category">
+        <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="roman" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="chapter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SpiritChapter" inverseName="pages" inverseEntity="SpiritChapter" syncable="YES"/>
+    </entity>
+    <entity name="SpiritBook" representedClassName=".SpiritBook" syncable="YES" codeGenerationType="category">
+        <attribute name="author" optional="YES" attributeType="String" defaultValueString="E.G.White" syncable="YES"/>
+        <attribute name="code" attributeType="String" syncable="YES"/>
+        <attribute name="index" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lang" attributeType="String" defaultValueString="EN" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="chapters" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SpiritChapter" inverseName="book" inverseEntity="SpiritChapter" syncable="YES"/>
+    </entity>
+    <entity name="SpiritChapter" representedClassName=".SpiritChapter" syncable="YES" codeGenerationType="category">
+        <attribute name="index" attributeType="Integer 32" minValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="intro" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 32" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SpiritBook" inverseName="chapters" inverseEntity="SpiritBook" syncable="YES"/>
+        <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Page" inverseName="chapter" inverseEntity="Page" syncable="YES"/>
+    </entity>
+    <entity name="Strong" representedClassName=".Strong" syncable="YES" codeGenerationType="category">
+        <attribute name="meaning" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="original" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" defaultValueString="Hebrew" syncable="YES"/>
+    </entity>
+    <entity name="Verse" representedClassName=".Verse" syncable="YES" codeGenerationType="category">
+        <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="selectionColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="selectionRange" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" attributeType="String" syncable="YES"/>
+        <relationship name="chapter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chapter" inverseName="verses" inverseEntity="Chapter" syncable="YES"/>
+        <relationship name="inHistory" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="History" inverseName="verses" inverseEntity="History" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Book" positionX="-40.8046875" positionY="-91.44140625" width="128" height="105"/>
+        <element name="Chapter" positionX="16.56640625" positionY="100.68359375" width="128" height="105"/>
+        <element name="History" positionX="205.46484375" positionY="284.7421875" width="128" height="88"/>
+        <element name="Module" positionX="143.546875" positionY="-154.07421875" width="128" height="103"/>
+        <element name="Page" positionX="-412.84765625" positionY="118.78125" width="128" height="105"/>
+        <element name="SpiritBook" positionX="-180.6640625" positionY="-236.25" width="128" height="135"/>
+        <element name="SpiritChapter" positionX="-344.4140625" positionY="-98.8359375" width="128" height="135"/>
+        <element name="Strong" positionX="191.421875" positionY="46.375" width="128" height="103"/>
+        <element name="Verse" positionX="-197.13671875" positionY="129.59765625" width="128" height="135"/>
+    </elements>
 </model>

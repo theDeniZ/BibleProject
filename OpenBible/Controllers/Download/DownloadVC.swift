@@ -103,21 +103,21 @@ extension DownloadVC: UITableViewDataSource {
             cell.textLabel?.text = modules[indexPath.row].0
             cell.detailTextLabel?.text = modules[indexPath.row].1
             cell.accessoryType = modules[indexPath.row].2 ? .checkmark : .none
-            let label = UILabel(frame: CGRect(0,0,0,0))
+            let label = UILabel(frame: CGRect())
             label.text = modules[indexPath.row].3
             cell.insertSubview(label, at: 0)
         case 1:
             cell.textLabel?.text = strongs[indexPath.row].0
             cell.detailTextLabel?.text = strongs[indexPath.row].1
             cell.accessoryType = strongs[indexPath.row].2 ? .checkmark : .none
-            let label = UILabel(frame: CGRect(0,0,0,0))
+            let label = UILabel(frame: CGRect())
             label.text = strongs[indexPath.row].3
             cell.insertSubview(label, at: 0)
         case 2:
             cell.textLabel?.text = spirit[indexPath.row].0
             cell.detailTextLabel?.text = spirit[indexPath.row].1
             cell.accessoryType = spirit[indexPath.row].2 ? .checkmark : .none
-            let label = UILabel(frame: CGRect(0,0,0,0))
+            let label = UILabel(frame: CGRect())
             label.text = spirit[indexPath.row].3
             cell.insertSubview(label, at: 0)
         default: break
@@ -151,7 +151,7 @@ extension DownloadVC: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.accessoryType == .checkmark {
             // remove
-            let text = (cell?.subviews[1] as! UILabel).text!
+            guard let text = (cell?.subviews[1] as? UILabel)?.text else {return}
             let alert = UIAlertController(title: "Confirm", message: "Remove \(cell!.detailTextLabel!.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Remove", style: .default, handler: { (action) in
@@ -165,7 +165,7 @@ extension DownloadVC: UITableViewDelegate {
             self.present(alert, animated: true, completion: nil)
         } else {
             // download
-            let text = (cell?.subviews[1] as! UILabel).text!
+            guard let text = (cell?.subviews[1] as? UILabel)?.text else {return}
             let alert = UIAlertController(title: "Confirm", message: "Download \(cell!.detailTextLabel!.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Download", style: .default, handler: { (action) in

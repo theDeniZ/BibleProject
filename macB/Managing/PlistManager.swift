@@ -27,7 +27,6 @@ class PlistManager {
     private let bookKey = "book"
     private let modulesKey = "modules"
     private let strongsKey = "strongsNumbers"
-    private let sharingKey = "shared"
     private var spiritKey = "spirit"
     private let menuKey = "menuIsOn"
     private let fontKey = "font"
@@ -47,12 +46,12 @@ class PlistManager {
     
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-        let documentDirectory = paths[0] as! String
-        let path = documentDirectory.appending("/" + plistName + ".plist")
+        let documentDirectory = paths[0] as? String
+        let path = documentDirectory?.appending("/" + plistName + ".plist")
         plistPath = path
         
         let fileManager = LocalFileProvider.init().fileManager
-        if(!fileManager.fileExists(atPath: path)) {
+        if !fileManager.fileExists(atPath: path) {
             if let bundlePath = Bundle.main.path(forResource: plistName, ofType: "plist") {
                 do{
                     try fileManager.copyItem(atPath: bundlePath, toPath: path)
@@ -117,16 +116,6 @@ class PlistManager {
     
     func setStrong(on: Bool) {
         plistHandler.setValue(on, of: strongsKey)
-    }
-    
-    func getSharedObjects() -> [String:String] {
-        var obj: [String:String] = [:]
-        plistHandler.get(to: &obj, of: sharingKey)
-        return obj
-    }
-    
-    func setShared(objects: [String:String]) {
-        plistHandler.setValue(objects, of: sharingKey)
     }
     
     func setSpirit(_ index: SpiritIndex, at place: Int) {

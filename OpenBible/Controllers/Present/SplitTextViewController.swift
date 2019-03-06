@@ -22,6 +22,8 @@ class SplitTextViewController: UIViewController {
     @IBOutlet weak var progressView: ProgressView!
     @IBOutlet weak var mainStackView: UIStackView!
     
+    @IBOutlet weak var navigationItemTitleTextField: UITextField!
+    
     
     private var leftTextStorage: NSTextStorage?
     private var rightTextStorage: NSTextStorage?
@@ -42,6 +44,7 @@ class SplitTextViewController: UIViewController {
         loadTextViews()
         leftTextView.delegate = self
         rightTextView.delegate = self
+        verseManager.delegate = self
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "menu"), style: .plain,
@@ -75,13 +78,32 @@ class SplitTextViewController: UIViewController {
     
     @IBAction func searchTextFieldDidEnter(_ sender: UITextField) {
         if let text = sender.text {
-            doSearch(text: text)
+            let searchManager = SearchManager()
+            searchManager.engageSearch(with: text)
+            let presentedVC = UIStoryboard.main().instantiateViewController(withIdentifier: "Search View Controller") as! SearchTableViewController
+            presentedVC.titleToShow = text
+            presentedVC.searchManager = searchManager
+            navigationController?.pushViewController(presentedVC, animated: true)
         }
         toggleSearch()
     }
     
+    @IBAction func navigationItemTextFieldDidEnter(_ sender: UITextField) {
+        if let text = sender.text {
+            doSearch(text: text)
+        }
+        sender.text = nil
+        view.endEditing(true)
+        sender.resignFirstResponder()
+        if isInSearch {
+            toggleSearch()
+        }
+    }
+    
+    
     func loadTextViews() {
-        navigationItem.title = "\(verseManager.get1BookName()) \(verseManager.chapterNumber)"
+        navigationItemTitleTextField.placeholder = "\(verseManager.get1BookName()) \(verseManager.chapterNumber)"
+        navigationItemTitleTextField.resignFirstResponder()
         let verses = verseManager.getVerses()
         let attributedString = verses.0.reduce(NSMutableAttributedString()) {
             (r, each) -> NSMutableAttributedString in
@@ -100,12 +122,13 @@ class SplitTextViewController: UIViewController {
         } else {
             rightTextView.isHidden = true
         }
-        rightTextView.contentOffset = CGPoint(0,0)
-        leftTextView.contentOffset = CGPoint(0,0)
+        rightTextView.contentOffset = CGPoint(x:0,y:0)
+        leftTextView.contentOffset = CGPoint(x:0,y:0)
     }
 
     @objc private func toggleMenu() {
         delegate?.toggleLeftPanel?()
+        navigationItemTitleTextField.resignFirstResponder()
     }
     
     @objc private func toggleSearch() {
@@ -115,6 +138,7 @@ class SplitTextViewController: UIViewController {
         } else {
             mainStackView.spacing = 0
         }
+        navigationItemTitleTextField.resignFirstResponder()
     }
     
     private func updateSearchUI() {
@@ -180,6 +204,7 @@ extension SplitTextViewController: UITextViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        navigationItemTitleTextField.resignFirstResponder()
         if overlapped {
             toggleMenu()
         }
@@ -201,6 +226,7 @@ extension SplitTextViewController: UITextViewDelegate {
 
 extension SplitTextViewController: URLDelegate {
     func openedURL(with parameters: [String]) {
+        navigationItemTitleTextField.resignFirstResponder()
         if overlapped {
             toggleMenu()
         }
@@ -303,5 +329,13 @@ extension SplitTextViewController: ConsistencyManagerDelegate {
         }
         stop()
         executeOnAppear = stop
+    }
+}
+
+extension SplitTextViewController: ManagerDelegate {
+    func managerDidUpdate() {
+        DispatchQueue.main.async {
+            self.loadTextViews()
+        }
     }
 }

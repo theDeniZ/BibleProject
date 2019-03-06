@@ -58,30 +58,38 @@ class CoreManager: NSObject {
     func getAttributedString(from index: Int, loadingTooltip: Bool) -> [NSAttributedString] {
         if let chapter = chapter(index) {
             if let verses = chapter.verses?.array as? [Verse] {
-                if let vs = currentIndex.verses {
-                    var result = [NSAttributedString]()
-                    for range in vs {
-                        let versesFiltered = verses.filter {range.contains(Int($0.number))}
-                        for verse in versesFiltered {
-                            let attributedVerse = verse.attributedCompound(size: fontSize)
-                            //check for strong's numbers
-                            if attributedVerse.strongNumbersAvailable {
-                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip))
-                            } else {
-                                result.append(attributedVerse)
-                            }
-                        }
-                    }
-                    return result
-                } else {
-                    if verses[0].attributedCompound.strongNumbersAvailable {
-                        return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip)}
-                    }
-                    return verses.map {$0.attributedCompound(size: fontSize)}
-                }
+                return getAttributed(verses: verses, with: currentIndex.verses)
             }
         }
         return []
+    }
+    
+    private func getAttributed(verses: [Verse], with ranges: [Range<Int>]?) -> [NSAttributedString] {
+        if let vs = ranges {
+            var result = [NSAttributedString]()
+            for range in vs {
+                let versesFiltered = verses.filter {range.contains(Int($0.number))}
+                for verse in versesFiltered {
+                    let attributedVerse = verse.attributedCompound(size: fontSize)
+                    //check for strong's numbers
+                    if attributedVerse.strongNumbersAvailable {
+                        result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip))
+                    } else {
+                        result.append(attributedVerse)
+                    }
+                }
+            }
+            return result
+        } else {
+            return getAttributed(verses: verses)
+        }
+    }
+    
+    private func getAttributed(verses: [Verse]) -> [NSAttributedString] {
+        if verses[0].attributedCompound.strongNumbersAvailable {
+            return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip)}
+        }
+        return verses.map {$0.attributedCompound(size: fontSize)}
     }
     
     /// Triggers method .modelChanged() at all delegates once
@@ -265,38 +273,7 @@ extension CoreManager {
     ///
     /// - Parameter strArray: Array of String. Acceptable format for each String: "[-.,]?\\d+"
     func setVerses(from strArray: [String]) {
-        var verseRanges = [Range<Int>]()
-        var pendingRange: Range<Int>? = nil
-        for verse in strArray {
-            if !("0"..."9" ~= verse[0]) {
-                if let v = Int(verse[verse.index(after: verse.startIndex)...]) {
-                    switch verse[0] {
-                    case "-":
-                        if pendingRange != nil {
-                            pendingRange = Range(uncheckedBounds: (pendingRange!.lowerBound, v + 1))
-                        } else {
-                            pendingRange = Range(uncheckedBounds: (v, v + 1))
-                        }
-                    case ",",".":
-                        if pendingRange != nil {
-                            verseRanges.append(pendingRange!)
-                        }
-                        pendingRange = Range(uncheckedBounds: (v, v + 1))
-                    default:break
-                    }
-                }
-            } else {
-                let v = Int(verse)!
-                if pendingRange != nil {
-                    verseRanges.append(pendingRange!)
-                }
-                pendingRange = Range(uncheckedBounds: (v,v + 1))
-            }
-        }
-        if pendingRange != nil {
-            verseRanges.append(pendingRange!)
-        }
-        currentIndex.verses = verseRanges
+        currentIndex.verses = getVerseRanges(from: strArray)
         broadcastChanges()
     }
 }

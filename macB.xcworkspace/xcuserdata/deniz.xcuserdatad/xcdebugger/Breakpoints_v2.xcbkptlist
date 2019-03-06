@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/Managing/HTMLParser.swift"
-            timestampString = "571654425.115746"
+            timestampString = "573580584.501111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "142"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "macB/Managing/HTMLParser.swift"
-            timestampString = "571654425.1160851"
+            timestampString = "573580584.5014811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "153"
@@ -64,22 +64,6 @@
             startingLineNumber = "26"
             endingLineNumber = "26"
             landmarkName = "checked(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "macB/AppDelegate.swift"
-            timestampString = "571918349.464983"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "rewriteSharingObjects(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

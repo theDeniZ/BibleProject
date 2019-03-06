@@ -26,36 +26,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return AppDelegate.shared.manager
     }
     
-    static var sharingManager: SharingManager {
-        return AppDelegate.shared.sharingManager
-    }
-    
     static var plistManager: PlistManager {
         return AppDelegate.shared.plistManager
     }
 
     private lazy var manager: CoreManager = CoreManager(AppDelegate.context)
     private var plistManager = PlistManager()
-    private var sharingManager = SharingManager() {didSet{rewriteSharingObjects()}}
     
     override init() {
         if !AppDelegate.isAppAlreadyLaunchedOnce {AppDelegate.preloadDataBase()}
         super.init()
     }
     
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+//    func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
 //        sharingManager.delegate = AppDelegate.shared
-        rewriteSharingObjects()
-        sharingManager.startEngine()
-    }
+//    }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
+//    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-        sharingManager.delegate = nil
-        sharingManager.stopEngine()
-        print("terminated")
-    }
+//    }
     
     static var isAppAlreadyLaunchedOnce: Bool {
         let defaults = UserDefaults.standard
@@ -112,16 +102,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     static let URLServerRoot = "x-com-thedeniz-bible://"
-    
-    // MARK: - Bonjour setup
-    
-    func rewriteSharingObjects(_ objects: [String:String]? = nil) {
-        if let objs = objects {
-            sharingManager.shared = objs
-        } else {
-            sharingManager.shared = plistManager.getSharedObjects()
-        }
-    }
     
     // MARK: - Core Data stack
 
@@ -219,25 +199,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         return .terminateNow
     }
-
-}
-
-extension AppDelegate: BonjourManagerDelegate {
-    func bonjourDidChanged(isConnected: Bool, to host: String?, at port: Int?) {
-        print("Bonjour: Connected(\(isConnected)) to \(host ?? "") at \(port ?? -1)")
-    }
-    
-    func bonjourServiceUpdated(to status: String) {
-        print("Bonjour: \(status)")
-    }
-    
-    func bonjourDidRead(message: String?) {
-        print("Bonjour: Read '\(message ?? "")'")
-    }
-    
-    func bonjourDidWrite() {
-        print("Bonjour: Wrote")
-    }
-    
-    
 }

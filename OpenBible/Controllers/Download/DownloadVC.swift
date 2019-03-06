@@ -151,7 +151,7 @@ extension DownloadVC: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.accessoryType == .checkmark {
             // remove
-            let text = (cell?.subviews[1] as! UILabel).text!
+            guard let text = (cell?.subviews[1] as? UILabel)?.text else {return}
             let alert = UIAlertController(title: "Confirm", message: "Remove \(cell!.detailTextLabel!.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Remove", style: .default, handler: { (action) in
@@ -165,7 +165,7 @@ extension DownloadVC: UITableViewDelegate {
             self.present(alert, animated: true, completion: nil)
         } else {
             // download
-            let text = (cell?.subviews[1] as! UILabel).text!
+            guard let text = (cell?.subviews[1] as? UILabel)?.text else {return}
             let alert = UIAlertController(title: "Confirm", message: "Download \(cell!.detailTextLabel!.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Download", style: .default, handler: { (action) in

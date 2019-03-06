@@ -27,6 +27,10 @@ protocol ModalDelegate {
     func modalViewWillResign()
 }
 
+protocol ManagerDelegate {
+    func managerDidUpdate()
+}
+
 protocol StrongsLinkEmbeddable {
     var strongNumbersAvailable: Bool {get}
     func embedStrongs(to link: String, using size: CGFloat, linking: Bool) -> NSAttributedString
@@ -43,4 +47,9 @@ protocol ConsistencyManagerDelegate {
     @objc optional func consistentManagerDidStartUpdate()
     @objc optional func consistentManagerDidUpdatedProgress(to: Double)
     @objc optional func consistentManagerDidEndUpdate()
+}
+
+protocol SearchManagerDelegate {
+    func searchManagerDidGetUpdate(results: [SearchResult]?)
+    func searchManagerDidGetError(error: Error)
 }

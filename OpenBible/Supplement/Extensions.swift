@@ -17,7 +17,8 @@ extension NSAttributedString: StrongsLinkEmbeddable {
         let newMAString = NSMutableAttributedString(string: " ", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: size)])
         let upperAttribute: [NSAttributedString.Key: Any] =
             [NSAttributedString.Key.baselineOffset : size * 0.333,
-             NSAttributedString.Key.font : UIFont.systemFont(ofSize: size * 0.666)]
+             NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: size * 0.666),
+             .foregroundColor : UIColor.gray.withAlphaComponent(0.7)]
         let splited = string.replacingOccurrences(of: "\r\n", with: "").split(separator: " ").map {String($0)}
         newMAString.append(NSAttributedString(string: splited[0] + " ", attributes: upperAttribute))
         var i = 1
@@ -45,5 +46,21 @@ extension NSAttributedString: StrongsLinkEmbeddable {
         }
         newMAString.append(NSAttributedString(string: "\r\n"))
         return newMAString
+    }
+}
+
+extension Array {
+    func filterDuplicates(includeElement: @escaping (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
+        var results = [Element]()
+        
+        forEach { (element) in
+            let existingElements = results.filter {
+                return includeElement(element, $0)
+            }
+            if existingElements.count == 0 {
+                results.append(element)
+            }
+        }
+        return results
     }
 }

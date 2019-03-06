@@ -502,3 +502,35 @@ class SyncCore: NSObject, NSSecureCoding {
     }
     
 }
+
+
+class SearchResult: NSObject {
+    var title: String
+    var text: String
+    var index: (Int, Int, Int)
+    
+    override init() {
+        title = ""
+        text = ""
+        index = (0,0,0)
+        super.init()
+    }
+    init(title: String) {
+        self.title = title
+        text = ""
+        index = (0,0,0)
+        super.init()
+    }
+    init(title: String, text: String) {
+        self.title = title
+        self.text = text
+        index = (0,0,0)
+        super.init()
+    }
+    init(title: String, text: String, index: (Int,Int,Int)) {
+        self.title = title
+        self.text = text
+        self.index = index
+        super.init()
+    }
+}

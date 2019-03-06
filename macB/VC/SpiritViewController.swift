@@ -124,12 +124,12 @@ class SpiritViewController: NSViewController {
         }
         let textArray = manager.stringValue()
         if textArray.count > 0 {
-            let attributedString = textArray.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
-                r.append(each)
-                return r
+            let attributedString = textArray.reduce(NSMutableAttributedString()) { (res, each) -> NSMutableAttributedString in
+                res.append(each)
+                return res
             }
-            if let c = NSColor(named: NSColor.Name("textColor")) {
-                attributedString.addAttribute(.foregroundColor, value: c, range: NSRange(0..<attributedString.length))
+            if let color = NSColor(named: NSColor.Name("textColor")) {
+                attributedString.addAttribute(.foregroundColor, value: color, range: NSRange(0..<attributedString.length))
             }
             if let lm = textView?.layoutManager {
                 textStorage?.removeLayoutManager(lm)

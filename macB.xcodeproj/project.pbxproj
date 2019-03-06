@@ -15,7 +15,6 @@
 		22061ED321F4A52F00F00B04 /* SpiritBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED221F4A52F00F00B04 /* SpiritBook.swift */; };
 		22061ED521F4A76E00F00B04 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED421F4A76E00F00B04 /* Roman.swift */; };
 		22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */; };
-		22091E842216C3C000DCDA22 /* OpenBible.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 221E37F5220AE628003D8E40 /* OpenBible.xcdatamodeld */; };
 		221A3E9021D243B9007C269E /* ModuleManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E8F21D243B9007C269E /* ModuleManagerViewController.swift */; };
 		221A3E9221D51233007C269E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E9121D51233007C269E /* DropView.swift */; };
 		221A619321F64AE80003CCC0 /* SpiritViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A619221F64AE80003CCC0 /* SpiritViewController.swift */; };
@@ -69,6 +68,7 @@
 		22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBE21D13FB500BC595D /* DropImageView.swift */; };
 		22234EC121D1453A00BC595D /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC021D1453A00BC595D /* FileManager.swift */; };
 		22234EC321D164A000BC595D /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC221D164A000BC595D /* HTMLParser.swift */; };
+		222F4E89222FC032008CD4E7 /* OpenBible.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 222F4E87222FC031008CD4E7 /* OpenBible.xcdatamodeld */; };
 		2235F68922142D3100E46411 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2235F68822142D3100E46411 /* OutlineViewController.swift */; };
 		223DE52C2213610C0040F120 /* macB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 223DE5292213600C0040F120 /* macB.sqlite */; };
 		2240220321EB457300DC8E2F /* SharingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240220221EB457300DC8E2F /* SharingManager.swift */; };
@@ -128,7 +128,6 @@
 		221E37DE220AE4FF003D8E40 /* OpenBible.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenBible.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		221E37ED220AE500003D8E40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		221E37F3220AE5D5003D8E40 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		221E37F6220AE628003D8E40 /* OpenBible.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenBible.xcdatamodel; sourceTree = "<group>"; };
 		221E37F8220AE664003D8E40 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		221E37FB220AE6AC003D8E40 /* Bonjour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bonjour.swift; sourceTree = "<group>"; };
 		221E37FD220AE6AC003D8E40 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -167,6 +166,7 @@
 		22234EBE21D13FB500BC595D /* DropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropImageView.swift; sourceTree = "<group>"; };
 		22234EC021D1453A00BC595D /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		22234EC221D164A000BC595D /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		222F4E88222FC031008CD4E7 /* OpenBible.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenBible.xcdatamodel; sourceTree = "<group>"; };
 		2235F68822142D3100E46411 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
 		223DE5292213600C0040F120 /* macB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = macB.sqlite; sourceTree = "<group>"; };
 		2240220221EB457300DC8E2F /* SharingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingManager.swift; sourceTree = "<group>"; };
@@ -251,7 +251,7 @@
 				221E37F3220AE5D5003D8E40 /* Info.plist */,
 				221E3806220AE6DE003D8E40 /* Localizable.strings */,
 				221E3804220AE6D7003D8E40 /* UserSettings.plist */,
-				221E37F5220AE628003D8E40 /* OpenBible.xcdatamodeld */,
+				222F4E87222FC031008CD4E7 /* OpenBible.xcdatamodeld */,
 				227A4647221D9A2A0080F7CC /* Light.dmp */,
 			);
 			path = OpenBible;
@@ -685,6 +685,7 @@
 				221E3851220AEA01003D8E40 /* NumberCollectionViewCell.swift in Sources */,
 				221E383E220AE9EE003D8E40 /* MainTabBarController.swift in Sources */,
 				221E3843220AE9EE003D8E40 /* DownloadViewController.swift in Sources */,
+				222F4E89222FC032008CD4E7 /* OpenBible.xcdatamodeld in Sources */,
 				221E3814220AE99A003D8E40 /* CoreSyncManager.swift in Sources */,
 				221E3847220AE9EE003D8E40 /* SyncViewController.swift in Sources */,
 				22E6F597221F1DBA00A6915D /* Progressable.swift in Sources */,
@@ -716,7 +717,6 @@
 				221E385B220AF3E7003D8E40 /* Types.swift in Sources */,
 				221E3821220AE9B0003D8E40 /* Strong.swift in Sources */,
 				221E3842220AE9EE003D8E40 /* ContainerViewController.swift in Sources */,
-				22091E842216C3C000DCDA22 /* OpenBible.xcdatamodeld in Sources */,
 				221E37FF220AE6AC003D8E40 /* Bonjour.swift in Sources */,
 				221E3854220AEA01003D8E40 /* BookTableViewCell.swift in Sources */,
 				221E3846220AE9EE003D8E40 /* HistoryViewController.swift in Sources */,
@@ -1045,14 +1045,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		221E37F5220AE628003D8E40 /* OpenBible.xcdatamodeld */ = {
+		222F4E87222FC031008CD4E7 /* OpenBible.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				221E37F6220AE628003D8E40 /* OpenBible.xcdatamodel */,
+				222F4E88222FC031008CD4E7 /* OpenBible.xcdatamodel */,
 			);
-			currentVersion = 221E37F6220AE628003D8E40 /* OpenBible.xcdatamodel */;
-			name = OpenBible.xcdatamodeld;
-			path = ../../OpenBible/OpenBible/OpenBible.xcdatamodeld;
+			currentVersion = 222F4E88222FC031008CD4E7 /* OpenBible.xcdatamodel */;
+			path = OpenBible.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -265,38 +265,7 @@ extension CoreManager {
     ///
     /// - Parameter strArray: Array of String. Acceptable format for each String: "[-.,]?\\d+"
     func setVerses(from strArray: [String]) {
-        var verseRanges = [Range<Int>]()
-        var pendingRange: Range<Int>? = nil
-        for verse in strArray {
-            if !("0"..."9" ~= verse[0]) {
-                if let v = Int(verse[verse.index(after: verse.startIndex)...]) {
-                    switch verse[0] {
-                    case "-":
-                        if pendingRange != nil {
-                            pendingRange = Range(uncheckedBounds: (pendingRange!.lowerBound, v + 1))
-                        } else {
-                            pendingRange = Range(uncheckedBounds: (v, v + 1))
-                        }
-                    case ",",".":
-                        if pendingRange != nil {
-                            verseRanges.append(pendingRange!)
-                        }
-                        pendingRange = Range(uncheckedBounds: (v, v + 1))
-                    default:break
-                    }
-                }
-            } else {
-                let v = Int(verse)!
-                if pendingRange != nil {
-                    verseRanges.append(pendingRange!)
-                }
-                pendingRange = Range(uncheckedBounds: (v,v + 1))
-            }
-        }
-        if pendingRange != nil {
-            verseRanges.append(pendingRange!)
-        }
-        currentIndex.verses = verseRanges
+        currentIndex.verses = getVerseRanges(from: strArray)
         broadcastChanges()
     }
 }

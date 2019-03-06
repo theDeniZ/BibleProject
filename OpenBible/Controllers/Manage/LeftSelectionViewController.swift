@@ -56,7 +56,7 @@ class LeftSelectionViewController: SidePanelViewController {
         bookTable.delegate = self
         bookTable.rowHeight = UITableView.automaticDimension
         bookTable.estimatedRowHeight = 36.3
-        moduleButton.contentEdgeInsets = UIEdgeInsets(size: 10.0)
+        moduleButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         moduleButton.clipsToBounds = true
         moduleButton.layer.cornerRadius = moduleButton.frame.height / 2
         moduleButton.layer.borderColor = UIColor.blue.cgColor
@@ -91,14 +91,14 @@ class LeftSelectionViewController: SidePanelViewController {
 
 }
 
-extension LeftSelectionViewController:BookTableViewCellDelegate {
+extension LeftSelectionViewController: BookTableViewCellDelegate {
     func bookTableViewCellDidSelect(chapter: Int, in book: Int) {
         delegate?.didSelect(chapter: chapter, in:book)
         print("selected \(chapter) in \(book)")
     }
 }
 
-extension LeftSelectionViewController:ModalDelegate {
+extension LeftSelectionViewController: ModalDelegate {
     func modalViewWillResign() {
         bookTable?.reloadData()
         delegate?.setNeedsReload()

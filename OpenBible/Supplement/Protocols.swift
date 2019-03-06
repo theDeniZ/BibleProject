@@ -19,10 +19,6 @@ protocol SidePanelViewControllerDelegate {
     func setNeedsReload()
 }
 
-protocol TextViewDelegate {
-    func textViewDidResize(to size: CGSize)
-}
-
 protocol BookTableViewCellDelegate {
     func bookTableViewCellDidSelect(chapter: Int, in book: Int)
 }
@@ -38,20 +34,6 @@ protocol StrongsLinkEmbeddable {
 
 protocol URLDelegate {
     func openedURL(with parameters: [String])
-}
-
-protocol SharingObjectTableCellDelegate {
-    func sharingTableCellWasSelected(_ state: Bool, at index: Int)
-}
-
-protocol SyncManagerDelegate {
-    func syncManagerDidGetUpdate()
-    func syncManagerDidTerminate()
-    
-    func syncManagerDidStartSync(at: Int)
-    func syncManagerDidSync(_ progress: Float)
-    func syncManagerDidEndSync(at: Int, with: Bool)
-    func syncManagerDidFinished()
 }
 
 @objc

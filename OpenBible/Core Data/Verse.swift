@@ -30,7 +30,7 @@ class Verse: NSManagedObject {
         return " \(number)"
     }
     
-    var refference: String {
+    var reference: String {
         var res = ""
         if chapter != nil,
             chapter!.book != nil {

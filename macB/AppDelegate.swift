@@ -23,14 +23,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     static var coreManager: CoreManager {
-        return AppDelegate.shared.manager
+        return AppDelegate.shared.coreManager
     }
     
     static var plistManager: PlistManager {
         return AppDelegate.shared.plistManager
     }
 
-    private lazy var manager: CoreManager = CoreManager(AppDelegate.context)
+    private lazy var coreManager: CoreManager = CoreManager(AppDelegate.context)
     private var plistManager = PlistManager()
     
     override init() {
@@ -60,22 +60,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Manager controls
     
     @IBAction func chapterIncrement(_ sender: Any) {
-        manager.incrementChapter()
+        coreManager.incrementChapter()
     }
     @IBAction func chapterDecrement(_ sender: Any) {
-        manager.decrementChapter()
+        coreManager.decrementChapter()
     }
     @IBAction func bookIncrement(_ sender: Any) {
-        manager.incrementBook()
+        coreManager.incrementBook()
     }
     @IBAction func bookDecrement(_ sender: Any) {
-        manager.decrementBook()
+        coreManager.decrementBook()
     }
     @IBAction func fontIncrement(_ sender: Any) {
-        manager.incrementFont()
+        coreManager.incrementFont()
     }
     @IBAction func fontDecrement(_ sender: Any) {
-        manager.decrementFont()
+        coreManager.decrementFont()
     }
     
     // MARK: - URL control

@@ -49,3 +49,8 @@ protocol SideMenuDelegate {
 protocol OutlineSelectionDelegate {
     func outlineSelectionViewDidSelect(chapter: Int, book: Int, module: String?)
 }
+
+protocol SearchManagerDelegate {
+    func searchManagerDidGetUpdate(results: [SearchResult]?)
+    func searchManagerDidGetError(error: Error)
+}

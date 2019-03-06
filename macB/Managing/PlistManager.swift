@@ -46,8 +46,8 @@ class PlistManager {
     
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
-        let documentDirectory = paths[0] as? String
-        let path = documentDirectory?.appending("/" + plistName + ".plist")
+        let documentDirectory = paths[0] as! String
+        let path = documentDirectory.appending("/" + plistName + ".plist")
         plistPath = path
         
         let fileManager = LocalFileProvider.init().fileManager

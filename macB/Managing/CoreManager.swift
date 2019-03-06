@@ -27,6 +27,10 @@ class CoreManager: NSObject {
         return currentIndex.book <= 39 ? StrongId.oldTestament : StrongId.newTestament
     }
     
+    var modules: [Module] {
+        return activeModules
+    }
+    
     private var delegates: [ModelUpdateDelegate]?
     private var timings: Timer?
     
@@ -58,38 +62,30 @@ class CoreManager: NSObject {
     func getAttributedString(from index: Int, loadingTooltip: Bool) -> [NSAttributedString] {
         if let chapter = chapter(index) {
             if let verses = chapter.verses?.array as? [Verse] {
-                return getAttributed(verses: verses, with: currentIndex.verses)
+                if let vs = currentIndex.verses {
+                    var result = [NSAttributedString]()
+                    for range in vs {
+                        let versesFiltered = verses.filter {range.contains(Int($0.number))}
+                        for verse in versesFiltered {
+                            let attributedVerse = verse.attributedCompound(size: fontSize)
+                            //check for strong's numbers
+                            if attributedVerse.strongNumbersAvailable {
+                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip))
+                            } else {
+                                result.append(attributedVerse)
+                            }
+                        }
+                    }
+                    return result
+                } else {
+                    if verses[0].attributedCompound.strongNumbersAvailable {
+                        return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip)}
+                    }
+                    return verses.map {$0.attributedCompound(size: fontSize)}
+                }
             }
         }
         return []
-    }
-    
-    private func getAttributed(verses: [Verse], with ranges: [Range<Int>]?) -> [NSAttributedString] {
-        if let vs = ranges {
-            var result = [NSAttributedString]()
-            for range in vs {
-                let versesFiltered = verses.filter {range.contains(Int($0.number))}
-                for verse in versesFiltered {
-                    let attributedVerse = verse.attributedCompound(size: fontSize)
-                    //check for strong's numbers
-                    if attributedVerse.strongNumbersAvailable {
-                        result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip))
-                    } else {
-                        result.append(attributedVerse)
-                    }
-                }
-            }
-            return result
-        } else {
-            return getAttributed(verses: verses)
-        }
-    }
-    
-    private func getAttributed(verses: [Verse]) -> [NSAttributedString] {
-        if verses[0].attributedCompound.strongNumbersAvailable {
-            return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip)}
-        }
-        return verses.map {$0.attributedCompound(size: fontSize)}
     }
     
     /// Triggers method .modelChanged() at all delegates once

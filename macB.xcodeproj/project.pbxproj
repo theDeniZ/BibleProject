@@ -70,6 +70,9 @@
 		225FC1FF222FF30000E61CA8 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC1FE222FF30000E61CA8 /* SearchTableViewController.swift */; };
 		225FC201222FF3C500E61CA8 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC200222FF3C500E61CA8 /* SearchManager.swift */; };
 		225FC2032230034900E61CA8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC2022230034900E61CA8 /* SearchTableViewCell.swift */; };
+		225FC205223035FB00E61CA8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC204223035FB00E61CA8 /* SearchViewController.swift */; };
+		225FC2072230361E00E61CA8 /* SearchTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC2062230361E00E61CA8 /* SearchTableCellView.swift */; };
+		225FC2082230391C00E61CA8 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC200222FF3C500E61CA8 /* SearchManager.swift */; };
 		227A4642221D8DCC0080F7CC /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */; };
 		227A4649221D9A2B0080F7CC /* Light.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A4647221D9A2A0080F7CC /* Light.dmp */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
@@ -156,6 +159,8 @@
 		225FC1FE222FF30000E61CA8 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		225FC200222FF3C500E61CA8 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		225FC2022230034900E61CA8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		225FC204223035FB00E61CA8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		225FC2062230361E00E61CA8 /* SearchTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableCellView.swift; sourceTree = "<group>"; };
 		227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
 		227A4647221D9A2A0080F7CC /* Light.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Light.dmp; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
@@ -261,7 +266,6 @@
 				221E380F220AE999003D8E40 /* plistHandler.swift */,
 				221E3813220AE99A003D8E40 /* PlistManager.swift */,
 				227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */,
-				225FC200222FF3C500E61CA8 /* SearchManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -400,6 +404,7 @@
 				22CB04B421D9155B004110E0 /* LabelCellView.swift */,
 				2240CDA6221425F300942F84 /* OutlineCellView.swift */,
 				220055A32214271B0063D3EC /* OutlineSelectionCellView.swift */,
+				225FC2062230361E00E61CA8 /* SearchTableCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				2240220421EB479900DC8E2F /* Types.swift */,
 				22061ED421F4A76E00F00B04 /* Roman.swift */,
 				222F4E8F222FD4EA008CD4E7 /* SharedSolutions.swift */,
+				225FC200222FF3C500E61CA8 /* SearchManager.swift */,
 			);
 			path = Supplement;
 			sourceTree = "<group>";
@@ -429,6 +435,7 @@
 				22061ECA21F4821100F00B04 /* ListViewController.swift */,
 				221A619221F64AE80003CCC0 /* SpiritViewController.swift */,
 				2235F68822142D3100E46411 /* OutlineViewController.swift */,
+				225FC204223035FB00E61CA8 /* SearchViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -697,6 +704,7 @@
 				22061ECB21F4821100F00B04 /* ListViewController.swift in Sources */,
 				2235F68922142D3100E46411 /* OutlineViewController.swift in Sources */,
 				221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */,
+				225FC205223035FB00E61CA8 /* SearchViewController.swift in Sources */,
 				222F4E90222FD4EA008CD4E7 /* SharedSolutions.swift in Sources */,
 				22BD926321CCD35E00019853 /* Book.swift in Sources */,
 				22061ED121F4A50A00F00B04 /* SpiritChapter.swift in Sources */,
@@ -718,10 +726,12 @@
 				2240CDA7221425F300942F84 /* OutlineCellView.swift in Sources */,
 				220055A42214271B0063D3EC /* OutlineSelectionCellView.swift in Sources */,
 				22CB04AF21D907BA004110E0 /* Strong.swift in Sources */,
+				225FC2072230361E00E61CA8 /* SearchTableCellView.swift in Sources */,
 				22BD924A21CC159C00019853 /* Extensions.swift in Sources */,
 				22234EC321D164A000BC595D /* HTMLParser.swift in Sources */,
 				222F4E8D222FCA53008CD4E7 /* SharedExtensions.swift in Sources */,
 				22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */,
+				225FC2082230391C00E61CA8 /* SearchManager.swift in Sources */,
 				22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */,
 				22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */,
 			);
@@ -758,7 +768,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6V7ANKZCL9;
 				INFOPLIST_FILE = OpenBible/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -781,7 +791,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6V7ANKZCL9;
 				INFOPLIST_FILE = OpenBible/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -929,6 +939,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.theDeniZ.macB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -951,6 +962,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.theDeniZ.macB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

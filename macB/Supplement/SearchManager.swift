@@ -18,7 +18,7 @@ class SearchManager: NSObject {
     
     func engageSearch(with text: String) {
         let context = AppDelegate.context
-        let modules = AppDelegate.manager.modules
+        let modules = AppDelegate.coreManager.modules
         DispatchQueue.global(qos: .userInitiated).async {
             var verses: [Verse] = []
             do {
@@ -27,12 +27,11 @@ class SearchManager: NSObject {
                 self.error = error
             }
             if verses.count > 0 {
-//                verses = verses.filterDuplicates { $0.chapter?.number == $1.chapter?.number && $0.chapter?.book?.number == $1.chapter?.book?.number && $0.number == $1.number }
                 var results = [SearchResult]()
                 for verse in verses {
                     let found = SearchResult()
                     found.text = verse.text ?? ""
-                    found.title = verse.refference
+                    found.title = verse.reference
                     let book = verse.chapter?.book?.number ?? 0
                     let chapter = verse.chapter?.number ?? 0
                     found.index = (Int(book), Int(chapter), Int(verse.number))

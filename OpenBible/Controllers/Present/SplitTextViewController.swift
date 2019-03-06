@@ -100,8 +100,8 @@ class SplitTextViewController: UIViewController {
         } else {
             rightTextView.isHidden = true
         }
-        rightTextView.contentOffset = CGPoint(0,0)
-        leftTextView.contentOffset = CGPoint(0,0)
+        rightTextView.contentOffset = CGPoint(x:0,y:0)
+        leftTextView.contentOffset = CGPoint(x:0,y:0)
     }
 
     @objc private func toggleMenu() {

@@ -9,41 +9,15 @@
 import Foundation
 import CoreData
 
-enum BonjourClientState {
-    case newborn
-    case alive
-    case wise
-    case ready
-    case busy
-    case deprecated
-    case finished
-    case waiting
-    case dead
+struct StrongId {
+    static let oldTestament = "Hebrew"
+    static let newTestament = "Greek"
+    static let plistIdentifier = "strong_keys"
 }
 
-enum BonjourServerState {
-    case greeting
-    case teaching
-    case waiting
-    case inSync
-}
-
-enum SyncingState {
-    case none
-    case strongs(String)
-    case module(String)
-    case spirit
-}
-
-
-enum BonjourClientGreetingOption: String {
-    case firstMeet = "hi, ready to get to know me?"
-    case confirm = "yes"
-    case ready = "ready to receive"
-    case done = "ok, next"
-    case finished = "are you ok?"
-    case bye = "bye"
-    case regexForSync = "Sync\\((.+)\\):(\\d+)\\+(\\d+)"
+enum StrongNumbers: String, CaseIterable {
+    case oldTestament = "Hebrew"
+    case newTestament = "Greek"
 }
 
 struct SharingRegex {

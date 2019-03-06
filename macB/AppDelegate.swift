@@ -10,9 +10,11 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    
     private var urlDelegate: URLDelegate?
     var urlToOpen: [String]?
+    
+    static private var versionKey = "currentVersion"
     
     static var context: NSManagedObjectContext {
         return AppDelegate.shared.persistentContainer.newBackgroundContext()
@@ -34,7 +36,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var plistManager = PlistManager()
     
     override init() {
-        if !AppDelegate.isAppAlreadyLaunchedOnce {AppDelegate.preloadDataBase()}
+        if !AppDelegate.isAppAlreadyLaunchedOnce {
+            AppDelegate.preloadDataBase()
+        } else {
+            AppDelegate.versionCheck()
+        }
         super.init()
     }
     
@@ -54,6 +60,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
             return false
+        }
+    }
+    
+    static func versionCheck() {
+        let defaults = UserDefaults.standard
+        if let v = defaults.string(forKey: AppDelegate.versionKey),
+            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            if v < version {
+                preloadDataBase()
+                defaults.set(version, forKey: AppDelegate.versionKey)
+            }
+        } else {
+            preloadDataBase()
         }
     }
     
@@ -116,8 +135,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }()
     
     private static func preloadDataBase() {
-        let path = ((NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true) as NSArray)[0] as! String).appending("/macB/macB.sqlite")
-        let storeURL = URL(fileURLWithPath: path)
+        let path = (NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true) as NSArray)[0] as! String
+        let fullPath = path.appending("/macB/macB.sqlite")
+        let storeURL = URL(fileURLWithPath: fullPath)
 
         let fileManager = Foundation.FileManager.init()
 //        print(fileManager.fileExists(atPath: path))
@@ -136,10 +156,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             // handle error
+        } else {
+            do {
+                try fileManager.createDirectory(atPath: path + "/macB", withIntermediateDirectories: false, attributes: nil)
+            } catch let error as NSError {
+                print(error.localizedDescription);
+            }
         }
 
         let bundleDbPath = Bundle.main.path(forResource: "macB", ofType: "sqlite")
-        try? fileManager.copyItem(atPath: bundleDbPath ?? "", toPath: storeURL.path)
+        do {
+            try fileManager.copyItem(atPath: bundleDbPath ?? "", toPath: storeURL.path)
+            UserDefaults.standard.set(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, forKey: AppDelegate.versionKey)
+        } catch {
+            print(error)
+        }
+        print("database is set")
 //        manager.broadcastChanges()
     }
 

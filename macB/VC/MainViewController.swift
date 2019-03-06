@@ -149,8 +149,10 @@ class MainViewController: NSViewController {
             let smallAmountOfWindow = splitView.bounds.width / 5.0
             splitView.setPosition(smallAmountOfWindow, ofDividerAt: 0)
             let width = (splitView.bounds.width - smallAmountOfWindow ) / CGFloat(count - 1)
-            for i in 1..<count - 1 {
-                splitView.setPosition(smallAmountOfWindow + CGFloat(i) * width, ofDividerAt: i)
+            if count > 1 {
+                for i in 1..<count - 1 {
+                    splitView.setPosition(smallAmountOfWindow + CGFloat(i) * width, ofDividerAt: i)
+                }
             }
         } else {
             let width = splitView.bounds.width / CGFloat(count)

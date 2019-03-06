@@ -5,15 +5,15 @@
 	<key>tooltip</key>
 	<false/>
 	<key>menuIsOn</key>
-	<true/>
+	<false/>
 	<key>spirit</key>
 	<dict/>
 	<key>font size</key>
 	<string>15.0</string>
 	<key>font</key>
-	<string>TimesNewRomanPS</string>
+	<string>TimesNewRomanPSMT</string>
 	<key>fontBold</key>
-	<string></string>
+	<string>TimesNewRomanPS-BoldMT</string>
 	<key>chapter</key>
 	<string>1</string>
 	<key>book</key>
@@ -21,7 +21,9 @@
 	<key>strongsNumbers</key>
 	<true/>
 	<key>modules</key>
-	<array/>
+	<array>
+		<string>kjv-str</string>
+	</array>
 	<key>shared</key>
 	<dict/>
 </dict>

@@ -4,8 +4,6 @@
 <dict>
 	<key>tooltip</key>
 	<false/>
-	<key>menuIsOn</key>
-	<false/>
 	<key>spirit</key>
 	<dict/>
 	<key>font size</key>
@@ -22,7 +20,7 @@
 	<true/>
 	<key>modules</key>
 	<array>
-		<string>kjv-str</string>
+		<string>kjv</string>
 	</array>
 	<key>shared</key>
 	<dict/>

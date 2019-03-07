@@ -17,20 +17,19 @@ struct BibleIndex {
 class CoreManager: NSObject {
     
     var context: NSManagedObjectContext
-    var activeModules: [Module]
+    
     var currentIndex: BibleIndex
     var fontSize: CGFloat
     var plistManager: PlistManager { return AppDelegate.plistManager }
     var strongsNumbersIsOn: Bool = true {didSet {plistManager.setStrong(on: strongsNumbersIsOn);broadcastChanges()}}
-    
     var currentTestament: String {
         return currentIndex.book <= 39 ? StrongId.oldTestament : StrongId.newTestament
     }
-    
     var modules: [Module] {
         return activeModules
     }
     
+    private var activeModules: [Module]
     private var delegates: [ModelUpdateDelegate]?
     private var timings: Timer?
     
@@ -90,12 +89,25 @@ class CoreManager: NSObject {
     
     /// Triggers method .modelChanged() at all delegates once
     /// after 0.1 seconds from the last call.
-    func broadcastChanges() {
+    private func broadcastChanges() {
         timings?.invalidate()
         timings = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
             self.delegates?.forEach {$0.modelChanged()}
             t.invalidate()
         }
+        timings?.fire()
+    }
+    
+    func update() {
+        var mods = [Module]()
+        for module in activeModules {
+            if Module.exists(key: module.key!, in: context) {
+                mods.append(module)
+            }
+        }
+        activeModules = mods
+        plistManager.set(modules: activeModules.map{$0.key!})
+        delegates?.forEach {$0.modelChanged()}
     }
     
 }
@@ -142,6 +154,7 @@ extension CoreManager {
         if place < activeModules.count, let k = module.key {
             activeModules[place] = module
             plistManager.set(module: k, at: place)
+            broadcastChanges()
             return module
         }
         return nil
@@ -169,6 +182,7 @@ extension CoreManager {
         if available.count > 0, let key = available[0].key {
             activeModules.append(available[0])
             plistManager.set(module: key, at: activeModules.count - 1)
+            broadcastChanges()
             return (available[0], activeModules.count - 1)
         }
         return nil
@@ -181,6 +195,7 @@ extension CoreManager {
         if index < activeModules.count {
             activeModules.remove(at: index)
             plistManager.set(modules: activeModules.map{$0.key!})
+            broadcastChanges()
         }
     }
 }

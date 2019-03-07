@@ -28,7 +28,6 @@ class PlistManager {
     private let modulesKey = "modules"
     private let strongsKey = "strongsNumbers"
     private var spiritKey = "spirit"
-    private let menuKey = "menuIsOn"
     private let fontKey = "font"
     private let fontBoldKey = "fontBold"
     private let tooltipKey = "tooltip"
@@ -133,16 +132,6 @@ class PlistManager {
             return SpiritIndex.init(book: String(s[0]), chapter: Int(s[1]) ?? 0)
         }
         return nil
-    }
-    
-    func isMenuOn() -> Bool {
-        var isOn = false
-        plistHandler.get(to: &isOn, of: menuKey)
-        return isOn
-    }
-    
-    func setMenu(isOn: Bool) {
-        plistHandler.setValue(isOn, of: menuKey)
     }
     
     func getFont() -> String? {

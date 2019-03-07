@@ -29,11 +29,6 @@ class DownloadVC: UIViewController {
         readFromServer()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        readFromServer()
-//    }
-    
     private func readFromServer() {
         guard modules.count == 0, strongs.count == 0, spirit.count == 0 else {return}
         let context = AppDelegate.context
@@ -48,17 +43,19 @@ class DownloadVC: UIViewController {
                     ) as? [[String:String]],
                 let array = json {
                 for file in array {
-                    if let path = file["name"] {
-                        let name = String(path[...path.index(path.endIndex, offsetBy: -5)])
-                        if let key = SharingRegex.parseModule(name) {
+                    if let name = file["name"],
+                        let size = file["size"],
+                        let path = file["path"],
+                        let regex = file["key"] {
+                        if let key = SharingRegex.parseModule(regex) {
                             let exist = Module.exists(key: key, in: context)
-                            self.modules.append((file["size"]!, key, exist, path))
-                        } else if let type = SharingRegex.parseStrong(name) {
-                            let exist = (try? Strong.exists(type, in: context)) ?? false
-                            self.strongs.append((file["size"]!, type, exist, path))
-                        }/* else if let code = SharingRegex.parseSpirit(name) {
-                            let exist = SpiritBook.exists(with: code, in: context)
-                            self.spirit.append((file["size"]!, code, exist, path))
+                            self.modules.append((size, name, exist, path))
+                        } else if let key = SharingRegex.parseStrong(regex) {
+                            let exist = (try? Strong.exists(key, in: context)) ?? false
+                            self.strongs.append((size, name, exist, path))
+                        }/* else if let key = SharingRegex.parseSpirit(regex) {
+                            let exist = SpiritBook.exists(with: key, in: context)
+                            self.spirit.append((size, name, exist, path))
                         }*/ // we are not ready for this
                     }
                 }
@@ -148,10 +145,11 @@ extension DownloadVC: UITableViewDataSource {
 extension DownloadVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let selected = indexPath.section == 0 ? modules[indexPath.row] : indexPath.section == 1 ? strongs[indexPath.row] : spirit[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.accessoryType == .checkmark {
             // remove
-            guard let text = (cell?.subviews[1] as? UILabel)?.text else {return}
+            let text = selected.3
             let alert = UIAlertController(title: "Confirm", message: "Remove \(cell!.detailTextLabel!.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Remove", style: .default, handler: { (action) in
@@ -165,7 +163,7 @@ extension DownloadVC: UITableViewDelegate {
             self.present(alert, animated: true, completion: nil)
         } else {
             // download
-            guard let text = (cell?.subviews[1] as? UILabel)?.text else {return}
+            let text = selected.3
             let alert = UIAlertController(title: "Confirm", message: "Download \(cell!.detailTextLabel!.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Download", style: .default, handler: { (action) in

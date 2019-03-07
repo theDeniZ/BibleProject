@@ -10,7 +10,7 @@ import Cocoa
 
 class MainViewController: NSViewController {
 
-    var manager: CoreManager = AppDelegate.coreManager
+    var manager: CoreManager { return AppDelegate.coreManager }
     private var displayedModuleControllers: [ModuleViewController] = []
     
     @IBOutlet weak var splitView: NSSplitView!
@@ -19,7 +19,7 @@ class MainViewController: NSViewController {
         addVC()
     }
     private var listVC: OutlineViewController?
-    private lazy var isMenuOn = AppDelegate.plistManager.isMenuOn()
+    private lazy var isMenuOn = false
     
     private var plistManager: PlistManager {
         return AppDelegate.plistManager
@@ -41,7 +41,6 @@ class MainViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        isMenuOn = AppDelegate.plistManager.isMenuOn()
         dealWithMenu()
         if let w = NSApp.windows.first,
             let toolbar = w.toolbar,
@@ -57,7 +56,6 @@ class MainViewController: NSViewController {
     
     func toggleMenu() {
         isMenuOn = !isMenuOn
-        AppDelegate.plistManager.setMenu(isOn: isMenuOn)
         dealWithMenu()
     }
     
@@ -101,17 +99,17 @@ class MainViewController: NSViewController {
     }
     
     private func loadVCs() {
-        for index in 0..<manager.activeModules.count {
+        for index in 0..<manager.modules.count {
             if let newVC = NSStoryboard.main?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Module VC")) as? ModuleViewController {
-                newVC.moduleManager = manager
-                newVC.currentModule = manager.activeModules[index]
+//                newVC.moduleManager = manager
+                newVC.currentModule = manager.modules[index]
                 newVC.index = index
                 newVC.delegate = self
                 newVC.setSplitViewParticipants(displayedModuleControllers)
                 displayedModuleControllers.forEach {$0.addSplitViewParticipant(newVC)}
                 displayedModuleControllers.append(newVC)
                 splitView.addArrangedSubview(newVC.view)
-                manager.addDelegate(newVC)
+//                manager.addDelegate(newVC)
             }
         }
         arrangeAllViews()
@@ -128,7 +126,7 @@ class MainViewController: NSViewController {
     private func addVC() {
         if let available = manager.createNewActiveModule() {
             if let newVC = NSStoryboard.main?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Module VC")) as? ModuleViewController {
-                newVC.moduleManager = manager
+//                newVC.moduleManager = manager
                 newVC.currentModule = available.0
                 newVC.index = available.1
                 newVC.delegate = self
@@ -136,7 +134,7 @@ class MainViewController: NSViewController {
                 displayedModuleControllers.forEach {$0.addSplitViewParticipant(newVC)}
                 displayedModuleControllers.append(newVC)
                 splitView.addArrangedSubview(newVC.view)
-                manager.addDelegate(newVC)
+//                manager.addDelegate(newVC)
             }
         }
         arrangeAllViews()
@@ -167,6 +165,7 @@ extension MainViewController: ModelUpdateDelegate {
     func modelChanged() {
         DispatchQueue.main.async { [weak self] in
             self?.updateUI()
+            self?.listVC?.reload()
         }
     }
 }
@@ -201,7 +200,9 @@ extension MainViewController: SplitViewDelegate {
     func splitViewWouldLikeToResign(being number: Int) {
         splitView.removeArrangedSubview(displayedModuleControllers[number].view)
         displayedModuleControllers.forEach {$0.removeSplitViewParticipant(displayedModuleControllers[number])}
-        displayedModuleControllers.remove(at: number)
+        let vc = displayedModuleControllers.remove(at: number)
+        vc.delegate = nil
+        vc.index = nil
         manager.removeModule(at: number)
         arrangeAllViews()
     }

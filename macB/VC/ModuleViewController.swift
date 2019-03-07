@@ -10,7 +10,7 @@ import Cocoa
 
 class ModuleViewController: NSViewController {
 
-    var moduleManager: CoreManager?
+    var moduleManager: CoreManager { return AppDelegate.coreManager }
     var currentModule: Module!
     var index: Int!
     var delegate: SplitViewDelegate?
@@ -30,6 +30,7 @@ class ModuleViewController: NSViewController {
     @IBOutlet private var textView: NSTextView!
     @IBOutlet private weak var modulePicker: NSComboBox!
     @IBOutlet private weak var scrollView: NSScrollView!
+    @IBOutlet weak var closeButton: NSButton!
     
     
     override func viewDidLoad() {
@@ -47,6 +48,7 @@ class ModuleViewController: NSViewController {
             object: scrollView
         )
         scrollView.verticalScroller?.isHidden = true
+        moduleManager.addDelegate(self)
     }
     
     override func viewDidAppear() {
@@ -57,18 +59,23 @@ class ModuleViewController: NSViewController {
     private func updateCombo() {
         modulePicker?.removeAllItems()
         modulePicker?.addItem(withObjectValue: currentModule.key ?? currentModule.name ?? "Bible")
-        if let keys = moduleManager?.getAllAvailableModulesKey() {
-            modulePicker?.addItems(withObjectValues: keys)
-            choise = keys
-        }
+        let keys = moduleManager.getAllAvailableModulesKey()
+        modulePicker?.addItems(withObjectValues: keys)
+        choise = keys
+        
         modulePicker?.selectItem(at: 0)
     }
     
     private func updateUI() {
+        if index == 0 {
+            closeButton.isHidden = true
+        }
         updateCombo()
-        guard let manager = moduleManager, let index = index else {return}
-        
-        let strings: [NSAttributedString] = manager[index]
+        guard let index = index else {return}
+        if index >= moduleManager.modules.count {
+            delegate?.splitViewWouldLikeToResign(being: index)
+        }
+        let strings: [NSAttributedString] = moduleManager[index]
         
         let attributedString = strings.reduce(NSMutableAttributedString()) { (res, each) -> NSMutableAttributedString in
             res.append(each)
@@ -89,11 +96,11 @@ class ModuleViewController: NSViewController {
     }
     
     private func loadTooltip() {
-        guard let manager = moduleManager, let index = index else {return}
+        guard let index = index else {return}
         DispatchQueue.global(qos: .background).async {
             self.updateTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) {
                 (_) in
-                let strings = manager.getAttributedString(from: index, loadingTooltip: true)
+                let strings = self.moduleManager.getAttributedString(from: index, loadingTooltip: true)
                 let attributedString = strings.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
                     r.append(each)
                     return r
@@ -112,7 +119,7 @@ class ModuleViewController: NSViewController {
     
     @IBAction func comboPicked(_ sender: NSComboBox) {
         if sender.indexOfSelectedItem > 0 {
-            if let m = moduleManager?.setActive(choise[sender.indexOfSelectedItem - 1], at: index) {
+            if let m = moduleManager.setActive(choise[sender.indexOfSelectedItem - 1], at: index) {
                 currentModule = m
                 updateUI()
             }

@@ -64,9 +64,12 @@
 		222F4E90222FD4EA008CD4E7 /* SharedSolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F4E8F222FD4EA008CD4E7 /* SharedSolutions.swift */; };
 		222F4E91222FD4EB008CD4E7 /* SharedSolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F4E8F222FD4EA008CD4E7 /* SharedSolutions.swift */; };
 		2235F68922142D3100E46411 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2235F68822142D3100E46411 /* OutlineViewController.swift */; };
-		223DE52C2213610C0040F120 /* macB.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 223DE5292213600C0040F120 /* macB.sqlite */; };
 		2240220521EB479900DC8E2F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240220421EB479900DC8E2F /* Types.swift */; };
 		2240CDA7221425F300942F84 /* OutlineCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2240CDA6221425F300942F84 /* OutlineCellView.swift */; };
+		22552986223120D400780298 /* DownloadCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22552985223120D400780298 /* DownloadCellView.swift */; };
+		2255298822312C3C00780298 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255298722312C3C00780298 /* DownloadViewController.swift */; };
+		2255298A22312CCE00780298 /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255298922312CCE00780298 /* ConsistencyManager.swift */; };
+		2255298C22314DB200780298 /* Light.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 2255298B22314DB200780298 /* Light.dmp */; };
 		225FC1FF222FF30000E61CA8 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC1FE222FF30000E61CA8 /* SearchTableViewController.swift */; };
 		225FC201222FF3C500E61CA8 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC200222FF3C500E61CA8 /* SearchManager.swift */; };
 		225FC2032230034900E61CA8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC2022230034900E61CA8 /* SearchTableViewCell.swift */; };
@@ -153,9 +156,12 @@
 		222F4E8C222FCA53008CD4E7 /* SharedExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedExtensions.swift; sourceTree = "<group>"; };
 		222F4E8F222FD4EA008CD4E7 /* SharedSolutions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedSolutions.swift; sourceTree = "<group>"; };
 		2235F68822142D3100E46411 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
-		223DE5292213600C0040F120 /* macB.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = macB.sqlite; sourceTree = "<group>"; };
 		2240220421EB479900DC8E2F /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		2240CDA6221425F300942F84 /* OutlineCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineCellView.swift; sourceTree = "<group>"; };
+		22552985223120D400780298 /* DownloadCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadCellView.swift; sourceTree = "<group>"; };
+		2255298722312C3C00780298 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
+		2255298922312CCE00780298 /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
+		2255298B22314DB200780298 /* Light.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Light.dmp; sourceTree = "<group>"; };
 		225FC1FE222FF30000E61CA8 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		225FC200222FF3C500E61CA8 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		225FC2022230034900E61CA8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -361,6 +367,7 @@
 		22BD921921CBDEDB00019853 /* macB */ = {
 			isa = PBXGroup;
 			children = (
+				22BD921A21CBDEDB00019853 /* AppDelegate.swift */,
 				22BD926E21CCD63400019853 /* Views */,
 				22BD927221CCFDB900019853 /* VC */,
 				22BD921C21CBDEDB00019853 /* MainWindowController.swift */,
@@ -369,12 +376,11 @@
 				22CB04B121D90A42004110E0 /* Managing */,
 				22BD925D21CCD02400019853 /* CoreData */,
 				22BD927121CCDB1500019853 /* Supplement */,
-				22BD921A21CBDEDB00019853 /* AppDelegate.swift */,
 				22BD922121CBDEDD00019853 /* Assets.xcassets */,
 				22BD922721CBDEDD00019853 /* macB.entitlements */,
 				22BD925421CC1EC400019853 /* macB.xcdatamodeld */,
 				22B9F1F121DD221400E6E62C /* UserSettings.plist */,
-				223DE5292213600C0040F120 /* macB.sqlite */,
+				2255298B22314DB200780298 /* Light.dmp */,
 			);
 			path = macB;
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 				2240CDA6221425F300942F84 /* OutlineCellView.swift */,
 				220055A32214271B0063D3EC /* OutlineSelectionCellView.swift */,
 				225FC2062230361E00E61CA8 /* SearchTableCellView.swift */,
+				22552985223120D400780298 /* DownloadCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -436,6 +443,7 @@
 				221A619221F64AE80003CCC0 /* SpiritViewController.swift */,
 				2235F68822142D3100E46411 /* OutlineViewController.swift */,
 				225FC204223035FB00E61CA8 /* SearchViewController.swift */,
+				2255298722312C3C00780298 /* DownloadViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -452,6 +460,7 @@
 				22B9F1ED21DD219A00E6E62C /* plistHandler.swift */,
 				22061ECC21F4829C00F00B04 /* ListManager.swift */,
 				222222A22213108700AFDE40 /* StrongManager.swift */,
+				2255298922312CCE00780298 /* ConsistencyManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -579,10 +588,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				223DE52C2213610C0040F120 /* macB.sqlite in Resources */,
 				22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */,
 				22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */,
 				22BD922521CBDEDD00019853 /* Main.storyboard in Resources */,
+				2255298C22314DB200780298 /* Light.dmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,6 +698,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2255298A22312CCE00780298 /* ConsistencyManager.swift in Sources */,
 				22061ED321F4A52F00F00B04 /* SpiritBook.swift in Sources */,
 				22BD926721CCD37F00019853 /* History.swift in Sources */,
 				22061ED521F4A76E00F00B04 /* Roman.swift in Sources */,
@@ -708,6 +718,7 @@
 				222F4E90222FD4EA008CD4E7 /* SharedSolutions.swift in Sources */,
 				22BD926321CCD35E00019853 /* Book.swift in Sources */,
 				22061ED121F4A50A00F00B04 /* SpiritChapter.swift in Sources */,
+				2255298822312C3C00780298 /* DownloadViewController.swift in Sources */,
 				22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */,
 				221A619321F64AE80003CCC0 /* SpiritViewController.swift in Sources */,
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
@@ -725,6 +736,7 @@
 				22BD926521CCD36B00019853 /* Module.swift in Sources */,
 				2240CDA7221425F300942F84 /* OutlineCellView.swift in Sources */,
 				220055A42214271B0063D3EC /* OutlineSelectionCellView.swift in Sources */,
+				22552986223120D400780298 /* DownloadCellView.swift in Sources */,
 				22CB04AF21D907BA004110E0 /* Strong.swift in Sources */,
 				225FC2072230361E00E61CA8 /* SearchTableCellView.swift in Sources */,
 				22BD924A21CC159C00019853 /* Extensions.swift in Sources */,
@@ -858,7 +870,8 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -915,7 +928,8 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;

@@ -10,7 +10,7 @@ import Cocoa
 
 class SpiritViewController: NSViewController {
 
-    var manager: SpiritManager = SpiritManager()
+    var manager: SpiritManager {return AppDelegate.spiritManager }
     var index = 0
     
     @IBOutlet private weak var searchField: NSSearchField!
@@ -43,7 +43,6 @@ class SpiritViewController: NSViewController {
     
     func toggleMenu() -> Bool {
         menuIsOn = !menuIsOn
-        AppDelegate.plistManager.setMenu(isOn: menuIsOn)
         if menuIsOn {
             containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
             containerMenuView.setPosition(containerMenuView.bounds.width * 0.3, ofDividerAt: 0)
@@ -58,7 +57,6 @@ class SpiritViewController: NSViewController {
         manager.index = index
         manager.delegate = self
         updateUI()
-        menuIsOn = AppDelegate.plistManager.isMenuOn()
         dealWithMenu()
         listVC = NSStoryboard.main?.instantiateController(withIdentifier: "List View Controller") as? ListViewController
         if let list = listVC {
@@ -76,11 +74,10 @@ class SpiritViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        if menuIsOn {
-            containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
-            containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
-        }
-        menuIsOn = AppDelegate.plistManager.isMenuOn()
+//        if menuIsOn {
+//            containerMenuView.insertArrangedSubview(listVC!.view, at: 0)
+//            containerMenuView.setPosition(view.bounds.width * 0.3, ofDividerAt: 0)
+//        }
         
         if let w = NSApp.windows.first,
             let toolbar = w.toolbar,
@@ -156,6 +153,7 @@ extension SpiritViewController: ModelUpdateDelegate {
     func modelChanged() {
         DispatchQueue.main.async {
             self.updateUI()
+            self.listVC?.reload()
         }
     }
 }

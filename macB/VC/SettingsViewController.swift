@@ -142,7 +142,7 @@ class SettingsViewController: NSViewController {
     private func setFont(_ font: FontNames, bold: FontNames) {
         AppDelegate.plistManager.setFont(named: font.rawValue)
         AppDelegate.plistManager.setFontBold(named: bold.rawValue)
-        AppDelegate.coreManager.broadcastChanges()
+        AppDelegate.coreManager.update()
     }
     
     @IBAction func strongsCheck(_ sender: NSButton) {

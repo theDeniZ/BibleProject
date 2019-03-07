@@ -11,13 +11,22 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    private var urlDelegate: URLDelegate?
-    var urlToOpen: [String]?
+    private lazy var coreManager = CoreManager(AppDelegate.viewContext)
+    private lazy var spiritManager = SpiritManager()
+    private var plistManager = PlistManager()
+    private var consistentManager = ConsistencyManager()
     
-    static private var versionKey = "currentVersion"
+    static let downloadServerURL = "https://sword-ground.herokuapp.com/" //"http://192.168.178.25:3000/"
+    static let URLServerRoot = "x-com-thedeniz-bible://"
+    var urlToOpen: [String]?
+    private var urlDelegate: URLDelegate?
     
     static var context: NSManagedObjectContext {
         return AppDelegate.shared.persistentContainer.newBackgroundContext()
+    }
+    
+    static var viewContext: NSManagedObjectContext {
+        return AppDelegate.shared.persistentContainer.viewContext
     }
     
     static var shared: AppDelegate {
@@ -28,26 +37,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return AppDelegate.shared.coreManager
     }
     
+    static var spiritManager: SpiritManager {
+        return AppDelegate.shared.spiritManager
+    }
+    
     static var plistManager: PlistManager {
         return AppDelegate.shared.plistManager
     }
-
-    private lazy var coreManager: CoreManager = CoreManager(AppDelegate.context)
-    private var plistManager = PlistManager()
     
-    override init() {
-        if !AppDelegate.isAppAlreadyLaunchedOnce {
-            AppDelegate.preloadDataBase()
-        } else {
-            AppDelegate.versionCheck()
-        }
-        super.init()
+    static var consistentManager: ConsistencyManager {
+        return AppDelegate.shared.consistentManager
     }
-    
-//    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
-//        sharingManager.delegate = AppDelegate.shared
-//    }
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        if !AppDelegate.isAppAlreadyLaunchedOnce {
+            consistentManager.initialiseCoreData(to: AppDelegate.viewContext)
+        }
+        coreManager.update()
+    }
 
 //    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
@@ -60,19 +67,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {
             defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
             return false
-        }
-    }
-    
-    static func versionCheck() {
-        let defaults = UserDefaults.standard
-        if let v = defaults.string(forKey: AppDelegate.versionKey),
-            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            if v < version {
-                preloadDataBase()
-                defaults.set(version, forKey: AppDelegate.versionKey)
-            }
-        } else {
-            preloadDataBase()
         }
     }
     
@@ -120,8 +114,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    static let URLServerRoot = "x-com-thedeniz-bible://"
-    
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
@@ -133,47 +125,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         })
         return container
     }()
-    
-    private static func preloadDataBase() {
-        let path = (NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true) as NSArray)[0] as! String
-        let fullPath = path.appending("/macB/macB.sqlite")
-        let storeURL = URL(fileURLWithPath: fullPath)
-
-        let fileManager = Foundation.FileManager.init()
-//        print(fileManager.fileExists(atPath: path))
-
-
-        if fileManager.fileExists(atPath: storeURL.path) {
-            let storeDirectory = storeURL.deletingLastPathComponent()
-            let enumerator = fileManager.enumerator(at: storeDirectory, includingPropertiesForKeys: nil, options: .skipsHiddenFiles, errorHandler: nil)
-            let storeName = String(storeURL.lastPathComponent.split(separator: ".")[0])
-            for u in enumerator! {
-                if let url = u as? URL {
-                    if !url.lastPathComponent.hasPrefix(storeName) {
-                        continue
-                    }
-                    try? fileManager.removeItem(at: url)
-                }
-            }
-            // handle error
-        } else {
-            do {
-                try fileManager.createDirectory(atPath: path + "/macB", withIntermediateDirectories: false, attributes: nil)
-            } catch let error as NSError {
-                print(error.localizedDescription);
-            }
-        }
-
-        let bundleDbPath = Bundle.main.path(forResource: "macB", ofType: "sqlite")
-        do {
-            try fileManager.copyItem(atPath: bundleDbPath ?? "", toPath: storeURL.path)
-            UserDefaults.standard.set(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, forKey: AppDelegate.versionKey)
-        } catch {
-            print(error)
-        }
-        print("database is set")
-//        manager.broadcastChanges()
-    }
 
     // MARK: - Core Data Saving and Undo support
 

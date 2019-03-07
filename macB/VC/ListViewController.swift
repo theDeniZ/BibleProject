@@ -25,6 +25,13 @@ class ListViewController: NSViewController {
         outline.delegate = self
     }
     
+    func reload() {
+        let manager = ListManager()
+        manager.typesToDisplay = typesToDisplay
+        listed = manager.getListOfAll()
+        outline.reloadData()
+    }
+    
 }
 
 extension ListViewController: NSOutlineViewDataSource {

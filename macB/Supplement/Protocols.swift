@@ -23,6 +23,11 @@ protocol DownloadProgressDelegate {
     func downloadFinished()
 }
 
+protocol DownloadDelegate {
+    func download(index: (Int, Int), completition: ((Bool) -> ())?)
+    func remove(index: (Int, Int), completition: ((Bool) -> ())?)
+}
+
 protocol StrongsLinkEmbeddable {
     var strongNumbersAvailable: Bool {get}
     func embedStrongs(to link: String, using size: CGFloat, linking: Bool, withTooltip: Bool) -> NSAttributedString

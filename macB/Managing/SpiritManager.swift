@@ -145,6 +145,11 @@ class SpiritManager: NSObject {
             self.delegate?.modelChanged()
             t.invalidate()
         }
+        timings?.fire()
+    }
+    
+    func update() {
+        broadcastChanges()
     }
     
     func doSearch(_ text: String) {
@@ -174,35 +179,3 @@ class SpiritManager: NSObject {
         broadcastChanges()
     }
 }
-
-//
-//extension SpiritManager {
-//    func getAvailableBooks() -> [String]? {
-//        if let books = try? SpiritBook.getAll(from: context), books.count > 0 {
-//            var keys = [String]()
-//            for book in books {
-//                if book.code != nil {
-//                    keys.append(book.code!)
-//                }
-//            }
-//            return keys
-//        }
-//        return nil
-//    }
-//
-//    func getAvailableChapters() -> [String]? {
-//        if let book = currentBook() {
-//            var names = [String]()
-//            if let chapters = book.chapters?.array as? [SpiritChapter] {
-//                for chapter in chapters {
-//                    if let name = chapter.title {
-//                        names.append(name)
-//                    }
-//                }
-//            }
-//            return names
-//        }
-//        return nil
-//    }
-//
-//}

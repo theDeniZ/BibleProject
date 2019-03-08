@@ -139,17 +139,17 @@ class SpiritManager: NSObject {
         return []
     }
     
-    private func broadcastChanges() {
+    private func broadcastChanges(_ full: Bool = false) {
         timings?.invalidate()
         timings = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
-            self.delegate?.modelChanged()
+            self.delegate?.modelChanged(full)
             t.invalidate()
         }
         timings?.fire()
     }
     
-    func update() {
-        broadcastChanges()
+    func update(_ full: Bool = false) {
+        broadcastChanges(full)
     }
     
     func doSearch(_ text: String) {

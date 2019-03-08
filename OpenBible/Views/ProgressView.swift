@@ -10,8 +10,8 @@ import UIKit
 
 class ProgressView: UIView {
     
-    var firstColor: UIColor = UIColor.green
-    var secondColor: UIColor = UIColor.red
+    var firstColor: UIColor = UIColor(displayP3Red: 0.2, green: 0.1, blue: 0.9, alpha: 1.0)
+    var secondColor: UIColor = UIColor(displayP3Red: 0.2, green: 0.1, blue: 0.9, alpha: 0.6)
     
     private var gradientLayer: CAGradientLayer!
     private var gradient = CAGradientLayer()

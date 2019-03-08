@@ -150,10 +150,12 @@ extension SpiritViewController: SideMenuDelegate {
 }
 
 extension SpiritViewController: ModelUpdateDelegate {
-    func modelChanged() {
+    func modelChanged(_ fully: Bool = false) {
         DispatchQueue.main.async {
             self.updateUI()
-            self.listVC?.reload()
+            if fully {
+                self.listVC?.reload()
+            }
         }
     }
 }

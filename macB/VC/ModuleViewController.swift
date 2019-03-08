@@ -153,7 +153,7 @@ class ModuleViewController: NSViewController {
 
 
 extension ModuleViewController: ModelUpdateDelegate {
-    func modelChanged() {
+    func modelChanged(_ fully: Bool = false) {
         DispatchQueue.main.async { [weak self] in
             self?.updateUI()
         }

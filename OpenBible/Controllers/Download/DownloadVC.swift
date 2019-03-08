@@ -11,11 +11,33 @@ import UIKit
 class DownloadVC: UIViewController {
 
     @IBOutlet private weak var table: UITableView!
+    @IBOutlet weak var allButton: UIButton!
     
-    private var modules = [(String, String, Bool, String)]()
-    private var strongs = [(String, String, Bool, String)]()
-    private var spirit = [(String, String, Bool, String)]()
+    private var modules = [DownloadModel]()
+    private var strongs = [DownloadModel]()
+    private var spirit = [DownloadModel]()
     private let refreshControl = UIRefreshControl()
+    
+    private var manager: ConsistencyManager!
+    
+    private var allExists = false
+    private var numberOfBackgroundProccesses = 0
+    private var numberOfProceededProccesses = 0 {
+        didSet {
+            if numberOfProceededProccesses == numberOfBackgroundProccesses {
+                numberOfBackgroundProccesses = 0
+                numberOfProceededProccesses = 0
+                DispatchQueue.main.async {
+                    self.allButton.setTitle(self.currentAllButtonTitle, for: .normal)
+                    self.allButton.isEnabled = true
+                }
+            }
+        }
+    }
+    
+    private var currentAllButtonTitle: String {
+        return allExists ? "Remove All" : "Download All"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +49,76 @@ class DownloadVC: UIViewController {
         table.addSubview(refreshControl)
         refreshControl.beginRefreshing()
         readFromServer()
+        allButton.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        manager = AppDelegate.shared.consistentManager
+    }
+    
+    @IBAction func allAction(_ sender: UIButton) {
+        allButton.isEnabled = false
+        if allExists {
+            DispatchQueue.global(qos: .userInteractive).async {
+                self.removeNeeded(self.modules)
+            }
+            DispatchQueue.global(qos: .userInteractive).async {
+                self.removeNeeded(self.strongs)
+            }
+//            DispatchQueue.global(qos: .userInteractive).async {
+//                self.removeNeeded(self.spirit)
+//            }
+        } else {
+            DispatchQueue.global(qos: .userInteractive).async {
+                self.downloadNeeded(self.modules)
+            }
+            DispatchQueue.global(qos: .userInteractive).async {
+                self.downloadNeeded(self.strongs)
+            }
+//            DispatchQueue.global(qos: .userInteractive).async {
+//                self.downloadNeeded(self.spirit)
+//            }
+        }
+        allExists = !allExists
+    }
+    
+    private func downloadNeeded(_ array: [DownloadModel]) {
+        for obj in array {
+            if !obj.loaded {
+                obj.loading = true
+                numberOfBackgroundProccesses += 1
+                DispatchQueue.main.async {
+                    self.manager.download(file: obj.path, completition: { (sucess) in
+                        obj.loaded = sucess
+                        obj.loading = false
+                        self.numberOfProceededProccesses += 1
+                        DispatchQueue.main.async {
+                            self.table?.reloadData()
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
+    private func removeNeeded(_ array: [DownloadModel]) {
+        for obj in array {
+            if obj.loaded {
+                obj.loading = true
+                numberOfBackgroundProccesses += 1
+                DispatchQueue.main.async {
+                    self.manager.remove(obj.path, completition: {
+                        obj.loaded = false
+                        obj.loading = false
+                        self.numberOfProceededProccesses += 1
+                        DispatchQueue.main.async {
+                            self.table?.reloadData()
+                        }
+                    })
+                }
+            }
+        }
     }
     
     private func readFromServer() {
@@ -37,6 +129,7 @@ class DownloadVC: UIViewController {
             if error != nil {
                 print(error!)
             }
+            var allExist = true
             if data != nil,
                 let json = try? JSONSerialization.jsonObject(
                     with: data!, options: .allowFragments
@@ -49,10 +142,12 @@ class DownloadVC: UIViewController {
                         let regex = file["key"] {
                         if let key = SharingRegex.parseModule(regex) {
                             let exist = Module.exists(key: key, in: context)
-                            self.modules.append((size, name, exist, path))
+                            allExist = allExist && exist
+                            self.modules.append(DownloadModel(size: size, name: name, loaded: exist, loading: false, path: path))
                         } else if let key = SharingRegex.parseStrong(regex) {
                             let exist = (try? Strong.exists(key, in: context)) ?? false
-                            self.strongs.append((size, name, exist, path))
+                            allExist = allExist && exist
+                            self.strongs.append(DownloadModel(size: size, name: name, loaded: exist, loading: false, path: path))
                         }/* else if let key = SharingRegex.parseSpirit(regex) {
                             let exist = SpiritBook.exists(with: key, in: context)
                             self.spirit.append((size, name, exist, path))
@@ -62,9 +157,12 @@ class DownloadVC: UIViewController {
             } else {
                 print("No readable data is arrived")
             }
+            self.allExists = allExist
             DispatchQueue.main.async {
                 self.table.reloadData()
                 self.refreshControl.endRefreshing()
+                self.allButton.isHidden = false
+                self.allButton.setTitle(self.currentAllButtonTitle, for: .normal)
             }
         }
         task.resume()
@@ -97,26 +195,17 @@ extension DownloadVC: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Download Cell", for: indexPath)
         switch indexPath.section {
         case 0:
-            cell.textLabel?.text = modules[indexPath.row].0
-            cell.detailTextLabel?.text = modules[indexPath.row].1
-            cell.accessoryType = modules[indexPath.row].2 ? .checkmark : .none
-            let label = UILabel(frame: CGRect())
-            label.text = modules[indexPath.row].3
-            cell.insertSubview(label, at: 0)
+            cell.textLabel?.text = modules[indexPath.row].size
+            cell.detailTextLabel?.text = modules[indexPath.row].name
+            cell.accessoryType = modules[indexPath.row].loaded ? .checkmark : .none
         case 1:
-            cell.textLabel?.text = strongs[indexPath.row].0
-            cell.detailTextLabel?.text = strongs[indexPath.row].1
-            cell.accessoryType = strongs[indexPath.row].2 ? .checkmark : .none
-            let label = UILabel(frame: CGRect())
-            label.text = strongs[indexPath.row].3
-            cell.insertSubview(label, at: 0)
+            cell.textLabel?.text = strongs[indexPath.row].size
+            cell.detailTextLabel?.text = strongs[indexPath.row].name
+            cell.accessoryType = strongs[indexPath.row].loaded ? .checkmark : .none
         case 2:
-            cell.textLabel?.text = spirit[indexPath.row].0
-            cell.detailTextLabel?.text = spirit[indexPath.row].1
-            cell.accessoryType = spirit[indexPath.row].2 ? .checkmark : .none
-            let label = UILabel(frame: CGRect())
-            label.text = spirit[indexPath.row].3
-            cell.insertSubview(label, at: 0)
+            cell.textLabel?.text = spirit[indexPath.row].size
+            cell.detailTextLabel?.text = spirit[indexPath.row].name
+            cell.accessoryType = spirit[indexPath.row].loaded ? .checkmark : .none
         default: break
         }
         return cell
@@ -149,7 +238,7 @@ extension DownloadVC: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.accessoryType == .checkmark {
             // remove
-            let text = selected.3
+            let text = selected.path
             let alert = UIAlertController(title: "Confirm", message: "Remove \(cell!.detailTextLabel!.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Remove", style: .default, handler: { (action) in
@@ -163,7 +252,7 @@ extension DownloadVC: UITableViewDelegate {
             self.present(alert, animated: true, completion: nil)
         } else {
             // download
-            let text = selected.3
+            let text = selected.path
             let alert = UIAlertController(title: "Confirm", message: "Download \(cell!.detailTextLabel!.text!)?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Download", style: .default, handler: { (action) in

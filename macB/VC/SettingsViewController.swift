@@ -65,70 +65,6 @@ class SettingsViewController: NSViewController {
         }
     }
     
-    @IBAction func dumpAction(_ sender: NSButton) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let context = AppDelegate.context
-            let core = SyncCore(in: context)
-            for m in core.modules {
-                do {
-                    let archive = try NSKeyedArchiver.archivedData(withRootObject: m, requiringSecureCoding: true)
-                    let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
-                    let url = URL(fileURLWithPath: path + "/\(SharingRegex.module(m.key)).dmp")
-                    try archive.write(to: url)
-                } catch {
-                    print(error)
-                }
-            }
-            for b in core.spirit {
-                do {
-                    let archive = try NSKeyedArchiver.archivedData(withRootObject: b, requiringSecureCoding: true)
-                    let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
-                    let url = URL(fileURLWithPath: path + "/\(SharingRegex.spirit(b.code)).dmp")
-                    try archive.write(to: url)
-                } catch {
-                    print(error)
-                }
-            }
-            let old = core.strongs.filter { $0.type == StrongId.oldTestament }
-            let new = core.strongs.filter { $0.type == StrongId.newTestament }
-            do {
-                let archive = try NSKeyedArchiver.archivedData(withRootObject: old, requiringSecureCoding: true)
-                let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
-                let url = URL(fileURLWithPath: path + "/\(SharingRegex.strong(StrongId.oldTestament)).dmp")
-                try archive.write(to: url)
-            } catch {
-                print(error)
-            }
-            do {
-                let archive = try NSKeyedArchiver.archivedData(withRootObject: new, requiringSecureCoding: true)
-                let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
-                let url = URL(fileURLWithPath: path + "/\(SharingRegex.strong(StrongId.newTestament)).dmp")
-                try archive.write(to: url)
-            } catch {
-                print(error)
-            }
-            print("Done")
-        }
-    }
-    
-    @IBAction func lightDump(_ sender: NSButton) {
-        let context = AppDelegate.context
-        let core = SyncCore()
-        if let m = try? Module.get(by: "kjv", from: context), let kjv = m {
-            core.modules.append(SyncModule(module: kjv))
-        } else {
-            return
-        }
-        do {
-            let archive = try NSKeyedArchiver.archivedData(withRootObject: core, requiringSecureCoding: true)
-            let path = ((NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray)[0] as! String)
-            let url = URL(fileURLWithPath: path + "/Light " + Date().description + ".dmp")
-            try archive.write(to: url)
-        } catch {
-            print(error)
-        }
-    }
-    
     private func addFontItem(_ font: FontNames, with name: String) {
         let f = NSAttributedString(
             string: name,
@@ -142,7 +78,7 @@ class SettingsViewController: NSViewController {
     private func setFont(_ font: FontNames, bold: FontNames) {
         AppDelegate.plistManager.setFont(named: font.rawValue)
         AppDelegate.plistManager.setFontBold(named: bold.rawValue)
-        AppDelegate.coreManager.update()
+        AppDelegate.updateManagers()
     }
     
     @IBAction func strongsCheck(_ sender: NSButton) {

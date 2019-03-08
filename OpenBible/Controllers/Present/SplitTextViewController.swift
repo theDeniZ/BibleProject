@@ -54,7 +54,6 @@ class SplitTextViewController: UIViewController {
             image: UIImage(named: "search"), style: .plain,
             target: self, action: #selector(toggleSearch)
         )
-
         addGestures()
     }
     

@@ -72,6 +72,8 @@ class SpiritBook: NSManagedObject {
         new.index = Int32(sync.index)
         new.author = sync.author
         new.code = sync.code
+        new.lang = sync.lang
+        new.name = sync.name
         var chapters = [SpiritChapter]()
         for v in sync.chapters {
             let chapter = SpiritChapter.from(v, in: context)

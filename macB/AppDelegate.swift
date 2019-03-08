@@ -49,11 +49,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return AppDelegate.shared.consistentManager
     }
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    func applicationWillFinishLaunching(_ aNotification: Notification) {
         if !AppDelegate.isAppAlreadyLaunchedOnce {
             consistentManager.initialiseCoreData(to: AppDelegate.viewContext)
         }
         coreManager.update()
+    }
+    
+    static func updateManagers() {
+        coreManager.update(true)
+        spiritManager.update(true)
     }
 
 //    func applicationWillTerminate(_ aNotification: Notification) {

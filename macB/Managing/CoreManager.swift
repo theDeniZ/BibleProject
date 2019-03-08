@@ -92,13 +92,13 @@ class CoreManager: NSObject {
     private func broadcastChanges() {
         timings?.invalidate()
         timings = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
-            self.delegates?.forEach {$0.modelChanged()}
+            self.delegates?.forEach {$0.modelChanged(false)}
             t.invalidate()
         }
         timings?.fire()
     }
     
-    func update() {
+    func update(_ full: Bool = false) {
         var mods = [Module]()
         for module in activeModules {
             if Module.exists(key: module.key!, in: context) {
@@ -107,7 +107,7 @@ class CoreManager: NSObject {
         }
         activeModules = mods
         plistManager.set(modules: activeModules.map{$0.key!})
-        delegates?.forEach {$0.modelChanged()}
+        delegates?.forEach {$0.modelChanged(full)}
     }
     
 }

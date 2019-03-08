@@ -34,10 +34,6 @@ class ConsistencyManager: NSObject {
             self.broadcastChange()
         }
     }
-
-    func backThread() {
-//        didStartUpdate()
-    }
     
     private func readFile(named: String) -> Data? {
         do {
@@ -134,15 +130,12 @@ class ConsistencyManager: NSObject {
             updateIsOngoing = true
             didStartUpdate()
         }
-        if processedEntities < overallCountOfEntitiesToLoad {
-//            delegates?.forEach {$0.consistentManagerDidUpdatedProgress?(to: Double(processedEntities) / Double(overallCountOfEntitiesToLoad))}
-        } else {
+        if processedEntities >= overallCountOfEntitiesToLoad {
             didEndUpdate()
             updateIsOngoing = false
             processedEntities = 0
             overallCountOfEntitiesToLoad = 0
         }
-//        delegates?.forEach {$0.condidtentManagerDidUpdatedProgress?(to: Double(processedEntities) / Double(overallCountOfEntitiesToLoad))}
     }
     
     private func didStartUpdate() {
@@ -169,6 +162,15 @@ extension ConsistencyManager {
         NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "macB.SyncSpiritPage")
         NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "macB.SyncSpiritChapter")
         NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "macB.SyncStrong")
+        NSKeyedUnarchiver.setClass(SyncCore.self, forClassName: "compoundB.SyncCore")
+        NSKeyedUnarchiver.setClass(SyncModule.self, forClassName: "compoundB.SyncModule")
+        NSKeyedUnarchiver.setClass(SyncBook.self, forClassName: "compoundB.SyncBook")
+        NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "compoundB.SyncChapter")
+        NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "compoundB.SyncVerse")
+        NSKeyedUnarchiver.setClass(SyncSpiritBook.self, forClassName: "compoundB.SyncSpiritBook")
+        NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "compoundB.SyncSpiritPage")
+        NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "compoundB.SyncSpiritChapter")
+        NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "compoundB.SyncStrong")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SyncCore
             return core
@@ -183,6 +185,10 @@ extension ConsistencyManager {
         NSKeyedUnarchiver.setClass(SyncBook.self, forClassName: "macB.SyncBook")
         NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "macB.SyncChapter")
         NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "macB.SyncVerse")
+        NSKeyedUnarchiver.setClass(SyncModule.self, forClassName: "compoundB.SyncModule")
+        NSKeyedUnarchiver.setClass(SyncBook.self, forClassName: "compoundB.SyncBook")
+        NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "compoundB.SyncChapter")
+        NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "compoundB.SyncVerse")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SyncModule
             return core
@@ -194,6 +200,7 @@ extension ConsistencyManager {
     
     private func parse(strong data: Data) -> [SyncStrong]? {
         NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "macB.SyncStrong")
+        NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "compoundB.SyncStrong")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [SyncStrong]
             return core
@@ -207,6 +214,9 @@ extension ConsistencyManager {
         NSKeyedUnarchiver.setClass(SyncSpiritBook.self, forClassName: "macB.SyncSpiritBook")
         NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "macB.SyncSpiritPage")
         NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "macB.SyncSpiritChapter")
+        NSKeyedUnarchiver.setClass(SyncSpiritBook.self, forClassName: "compoundB.SyncSpiritBook")
+        NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "compoundB.SyncSpiritPage")
+        NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "compoundB.SyncSpiritChapter")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SyncSpiritBook
             return core

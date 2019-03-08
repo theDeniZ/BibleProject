@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import FilesProvider
 
 class PlistManager {
     
@@ -49,7 +48,7 @@ class PlistManager {
         let path = documentDirectory.appending("/" + plistName + ".plist")
         plistPath = path
         
-        let fileManager = LocalFileProvider.init().fileManager
+        let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: path) {
             if let bundlePath = Bundle.main.path(forResource: plistName, ofType: "plist") {
                 do{

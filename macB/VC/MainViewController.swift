@@ -162,10 +162,12 @@ class MainViewController: NSViewController {
 }
 
 extension MainViewController: ModelUpdateDelegate {
-    func modelChanged() {
+    func modelChanged(_ fully: Bool = false) {
         DispatchQueue.main.async { [weak self] in
             self?.updateUI()
-            self?.listVC?.reload()
+            if fully {
+                self?.listVC?.reload()
+            }
         }
     }
 }
@@ -204,6 +206,9 @@ extension MainViewController: SplitViewDelegate {
         vc.delegate = nil
         vc.index = nil
         manager.removeModule(at: number)
+        for i in number..<displayedModuleControllers.count {
+            displayedModuleControllers[i].index = i
+        }
         arrangeAllViews()
     }
 }

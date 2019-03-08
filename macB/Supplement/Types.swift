@@ -118,7 +118,6 @@ class SyncStrong: NSObject, NSSecureCoding {
 /// Contains: key: String, local: Bool, name: String?, books: [SyncBook]
 class SyncModule: NSObject, NSSecureCoding {
     var key: String
-    var local: Bool
     var name: String?
     var books: [SyncBook] = []
     
@@ -132,7 +131,6 @@ class SyncModule: NSObject, NSSecureCoding {
     init(key: String, name: String?, local: Bool = true) {
         self.key = key
         self.name = name
-        self.local = local
     }
     
     /// Initialise SyncModule object from a Module instance
@@ -140,7 +138,6 @@ class SyncModule: NSObject, NSSecureCoding {
     /// - Parameter module: a Module instance
     init(module: Module) {
         self.key = module.key!
-        self.local = module.local
         self.name = module.name
         if let b = module.books?.array as? [Book] {
             for book in b {
@@ -151,7 +148,6 @@ class SyncModule: NSObject, NSSecureCoding {
     
     required init?(coder aDecoder: NSCoder) {
         key = aDecoder.decodeObject(forKey: "key") as! String
-        local = aDecoder.decodeObject(forKey: "meaning") as? Bool ?? false
         name = aDecoder.decodeObject(forKey: "name") as? String
         books = aDecoder.decodeObject(forKey: "books") as? [SyncBook] ?? []
     }
@@ -162,7 +158,6 @@ class SyncModule: NSObject, NSSecureCoding {
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(key, forKey: "key")
-        aCoder.encode(local, forKey: "local")
         aCoder.encode(name, forKey: "name")
         aCoder.encode(books, forKey: "books")
     }
@@ -532,5 +527,21 @@ class SearchResult: NSObject {
         self.text = text
         self.index = index
         super.init()
+    }
+}
+
+class DownloadModel: NSObject {
+    var size: String
+    var name: String
+    var loaded: Bool
+    var loading: Bool
+    var path: String
+    
+    init(size: String, name: String, loaded: Bool, loading: Bool, path: String) {
+        self.size = size
+        self.name = name
+        self.loaded = loaded
+        self.loading = loading
+        self.path = path
     }
 }

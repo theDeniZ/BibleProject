@@ -80,7 +80,6 @@ class Module: NSManagedObject {
         let new = Module(context: context)
         new.key = sync.key
         new.name = sync.name
-        new.local = false
         var books: [Book] = []
         for b in sync.books {
             let book = Book.from(b, in:context)

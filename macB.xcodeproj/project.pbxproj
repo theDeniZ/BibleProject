@@ -14,8 +14,6 @@
 		22061ED121F4A50A00F00B04 /* SpiritChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED021F4A50A00F00B04 /* SpiritChapter.swift */; };
 		22061ED321F4A52F00F00B04 /* SpiritBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED221F4A52F00F00B04 /* SpiritBook.swift */; };
 		22061ED521F4A76E00F00B04 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED421F4A76E00F00B04 /* Roman.swift */; };
-		22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */; };
-		221A3E9221D51233007C269E /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A3E9121D51233007C269E /* DropView.swift */; };
 		221A619321F64AE80003CCC0 /* SpiritViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A619221F64AE80003CCC0 /* SpiritViewController.swift */; };
 		221A619521F650820003CCC0 /* SpiritManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221A619421F650820003CCC0 /* SpiritManager.swift */; };
 		221E37EE220AE500003D8E40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 221E37EC220AE500003D8E40 /* LaunchScreen.storyboard */; };
@@ -29,12 +27,10 @@
 		221E3815220AE99A003D8E40 /* VerseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E380E220AE999003D8E40 /* VerseManager.swift */; };
 		221E3816220AE99A003D8E40 /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E380F220AE999003D8E40 /* plistHandler.swift */; };
 		221E3818220AE99A003D8E40 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3811220AE99A003D8E40 /* Manager.swift */; };
-		221E3819220AE99A003D8E40 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3812220AE99A003D8E40 /* DownloadManager.swift */; };
 		221E381A220AE99A003D8E40 /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E3813220AE99A003D8E40 /* PlistManager.swift */; };
 		221E381C220AE9B0003D8E40 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926021CCD34B00019853 /* Chapter.swift */; };
 		221E381D220AE9B0003D8E40 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926221CCD35E00019853 /* Book.swift */; };
 		221E381E220AE9B0003D8E40 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926421CCD36A00019853 /* Module.swift */; };
-		221E381F220AE9B0003D8E40 /* ModuleOffline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926A21CCD48100019853 /* ModuleOffline.swift */; };
 		221E3820220AE9B0003D8E40 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926621CCD37F00019853 /* History.swift */; };
 		221E3821220AE9B0003D8E40 /* Strong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04AD21D907BA004110E0 /* Strong.swift */; };
 		221E3822220AE9B0003D8E40 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ECE21F4A4DC00F00B04 /* Page.swift */; };
@@ -53,10 +49,6 @@
 		221E385D220AF674003D8E40 /* SplitTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221E385C220AF674003D8E40 /* SplitTextViewController.swift */; };
 		221F4D9A21D928B90014CED9 /* StrongDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */; };
 		222222A32213108700AFDE40 /* StrongManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222222A22213108700AFDE40 /* StrongManager.swift */; };
-		22234EB921D1388C00BC595D /* FileManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EB821D1388C00BC595D /* FileManagerViewController.swift */; };
-		22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EBE21D13FB500BC595D /* DropImageView.swift */; };
-		22234EC121D1453A00BC595D /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC021D1453A00BC595D /* FileManager.swift */; };
-		22234EC321D164A000BC595D /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22234EC221D164A000BC595D /* HTMLParser.swift */; };
 		222F4E89222FC032008CD4E7 /* OpenBible.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 222F4E87222FC031008CD4E7 /* OpenBible.xcdatamodeld */; };
 		222F4E8B222FC8F7008CD4E7 /* NumberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F4E8A222FC8F7008CD4E7 /* NumberCollectionViewCell.swift */; };
 		222F4E8D222FCA53008CD4E7 /* SharedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F4E8C222FCA53008CD4E7 /* SharedExtensions.swift */; };
@@ -92,7 +84,6 @@
 		22BD926321CCD35E00019853 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926221CCD35E00019853 /* Book.swift */; };
 		22BD926521CCD36B00019853 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926421CCD36A00019853 /* Module.swift */; };
 		22BD926721CCD37F00019853 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926621CCD37F00019853 /* History.swift */; };
-		22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926A21CCD48100019853 /* ModuleOffline.swift */; };
 		22BD927021CCDB0E00019853 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926F21CCDB0E00019853 /* Protocols.swift */; };
 		22CB04AF21D907BA004110E0 /* Strong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04AD21D907BA004110E0 /* Strong.swift */; };
 		22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B221D911F2004110E0 /* StrongViewController.swift */; };
@@ -103,12 +94,9 @@
 		22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */; };
 		22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB721CFC556001C96D3 /* MainViewController.swift */; };
 		22FFB73721E26DEF00E7F0FD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */; };
-		60ABE089883483FE0521790F /* Pods_macB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E84F3FCD55100997776984 /* Pods_macB.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0065D28A5CE3F9F2C96E85CD /* Pods-macB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macB/Pods-macB.debug.xcconfig"; sourceTree = "<group>"; };
-		0F4AE5F9062AC3626EDAE46A /* Pods_macBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		220055A32214271B0063D3EC /* OutlineSelectionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineSelectionCellView.swift; sourceTree = "<group>"; };
 		22061ECA21F4821100F00B04 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		22061ECC21F4829C00F00B04 /* ListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListManager.swift; sourceTree = "<group>"; };
@@ -116,8 +104,6 @@
 		22061ED021F4A50A00F00B04 /* SpiritChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritChapter.swift; sourceTree = "<group>"; };
 		22061ED221F4A52F00F00B04 /* SpiritBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritBook.swift; sourceTree = "<group>"; };
 		22061ED421F4A76E00F00B04 /* Roman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Roman.swift; sourceTree = "<group>"; };
-		22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritHTMLParser.swift; sourceTree = "<group>"; };
-		221A3E9121D51233007C269E /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
 		221A619221F64AE80003CCC0 /* SpiritViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritViewController.swift; sourceTree = "<group>"; };
 		221A619421F650820003CCC0 /* SpiritManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritManager.swift; sourceTree = "<group>"; };
 		221E37DE220AE4FF003D8E40 /* OpenBible.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenBible.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,7 +119,6 @@
 		221E380E220AE999003D8E40 /* VerseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerseManager.swift; sourceTree = "<group>"; };
 		221E380F220AE999003D8E40 /* plistHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
 		221E3811220AE99A003D8E40 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
-		221E3812220AE99A003D8E40 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		221E3813220AE99A003D8E40 /* PlistManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		221E3833220AE9ED003D8E40 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		221E3834220AE9ED003D8E40 /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
@@ -147,10 +132,6 @@
 		221E385C220AF674003D8E40 /* SplitTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTextViewController.swift; sourceTree = "<group>"; };
 		221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongDetailViewController.swift; sourceTree = "<group>"; };
 		222222A22213108700AFDE40 /* StrongManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongManager.swift; sourceTree = "<group>"; };
-		22234EB821D1388C00BC595D /* FileManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerViewController.swift; sourceTree = "<group>"; };
-		22234EBE21D13FB500BC595D /* DropImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropImageView.swift; sourceTree = "<group>"; };
-		22234EC021D1453A00BC595D /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
-		22234EC221D164A000BC595D /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 		222F4E88222FC031008CD4E7 /* OpenBible.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OpenBible.xcdatamodel; sourceTree = "<group>"; };
 		222F4E8A222FC8F7008CD4E7 /* NumberCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberCollectionViewCell.swift; sourceTree = "<group>"; };
 		222F4E8C222FCA53008CD4E7 /* SharedExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedExtensions.swift; sourceTree = "<group>"; };
@@ -186,7 +167,6 @@
 		22BD926221CCD35E00019853 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		22BD926421CCD36A00019853 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		22BD926621CCD37F00019853 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		22BD926A21CCD48100019853 /* ModuleOffline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleOffline.swift; sourceTree = "<group>"; };
 		22BD926F21CCDB0E00019853 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		22CB04AD21D907BA004110E0 /* Strong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strong.swift; sourceTree = "<group>"; };
 		22CB04B221D911F2004110E0 /* StrongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongViewController.swift; sourceTree = "<group>"; };
@@ -197,13 +177,6 @@
 		22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		22F68BB721CFC556001C96D3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		3689E8B4A62D58A55890DF22 /* Pods-macBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macBTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-macBTests/Pods-macBTests.release.xcconfig"; sourceTree = "<group>"; };
-		6BB517BD524BDC59EBCFD849 /* Pods_macBUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macBUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD160E5FEDA78783DF46F294 /* Pods-macBTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macBTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macBTests/Pods-macBTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B0F7068134E2450212CC168F /* Pods-macBUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macBUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-macBUITests/Pods-macBUITests.release.xcconfig"; sourceTree = "<group>"; };
-		D85876AA1B1FFFCA2873062C /* Pods-macB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macB.release.xcconfig"; path = "Pods/Target Support Files/Pods-macB/Pods-macB.release.xcconfig"; sourceTree = "<group>"; };
-		F1344BC5BB3A42B421BF3C2D /* Pods-macBUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-macBUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-macBUITests/Pods-macBUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		F8E84F3FCD55100997776984 /* Pods_macB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_macB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,7 +191,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60ABE089883483FE0521790F /* Pods_macB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +238,6 @@
 		221E380C220AE990003D8E40 /* Managing */ = {
 			isa = PBXGroup;
 			children = (
-				221E3812220AE99A003D8E40 /* DownloadManager.swift */,
 				221E380E220AE999003D8E40 /* VerseManager.swift */,
 				221E3811220AE99A003D8E40 /* Manager.swift */,
 				221E380F220AE999003D8E40 /* plistHandler.swift */,
@@ -350,7 +321,6 @@
 				22BD921921CBDEDB00019853 /* macB */,
 				221E37DF220AE4FF003D8E40 /* OpenBible */,
 				22BD921821CBDEDB00019853 /* Products */,
-				81136A21056D864EC76C0C8E /* Pods */,
 				43072824CA4E971833228D31 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -392,7 +362,6 @@
 				22BD926021CCD34B00019853 /* Chapter.swift */,
 				22BD926221CCD35E00019853 /* Book.swift */,
 				22BD926421CCD36A00019853 /* Module.swift */,
-				22BD926A21CCD48100019853 /* ModuleOffline.swift */,
 				22BD926621CCD37F00019853 /* History.swift */,
 				22CB04AD21D907BA004110E0 /* Strong.swift */,
 				22061ECE21F4A4DC00F00B04 /* Page.swift */,
@@ -405,8 +374,6 @@
 		22BD926E21CCD63400019853 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				22234EBE21D13FB500BC595D /* DropImageView.swift */,
-				221A3E9121D51233007C269E /* DropView.swift */,
 				22CB04B421D9155B004110E0 /* LabelCellView.swift */,
 				2240CDA6221425F300942F84 /* OutlineCellView.swift */,
 				220055A32214271B0063D3EC /* OutlineSelectionCellView.swift */,
@@ -435,7 +402,6 @@
 			children = (
 				22F68BB721CFC556001C96D3 /* MainViewController.swift */,
 				22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */,
-				22234EB821D1388C00BC595D /* FileManagerViewController.swift */,
 				22CB04B221D911F2004110E0 /* StrongViewController.swift */,
 				221F4D9921D928B90014CED9 /* StrongDetailViewController.swift */,
 				22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */,
@@ -453,14 +419,11 @@
 			children = (
 				22F68BB121CF87EB001C96D3 /* CoreManager.swift */,
 				221A619421F650820003CCC0 /* SpiritManager.swift */,
-				22234EC021D1453A00BC595D /* FileManager.swift */,
-				22234EC221D164A000BC595D /* HTMLParser.swift */,
-				22061ED621F4B6E600F00B04 /* SpiritHTMLParser.swift */,
+				2255298922312CCE00780298 /* ConsistencyManager.swift */,
 				22B9F1EE21DD219A00E6E62C /* PlistManager.swift */,
 				22B9F1ED21DD219A00E6E62C /* plistHandler.swift */,
 				22061ECC21F4829C00F00B04 /* ListManager.swift */,
 				222222A22213108700AFDE40 /* StrongManager.swift */,
-				2255298922312CCE00780298 /* ConsistencyManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -468,24 +431,8 @@
 		43072824CA4E971833228D31 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F8E84F3FCD55100997776984 /* Pods_macB.framework */,
-				0F4AE5F9062AC3626EDAE46A /* Pods_macBTests.framework */,
-				6BB517BD524BDC59EBCFD849 /* Pods_macBUITests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		81136A21056D864EC76C0C8E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0065D28A5CE3F9F2C96E85CD /* Pods-macB.debug.xcconfig */,
-				D85876AA1B1FFFCA2873062C /* Pods-macB.release.xcconfig */,
-				AD160E5FEDA78783DF46F294 /* Pods-macBTests.debug.xcconfig */,
-				3689E8B4A62D58A55890DF22 /* Pods-macBTests.release.xcconfig */,
-				F1344BC5BB3A42B421BF3C2D /* Pods-macBUITests.debug.xcconfig */,
-				B0F7068134E2450212CC168F /* Pods-macBUITests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,11 +459,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 22BD924021CBDEDD00019853 /* Build configuration list for PBXNativeTarget "macB" */;
 			buildPhases = (
-				18926BD0092254F6A6022AEC /* [CP] Check Pods Manifest.lock */,
 				22BD921321CBDEDB00019853 /* Sources */,
 				22BD921421CBDEDB00019853 /* Frameworks */,
 				22BD921521CBDEDB00019853 /* Resources */,
-				5B8BC53E74A40171B495E2E9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -597,57 +542,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		18926BD0092254F6A6022AEC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-macB-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5B8BC53E74A40171B495E2E9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-macB/Pods-macB-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/FilesProvider/FilesProvider.framework",
-				"${BUILT_PRODUCTS_DIR}/HTMLString/HTMLString.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FilesProvider.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HTMLString.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-macB/Pods-macB-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		221E37DA220AE4FF003D8E40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -675,8 +569,6 @@
 				225FC1FF222FF30000E61CA8 /* SearchTableViewController.swift in Sources */,
 				221E3840220AE9EE003D8E40 /* StrongViewController.swift in Sources */,
 				221E3824220AE9B0003D8E40 /* SpiritBook.swift in Sources */,
-				221E381F220AE9B0003D8E40 /* ModuleOffline.swift in Sources */,
-				221E3819220AE99A003D8E40 /* DownloadManager.swift in Sources */,
 				221E3815220AE99A003D8E40 /* VerseManager.swift in Sources */,
 				221E385A220AEC65003D8E40 /* Verse.swift in Sources */,
 				221E3818220AE99A003D8E40 /* Manager.swift in Sources */,
@@ -705,11 +597,9 @@
 				22BD921D21CBDEDB00019853 /* MainWindowController.swift in Sources */,
 				22BD925F21CCD03C00019853 /* Verse.swift in Sources */,
 				22BD927021CCDB0E00019853 /* Protocols.swift in Sources */,
-				22234EC121D1453A00BC595D /* FileManager.swift in Sources */,
 				22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */,
 				22061ECF21F4A4DC00F00B04 /* Page.swift in Sources */,
 				22061ECD21F4829C00F00B04 /* ListManager.swift in Sources */,
-				22234EBF21D13FB600BC595D /* DropImageView.swift in Sources */,
 				2240220521EB479900DC8E2F /* Types.swift in Sources */,
 				22061ECB21F4821100F00B04 /* ListViewController.swift in Sources */,
 				2235F68922142D3100E46411 /* OutlineViewController.swift in Sources */,
@@ -719,20 +609,16 @@
 				22BD926321CCD35E00019853 /* Book.swift in Sources */,
 				22061ED121F4A50A00F00B04 /* SpiritChapter.swift in Sources */,
 				2255298822312C3C00780298 /* DownloadViewController.swift in Sources */,
-				22061ED721F4B6E600F00B04 /* SpiritHTMLParser.swift in Sources */,
 				221A619321F64AE80003CCC0 /* SpiritViewController.swift in Sources */,
 				22BD921B21CBDEDB00019853 /* AppDelegate.swift in Sources */,
 				22F68BB221CF87EB001C96D3 /* CoreManager.swift in Sources */,
 				222222A32213108700AFDE40 /* StrongManager.swift in Sources */,
 				221A619521F650820003CCC0 /* SpiritManager.swift in Sources */,
 				22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */,
-				22BD926B21CCD48100019853 /* ModuleOffline.swift in Sources */,
 				22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */,
 				22BD926121CCD34B00019853 /* Chapter.swift in Sources */,
 				22FFB73721E26DEF00E7F0FD /* SettingsViewController.swift in Sources */,
-				221A3E9221D51233007C269E /* DropView.swift in Sources */,
 				22CB04B521D9155B004110E0 /* LabelCellView.swift in Sources */,
-				22234EB921D1388C00BC595D /* FileManagerViewController.swift in Sources */,
 				22BD926521CCD36B00019853 /* Module.swift in Sources */,
 				2240CDA7221425F300942F84 /* OutlineCellView.swift in Sources */,
 				220055A42214271B0063D3EC /* OutlineSelectionCellView.swift in Sources */,
@@ -740,7 +626,6 @@
 				22CB04AF21D907BA004110E0 /* Strong.swift in Sources */,
 				225FC2072230361E00E61CA8 /* SearchTableCellView.swift in Sources */,
 				22BD924A21CC159C00019853 /* Extensions.swift in Sources */,
-				22234EC321D164A000BC595D /* HTMLParser.swift in Sources */,
 				222F4E8D222FCA53008CD4E7 /* SharedExtensions.swift in Sources */,
 				22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */,
 				225FC2082230391C00E61CA8 /* SearchManager.swift in Sources */,
@@ -940,7 +825,6 @@
 		};
 		22BD924121CBDEDD00019853 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0065D28A5CE3F9F2C96E85CD /* Pods-macB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = macB/macB.entitlements;
@@ -963,7 +847,6 @@
 		};
 		22BD924221CBDEDD00019853 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D85876AA1B1FFFCA2873062C /* Pods-macB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = macB/macB.entitlements;

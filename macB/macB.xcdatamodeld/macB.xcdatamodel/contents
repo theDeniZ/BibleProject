@@ -19,7 +19,6 @@
     </entity>
     <entity name="Module" representedClassName=".Module" syncable="YES" codeGenerationType="category">
         <attribute name="key" attributeType="String" syncable="YES"/>
-        <attribute name="local" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Book" inverseName="module" inverseEntity="Book" syncable="YES"/>
     </entity>
@@ -63,7 +62,7 @@
         <element name="Book" positionX="32.01953125" positionY="29.36328125" width="128" height="103"/>
         <element name="Chapter" positionX="-137.78125" positionY="36.05078125" width="128" height="103"/>
         <element name="History" positionX="-80.69921875" positionY="209.87890625" width="128" height="88"/>
-        <element name="Module" positionX="12.828125" positionY="-115.0234375" width="128" height="105"/>
+        <element name="Module" positionX="12.828125" positionY="-115.0234375" width="128" height="90"/>
         <element name="Page" positionX="-557.16015625" positionY="73.57421875" width="128" height="103"/>
         <element name="SpiritBook" positionX="-499.55078125" positionY="-264.90234375" width="128" height="133"/>
         <element name="SpiritChapter" positionX="-499.3046875" positionY="-108.203125" width="128" height="133"/>

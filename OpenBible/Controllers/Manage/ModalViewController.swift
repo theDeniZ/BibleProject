@@ -63,7 +63,7 @@ extension ModalViewController:UITableViewDelegate {
                 if selectedIndexes.count == 1 {
                     selectedIndexes.append(indexPath)
                     m.setSecond(modules[indexPath.row])
-                } else {
+                } else if selectedIndexes.count > 1 {
                     m.setSecond(modules[indexPath.row])
                     tableView.reloadRows(at: [selectedIndexes[1]], with: .automatic)
                     selectedIndexes[1] = indexPath

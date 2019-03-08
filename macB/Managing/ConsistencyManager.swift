@@ -22,7 +22,7 @@ class ConsistencyManager: NSObject {
             try? context.save()
         }
     }
-
+    
     private func readFile(named: String) -> Data? {
         do {
             if let path = Bundle.main.path(forResource: named, ofType: nil) {
@@ -44,28 +44,44 @@ class ConsistencyManager: NSObject {
                 completition(false)
                 return
             }
+            var success = true
             do {
                 let data = try Data(contentsOf: temp)
                 if file.matches(SharingRegex.module),
                     let module = self.parse(module: data) {
                     _ = Module.from(module, in: context)
-                    try? context.save()
+                    do {
+                        try context.save()
+                    } catch {
+                        print("ERROR:\nConsistencyManager.download(\(file)):\(error.localizedDescription)")
+                        success = false
+                    }
                 } else if file.matches(SharingRegex.strong),
                     let sync = self.parse(strong: data) {
                     for str in sync {
                         _ = Strong.from(str, in: context)
                     }
-                    try? context.save()
+                    do {
+                        try context.save()
+                    } catch {
+                        print("ERROR:\nConsistencyManager.download(\(file)):\(error.localizedDescription)")
+                        success = false
+                    }
                 } else if file.matches(SharingRegex.spirit),
                     let spirit = self.parse(spirit: data) {
                     _ = SpiritBook.from(spirit, in: context)
-                    try? context.save()
+                    do {
+                        try context.save()
+                    } catch {
+                        print("ERROR:\nConsistencyManager.download(\(file)):\(error.localizedDescription)")
+                        success = false
+                    }
                 }
             } catch {
                 print(error)
                 completition(false)
             }
-            completition(true)
+            completition(success)
         }
     }
     
@@ -75,36 +91,48 @@ class ConsistencyManager: NSObject {
             if let key = SharingRegex.parseModule(code) {
                 if let module = try? Module.get(by: key, from: context), module != nil {
                     context.delete(module!)
-                    try? context.save()
+                    do {
+                        try context.save()
+                    } catch {
+                        print("ERROR:\nConsistencyManager.remove(\(code)):\(error.localizedDescription)")
+                    }
                 }
                 completition()
             } else if let type = SharingRegex.parseStrong(code) {
                 Strong.remove(type, from: context)
-                try? context.save()
+                do {
+                    try context.save()
+                } catch {
+                    print("ERROR:\nConsistencyManager.remove(\(code)):\(error.localizedDescription)")
+                }
                 completition()
             } else if let c = SharingRegex.parseSpirit(code) {
                 if let b = try? SpiritBook.get(by: c, from: context), b != nil {
                     context.delete(b!)
-                    try? context.save()
+                    do {
+                        try context.save()
+                    } catch {
+                        print("ERROR:\nConsistencyManager.remove(\(code)):\(error.localizedDescription)")
+                    }
                 }
                 completition()
             }
         }
     }
-
+    
 }
 
 extension ConsistencyManager {
     private func parse(_ data: Data) -> SyncCore? {
-//        NSKeyedUnarchiver.setClass(SyncCore.self, forClassName: "macB.SyncCore")
-//        NSKeyedUnarchiver.setClass(SyncModule.self, forClassName: "macB.SyncModule")
-//        NSKeyedUnarchiver.setClass(SyncBook.self, forClassName: "macB.SyncBook")
-//        NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "macB.SyncChapter")
-//        NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "macB.SyncVerse")
-//        NSKeyedUnarchiver.setClass(SyncSpiritBook.self, forClassName: "macB.SyncSpiritBook")
-//        NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "macB.SyncSpiritPage")
-//        NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "macB.SyncSpiritChapter")
-//        NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "macB.SyncStrong")
+        NSKeyedUnarchiver.setClass(SyncCore.self, forClassName: "compoundB.SyncCore")
+        NSKeyedUnarchiver.setClass(SyncModule.self, forClassName: "compoundB.SyncModule")
+        NSKeyedUnarchiver.setClass(SyncBook.self, forClassName: "compoundB.SyncBook")
+        NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "compoundB.SyncChapter")
+        NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "compoundB.SyncVerse")
+        NSKeyedUnarchiver.setClass(SyncSpiritBook.self, forClassName: "compoundB.SyncSpiritBook")
+        NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "compoundB.SyncSpiritPage")
+        NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "compoundB.SyncSpiritChapter")
+        NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "compoundB.SyncStrong")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SyncCore
             return core
@@ -115,10 +143,10 @@ extension ConsistencyManager {
     }
     
     private func parse(module data: Data) -> SyncModule? {
-//        NSKeyedUnarchiver.setClass(SyncModule.self, forClassName: "macB.SyncModule")
-//        NSKeyedUnarchiver.setClass(SyncBook.self, forClassName: "macB.SyncBook")
-//        NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "macB.SyncChapter")
-//        NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "macB.SyncVerse")
+        NSKeyedUnarchiver.setClass(SyncModule.self, forClassName: "compoundB.SyncModule")
+        NSKeyedUnarchiver.setClass(SyncBook.self, forClassName: "compoundB.SyncBook")
+        NSKeyedUnarchiver.setClass(SyncChapter.self, forClassName: "compoundB.SyncChapter")
+        NSKeyedUnarchiver.setClass(SyncVerse.self, forClassName: "compoundB.SyncVerse")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SyncModule
             return core
@@ -129,7 +157,7 @@ extension ConsistencyManager {
     }
     
     private func parse(strong data: Data) -> [SyncStrong]? {
-//        NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "macB.SyncStrong")
+        NSKeyedUnarchiver.setClass(SyncStrong.self, forClassName: "compoundB.SyncStrong")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [SyncStrong]
             return core
@@ -140,9 +168,9 @@ extension ConsistencyManager {
     }
     
     private func parse(spirit data: Data) -> SyncSpiritBook? {
-//        NSKeyedUnarchiver.setClass(SyncSpiritBook.self, forClassName: "macB.SyncSpiritBook")
-//        NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "macB.SyncSpiritPage")
-//        NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "macB.SyncSpiritChapter")
+        NSKeyedUnarchiver.setClass(SyncSpiritBook.self, forClassName: "compoundB.SyncSpiritBook")
+        NSKeyedUnarchiver.setClass(SyncSpiritPage.self, forClassName: "compoundB.SyncSpiritPage")
+        NSKeyedUnarchiver.setClass(SyncSpiritChapter.self, forClassName: "compoundB.SyncSpiritChapter")
         do {
             let core = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SyncSpiritBook
             return core
@@ -152,7 +180,6 @@ extension ConsistencyManager {
         return nil
     }
 }
-
 
 class Downloader {
     class func load(url: URL, completion: @escaping (URL?) -> ()) {

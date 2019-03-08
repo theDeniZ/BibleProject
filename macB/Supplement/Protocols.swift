@@ -10,7 +10,7 @@ import Foundation
 
 protocol ModelUpdateDelegate {
     var hashValue: Int {get}
-    func modelChanged()
+    func modelChanged(_ fully: Bool)
 }
 
 protocol DragDelegate {

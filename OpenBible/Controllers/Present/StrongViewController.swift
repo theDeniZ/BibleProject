@@ -41,6 +41,8 @@ class StrongViewController: UIViewController {
             titleLabel.isHidden = true
             closeButton.isHidden = true
         }
+//        mainTextView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 0, height: 0), animated: false)
+        mainTextView.contentOffset = CGPoint(x: 0, y: 0)
     }
     
     @IBAction func closeAction(_ sender: Any) {

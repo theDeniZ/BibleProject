@@ -238,7 +238,21 @@ extension SplitTextViewController: URLDelegate {
                 vc.identifier = parameters[0]
                 vc.numbers = parameters[1].split(separator: "+").map {Int(String($0))!}
                 if let nav = navigationController {
-                    nav.pushViewController(vc, animated: true)
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        nav.pushViewController(vc, animated: true)
+                    } else {
+                        let size = CGSize(width: 500, height: 300)
+                        let nvc = UINavigationController(rootViewController: vc)
+                        nvc.modalPresentationStyle = UIModalPresentationStyle.popover
+                        let popover = nvc.popoverPresentationController
+                        vc.preferredContentSize = size
+                        popover?.sourceView = self.view
+                        popover?.sourceRect = CGRect(x: (view.bounds.width / 2), y: (view.bounds.height / 2), width: 0, height: 0)
+                        popover?.permittedArrowDirections = .init(rawValue: 0)
+                        popover?.backgroundColor = UIColor.green
+                        
+                        present(nvc, animated: true, completion: nil)
+                    }
                 } else {
                     present(vc, animated: true, completion: nil)
                 }

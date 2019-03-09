@@ -9,7 +9,7 @@
 import UIKit
 
 class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    
     var book: Book! {
         didSet {
             titleLabel?.text = book.name
@@ -23,7 +23,7 @@ class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
     var isExpanded = false {
         didSet {
             if isExpanded {
-                var height = (numbersCollection.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+                var height = (numbersCollection.bounds.width - CGFloat(cellsAcross - 1) * spaceBetweenCells) / CGFloat(cellsAcross)
                 var c = count / Int(cellsAcross)
                 if count % Int(cellsAcross) != 0 {
                     c += 1
@@ -44,20 +44,22 @@ class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     
     private var count: Int { return book.chapters?.array.count ?? 0 }
-    private let cellsAcross: CGFloat = 5
+    private var cellsAcross: Int = 5
     private let spaceBetweenCells: CGFloat = 10
+    private let maximalCellSize: CGFloat = 48.0
     
     override func awakeFromNib() {
         super.awakeFromNib()
         numbersCollection.isHidden = true
-//        titleLabel.text = book.name
+        //        titleLabel.text = book.name
         numbersCollection.dataSource = self
         numbersCollection.delegate = self
         sizeToFit()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        cellsAcross = Int(floor(bounds.width / maximalCellSize))
         numbersCollection.isHidden = !selected
         numbersCollection.sizeToFit()
         numbersCollection.reloadData()
@@ -86,7 +88,7 @@ class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let dim = (collectionView.bounds.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+        let dim = (collectionView.bounds.width - CGFloat(cellsAcross - 1) * spaceBetweenCells) / CGFloat(cellsAcross)
         return CGSize(width: dim, height: dim)
     }
 }

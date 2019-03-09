@@ -9,6 +9,9 @@ class ContainerViewController: UIViewController {
   }
   
     var manager: VerseManager? = AppDelegate.coreManager
+    private var maximumWidthOfTheLeftPanel: CGFloat {
+        return UIDevice.current.userInterfaceIdiom == .phone ? 500.0 : 300.0
+    }
     
   var centerNavigationController: UINavigationController!
     var centerViewController: SplitTextViewController? {
@@ -25,12 +28,14 @@ class ContainerViewController: UIViewController {
   }
   var leftViewController: LeftSelectionViewController?
   
+    /// The amount of space the main screen is still visible on
+    /// is NOT the width of left panel
     var centerPanelExpandedOffset: CGFloat {
         switch UIDevice.current.orientation {
         case .landscapeLeft, .landscapeRight:
-            return view.bounds.width / 2.0
+            return max(view.bounds.width / 2.0, view.bounds.width - maximumWidthOfTheLeftPanel)
         default:
-            return view.bounds.width / 5.0
+            return max(view.bounds.width / 5.0, view.bounds.width - maximumWidthOfTheLeftPanel)
         }
     }
   

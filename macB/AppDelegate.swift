@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var plistManager = PlistManager()
     private var consistentManager = ConsistencyManager()
     
-    static let downloadServerURL = "https://sword-ground.herokuapp.com/" //"http://192.168.178.25:3000/"
+    static let downloadServerURL = "https://sword-ground.herokuapp.com/api/" //"http://192.168.178.25:3000/"
     static let URLServerRoot = "x-com-thedeniz-bible://"
     var urlToOpen: [String]?
     private var urlDelegate: URLDelegate?

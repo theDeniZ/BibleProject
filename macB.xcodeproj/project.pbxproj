@@ -85,6 +85,7 @@
 		22BD926521CCD36B00019853 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926421CCD36A00019853 /* Module.swift */; };
 		22BD926721CCD37F00019853 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926621CCD37F00019853 /* History.swift */; };
 		22BD927021CCDB0E00019853 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926F21CCDB0E00019853 /* Protocols.swift */; };
+		22C5D02D22346A990000CC19 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22C5D02C22346A980000CC19 /* README.md */; };
 		22CB04AF21D907BA004110E0 /* Strong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04AD21D907BA004110E0 /* Strong.swift */; };
 		22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B221D911F2004110E0 /* StrongViewController.swift */; };
 		22CB04B521D9155B004110E0 /* LabelCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B421D9155B004110E0 /* LabelCellView.swift */; };
@@ -168,6 +169,7 @@
 		22BD926421CCD36A00019853 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		22BD926621CCD37F00019853 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		22BD926F21CCDB0E00019853 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		22C5D02C22346A980000CC19 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		22CB04AD21D907BA004110E0 /* Strong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strong.swift; sourceTree = "<group>"; };
 		22CB04B221D911F2004110E0 /* StrongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongViewController.swift; sourceTree = "<group>"; };
 		22CB04B421D9155B004110E0 /* LabelCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellView.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 		22BD920E21CBDEDB00019853 = {
 			isa = PBXGroup;
 			children = (
+				22C5D02C22346A980000CC19 /* README.md */,
 				22BD921921CBDEDB00019853 /* macB */,
 				221E37DF220AE4FF003D8E40 /* OpenBible */,
 				22BD921821CBDEDB00019853 /* Products */,
@@ -535,6 +538,7 @@
 			files = (
 				22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */,
 				22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */,
+				22C5D02D22346A990000CC19 /* README.md in Resources */,
 				22BD922521CBDEDD00019853 /* Main.storyboard in Resources */,
 				2255298C22314DB200780298 /* Light.dmp in Resources */,
 			);

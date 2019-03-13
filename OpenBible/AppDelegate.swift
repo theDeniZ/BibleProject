@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var urlDelegate: URLDelegate? {didSet{openUrlIfNeeded()}}
     var consistentManager: ConsistencyManager!
     
-    private lazy var manager: VerseManager = VerseManager(in: AppDelegate.viewContext)
+    private lazy var manager: VerseManager = VerseManager(AppDelegate.viewContext)
     
     private var urlToOpen: [String]? {didSet{openUrlIfNeeded()}}
     
@@ -63,15 +63,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey:Any]?) -> Bool {
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         consistentManager = ConsistencyManager(context: persistentContainer.newBackgroundContext())
         consistentManager.addDelegate(self)
         if !AppDelegate.isAppAlreadyLaunchedOnce {
             print("initialised")
             consistentManager.initialiseCoreData()
         }
+        manager.update(true)
         return true
     }
+    
+//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey:Any]?) -> Bool {
+//        consistentManager = ConsistencyManager(context: persistentContainer.newBackgroundContext())
+//        consistentManager.addDelegate(self)
+//        if !AppDelegate.isAppAlreadyLaunchedOnce {
+//            print("initialised")
+//            consistentManager.initialiseCoreData()
+//        }
+//        manager.update(true)
+//        return true
+//    }
 
     func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()

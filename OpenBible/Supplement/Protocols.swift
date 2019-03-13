@@ -16,7 +16,12 @@ protocol CenterViewControllerDelegate {
 
 protocol SidePanelViewControllerDelegate {
     func didSelect(chapter: Int, in book: Int)
-    func setNeedsReload()
+}
+
+protocol ContainingViewController: class, SidePanelViewControllerDelegate {
+    var delegate: CenterViewControllerDelegate? {get set}
+    var overlapped: Bool {get set}
+    func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
 }
 
 protocol BookTableViewCellDelegate {

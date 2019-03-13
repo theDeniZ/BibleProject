@@ -1,23 +1,23 @@
 //
-//  SplitTextViewController.swift
+//  MultipleTextVC.swift
 //  OpenBible
 //
-//  Created by Denis Dobanda on 06.02.19.
+//  Created by Denis Dobanda on 11.03.19.
 //  Copyright © 2019 Denis Dobanda. All rights reserved.
 //
 
 import UIKit
 
-class SplitTextViewController: UIViewController {
-
-    var verseManager = VerseManager()
+class MultipleTextVC: UIViewController, ContainingViewController {
+    
+    var verseManager = AppDelegate.coreManager
     var delegate: CenterViewControllerDelegate?
     var overlapped: Bool = false
     
     // MARK: Private implementation
     
-    @IBOutlet weak var leftTextView: UITextView!
-    @IBOutlet weak var rightTextView: UITextView!
+    
+    @IBOutlet weak var mainCollectionView: UICollectionView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var progressView: ProgressView!
     @IBOutlet weak var mainStackView: UIStackView!
@@ -31,6 +31,9 @@ class SplitTextViewController: UIViewController {
     private var draggedScrollView: Int = 0
     private var executeOnAppear: (() -> ())?
     
+    private var textToPresent = [[NSAttributedString]]()
+    private var layoutManager = CVLayoutManager()
+    
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
     
     // MARK: - Actions
@@ -42,9 +45,11 @@ class SplitTextViewController: UIViewController {
         AppDelegate.shared.consistentManager.addDelegate(self)
         AppDelegate.shared.urlDelegate = self
         loadTextViews()
-        leftTextView.delegate = self
-        rightTextView.delegate = self
-        verseManager.delegate = self
+//        leftTextView.delegate = self
+//        rightTextView.delegate = self
+        mainCollectionView.dataSource = self
+        mainCollectionView.delegate = self
+        verseManager.addDelegate(self)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "menu"), style: .plain,
@@ -101,30 +106,13 @@ class SplitTextViewController: UIViewController {
     
     
     func loadTextViews() {
-        navigationItemTitleTextField.placeholder = "\(verseManager.get1BookName()) \(verseManager.chapterNumber)"
+        navigationItemTitleTextField.placeholder = verseManager.description
         navigationItemTitleTextField.resignFirstResponder()
-        let verses = verseManager.getVerses()
-        let attributedString = verses.0.reduce(NSMutableAttributedString()) {
-            (r, each) -> NSMutableAttributedString in
-            r.append(each)
-            return r
-        }
-        leftTextView.attributedText = attributedString
-        if let second = verses.1 {
-            let attributedString = second.reduce(NSMutableAttributedString()) {
-                (r, each) -> NSMutableAttributedString in
-                r.append(each)
-                return r
-            }
-            rightTextView.isHidden = false
-            rightTextView.attributedText = attributedString
-        } else {
-            rightTextView.isHidden = true
-        }
-        rightTextView.contentOffset = CGPoint(x:0,y:0)
-        leftTextView.contentOffset = CGPoint(x:0,y:0)
+        textToPresent = verseManager.getVerses()
+        layoutManager.arrayOfVerses = textToPresent
+        mainCollectionView.reloadData()
     }
-
+    
     @objc private func toggleMenu() {
         delegate?.toggleLeftPanel?()
         navigationItemTitleTextField.resignFirstResponder()
@@ -160,13 +148,13 @@ class SplitTextViewController: UIViewController {
         let text = arrived.replacingOccurrences(of: " ", with: "")
         if text.matches(String.regexForChapter) {
             let m = text.capturedGroups(withRegex: String.regexForChapter)!
-            verseManager.setChapter(number: Int(m[0])!)
+            verseManager.changeChapter(to: Int(m[0])!)
         } else if text.matches(String.regexForBookRefference) {
             let match = text.capturedGroups(withRegex: String.regexForBookRefference)!
-            if verseManager.setBook(by: match[0]),
+            if verseManager.changeBook(by: match[0]),
                 match.count > 1,
                 let n = Int(match[1]) {
-                verseManager.setChapter(number: n)
+                verseManager.changeChapter(to: n)
                 if match.count > 2,
                     let verseMatch = text.matches(withRegex: String.regexForVerses),
                     verseMatch[0][0] == match[1] {
@@ -176,7 +164,7 @@ class SplitTextViewController: UIViewController {
             }
         } else if text.matches(String.regexForVersesOnly) {
             let verseMatch = text.matches(withRegex: String.regexForVersesOnly)!
-            verseManager.setChapter(number: Int(verseMatch[0][0])!)
+            verseManager.changeChapter(to: Int(verseMatch[0][0])!)
             let v = verseMatch[1...]
             if v.count > 0 {
                 verseManager.setVerses(from: v.map {$0[0]})
@@ -184,46 +172,46 @@ class SplitTextViewController: UIViewController {
         }
         loadTextViews()
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: nil) { (_) in
+            self.mainCollectionView.reloadData()
+        }
+    }
 }
 
 // MARK: - UITextViewDelegate
 
-extension SplitTextViewController: UITextViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let textView = scrollView as? UITextView {
-            switch draggedScrollView {
-            case 1:
-                rightTextView.contentOffset.y = (textView.contentOffset.y / textView.contentSize.height ) * rightTextView.contentSize.height
-            case 2:
-                leftTextView.contentOffset.y = (textView.contentOffset.y / textView.contentSize.height ) * leftTextView.contentSize.height
-            default:break
-            }
+extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return textToPresent.reduce(0) { (count, array) -> Int in
+            return count + array.count
         }
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        navigationItemTitleTextField.resignFirstResponder()
-        if overlapped {
-            toggleMenu()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextViewCell", for: indexPath)
+        let count = textToPresent.count
+        let number = indexPath.row % count
+        let row = indexPath.row / count
+        if let c = cell as? TextCollectionViewCell {
+            c.text = textToPresent[number][row]
         }
-        if let textView = scrollView as? UITextView {
-            if textView == leftTextView {
-                draggedScrollView = 1
-            } else if textView == rightTextView {
-                draggedScrollView = 2
-            }
-        }
+        return cell
     }
     
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        draggedScrollView = 0
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let count = textToPresent.count
+        let row = indexPath.row / count
+        let width = (collectionView.bounds.width / CGFloat(count))
+        return CGSize(width: width, height: layoutManager.calculateHeight(at: row, with: width))
     }
+    
 }
 
 // MARK: URLDelegate
 
-extension SplitTextViewController: URLDelegate {
+extension MultipleTextVC: URLDelegate {
     func openedURL(with parameters: [String]) {
         navigationItemTitleTextField.resignFirstResponder()
         if overlapped {
@@ -261,40 +249,36 @@ extension SplitTextViewController: URLDelegate {
             }
         } else {
             doSearch(text: parameters[0])
-//            parseSearch(text: parameters[0])
+            //            parseSearch(text: parameters[0])
         }
     }
 }
 
 // MARK: SidePanelViewControllerDelegate
 
-extension SplitTextViewController: SidePanelViewControllerDelegate {
+extension MultipleTextVC: SidePanelViewControllerDelegate {
     func didSelect(chapter: Int, in book: Int) {
         delegate?.collapseSidePanels?()
-        verseManager.chapterNumber = chapter
-        verseManager.bookNumber = book
-        loadTextViews()
-    }
-    func setNeedsReload() {
-        loadTextViews()
+        verseManager.changeChapter(to: chapter)
+        verseManager.changeBook(to: book)
     }
 }
 
 // MARK: GestureRecognizers
 
-extension SplitTextViewController {
+extension MultipleTextVC {
     @objc private func swipeLeft() {
         if overlapped {
             toggleMenu()
         }
-        verseManager.next()
+        verseManager.incrementChapter()
         loadTextViews()
     }
     @objc private func swipeRight() {
         if overlapped {
             toggleMenu()
         }
-        verseManager.previous()
+        verseManager.decrementChapter()
         loadTextViews()
     }
     @objc private func edgePan(_ recognizer: UIScreenEdgePanGestureRecognizer) {
@@ -305,21 +289,21 @@ extension SplitTextViewController {
     }
 }
 
-extension SplitTextViewController: ConsistencyManagerDelegate {
-//    func condidtentManagerDidUpdatedProgress(to value: Double) {
-//        print("Progress = \(value)")
-//        DispatchQueue.main.async {
-//            if !self.isLoadInProgress {
-//                self.isLoadInProgress = true
-//                self.progressView.isHidden = false
-//            }
-//            if 1.0 - value < 0.000001 {
-//                self.isLoadInProgress = false
-//                self.progressView.isHidden = true
-//            }
-//            self.progressView.progress = CGFloat(value) * 100
-//        }
-//    }
+extension MultipleTextVC: ConsistencyManagerDelegate {
+    //    func condidtentManagerDidUpdatedProgress(to value: Double) {
+    //        print("Progress = \(value)")
+    //        DispatchQueue.main.async {
+    //            if !self.isLoadInProgress {
+    //                self.isLoadInProgress = true
+    //                self.progressView.isHidden = false
+    //            }
+    //            if 1.0 - value < 0.000001 {
+    //                self.isLoadInProgress = false
+    //                self.progressView.isHidden = true
+    //            }
+    //            self.progressView.progress = CGFloat(value) * 100
+    //        }
+    //    }
     func consistentManagerDidStartUpdate() {
         print("Start animating")
         func start() {
@@ -345,8 +329,8 @@ extension SplitTextViewController: ConsistencyManagerDelegate {
     }
 }
 
-extension SplitTextViewController: ManagerDelegate {
-    func managerDidUpdate() {
+extension MultipleTextVC: ModelUpdateDelegate {
+    func modelChanged(_ fully: Bool) {
         DispatchQueue.main.async {
             self.loadTextViews()
         }

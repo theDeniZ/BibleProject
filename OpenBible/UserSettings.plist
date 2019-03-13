@@ -4,10 +4,10 @@
 <dict>
 	<key>fontSize</key>
 	<string>20.0</string>
-	<key>lastSecondaryModule</key>
-	<string></string>
-	<key>lastPrimaryModule</key>
-	<string>kjv</string>
+	<key>modules</key>
+	<array>
+		<string>kjv</string>
+	</array>
 	<key>lastChapterIndex</key>
 	<integer>1</integer>
 	<key>lastBookIndex</key>

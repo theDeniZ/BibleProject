@@ -44,8 +44,26 @@ extension NSAttributedString: StrongsLinkEmbeddable {
             }
             i += 1
         }
-        newMAString.append(NSAttributedString(string: "\r\n"))
+//        newMAString.append(NSAttributedString(string: "\r\n"))
         return newMAString
+    }
+    
+    func sizeFittingWidth(_ w: CGFloat) -> CGSize {
+        let size = CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)
+        let textView = UITextView(frame: CGRect(origin: .zero, size: size))
+        textView.attributedText = self
+        let sizeToFit = textView.sizeThatFits(size)
+        return sizeToFit
+    }
+}
+
+extension UITextView {
+    var rect: CGRect {
+        return firstRect(
+            for: textRange(
+                from: position(from: beginningOfDocument, offset: 0)!,
+                to: position(from: endOfDocument, offset: 0)!)!
+        )
     }
 }
 

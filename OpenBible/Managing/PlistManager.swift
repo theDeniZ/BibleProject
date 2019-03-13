@@ -18,8 +18,7 @@ class PlistManager {
     private let fontKey = "fontSize"
     private let bookKey = "lastBookIndex"
     private let chapterKey = "lastChapterIndex"
-    private let primaryModuleKey = "lastPrimaryModule"
-    private let secondaryModuleKey = "lastSecondaryModule"
+    private let modulesKey = "modules"
     
 
     init() {
@@ -39,12 +38,13 @@ class PlistManager {
                 print("file myData.plist not found.")
             }
         }else{
-            //            print("file myData.plist already exits at path.")
+            print("file myData.plist already exits at path.")
         }
+        print("copied")
         plistHandler = PlistHandler(plistPath)
     }
     
-    func getCurrentBookAndChapterIndexes() -> (Int, Int) {
+    func getCurrentBookAndChapterIndexes() -> (bookIndex: Int, chapterIndex: Int) {
         var bookIndex = 1
         var chapterIndex = 1
         plistHandler.get(to: &bookIndex, of: bookKey)
@@ -57,24 +57,33 @@ class PlistManager {
         plistHandler.setValue(chapterIndex, of: chapterKey)
     }
     
-    func getPrimaryModule() -> String {
-        var m = ""
-        plistHandler.get(to: &m, of: primaryModuleKey)
-        return m
+    func set(book bookIndex: Int) {
+        plistHandler.setValue(bookIndex, of: bookKey)
     }
     
-    func getSecondaryModule() -> String {
-        var m = ""
-        plistHandler.get(to: &m, of: secondaryModuleKey)
-        return m
+    func set(chapter chapterIndex: Int) {
+        plistHandler.setValue(chapterIndex, of: chapterKey)
     }
     
-    func setPrimary(module: String) {
-        plistHandler.setValue(module, of: primaryModuleKey)
+    func getAllModuleKeys() -> [String] {
+        var modules: [String] = []
+        plistHandler.get(to: &modules, of: modulesKey)
+        return modules
     }
-
-    func setSecondary(module: String) {
-        plistHandler.setValue(module, of: secondaryModuleKey)
+    
+    func set(modules: [String]) {
+        plistHandler.setValue(modules, of: modulesKey)
+    }
+    
+    func set(module: String, at place: Int) {
+        var modules: [String] = []
+        plistHandler.get(to: &modules, of: modulesKey)
+        if modules.count <= place {
+            modules.append(module)
+        } else if modules.count > place {
+            modules[place] = module
+        }
+        plistHandler.setValue(modules, of: modulesKey)
     }
     
     func getFontSize() -> CGFloat {

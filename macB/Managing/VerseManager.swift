@@ -1,20 +1,22 @@
 //
-//  VerseManager.swift
-//  SplitB
+//  CoreManager.swift
+//  macB
 //
-//  Created by Denis Dobanda on 22.11.18.
+//  Created by Denis Dobanda on 23.12.18.
 //  Copyright © 2018 Denis Dobanda. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import CoreData
 
-class VerseManager: CoreManager {
-
+internal class VerseManager: CoreManager {
+    
     var fontSize: CGFloat
+    var strongsNumbersIsOn: Bool = true {didSet {plistManager.setStrong(on: strongsNumbersIsOn);broadcastChanges()}}
     
     override init(_ context: NSManagedObjectContext) {
         fontSize = AppDelegate.plistManager.getFontSize()
+        strongsNumbersIsOn = AppDelegate.plistManager.isStrongsIsOn
         super.init(context)
     }
     
@@ -29,7 +31,7 @@ class VerseManager: CoreManager {
                             let attributedVerse = verse.attributedCompound(size: fontSize)
                             //check for strong's numbers
                             if attributedVerse.strongNumbersAvailable {
-                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize))
+                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip))
                             } else {
                                 result.append(attributedVerse)
                             }
@@ -38,46 +40,23 @@ class VerseManager: CoreManager {
                     return result
                 } else {
                     if vrss[0].attributedCompound.strongNumbersAvailable {
-                        return vrss.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize)}
+                        return vrss.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip)}
                     }
                     return vrss.map {$0.attributedCompound(size: fontSize)}
                 }
             }
         }
-        return super.getAttributedString(from: index, loadingTooltip: loadingTooltip)
-    }
-    
-    func getVerses() -> [[NSAttributedString]] {
-        var allOfThem: [[NSAttributedString]] = []
-        for i in 0..<modules.count {
-            allOfThem.append(getAttributedString(from: i, loadingTooltip: false))
-        }
-        return allOfThem
+        return []
     }
     
     func incrementFont() {
         fontSize += 1.0
-        super.broadcastChanges()
+        broadcastChanges()
         plistManager.setFont(size: fontSize)
     }
     func decrementFont() {
         fontSize -= 1.0
-        super.broadcastChanges()
+        broadcastChanges()
         plistManager.setFont(size: fontSize)
     }
-    
-    func getBooks() -> [Book]? {
-        return (mainModule?.books?.array as? [Book])?.sorted(by: { (f, s) -> Bool in
-            f.number < s.number
-        })
-    }
-    
-    func getModulesKey() -> [String] {
-        var strings = [String]()
-        for module in modules {
-            strings.append(module.key!)
-        }
-        return strings
-    }
-    
 }

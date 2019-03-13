@@ -10,8 +10,7 @@ import UIKit
 
 class LeftSelectionViewController: SidePanelViewController {
 
-    
-    var manager: Manager! { didSet { updateUI() } }
+    var manager: VerseManager = AppDelegate.coreManager { didSet { updateUI() } }
     var rightSpace: CGFloat = 0.0 {
         didSet {
             rightConstraint.constant = rightSpace
@@ -28,7 +27,7 @@ class LeftSelectionViewController: SidePanelViewController {
     private var books: [Book]? {
         didSet {
             bookTable?.reloadData()
-            var selected = manager.bookNumber - 1
+            var selected = manager.bookIndex - 1
             var section = 0
             if sectionCount != 1, selected >= 39 {
                 selected -= 39
@@ -78,15 +77,10 @@ class LeftSelectionViewController: SidePanelViewController {
     }
     
     private func updateUI() {
-        if let m = manager {
-            books = m.getBooks()
-            if let modules = manager?.getModulesKey(), var title = modules.0 {
-                if let t2 = modules.1 {
-                    title.append(" | \(t2)")
-                }
-                moduleButton?.setTitle(title, for:.normal)
-            }
-        }
+        books = manager.getBooks()
+        let modules = manager.getModulesKey()
+        let title = modules.joined(separator: "|")
+        moduleButton?.setTitle(title, for:.normal)
     }
 
 }
@@ -101,7 +95,6 @@ extension LeftSelectionViewController: BookTableViewCellDelegate {
 extension LeftSelectionViewController: ModalDelegate {
     func modalViewWillResign() {
         bookTable?.reloadData()
-        delegate?.setNeedsReload()
     }
 }
 

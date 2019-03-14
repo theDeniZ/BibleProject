@@ -24,7 +24,6 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     
     @IBOutlet weak var navigationItemTitleTextField: UITextField!
     
-    
     private var leftTextStorage: NSTextStorage?
     private var rightTextStorage: NSTextStorage?
     private var presentedVC: UIViewController?
@@ -35,6 +34,8 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     private var layoutManager = CVLayoutManager()
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
+    private var isInPortrait: Bool = UIDevice.current.orientation.isPortrait
+    private var countOfPortraitModulesAtOnce: Int = 2
     
     // MARK: - Actions
     
@@ -44,6 +45,7 @@ class MultipleTextVC: UIViewController, ContainingViewController {
         progressView.isHidden = true
         AppDelegate.shared.consistentManager.addDelegate(self)
         AppDelegate.shared.urlDelegate = self
+        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
         loadTextViews()
 //        leftTextView.delegate = self
 //        rightTextView.delegate = self
@@ -60,6 +62,15 @@ class MultipleTextVC: UIViewController, ContainingViewController {
             target: self, action: #selector(toggleSearch)
         )
         addGestures()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if isInPortrait != UIDevice.current.orientation.isPortrait {
+            isInPortrait = UIDevice.current.orientation.isPortrait
+            loadTextViews()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,9 +119,16 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     func loadTextViews() {
         navigationItemTitleTextField.placeholder = verseManager.description
         navigationItemTitleTextField.resignFirstResponder()
-        textToPresent = verseManager.getVerses()
-        layoutManager.arrayOfVerses = textToPresent
-        mainCollectionView.reloadData()
+//        DispatchQueue.global(qos: .userInteractive).async {
+            self.textToPresent = self.verseManager.getVerses()
+            if self.isInPortrait, self.textToPresent.count > self.countOfPortraitModulesAtOnce {
+                self.textToPresent = Array(self.textToPresent[..<self.countOfPortraitModulesAtOnce])
+            }
+            self.layoutManager.arrayOfVerses = self.textToPresent
+//            DispatchQueue.main.async {
+                self.mainCollectionView.reloadData()
+//            }
+//        }
     }
     
     @objc private func toggleMenu() {
@@ -175,6 +193,14 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: nil) { (_) in
+            if UIDevice.current.orientation.isLandscape,
+                self.textToPresent.count != self.verseManager.modules.count {
+                self.isInPortrait = false
+                self.loadTextViews()
+            } else {
+                self.isInPortrait = true
+                self.loadTextViews()
+            }
             self.mainCollectionView.reloadData()
         }
     }
@@ -203,7 +229,7 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let count = textToPresent.count
         let row = indexPath.row / count
-        let width = (collectionView.bounds.width / CGFloat(count))
+        let width = (collectionView.bounds.width - 1.0) / CGFloat(count)
         return CGSize(width: width, height: layoutManager.calculateHeight(at: row, with: width))
     }
     
@@ -331,6 +357,7 @@ extension MultipleTextVC: ConsistencyManagerDelegate {
 
 extension MultipleTextVC: ModelUpdateDelegate {
     func modelChanged(_ fully: Bool) {
+        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
         DispatchQueue.main.async {
             self.loadTextViews()
         }

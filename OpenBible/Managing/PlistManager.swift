@@ -19,8 +19,31 @@ class PlistManager {
     private let bookKey = "lastBookIndex"
     private let chapterKey = "lastChapterIndex"
     private let modulesKey = "modules"
+    private let strongsKey = "strongs"
+    private let portraitNumberKey = "portraitNumber"
     
-
+    var isStrongsOn: Bool {
+        get {
+            var isOn = true
+            plistHandler.get(to: &isOn, of: strongsKey)
+            return isOn
+        }
+        set {
+            plistHandler.setValue(newValue, of: strongsKey)
+        }
+    }
+    
+    var portraitNumber: Int {
+        get {
+            var n = 2
+            plistHandler.get(to: &n, of: portraitNumberKey)
+            return n
+        }
+        set {
+            plistHandler.setValue(newValue, of: portraitNumberKey)
+        }
+    }
+    
     init() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as NSArray
         let documentDirectory = paths[0] as! String
@@ -38,9 +61,8 @@ class PlistManager {
                 print("file myData.plist not found.")
             }
         }else{
-            print("file myData.plist already exits at path.")
+//            print("file myData.plist already exits at path.")
         }
-        print("copied")
         plistHandler = PlistHandler(plistPath)
     }
     
@@ -95,4 +117,6 @@ class PlistManager {
     func setFont(size: CGFloat) {
         plistHandler.setValue(size.description, of: fontKey)
     }
+    
+    
 }

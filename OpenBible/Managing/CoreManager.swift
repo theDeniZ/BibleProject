@@ -24,7 +24,7 @@ class CoreManager: NSObject {
     var context: NSManagedObjectContext
     
     private var currentIndex: BibleIndex
-    var plistManager: PlistManager { return AppDelegate.plistManager }
+    var plistManager: PlistManager = AppDelegate.plistManager
     var currentTestament: String {
         return currentIndex.book <= 39 ? StrongId.oldTestament : StrongId.newTestament
     }
@@ -188,11 +188,13 @@ extension CoreManager {
     ///   - position: a place to insert into
     func insert(_ module: Module, at position: Int) {
         activeModules.insert(module, at: position)
+        plistManager.set(modules: activeModules.map{$0.key!})
         broadcastChanges()
     }
     
     func swapModulesAt(_ i: Int, _ j: Int) {
         activeModules.swapAt(i, j)
+        plistManager.set(modules: activeModules.map{$0.key!})
         broadcastChanges()
     }
 }

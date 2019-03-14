@@ -12,6 +12,7 @@ import CoreData
 class VerseManager: CoreManager {
 
     var fontSize: CGFloat
+    var isStrongsOn: Bool { return plistManager.isStrongsOn }
     
     override init(_ context: NSManagedObjectContext) {
         fontSize = AppDelegate.plistManager.getFontSize()
@@ -19,6 +20,7 @@ class VerseManager: CoreManager {
     }
     
     override func getAttributedString(from index: Int, loadingTooltip: Bool) -> [NSAttributedString] {
+        let strongs = isStrongsOn
         if let chapter = chapter(index) {
             if let vrss = chapter.verses?.array as? [Verse] {
                 if let vs = verses {
@@ -29,7 +31,7 @@ class VerseManager: CoreManager {
                             let attributedVerse = verse.attributedCompound(size: fontSize)
                             //check for strong's numbers
                             if attributedVerse.strongNumbersAvailable {
-                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize))
+                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongs))
                             } else {
                                 result.append(attributedVerse)
                             }
@@ -38,7 +40,7 @@ class VerseManager: CoreManager {
                     return result
                 } else {
                     if vrss[0].attributedCompound.strongNumbersAvailable {
-                        return vrss.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize)}
+                        return vrss.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongs)}
                     }
                     return vrss.map {$0.attributedCompound(size: fontSize)}
                 }

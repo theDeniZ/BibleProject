@@ -22,6 +22,7 @@
                     <connections>
                         <segue destination="gxE-eX-D2Y" kind="relationship" relationship="viewControllers" id="SGl-mv-NKw"/>
                         <segue destination="BLx-jU-nzV" kind="relationship" relationship="viewControllers" id="VPv-A9-pSH"/>
+                        <segue destination="wDB-l5-Ram" kind="relationship" relationship="viewControllers" id="Wqo-eW-sUk"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0W-z3-y6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -118,6 +119,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQW-VV-sJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-951" y="703"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="nPB-2j-k1A">
+            <objects>
+                <viewController id="wDB-l5-Ram" customClass="SettingsViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KrQ-mZ-YEm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Q5t-w6-sfT">
+                                <rect key="frame" x="20" y="64" width="335" height="80"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="a1B-nr-O28">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strong's numbers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ef2-TX-1eB">
+                                                <rect key="frame" x="0.0" y="0.0" width="266" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mvc-3V-M96">
+                                                <rect key="frame" x="286" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="strongSwitched:" destination="wDB-l5-Ram" eventType="valueChanged" id="W1u-ob-Za2"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9Qj-m1-he0">
+                                        <rect key="frame" x="0.0" y="51" width="335" height="29"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="253" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgP-Hz-8na">
+                                                <rect key="frame" x="0.0" y="0.0" width="10" height="29"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Modules in portrait, max" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjq-AU-TQ0">
+                                                <rect key="frame" x="15" y="0.0" width="221" height="29"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minimumValue="1" maximumValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="8Ou-bV-ZL4">
+                                                <rect key="frame" x="241" y="0.0" width="94" height="29"/>
+                                                <connections>
+                                                    <action selector="steped:" destination="wDB-l5-Ram" eventType="valueChanged" id="cr3-O2-ujK"/>
+                                                </connections>
+                                            </stepper>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Q5t-w6-sfT" firstAttribute="leading" secondItem="phM-1j-Feh" secondAttribute="leading" constant="20" id="19v-s7-5TM"/>
+                            <constraint firstItem="phM-1j-Feh" firstAttribute="trailing" secondItem="Q5t-w6-sfT" secondAttribute="trailing" constant="20" id="Yyc-vt-7oh"/>
+                            <constraint firstItem="Q5t-w6-sfT" firstAttribute="top" secondItem="phM-1j-Feh" secondAttribute="top" constant="20" id="ekN-X4-lHK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="phM-1j-Feh"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="eJa-Gl-rmP"/>
+                    <connections>
+                        <outlet property="numberLabel" destination="dgP-Hz-8na" id="Nwc-Cl-rc2"/>
+                        <outlet property="stepper" destination="8Ou-bV-ZL4" id="Wu5-v3-fAL"/>
+                        <outlet property="strongSwitch" destination="mvc-3V-M96" id="ct5-06-27c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ssu-Mz-AII" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-951" y="1418"/>
         </scene>
         <!--Search Table View Controller-->
         <scene sceneID="ryI-Bm-LeA">

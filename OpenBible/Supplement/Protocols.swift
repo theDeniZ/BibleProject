@@ -32,10 +32,6 @@ protocol ModalDelegate {
     func modalViewWillResign()
 }
 
-protocol ManagerDelegate {
-    func managerDidUpdate()
-}
-
 protocol StrongsLinkEmbeddable {
     var strongNumbersAvailable: Bool {get}
     func embedStrongs(to link: String, using size: CGFloat, linking: Bool) -> NSAttributedString

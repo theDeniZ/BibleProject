@@ -75,6 +75,7 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        progressView.initialiseGradient()
         executeOnAppear?()
     }
     
@@ -202,6 +203,7 @@ class MultipleTextVC: UIViewController, ContainingViewController {
                 self.loadTextViews()
             }
             self.mainCollectionView.reloadData()
+            self.progressView.initialiseGradient()
         }
     }
 }

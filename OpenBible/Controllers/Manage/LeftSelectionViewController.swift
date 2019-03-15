@@ -50,6 +50,7 @@ class LeftSelectionViewController: SidePanelViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppDelegate.coreManager.addDelegate(self)
         rightConstraint.constant = rightSpace
         bookTable.dataSource = self
         bookTable.delegate = self
@@ -76,10 +77,18 @@ class LeftSelectionViewController: SidePanelViewController {
         updateUI()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppDelegate.coreManager.removeDelegate(self)
+    }
+    
     private func updateUI() {
         books = manager.getBooks()
         let modules = manager.getModulesKey()
-        let title = modules.joined(separator: "|")
+        var title = modules.first ?? ""
+        if modules.count > 1 {
+            title += " +\(modules.count - 1)"
+        }
         moduleButton?.setTitle(title, for:.normal)
     }
 
@@ -95,6 +104,14 @@ extension LeftSelectionViewController: BookTableViewCellDelegate {
 extension LeftSelectionViewController: ModalDelegate {
     func modalViewWillResign() {
         bookTable?.reloadData()
+    }
+}
+
+extension LeftSelectionViewController: ModelUpdateDelegate {
+    func modelChanged(_ fully: Bool) {
+        DispatchQueue.main.async {
+            self.updateUI()
+        }
     }
 }
 

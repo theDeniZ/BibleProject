@@ -87,6 +87,9 @@ class CoreManager: NSObject {
                 mods.append(module)
             }
         }
+        if activeModules.count == 0 {
+            activeModules.append(try! Module.get(by: "kjv", from: context)!)
+        }
         activeModules = mods
         plistManager.set(modules: activeModules.map{$0.key!})
         delegates?.forEach {$0.modelChanged(full)}

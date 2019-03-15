@@ -57,10 +57,10 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="675"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Fs-ud-PrN">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="635"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="272"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Og-oZ-R5i">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="635"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="272"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Download Cell" textLabel="1XY-Ea-8lH" detailTextLabel="pKl-vf-4fL" style="IBUITableViewCellStyleValue2" id="jcQ-60-sAi">
@@ -92,7 +92,7 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWQ-06-crV">
-                                        <rect key="frame" x="0.0" y="645" width="375" height="30"/>
+                                        <rect key="frame" x="0.0" y="282" width="375" height="393"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="allAction:" destination="BLx-jU-nzV" eventType="touchUpInside" id="bEm-D8-zfn"/>
@@ -120,7 +120,7 @@
             </objects>
             <point key="canvasLocation" x="-951" y="703"/>
         </scene>
-        <!--Item-->
+        <!--Settings-->
         <scene sceneID="nPB-2j-k1A">
             <objects>
                 <viewController id="wDB-l5-Ram" customClass="SettingsViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
@@ -182,7 +182,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="phM-1j-Feh"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="eJa-Gl-rmP"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="eJa-Gl-rmP"/>
                     <connections>
                         <outlet property="numberLabel" destination="dgP-Hz-8na" id="Nwc-Cl-rc2"/>
                         <outlet property="stepper" destination="8Ou-bV-ZL4" id="Wu5-v3-fAL"/>
@@ -320,7 +320,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TaN-zg-G7G">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="654"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="324"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="History Table Cell" textLabel="lTJ-eu-ous" style="IBUITableViewCellStyleDefault" id="XKr-L7-nna">
@@ -344,10 +344,10 @@
                                         <sections/>
                                     </tableView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FMP-TS-p9r">
-                                        <rect key="frame" x="0.0" y="654" width="375" height="36"/>
+                                        <rect key="frame" x="0.0" y="324" width="375" height="366"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsM-2r-3iz">
-                                                <rect key="frame" x="169.66666666666666" y="0.0" width="36" height="36"/>
+                                                <rect key="frame" x="169.66666666666666" y="0.0" width="36" height="366"/>
                                                 <state key="normal" title="Clear"/>
                                                 <connections>
                                                     <action selector="clearAction:" destination="56W-Cz-Ui8" eventType="touchUpInside" id="TE3-Qy-HuT"/>
@@ -689,6 +689,9 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="cfM-Sk-Lie" firstAttribute="width" secondItem="AbZ-eF-OYM" secondAttribute="width" id="s2I-Sl-MTi"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -703,7 +706,7 @@
                     <navigationItem key="navigationItem" id="H7a-ta-hGa">
                         <nil key="title"/>
                         <textField key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="J0a-S6-me4">
-                            <rect key="frame" x="88" y="7" width="200" height="30"/>
+                            <rect key="frame" x="87.666666666666686" y="7" width="200" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -729,5 +732,6 @@
     <resources>
         <image name="book" width="75" height="75"/>
         <image name="load" width="75" height="75"/>
+        <image name="settings" width="75" height="75"/>
     </resources>
 </document>

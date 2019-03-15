@@ -8,15 +8,14 @@ class ContainerViewController: UIViewController {
     case leftPanelExpanded
   }
   
-    var manager: VerseManager? = AppDelegate.coreManager
     private var maximumWidthOfTheLeftPanel: CGFloat {
         return UIDevice.current.userInterfaceIdiom == .phone ? 500.0 : 300.0
     }
     
   var centerNavigationController: UINavigationController!
-    var centerViewController: SplitTextViewController? {
+    var centerViewController: ContainingViewController? {
         get {
-            return centerNavigationController.visibleViewController as? SplitTextViewController
+            return centerNavigationController.visibleViewController as? ContainingViewController
         }
     }
   
@@ -52,17 +51,13 @@ class ContainerViewController: UIViewController {
     centerNavigationController.didMove(toParent: self)
     
     centerViewController?.delegate = self
-    centerViewController?.verseManager = manager!
     
   }
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        if UIDevice.current.orientation.isLandscape {
-            print("Landscape")
-        } else {
-            print("Portrait")
-        }
+        super.viewWillTransition(to: size, with: coordinator)
         collapseSidePanels()
     }
+    
 }
 
 // MARK: CenterViewController delegate
@@ -95,7 +90,6 @@ extension ContainerViewController:CenterViewControllerDelegate {
       addChildSidePanelController(vc)
       leftViewController = vc
         vc.rightSpace = centerPanelExpandedOffset
-        vc.manager = manager
     }
   }
   

@@ -58,6 +58,16 @@ class DownloadVC: UIViewController {
     }
     
     @IBAction func allAction(_ sender: UIButton) {
+        let message = allExists ? "Remove all?" : "Download all?"
+        let alert = UIAlertController.init(title: "Confirm", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: allExists ? .destructive : .default, handler: { (action) in
+            self.doAllAction()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func doAllAction() {
         allButton.isEnabled = false
         if allExists {
             DispatchQueue.global(qos: .userInteractive).async {
@@ -66,9 +76,9 @@ class DownloadVC: UIViewController {
             DispatchQueue.global(qos: .userInteractive).async {
                 self.removeNeeded(self.strongs)
             }
-//            DispatchQueue.global(qos: .userInteractive).async {
-//                self.removeNeeded(self.spirit)
-//            }
+            //            DispatchQueue.global(qos: .userInteractive).async {
+            //                self.removeNeeded(self.spirit)
+            //            }
         } else {
             DispatchQueue.global(qos: .userInteractive).async {
                 self.downloadNeeded(self.modules)
@@ -76,9 +86,9 @@ class DownloadVC: UIViewController {
             DispatchQueue.global(qos: .userInteractive).async {
                 self.downloadNeeded(self.strongs)
             }
-//            DispatchQueue.global(qos: .userInteractive).async {
-//                self.downloadNeeded(self.spirit)
-//            }
+            //            DispatchQueue.global(qos: .userInteractive).async {
+            //                self.downloadNeeded(self.spirit)
+            //            }
         }
         allExists = !allExists
     }

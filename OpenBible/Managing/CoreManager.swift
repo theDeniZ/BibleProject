@@ -1,9 +1,9 @@
 //
 //  CoreManager.swift
-//  macB
+//  OpenBible
 //
-//  Created by Denis Dobanda on 23.12.18.
-//  Copyright © 2018 Denis Dobanda. All rights reserved.
+//  Created by Denis Dobanda on 13.03.19.
+//  Copyright © 2019 Denis Dobanda. All rights reserved.
 //
 
 import Foundation
@@ -14,19 +14,28 @@ struct BibleIndex {
     var verses: [Range<Int>]?
 }
 
+protocol ModelUpdateDelegate {
+    var hashValue: Int {get}
+    func modelChanged(_ fully: Bool)
+}
+
 class CoreManager: NSObject {
     
     var context: NSManagedObjectContext
     
-    var currentIndex: BibleIndex
-    var fontSize: CGFloat
-    var plistManager: PlistManager { return AppDelegate.plistManager }
-    var strongsNumbersIsOn: Bool = true {didSet {plistManager.setStrong(on: strongsNumbersIsOn);broadcastChanges()}}
+    private var currentIndex: BibleIndex
+    var plistManager: PlistManager = AppDelegate.plistManager
     var currentTestament: String {
         return currentIndex.book <= 39 ? StrongId.oldTestament : StrongId.newTestament
     }
     var modules: [Module] {
         return activeModules
+    }
+    var bookIndex: Int {
+        return currentIndex.book
+    }
+    var verses: [Range<Int>]? {
+        return currentIndex.verses
     }
     
     private var activeModules: [Module]
@@ -44,8 +53,6 @@ class CoreManager: NSObject {
         }
         let index = AppDelegate.plistManager.getCurrentBookAndChapterIndexes()
         currentIndex = BibleIndex(book: index.bookIndex, chapter: index.chapterIndex, verses: nil)
-        fontSize = AppDelegate.plistManager.getFontSize()
-        strongsNumbersIsOn = AppDelegate.plistManager.isStrongsIsOn
         super.init()
     }
     
@@ -59,37 +66,12 @@ class CoreManager: NSObject {
     }
     
     func getAttributedString(from index: Int, loadingTooltip: Bool) -> [NSAttributedString] {
-        if let chapter = chapter(index) {
-            if let verses = chapter.verses?.array as? [Verse] {
-                if let vs = currentIndex.verses {
-                    var result = [NSAttributedString]()
-                    for range in vs {
-                        let versesFiltered = verses.filter {range.contains(Int($0.number))}
-                        for verse in versesFiltered {
-                            let attributedVerse = verse.attributedCompound(size: fontSize)
-                            //check for strong's numbers
-                            if attributedVerse.strongNumbersAvailable {
-                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip))
-                            } else {
-                                result.append(attributedVerse)
-                            }
-                        }
-                    }
-                    return result
-                } else {
-                    if verses[0].attributedCompound.strongNumbersAvailable {
-                        return verses.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongsNumbersIsOn, withTooltip: loadingTooltip)}
-                    }
-                    return verses.map {$0.attributedCompound(size: fontSize)}
-                }
-            }
-        }
         return []
     }
     
     /// Triggers method .modelChanged() at all delegates once
     /// after 0.1 seconds from the last call.
-    private func broadcastChanges() {
+    internal func broadcastChanges() {
         timings?.invalidate()
         timings = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (t) in
             self.delegates?.forEach {$0.modelChanged(false)}
@@ -104,6 +86,9 @@ class CoreManager: NSObject {
             if Module.exists(key: module.key!, in: context) {
                 mods.append(module)
             }
+        }
+        if activeModules.count == 0 {
+            activeModules.append(try! Module.get(by: "kjv", from: context)!)
         }
         activeModules = mods
         plistManager.set(modules: activeModules.map{$0.key!})
@@ -197,6 +182,23 @@ extension CoreManager {
             plistManager.set(modules: activeModules.map{$0.key!})
             broadcastChanges()
         }
+    }
+    
+    /// Insert a module to a needed place
+    ///
+    /// - Parameters:
+    ///   - module: a Module instance
+    ///   - position: a place to insert into
+    func insert(_ module: Module, at position: Int) {
+        activeModules.insert(module, at: position)
+        plistManager.set(modules: activeModules.map{$0.key!})
+        broadcastChanges()
+    }
+    
+    func swapModulesAt(_ i: Int, _ j: Int) {
+        activeModules.swapAt(i, j)
+        plistManager.set(modules: activeModules.map{$0.key!})
+        broadcastChanges()
     }
 }
 
@@ -376,21 +378,6 @@ extension CoreManager {
             return true
         }
         return false
-    }
-}
-
-// MARK: Font
-
-extension CoreManager {
-    func incrementFont() {
-        fontSize += 1.0
-        broadcastChanges()
-        plistManager.setFont(size: fontSize)
-    }
-    func decrementFont() {
-        fontSize -= 1.0
-        broadcastChanges()
-        plistManager.setFont(size: fontSize)
     }
 }
 

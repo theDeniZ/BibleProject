@@ -8,11 +8,6 @@
 
 import Foundation
 
-protocol ModelUpdateDelegate {
-    var hashValue: Int {get}
-    func modelChanged(_ fully: Bool)
-}
-
 protocol DragDelegate {
     func dragCompleted(with path: String)
 }

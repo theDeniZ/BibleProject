@@ -19,7 +19,7 @@
     </entity>
     <entity name="Module" representedClassName=".Module" syncable="YES" codeGenerationType="category">
         <attribute name="key" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="books" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Book" inverseName="module" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Page" representedClassName=".Page" syncable="YES" codeGenerationType="category">

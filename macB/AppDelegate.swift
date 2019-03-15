@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    private lazy var coreManager = CoreManager(AppDelegate.viewContext)
+    private lazy var coreManager = VerseManager(AppDelegate.viewContext)
     private lazy var spiritManager = SpiritManager()
     private var plistManager = PlistManager()
     private var consistentManager = ConsistencyManager()
@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return NSApplication.shared.delegate as! AppDelegate
     }
     
-    static var coreManager: CoreManager {
+    static var coreManager: VerseManager {
         return AppDelegate.shared.coreManager
     }
     

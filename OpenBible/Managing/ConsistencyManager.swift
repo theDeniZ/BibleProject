@@ -105,6 +105,7 @@ class ConsistencyManager: NSObject {
                 }
                 self.processedEntities += 1
                 self.broadcastProgress()
+                AppDelegate.coreManager.update(true)
                 completition()
                 
             } else if let type = SharingRegex.parseStrong(code) {
@@ -112,6 +113,7 @@ class ConsistencyManager: NSObject {
                 self.processedEntities += 1
                 self.broadcastProgress()
                 try? context.save()
+                AppDelegate.coreManager.update(true)
                 completition()
             } else if let c = SharingRegex.parseSpirit(code) {
                 if let b = try? SpiritBook.get(by: c, from: context), b != nil {
@@ -120,6 +122,7 @@ class ConsistencyManager: NSObject {
                     self.broadcastProgress()
                     try? context.save()
                 }
+                AppDelegate.coreManager.update(true)
                 completition()
             }
         }

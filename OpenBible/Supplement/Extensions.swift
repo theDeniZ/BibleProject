@@ -19,7 +19,9 @@ extension NSAttributedString: StrongsLinkEmbeddable {
             [NSAttributedString.Key.baselineOffset : size * 0.333,
              NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: size * 0.666),
              .foregroundColor : UIColor.gray.withAlphaComponent(0.7)]
-        let splited = string.replacingOccurrences(of: "\r\n", with: "").split(separator: " ").map {String($0)}
+        
+        let root = AppDelegate.URLServerRoot + link + "/"
+        let splited = string.split(separator: " ").map {String($0)}
         newMAString.append(NSAttributedString(string: splited[0] + " ", attributes: upperAttribute))
         var i = 1
         while i < splited.count {
@@ -36,7 +38,7 @@ extension NSAttributedString: StrongsLinkEmbeddable {
                 }
                 s.append(NSAttributedString(string: " "))
                 if linking, numbers.count > 0 {
-                    let url = link + numbers.map({String($0)}).joined(separator: "+")
+                    let url = root + numbers.map({String($0)}).joined(separator: "+")
                     s.addAttribute(NSAttributedString.Key.link, value: url, range: NSRange(0..<s.length - 1))
                 }
                 s.addAttributes([.font: UIFont.systemFont(ofSize: size)], range: NSRange(0..<s.length))
@@ -44,8 +46,25 @@ extension NSAttributedString: StrongsLinkEmbeddable {
             }
             i += 1
         }
-        newMAString.append(NSAttributedString(string: "\r\n"))
         return newMAString
+    }
+    
+    func sizeFittingWidth(_ w: CGFloat) -> CGSize {
+        let size = CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)
+        let textView = UITextView(frame: CGRect(origin: .zero, size: size))
+        textView.attributedText = self
+        let sizeToFit = textView.sizeThatFits(size)
+        return sizeToFit
+    }
+}
+
+extension UITextView {
+    var rect: CGRect {
+        return firstRect(
+            for: textRange(
+                from: position(from: beginningOfDocument, offset: 0)!,
+                to: position(from: endOfDocument, offset: 0)!)!
+        )
     }
 }
 

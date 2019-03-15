@@ -10,31 +10,21 @@ import UIKit
 
 class ModalViewController: UIViewController {
 
-    var manager: Manager?
+    var manager: VerseManager?
     var delegate: ModalDelegate?
-    var modules: [Module]? {
-        return manager?.getAvailableModules()
-    }
     
-    private var selectedModulesKey: [String]? {
-        if let m = manager, let first = m.getMainModuleKey() {
-            if let sec = m.getSecondaryModuleKey() {
-                return [first, sec]
-            } else {
-                return [first]
-            }
-        }
-        return nil
-    }
-    
-    private var selectedIndexes: [IndexPath] = []
-    
+    private var modules: [Module]?
+    private var selectedModules: [Module]?
+
     @IBOutlet private weak var table: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        modules = manager?.getAllAvailableModules()
+        selectedModules = manager?.modules
         table.delegate = self
         table.dataSource = self
+        table.setEditing(true, animated: true)
     }
 
     @IBAction func closeButton(_ sender: Any) {
@@ -44,62 +34,71 @@ class ModalViewController: UIViewController {
     
 }
 
-extension ModalViewController:UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        if let m = manager, let modules = modules {
-            if selectedIndexes.contains(indexPath), selectedIndexes.count > 1 {
-                if selectedIndexes[0] == indexPath {
-                    m.setFirst(modules[selectedIndexes[1].row])
-                    m.setSecond(nil)
-                    tableView.reloadRows(at: [selectedIndexes[0]], with: .automatic)
-                    selectedIndexes.remove(at: 0)
-                } else {
-                    m.setSecond(nil)
-                    tableView.reloadRows(at: [selectedIndexes[1]], with: .automatic)
-                    selectedIndexes.remove(at: 1)
-                }
+extension ModalViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if sourceIndexPath.section != destinationIndexPath.section {
+            if sourceIndexPath.section != 0 {
+                let module = modules![sourceIndexPath.row]
+                modules!.remove(at: sourceIndexPath.row)
+                selectedModules!.insert(module, at: destinationIndexPath.row)
+                manager!.insert(module, at: destinationIndexPath.row)
             } else {
-                if selectedIndexes.count == 1 {
-                    selectedIndexes.append(indexPath)
-                    m.setSecond(modules[indexPath.row])
-                } else if selectedIndexes.count > 1 {
-                    m.setSecond(modules[indexPath.row])
-                    tableView.reloadRows(at: [selectedIndexes[1]], with: .automatic)
-                    selectedIndexes[1] = indexPath
-                }
+                modules!.insert(selectedModules![sourceIndexPath.row], at: destinationIndexPath.row)
+                selectedModules?.remove(at: sourceIndexPath.row)
+                manager!.removeModule(at: sourceIndexPath.row)
+            }
+        } else {
+            if sourceIndexPath.section == 0 {
+                selectedModules?.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+                manager!.swapModulesAt(sourceIndexPath.row, destinationIndexPath.row)
+            } else {
+                modules?.swapAt(sourceIndexPath.row, destinationIndexPath.row)
             }
         }
-        print(selectedIndexes)
-        tableView.reloadRows(at: selectedIndexes, with: .automatic)
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0, selectedModules?.count == 1 {return false}
+        return true
     }
 }
 
 extension ModalViewController:UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Present"
+        default:
+            return "Hide"
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modules?.count ?? 0
+        return section == 0 ? selectedModules?.count ?? 0 : modules?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Modal Table Cell", for: indexPath)
-        if let m = modules {
-            cell.detailTextLabel?.text = m[indexPath.row].name
-            cell.textLabel?.text = m[indexPath.row].key
-            cell.accessoryType = .none
-            if let selected = selectedModulesKey,
-                let k = m[indexPath.row].key,
-                selected.contains(k) {
-                cell.accessoryType = .checkmark
-                if !selectedIndexes.contains(indexPath) {
-                    if selected[0] == k {
-                        selectedIndexes.insert(indexPath, at: 0)
-                    } else {
-                        selectedIndexes.append(indexPath)
-                    }
-                }
-            }
+        var module: Module
+        if indexPath.section == 0 {
+            module = selectedModules![indexPath.row]
+        } else {
+            module = modules![indexPath.row]
         }
+        
+        cell.detailTextLabel?.text = module.name
+        cell.textLabel?.text = module.key
+        
         return cell
     }
     

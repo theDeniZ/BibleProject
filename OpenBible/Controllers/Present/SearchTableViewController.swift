@@ -47,8 +47,8 @@ class SearchTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sel = results[indexPath.row].index
-        AppDelegate.coreManager.bookNumber = sel.0
-        AppDelegate.coreManager.chapterNumber = sel.1
+        AppDelegate.coreManager.changeBook(to: sel.0)
+        AppDelegate.coreManager.changeChapter(to: sel.1)
         AppDelegate.coreManager.setVerses(from: ["\(sel.2)"])
         navigationController?.popViewController(animated: true)
     }

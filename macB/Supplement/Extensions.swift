@@ -77,5 +77,19 @@ extension NSAttributedString: StrongsLinkEmbeddable {
         return newMAString
     }
     
+    func sizeFittingWidth(_ w: CGFloat) -> CGSize {
+        let size = CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)
+        let textContainer = NSTextContainer(size: size)
+        let textStorage = NSTextStorage(attributedString: self)
+        let layoutManager = NSLayoutManager()
+        
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        textContainer.lineFragmentPadding = 0.0
+        
+        layoutManager.glyphRange(for: textContainer)
+        let rect = layoutManager.usedRect(for: textContainer)
+        return rect.size
+    }
     
 }

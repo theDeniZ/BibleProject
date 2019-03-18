@@ -69,17 +69,13 @@ extension UITextView {
 }
 
 extension Array {
-    func filterDuplicates(includeElement: @escaping (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
-        var results = [Element]()
-        
-        forEach { (element) in
-            let existingElements = results.filter {
-                return includeElement(element, $0)
-            }
-            if existingElements.count == 0 {
-                results.append(element)
+    var countMax: Int {
+        var m = 0
+        for i in 0..<count {
+            if let item = self[i] as? NSArray {
+                m = Swift.max(m, item.count)
             }
         }
-        return results
+        return m
     }
 }

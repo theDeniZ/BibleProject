@@ -12,6 +12,7 @@ class MainViewController: NSViewController {
 
     var manager: CoreManager { return AppDelegate.coreManager }
     private var displayedModuleControllers: [ModuleViewController] = []
+    private var displayedStrings = [[NSAttributedString]]()
     
     @IBOutlet weak var splitView: NSSplitView!
     @IBOutlet weak var textField: NSSearchField!
@@ -36,7 +37,8 @@ class MainViewController: NSViewController {
         manager.addDelegate(self)
         print(plistManager.getAllModuleKeys())
         AppDelegate.setDelegate(aDelegate: self)
-        dealWithMenu()
+        arrangeAllViews()
+        splitView.delegate = self
     }
     
     override func viewWillAppear() {
@@ -158,6 +160,7 @@ class MainViewController: NSViewController {
                 splitView.setPosition(CGFloat(i + 1) * width, ofDividerAt: i)
             }
         }
+        displayedModuleControllers.forEach {$0.updateUI()}
     }
 }
 
@@ -218,4 +221,8 @@ extension MainViewController: OutlineSelectionDelegate {
         manager.changeBook(to: book)
         manager.changeChapter(to: chapter)
     }
+}
+
+extension MainViewController: NSSplitViewDelegate {
+    
 }

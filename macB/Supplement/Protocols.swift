@@ -54,3 +54,8 @@ protocol SearchManagerDelegate {
     func searchManagerDidGetUpdate(results: [SearchResult]?)
     func searchManagerDidGetError(error: Error)
 }
+
+protocol ModelVerseDelegate {
+    func isThereANote(at: (module: Int, verse: Int)) -> String?
+    func setNote(at: (module: Int, verse: Int), _ note: String?)
+}

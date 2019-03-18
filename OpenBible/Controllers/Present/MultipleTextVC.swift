@@ -212,9 +212,7 @@ class MultipleTextVC: UIViewController, ContainingViewController {
 
 extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return textToPresent.reduce(0) { (count, array) -> Int in
-            return count + array.count
-        }
+        return textToPresent.countMax * textToPresent.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -223,7 +221,11 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         let number = indexPath.row % count
         let row = indexPath.row / count
         if let c = cell as? TextCollectionViewCell {
-            c.text = textToPresent[number][row]
+            if textToPresent[number].count > row {
+                c.text = textToPresent[number][row]
+            } else {
+                c.text = NSAttributedString(string: "")
+            }
         }
         return cell
     }

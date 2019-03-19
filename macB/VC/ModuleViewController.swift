@@ -182,8 +182,9 @@ extension ModuleViewController: NSCollectionViewDataSource, NSCollectionViewDele
         if let s = strings {
             item.text = s.count > indexPath.item ? s[indexPath.item] : nil
         }
-        item.delegate = moduleManager
         item.index = (index, indexPath.item)
+        item.delegate = moduleManager
+        item.presentee = self
         return item
     }
     

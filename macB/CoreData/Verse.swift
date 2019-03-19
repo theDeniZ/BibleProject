@@ -46,6 +46,11 @@ class Verse: NSManagedObject {
         if let c = NSColor(named: NSColor.Name("textColor")) {
             att.addAttribute(.foregroundColor, value: c, range: NSRange(0..<att.length))
         }
+        if let colorData = color,
+            let color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? NSColor {
+            att.addAttribute(.backgroundColor, value: color, range: NSRange(0..<att.length))
+            att.addAttribute(.foregroundColor, value: NSColor.black, range: NSRange(0..<att.length))
+        }
         return att
     }
     

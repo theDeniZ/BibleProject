@@ -58,4 +58,6 @@ protocol SearchManagerDelegate {
 protocol ModelVerseDelegate {
     func isThereANote(at: (module: Int, verse: Int)) -> String?
     func setNote(at: (module: Int, verse: Int), _ note: String?)
+    func isThereAColor(at: (module: Int, verse: Int)) -> Data?
+    func setColor(at: (module: Int, verse: Int), _ color: Data?)
 }

@@ -69,6 +69,8 @@
 		225FC205223035FB00E61CA8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC204223035FB00E61CA8 /* SearchViewController.swift */; };
 		225FC2072230361E00E61CA8 /* SearchTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC2062230361E00E61CA8 /* SearchTableCellView.swift */; };
 		225FC2082230391C00E61CA8 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC200222FF3C500E61CA8 /* SearchManager.swift */; };
+		226EC33222413885004BDE9C /* ColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 226EC33122413885004BDE9C /* ColorPickerView.xib */; };
+		226EC33422413C76004BDE9C /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226EC33322413C76004BDE9C /* ColorPickerView.swift */; };
 		226F9C09223EDADE0066BDDF /* CVLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226F9C08223EDADE0066BDDF /* CVLayoutManager.swift */; };
 		22707AE122368D51006E01D5 /* MultipleTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22707AE022368D51006E01D5 /* MultipleTextVC.swift */; };
 		22707AE322368F29006E01D5 /* TextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22707AE222368F29006E01D5 /* TextCollectionViewCell.swift */; };
@@ -76,6 +78,7 @@
 		227A4642221D8DCC0080F7CC /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */; };
 		227A4649221D9A2B0080F7CC /* Light.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A4647221D9A2A0080F7CC /* Light.dmp */; };
 		22B69892224015620015F46B /* ReactTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B69891224015620015F46B /* ReactTextView.swift */; };
+		22B69894224129E40015F46B /* NoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B69893224129E40015F46B /* NoteVC.swift */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
 		22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1EE21DD219A00E6E62C /* PlistManager.swift */; };
 		22B9F1F221DD221400E6E62C /* UserSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22B9F1F121DD221400E6E62C /* UserSettings.plist */; };
@@ -157,6 +160,8 @@
 		225FC2022230034900E61CA8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		225FC204223035FB00E61CA8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		225FC2062230361E00E61CA8 /* SearchTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableCellView.swift; sourceTree = "<group>"; };
+		226EC33122413885004BDE9C /* ColorPickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorPickerView.xib; sourceTree = "<group>"; };
+		226EC33322413C76004BDE9C /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		226F9C08223EDADE0066BDDF /* CVLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVLayoutManager.swift; sourceTree = "<group>"; };
 		22707AE022368D51006E01D5 /* MultipleTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleTextVC.swift; sourceTree = "<group>"; };
 		22707AE222368F29006E01D5 /* TextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -164,6 +169,7 @@
 		227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
 		227A4647221D9A2A0080F7CC /* Light.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Light.dmp; sourceTree = "<group>"; };
 		22B69891224015620015F46B /* ReactTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactTextView.swift; sourceTree = "<group>"; };
+		22B69893224129E40015F46B /* NoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteVC.swift; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
 		22B9F1EE21DD219A00E6E62C /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
 		22B9F1F121DD221400E6E62C /* UserSettings.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UserSettings.plist; sourceTree = "<group>"; };
@@ -403,6 +409,8 @@
 				2251583D223ECEAC00FB1EDA /* TextCollectionViewItem.swift */,
 				22B69891224015620015F46B /* ReactTextView.swift */,
 				22EC42BE224009A900463B56 /* DisabledScrollView.swift */,
+				226EC33322413C76004BDE9C /* ColorPickerView.swift */,
+				226EC33122413885004BDE9C /* ColorPickerView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -434,6 +442,7 @@
 				2235F68822142D3100E46411 /* OutlineViewController.swift */,
 				225FC204223035FB00E61CA8 /* SearchViewController.swift */,
 				2255298722312C3C00780298 /* DownloadViewController.swift */,
+				22B69893224129E40015F46B /* NoteVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -562,6 +571,7 @@
 				22BD922221CBDEDD00019853 /* Assets.xcassets in Resources */,
 				22C5D02D22346A990000CC19 /* README.md in Resources */,
 				22BD922521CBDEDD00019853 /* Main.storyboard in Resources */,
+				226EC33222413885004BDE9C /* ColorPickerView.xib in Resources */,
 				2255298C22314DB200780298 /* Light.dmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -627,6 +637,7 @@
 				22BD926721CCD37F00019853 /* History.swift in Sources */,
 				22061ED521F4A76E00F00B04 /* Roman.swift in Sources */,
 				22BD921D21CBDEDB00019853 /* MainWindowController.swift in Sources */,
+				226EC33422413C76004BDE9C /* ColorPickerView.swift in Sources */,
 				22BD925F21CCD03C00019853 /* Verse.swift in Sources */,
 				22BD927021CCDB0E00019853 /* Protocols.swift in Sources */,
 				2251583E223ECEAC00FB1EDA /* TextCollectionViewItem.swift in Sources */,
@@ -660,6 +671,7 @@
 				22CB04AF21D907BA004110E0 /* Strong.swift in Sources */,
 				225FC2072230361E00E61CA8 /* SearchTableCellView.swift in Sources */,
 				22BD924A21CC159C00019853 /* Extensions.swift in Sources */,
+				22B69894224129E40015F46B /* NoteVC.swift in Sources */,
 				222F4E8D222FCA53008CD4E7 /* SharedExtensions.swift in Sources */,
 				22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */,
 				225FC2082230391C00E61CA8 /* SearchManager.swift in Sources */,

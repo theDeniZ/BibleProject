@@ -99,8 +99,19 @@ extension VerseManager: ModelVerseDelegate {
         return (chapter(index.module)?.verses!.array as! [Verse])[index.verse].note
     }
     
+    func isThereAColor(at index: (module: Int, verse: Int)) -> Data? {
+        return (chapter(index.module)?.verses!.array as! [Verse])[index.verse].color
+    }
+    
     func setNote(at index: (module: Int, verse: Int), _ note: String?) {
         (chapter(index.module)?.verses!.array as! [Verse])[index.verse].note = note
         try? context.save()
+        broadcastChanges()
+    }
+    
+    func setColor(at index: (module: Int, verse: Int), _ color: Data?) {
+        (chapter(index.module)?.verses!.array as! [Verse])[index.verse].color = color
+        try? context.save()
+        broadcastChanges()
     }
 }

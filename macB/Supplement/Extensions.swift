@@ -21,8 +21,8 @@ extension NSAttributedString: StrongsLinkEmbeddable {
             normalFont = NSFont(name: named, size: size)!
             smallFont = NSFont(name: named, size: size * 0.6)!
         }
-        var backColor = attribute(.backgroundColor, at: 1, effectiveRange: nil) as? NSColor
-        var frontColor = attribute(.foregroundColor, at: 1, effectiveRange: nil) as? NSColor
+        let backColor = attribute(.backgroundColor, at: 1, effectiveRange: nil) as? NSColor
+        let frontColor = attribute(.foregroundColor, at: 1, effectiveRange: nil) as? NSColor
         
         var colorAttribute: [NSAttributedString.Key: Any]?
         var upperAttribute: [NSAttributedString.Key: Any] =

@@ -77,6 +77,7 @@
 		22707AE52236BE29006E01D5 /* CVLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22707AE42236BE29006E01D5 /* CVLayoutManager.swift */; };
 		227A4642221D8DCC0080F7CC /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */; };
 		227A4649221D9A2B0080F7CC /* Light.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A4647221D9A2A0080F7CC /* Light.dmp */; };
+		22826B6C224282AD00990D3C /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22826B6B224282AD00990D3C /* NoteViewController.swift */; };
 		22B69892224015620015F46B /* ReactTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B69891224015620015F46B /* ReactTextView.swift */; };
 		22B69894224129E40015F46B /* NoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B69893224129E40015F46B /* NoteVC.swift */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
@@ -168,6 +169,7 @@
 		22707AE42236BE29006E01D5 /* CVLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CVLayoutManager.swift; sourceTree = "<group>"; };
 		227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
 		227A4647221D9A2A0080F7CC /* Light.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Light.dmp; sourceTree = "<group>"; };
+		22826B6B224282AD00990D3C /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		22B69891224015620015F46B /* ReactTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactTextView.swift; sourceTree = "<group>"; };
 		22B69893224129E40015F46B /* NoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteVC.swift; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
@@ -313,10 +315,10 @@
 		221E385F220C235E003D8E40 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				22707AE022368D51006E01D5 /* MultipleTextVC.swift */,
 				221E383B220AE9EE003D8E40 /* HistoryViewController.swift */,
 				221E3835220AE9ED003D8E40 /* StrongViewController.swift */,
 				225FC1FE222FF30000E61CA8 /* SearchTableViewController.swift */,
-				22707AE022368D51006E01D5 /* MultipleTextVC.swift */,
 			);
 			path = Present;
 			sourceTree = "<group>";
@@ -337,6 +339,7 @@
 				221E383A220AE9EE003D8E40 /* LeftSelectionViewController.swift */,
 				221E3834220AE9ED003D8E40 /* ModalViewController.swift */,
 				22C7A35C223AB068006B368E /* SettingsViewController.swift */,
+				22826B6B224282AD00990D3C /* NoteViewController.swift */,
 			);
 			path = Manage;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				22707AE52236BE29006E01D5 /* CVLayoutManager.swift in Sources */,
 				221E3820220AE9B0003D8E40 /* History.swift in Sources */,
 				221E383F220AE9EE003D8E40 /* ModalViewController.swift in Sources */,
+				22826B6C224282AD00990D3C /* NoteViewController.swift in Sources */,
 				221E381E220AE9B0003D8E40 /* Module.swift in Sources */,
 				221E3801220AE6AC003D8E40 /* Extensions.swift in Sources */,
 				221E37F9220AE665003D8E40 /* AppDelegate.swift in Sources */,

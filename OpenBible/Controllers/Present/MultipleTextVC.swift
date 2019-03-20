@@ -46,12 +46,11 @@ class MultipleTextVC: UIViewController, ContainingViewController {
         AppDelegate.shared.consistentManager.addDelegate(self)
         AppDelegate.shared.urlDelegate = self
         countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
+        verseManager.addDelegate(self)
         loadTextViews()
-//        leftTextView.delegate = self
-//        rightTextView.delegate = self
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
-        verseManager.addDelegate(self)
+        mainCollectionView.isUserInteractionEnabled = true
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "menu"), style: .plain,
@@ -226,6 +225,9 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
             } else {
                 c.text = NSAttributedString(string: "")
             }
+            c.index = (number, row)
+            c.delegate = verseManager
+            c.presentee = self
         }
         return cell
     }
@@ -237,6 +239,13 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         return CGSize(width: width, height: layoutManager.calculateHeight(at: row, with: width))
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        collectionView.deselectItem(at: indexPath, animated: true)
+        let count = textToPresent.count
+        let number = indexPath.row % count
+        let row = indexPath.row / count
+        print((number, row))
+    }
 }
 
 // MARK: URLDelegate
@@ -365,5 +374,37 @@ extension MultipleTextVC: ModelUpdateDelegate {
         DispatchQueue.main.async {
             self.loadTextViews()
         }
+    }
+}
+
+extension MultipleTextVC: UIPresentee {
+    func presentNote(at index: (Int, Int)) {
+        guard let note = verseManager.isThereANote(at: index) else {return}
+        print(note)
+    }
+    
+    func presentMenu(at index: (Int, Int)) {
+        let pvc = UIStoryboard.main().instantiateViewController(withIdentifier: "Note VC") as! NoteViewController
+        
+        pvc.modalPresentationStyle = UIModalPresentationStyle.custom
+        pvc.transitioningDelegate = self
+        pvc.delegate = verseManager
+        pvc.index = index
+        let item = (index.1 * textToPresent.count) + index.0
+        mainCollectionView.scrollToItem(at: IndexPath(row: item, section: 0), at: .top, animated: true)
+        self.present(pvc, animated: true, completion: nil)
+    }
+}
+
+extension MultipleTextVC: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
+    }
+}
+
+
+class HalfSizePresentationController : UIPresentationController {
+    override var frameOfPresentedViewInContainerView: CGRect {
+        return CGRect(x: 0, y: containerView!.bounds.height/2, width: containerView!.bounds.width, height: containerView!.bounds.height/2)
     }
 }

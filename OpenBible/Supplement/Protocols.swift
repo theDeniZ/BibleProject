@@ -54,3 +54,15 @@ protocol SearchManagerDelegate {
     func searchManagerDidGetUpdate(results: [SearchResult]?)
     func searchManagerDidGetError(error: Error)
 }
+
+protocol ModelVerseDelegate {
+    func isThereANote(at: (module: Int, verse: Int)) -> String?
+    func setNote(at: (module: Int, verse: Int), _ note: String?)
+    func isThereAColor(at: (module: Int, verse: Int)) -> Data?
+    func setColor(at: (module: Int, verse: Int), _ color: Data?)
+}
+
+protocol UIPresentee {
+    func presentNote(at index: (Int, Int))
+    func presentMenu(at index: (Int, Int))
+}

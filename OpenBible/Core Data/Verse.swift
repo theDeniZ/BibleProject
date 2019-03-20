@@ -43,6 +43,9 @@ class Verse: NSManagedObject {
     
     var attributedCompound: NSAttributedString {
         let att = NSMutableAttributedString(string: compound)
+        if let colorData = color, let color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor {
+            att.addAttribute(.backgroundColor, value: color, range: NSRange(0..<att.length))
+        }
         return att
     }
     

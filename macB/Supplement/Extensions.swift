@@ -21,6 +21,8 @@ extension NSAttributedString: StrongsLinkEmbeddable {
             normalFont = NSFont(name: named, size: size)!
             smallFont = NSFont(name: named, size: size * 0.6)!
         }
+        let backColor = attribute(.backgroundColor, at: 1, effectiveRange: nil) as? NSColor
+        let frontColor = attribute(.foregroundColor, at: 1, effectiveRange: nil) as? NSColor
         
         var colorAttribute: [NSAttributedString.Key: Any]?
         var upperAttribute: [NSAttributedString.Key: Any] =
@@ -71,11 +73,48 @@ extension NSAttributedString: StrongsLinkEmbeddable {
             }
             i += 1
         }
-        if !newMAString.string.hasSuffix("\n ") {
-            newMAString.append(NSAttributedString(string: "\n"))
+//        if !newMAString.string.hasSuffix("\n ") {
+//            newMAString.append(NSAttributedString(string: "\n"))
+//        }
+        if let back = backColor {
+            newMAString.addAttribute(.backgroundColor, value: back, range: NSRange(0..<newMAString.length))
+        }
+        if let front = frontColor {
+            newMAString.addAttribute(.foregroundColor, value: front, range: NSRange(0..<newMAString.length))
         }
         return newMAString
     }
     
+    func sizeFittingWidth(_ w: CGFloat) -> CGSize {
+        let size = CGSize(width: w, height: CGFloat.greatestFiniteMagnitude)
+        let textContainer = NSTextContainer(size: size)
+        let textStorage = NSTextStorage(attributedString: self)
+        let layoutManager = NSLayoutManager()
+        
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        textContainer.lineFragmentPadding = 0.0
+        
+        layoutManager.glyphRange(for: textContainer)
+        let rect = layoutManager.usedRect(for: textContainer)
+        return rect.size
+    }
     
+}
+
+extension NSColor {
+    func invert() -> NSColor {
+        var red         :   CGFloat  =   255.0
+        var green       :   CGFloat  =   255.0
+        var blue        :   CGFloat  =   255.0
+        var alpha       :   CGFloat  =   1.0
+        
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        red     =   255.0 - (red * 255.0)
+        green   =   255.0 - (green * 255.0)
+        blue    =   255.0 - (blue * 255.0)
+        
+        return NSColor(red: red / 255.0, green: green / 255.0, blue: blue / 255.0, alpha: alpha)
+    }
 }

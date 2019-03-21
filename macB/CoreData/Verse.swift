@@ -25,7 +25,7 @@ class Verse: NSManagedObject {
     
     var compound: String {
         if let t = text {
-            return "\(number) \(t)"
+            return "\(number) \(t[...t.index(t.endIndex, offsetBy: -2)])"
         }
         return "\(number)"
     }
@@ -45,6 +45,11 @@ class Verse: NSManagedObject {
         let att = NSMutableAttributedString(string: compound)
         if let c = NSColor(named: NSColor.Name("textColor")) {
             att.addAttribute(.foregroundColor, value: c, range: NSRange(0..<att.length))
+        }
+        if let colorData = color,
+            let color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? NSColor {
+            att.addAttribute(.backgroundColor, value: color, range: NSRange(0..<att.length))
+            att.addAttribute(.foregroundColor, value: NSColor.black, range: NSRange(0..<att.length))
         }
         return att
     }

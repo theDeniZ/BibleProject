@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="ColorPickerView" customModule="macB" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="190" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EVq-H7-GQI">
+                    <rect key="frame" x="10" y="5" width="170" height="20"/>
+                    <subviews>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="3BZ-qb-aIe">
+                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="3BZ-qb-aIe" secondAttribute="height" multiplier="1:1" id="DHB-YS-Hus"/>
+                                <constraint firstAttribute="width" constant="20" id="iqJ-Pz-kaK"/>
+                            </constraints>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="yellow" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PZ2-ka-xDs">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="yellowAction:" target="c22-O7-iKe" id="8ol-2b-DoI"/>
+                            </connections>
+                        </button>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="07d-R9-OpD">
+                            <rect key="frame" x="30" y="0.0" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="bzm-NT-SJc"/>
+                                <constraint firstAttribute="width" secondItem="07d-R9-OpD" secondAttribute="height" multiplier="1:1" id="cna-Ex-W2L"/>
+                            </constraints>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="red" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Olh-hN-WO5">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="redAction:" target="c22-O7-iKe" id="VNb-D7-D0R"/>
+                            </connections>
+                        </button>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="AY5-ty-RrH">
+                            <rect key="frame" x="60" y="0.0" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="AY5-ty-RrH" secondAttribute="height" multiplier="1:1" id="H2n-gk-stA"/>
+                                <constraint firstAttribute="width" constant="20" id="VE1-GE-Dq9"/>
+                            </constraints>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="orange" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="uFu-Bf-HaR">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="orangeColor:" target="c22-O7-iKe" id="zJQ-IW-NJ3"/>
+                            </connections>
+                        </button>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Djg-XM-o0O">
+                            <rect key="frame" x="90" y="0.0" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="EVX-dS-d63"/>
+                                <constraint firstAttribute="width" secondItem="Djg-XM-o0O" secondAttribute="height" multiplier="1:1" id="tKU-EN-sis"/>
+                            </constraints>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="green" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="EHZ-QX-B3A">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="greenAction:" target="c22-O7-iKe" id="oD1-Rj-tJC"/>
+                            </connections>
+                        </button>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="Bwz-hV-q9m">
+                            <rect key="frame" x="120" y="0.0" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="Bwz-hV-q9m" secondAttribute="height" multiplier="1:1" id="Qcu-JJ-8mN"/>
+                                <constraint firstAttribute="width" constant="20" id="aTQ-pa-S7e"/>
+                            </constraints>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="blue" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="gcO-8v-gyy">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="blueAction:" target="c22-O7-iKe" id="x9K-Mk-ZYe"/>
+                            </connections>
+                        </button>
+                        <button translatesAutoresizingMaskIntoConstraints="NO" id="EQo-Jq-qpf">
+                            <rect key="frame" x="150" y="0.0" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="EQo-Jq-qpf" secondAttribute="height" multiplier="1:1" id="b46-7f-KJZ"/>
+                                <constraint firstAttribute="width" constant="20" id="i8r-Wl-365"/>
+                            </constraints>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="clear" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Duu-OO-6X1">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="clearAction:" target="c22-O7-iKe" id="5XU-Ht-OWY"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="EVq-H7-GQI" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="Dzs-W0-wrO"/>
+                <constraint firstAttribute="trailing" secondItem="EVq-H7-GQI" secondAttribute="trailing" constant="10" id="aJ2-K9-eTc"/>
+                <constraint firstAttribute="bottom" secondItem="EVq-H7-GQI" secondAttribute="bottom" constant="5" id="bgM-YH-ctT"/>
+                <constraint firstItem="EVq-H7-GQI" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="5" id="l0e-66-T8b"/>
+            </constraints>
+            <point key="canvasLocation" x="210" y="256.5"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="blue" width="128" height="128"/>
+        <image name="clear" width="128" height="128"/>
+        <image name="green" width="128" height="128"/>
+        <image name="orange" width="128" height="128"/>
+        <image name="red" width="128" height="128"/>
+        <image name="yellow" width="128" height="128"/>
+    </resources>
+</document>

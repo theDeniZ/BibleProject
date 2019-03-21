@@ -20,6 +20,10 @@ extension NSAttributedString: StrongsLinkEmbeddable {
              NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: size * 0.666),
              .foregroundColor : UIColor.gray.withAlphaComponent(0.7)]
         
+        let backColor = attribute(.backgroundColor, at: 1, effectiveRange: nil) as? UIColor
+        let frontColor = attribute(.foregroundColor, at: 1, effectiveRange: nil) as? UIColor
+        
+        
         let root = AppDelegate.URLServerRoot + link + "/"
         let splited = string.split(separator: " ").map {String($0)}
         newMAString.append(NSAttributedString(string: splited[0] + " ", attributes: upperAttribute))
@@ -46,6 +50,12 @@ extension NSAttributedString: StrongsLinkEmbeddable {
             }
             i += 1
         }
+        if let back = backColor {
+            newMAString.addAttribute(.backgroundColor, value: back, range: NSRange(0..<newMAString.length))
+        }
+        if let front = frontColor {
+            newMAString.addAttribute(.foregroundColor, value: front, range: NSRange(0..<newMAString.length))
+        }
         return newMAString
     }
     
@@ -69,17 +79,13 @@ extension UITextView {
 }
 
 extension Array {
-    func filterDuplicates(includeElement: @escaping (_ lhs:Element, _ rhs:Element) -> Bool) -> [Element]{
-        var results = [Element]()
-        
-        forEach { (element) in
-            let existingElements = results.filter {
-                return includeElement(element, $0)
-            }
-            if existingElements.count == 0 {
-                results.append(element)
+    var countMax: Int {
+        var m = 0
+        for i in 0..<count {
+            if let item = self[i] as? NSArray {
+                m = Swift.max(m, item.count)
             }
         }
-        return results
+        return m
     }
 }

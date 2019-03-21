@@ -10,7 +10,7 @@ import Cocoa
 
 class ModuleViewController: NSViewController {
 
-    var moduleManager: CoreManager { return AppDelegate.coreManager }
+    var moduleManager: VerseManager { return AppDelegate.coreManager }
     var currentModule: Module!
     var index: Int!
     var delegate: SplitViewDelegate?
@@ -27,11 +27,12 @@ class ModuleViewController: NSViewController {
     }
     private var updateTimer: Timer?
     
-    @IBOutlet private var textView: NSTextView!
+    @IBOutlet weak var collectionView: NSCollectionView!
     @IBOutlet private weak var modulePicker: NSComboBox!
     @IBOutlet private weak var scrollView: NSScrollView!
     @IBOutlet weak var closeButton: NSButton!
     
+    private var strings: [NSAttributedString]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +50,14 @@ class ModuleViewController: NSViewController {
         )
         scrollView.verticalScroller?.isHidden = true
         moduleManager.addDelegate(self)
+        reloadUI()
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        updateUI()
+        reloadUI()
     }
     
     private func updateCombo() {
@@ -66,7 +70,11 @@ class ModuleViewController: NSViewController {
         modulePicker?.selectItem(at: 0)
     }
     
-    private func updateUI() {
+    func updateUI() {
+        collectionView.reloadData()
+    }
+    
+    private func reloadUI() {
         if index == 0 {
             closeButton.isHidden = true
         }
@@ -75,21 +83,22 @@ class ModuleViewController: NSViewController {
         if index >= moduleManager.modules.count {
             delegate?.splitViewWouldLikeToResign(being: index)
         }
-        let strings: [NSAttributedString] = moduleManager[index]
+        strings = moduleManager[index]
+        collectionView.reloadData()
         
-        let attributedString = strings.reduce(NSMutableAttributedString()) { (res, each) -> NSMutableAttributedString in
-            res.append(each)
-            return res
-        }
-        if let lm = textView?.layoutManager {
-            textStorage?.removeLayoutManager(lm)
-            textStorage = NSTextStorage(attributedString: attributedString)
-            textStorage!.addLayoutManager(lm)
-            if let c = NSColor(named: NSColor.Name("linkTextColor")) {
-                textView?.linkTextAttributes = [.foregroundColor: c, .cursor: NSCursor.contextualMenu]
-            }
-//            textView?.setSelectedRange(NSMakeRange(textView.string.count, 0))
-        }
+//        let attributedString = strings.reduce(NSMutableAttributedString()) { (res, each) -> NSMutableAttributedString in
+//            res.append(each)
+//            return res
+//        }
+//        if let lm = textView?.layoutManager {
+//            textStorage?.removeLayoutManager(lm)
+//            textStorage = NSTextStorage(attributedString: attributedString)
+//            textStorage!.addLayoutManager(lm)
+//            if let c = NSColor(named: NSColor.Name("linkTextColor")) {
+//                textView?.linkTextAttributes = [.foregroundColor: c, .cursor: NSCursor.contextualMenu]
+//            }
+////            textView?.setSelectedRange(NSMakeRange(textView.string.count, 0))
+//        }
         if AppDelegate.plistManager.isTooltipOn {
             loadTooltip()
         }
@@ -100,16 +109,17 @@ class ModuleViewController: NSViewController {
         DispatchQueue.global(qos: .background).async {
             self.updateTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) {
                 (_) in
-                let strings = self.moduleManager.getAttributedString(from: index, loadingTooltip: true)
-                let attributedString = strings.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
-                    r.append(each)
-                    return r
-                }
+                self.strings = self.moduleManager.getAttributedString(from: index, loadingTooltip: true)
+//                let attributedString = strings.reduce(NSMutableAttributedString()) { (r, each) -> NSMutableAttributedString in
+//                    r.append(each)
+//                    return r
+//                }
                 DispatchQueue.main.async {
-                    if let lm = self.textView?.layoutManager {
-                        self.textStorage = NSTextStorage(attributedString: attributedString)
-                        self.textStorage!.addLayoutManager(lm)
-                    }
+//                    if let lm = self.textView?.layoutManager {
+//                        self.textStorage = NSTextStorage(attributedString: attributedString)
+//                        self.textStorage!.addLayoutManager(lm)
+//                    }
+                    self.collectionView.reloadData()
                     self.updateTimer = nil
                 }
             }
@@ -121,7 +131,7 @@ class ModuleViewController: NSViewController {
         if sender.indexOfSelectedItem > 0 {
             if let m = moduleManager.setActive(choise[sender.indexOfSelectedItem - 1], at: index) {
                 currentModule = m
-                updateUI()
+                reloadUI()
             }
         }
     }
@@ -151,12 +161,35 @@ class ModuleViewController: NSViewController {
     }
 }
 
-
 extension ModuleViewController: ModelUpdateDelegate {
     func modelChanged(_ fully: Bool = false) {
         DispatchQueue.main.async { [weak self] in
-            self?.updateUI()
+            self?.reloadUI()
         }
+    }
+}
+
+extension ModuleViewController: NSCollectionViewDataSource, NSCollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+        let width = collectionView.bounds.width - 10.0
+        return CGSize(width: width, height:  moduleManager.layoutManager.calculateHeight(at: indexPath.item, with: width - 10.0))
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = NSStoryboard.main?.instantiateController(withIdentifier: "Text Item") as! TextCollectionViewItem
+        
+        if let s = strings {
+            item.text = s.count > indexPath.item ? s[indexPath.item] : nil
+        }
+        item.index = (index, indexPath.item)
+        item.delegate = moduleManager
+        item.presentee = self
+        return item
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return moduleManager.countMax
     }
 }
 

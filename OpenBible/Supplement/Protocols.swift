@@ -66,3 +66,7 @@ protocol UIPresentee {
     func presentNote(at index: (Int, Int))
     func presentMenu(at index: (Int, Int))
 }
+
+protocol UIResignDelegate {
+    func viewControllerWillResign()
+}

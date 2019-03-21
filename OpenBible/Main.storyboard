@@ -257,11 +257,11 @@
             <objects>
                 <viewController storyboardIdentifier="Note VC" id="Xzh-bA-F03" customClass="NoteViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P8r-ac-aX9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="406"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="aEN-uF-r49">
-                                <rect key="frame" x="20" y="20" width="335" height="332"/>
+                                <rect key="frame" x="20" y="54" width="335" height="714"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LDH-MR-1ah">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="49.333333333333336"/>
@@ -321,16 +321,16 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="MsH-sv-u1W">
-                                        <rect key="frame" x="0.0" y="82.333333333333329" width="335" height="249.66666666666669"/>
+                                        <rect key="frame" x="0.0" y="82.333333333333314" width="335" height="631.66666666666674"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7jX-aL-Oom">
-                                                <rect key="frame" x="0.0" y="0.0" width="335" height="188.66666666666666"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="570.66666666666663"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hm4-yK-RB4">
-                                                <rect key="frame" x="0.0" y="219.66666666666669" width="335" height="30"/>
+                                                <rect key="frame" x="0.0" y="601.66666666666663" width="335" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBL-W7-5R9">
                                                         <rect key="frame" x="0.0" y="0.0" width="105" height="30"/>
@@ -364,14 +364,16 @@
                         <constraints>
                             <constraint firstItem="aEN-uF-r49" firstAttribute="leading" secondItem="yJA-mI-DL6" secondAttribute="leading" constant="20" id="728-K3-bKK"/>
                             <constraint firstItem="yJA-mI-DL6" firstAttribute="trailing" secondItem="aEN-uF-r49" secondAttribute="trailing" constant="20" id="OQI-0I-wzl"/>
-                            <constraint firstItem="aEN-uF-r49" firstAttribute="top" secondItem="P8r-ac-aX9" secondAttribute="top" constant="20" id="dNk-9I-lUP"/>
-                            <constraint firstItem="yJA-mI-DL6" firstAttribute="bottom" secondItem="aEN-uF-r49" secondAttribute="bottom" constant="20" id="oG3-Ot-MxT"/>
+                            <constraint firstItem="aEN-uF-r49" firstAttribute="top" secondItem="yJA-mI-DL6" secondAttribute="top" constant="10" id="dNk-9I-lUP"/>
+                            <constraint firstItem="yJA-mI-DL6" firstAttribute="bottom" secondItem="aEN-uF-r49" secondAttribute="bottom" constant="10" id="oG3-Ot-MxT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yJA-mI-DL6"/>
                     </view>
-                    <size key="freeformSize" width="375" height="406"/>
                     <connections>
+                        <outlet property="closeButton" destination="uqf-hG-Ulc" id="JJR-QY-M88"/>
+                        <outlet property="colorStack" destination="LDH-MR-1ah" id="BZ9-mQ-QeY"/>
                         <outlet property="mainTextView" destination="7jX-aL-Oom" id="sow-T5-usH"/>
+                        <outlet property="topSpace" destination="dNk-9I-lUP" id="uwT-5f-2Ih"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3es-Iz-DBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -792,8 +794,8 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="133" height="55"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Iu-WZ-2QZ">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="133" height="55"/>
+                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6Iu-WZ-2QZ">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="133" height="60"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

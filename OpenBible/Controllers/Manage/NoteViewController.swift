@@ -20,19 +20,35 @@ class NoteViewController: UIViewController {
 
     var index: (Int, Int) = (0,0)
     var delegate: ModelVerseDelegate?
+    var resignDelegate: UIResignDelegate?
+    var makingCustomSize: Bool = true
     
-    @IBOutlet weak var mainTextView: UITextView!
+    @IBOutlet private weak var mainTextView: UITextView!
+    @IBOutlet weak var topSpace: NSLayoutConstraint!
+    @IBOutlet weak var colorStack: UIStackView!
+    @IBOutlet weak var closeButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mainTextView.text = delegate?.isThereANote(at: index)
-
-//        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touch(_:))))
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIApplication.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(UIViewController.keyboardWillShowNotification), name: UIApplication.keyboardWillShowNotification, object: nil)
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(UIViewController.keyboardWillHideNotification), name: UIApplication.keyboardWillHideNotification, object: nil)
+        if makingCustomSize {
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIApplication.keyboardWillShowNotification, object: nil)
+            
+            topSpace.constant += view.bounds.height / 2
+            view.backgroundColor = UIColor.white.withAlphaComponent(0)
+            let over = UIView(frame: CGRect(origin: CGPoint(x: 0, y: view.frame.size.height / 2), size: view.bounds.size))
+            over.backgroundColor = UIColor.white
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touch(_:))))
+            view.insertSubview(over, at: 0)
+        }
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            closeButton.isHidden = true
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        resignDelegate?.viewControllerWillResign()
     }
 
     @IBAction func clearAction(_ sender: UIButton) {
@@ -77,22 +93,22 @@ class NoteViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
-
-            UIView.animate(withDuration: 1.0) {
-                self.view.frame = CGRect(origin: CGPoint(x: 0, y: self.view.frame.origin.y - keyboardHeight), size: self.view.frame.size)
-            }
-//             = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+    @objc private func touch(_ sender: UITapGestureRecognizer) {
+        if sender.location(in: view).y < view.bounds.height / 2 {
+            resignDelegate?.viewControllerWillResign()
+            dismiss(animated: true, completion: nil)
         }
     }
-//
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//        UIView.animate(withDuration: 0.2, animations: {
-//            // For some reason adding inset in keyboardWillShow is animated by itself but removing is not, that's why we have to use animateWithDuration here
-//            self.webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//        })
-//    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height {
+            colorStack.isHidden = true
+            if view.frame.origin.y >= 0 {
+                UIView.animate(withDuration: 1.0) {
+                    self.view.frame.origin.y -= keyboardHeight// = CGRect(origin: CGPoint(x: 0, y: self.view.frame.origin.y - keyboardHeight), size: self.view.frame.size)
+                }
+            }
+        }
+    }
     
 }

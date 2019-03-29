@@ -8,21 +8,21 @@
 
 import UIKit
 
-class MultipleTextVC: UIViewController, ContainingViewController {
+class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
     
     var verseManager = AppDelegate.coreManager
-    var delegate: CenterViewControllerDelegate?
     var overlapped: Bool = false
+    
+    var coordinator: MainPreviewCoordinator?
     
     // MARK: Private implementation
     
+    @IBOutlet private weak var mainCollectionView: UICollectionView!
+    @IBOutlet private weak var searchTextField: UITextField!
+    @IBOutlet private weak var progressView: ProgressView!
+    @IBOutlet private weak var mainStackView: UIStackView!
     
-    @IBOutlet weak var mainCollectionView: UICollectionView!
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var progressView: ProgressView!
-    @IBOutlet weak var mainStackView: UIStackView!
-    
-    @IBOutlet weak var navigationItemTitleTextField: UITextField!
+    @IBOutlet private weak var navigationItemTitleTextField: UITextField!
     
     private var leftTextStorage: NSTextStorage?
     private var rightTextStorage: NSTextStorage?
@@ -34,8 +34,9 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     private var layoutManager = CVLayoutManager()
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
-    private var isInPortrait: Bool = UIDevice.current.orientation.isPortrait
-    private var countOfPortraitModulesAtOnce: Int = 2
+    private var countOfPortraitModulesAtOnce: Int {
+        return AppDelegate.plistManager.portraitNumber
+    }
     
     // MARK: - Actions
     
@@ -45,9 +46,9 @@ class MultipleTextVC: UIViewController, ContainingViewController {
         progressView.isHidden = true
         AppDelegate.shared.consistentManager.addDelegate(self)
         AppDelegate.shared.urlDelegate = self
-        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
+//        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
         verseManager.addDelegate(self)
-        loadTextViews()
+//        loadTextViews()
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.isUserInteractionEnabled = true
@@ -65,11 +66,7 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if isInPortrait != UIDevice.current.orientation.isPortrait {
-            isInPortrait = UIDevice.current.orientation.isPortrait
-            loadTextViews()
-        }
+        loadTextViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -115,13 +112,12 @@ class MultipleTextVC: UIViewController, ContainingViewController {
         }
     }
     
-    
     func loadTextViews() {
         navigationItemTitleTextField.placeholder = verseManager.description
         navigationItemTitleTextField.resignFirstResponder()
 //        DispatchQueue.global(qos: .userInteractive).async {
             self.textToPresent = self.verseManager.getVerses()
-            if self.isInPortrait, self.textToPresent.count > self.countOfPortraitModulesAtOnce {
+            if UIDevice.current.orientation == .portrait, self.textToPresent.count > self.countOfPortraitModulesAtOnce {
                 self.textToPresent = Array(self.textToPresent[..<self.countOfPortraitModulesAtOnce])
             }
             self.layoutManager.arrayOfVerses = self.textToPresent
@@ -132,8 +128,8 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     }
     
     @objc private func toggleMenu() {
-        delegate?.toggleLeftPanel?()
         navigationItemTitleTextField.resignFirstResponder()
+        coordinator?.toggleMenu()
     }
     
     @objc private func toggleSearch() {
@@ -162,7 +158,7 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     
     // MARK: Search
     
-    private func doSearch(text arrived: String) {
+    func doSearch(text arrived: String) {
         let text = arrived.replacingOccurrences(of: " ", with: "")
         if text.matches(String.regexForChapter) {
             let m = text.capturedGroups(withRegex: String.regexForChapter)!
@@ -193,17 +189,14 @@ class MultipleTextVC: UIViewController, ContainingViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: nil) { (_) in
-            if UIDevice.current.orientation.isLandscape,
-                self.textToPresent.count != self.verseManager.modules.count {
-                self.isInPortrait = false
-                self.loadTextViews()
-            } else {
-                self.isInPortrait = true
-                self.loadTextViews()
-            }
+            self.loadTextViews()
             self.mainCollectionView.reloadData()
             self.progressView.initialiseGradient()
         }
+    }
+    
+    func setNeedsLoad() {
+        loadTextViews()
     }
 }
 
@@ -253,35 +246,7 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
 
 extension MultipleTextVC: URLDelegate {
     func openedURL(with parameters: [String]) {
-        navigationItemTitleTextField.resignFirstResponder()
-        if overlapped {
-            toggleMenu()
-        }
-        if parameters.count > 1 {
-            switch parameters[0] {
-            case "Hebrew", "Greek":
-                let vc = UIStoryboard.main()
-                    .instantiateViewController(withIdentifier: "StrongVC")
-                    as! StrongViewController
-                vc.identifier = parameters[0]
-                vc.numbers = parameters[1].split(separator: "+").map {Int(String($0))!}
-                if let nav = navigationController {
-                    if UIDevice.current.userInterfaceIdiom == .phone {
-                        nav.pushViewController(vc, animated: true)
-                    } else {
-                        let size = CGSize(width: 500, height: 300)
-                        present(vc: vc, with: size)
-                    }
-                } else {
-                    present(vc, animated: true, completion: nil)
-                }
-                presentedVC = vc
-            default: break
-            }
-        } else {
-            doSearch(text: parameters[0])
-            //            parseSearch(text: parameters[0])
-        }
+        coordinator?.openLink(parameters)
     }
     
     private func present(vc: UIViewController, with size: CGSize) {
@@ -295,16 +260,6 @@ extension MultipleTextVC: URLDelegate {
 //        popover?.backgroundColor = UIColor.green
         
         present(nvc, animated: true, completion: nil)
-    }
-}
-
-// MARK: SidePanelViewControllerDelegate
-
-extension MultipleTextVC: SidePanelViewControllerDelegate {
-    func didSelect(chapter: Int, in book: Int) {
-        delegate?.collapseSidePanels?()
-        verseManager.changeChapter(to: chapter)
-        verseManager.changeBook(to: book)
     }
 }
 
@@ -346,7 +301,7 @@ extension MultipleTextVC: ConsistencyManagerDelegate {
         start()
         executeOnAppear = start
     }
-    
+
     func consistentManagerDidEndUpdate() {
         print("Stop animating")
         func stop() {
@@ -362,7 +317,7 @@ extension MultipleTextVC: ConsistencyManagerDelegate {
 
 extension MultipleTextVC: ModelUpdateDelegate {
     func modelChanged(_ fully: Bool) {
-        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
+//        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
         DispatchQueue.main.async {
             self.loadTextViews()
         }
@@ -377,6 +332,7 @@ extension MultipleTextVC: UIPresentee {
     
     func presentMenu(at index: (Int, Int)) {
         if UIDevice.current.userInterfaceIdiom == .phone {
+            AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
             presentOniPhone(at: index)
         } else {
             presentOniPad(at: index)

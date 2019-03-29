@@ -36,6 +36,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private var plistManager = PlistManager()
+    
+    var orientationLock = UIInterfaceOrientationMask.all
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return self.orientationLock
+    }
 
     static var persistantContainer: NSPersistentContainer {
         get {
@@ -74,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey:Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey:Any]?) -> Bool {
 //        consistentManager = ConsistencyManager(context: persistentContainer.newBackgroundContext())
 //        consistentManager.addDelegate(self)
 //        if !AppDelegate.isAppAlreadyLaunchedOnce {
@@ -82,8 +88,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            consistentManager.initialiseCoreData()
 //        }
 //        manager.update(true)
-//        return true
-//    }
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = MainTabBarController()
+        window?.makeKeyAndVisible()
+        return true
+    }
 
     func applicationWillTerminate(_ application: UIApplication) {
         self.saveContext()
@@ -142,4 +151,21 @@ extension AppDelegate: ConsistencyManagerDelegate {
     func consistentManagerDidChangedModel() {
         print("modelChanged")
     }
+}
+
+struct AppUtility {
+    
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
+        AppDelegate.shared.orientationLock = orientation
+    }
+    
+    /// OPTIONAL Added method to adjust lock and rotate to the desired orientation
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
+        
+        self.lockOrientation(orientation)
+        
+        UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+        UINavigationController.attemptRotationToDeviceOrientation()
+    }
+    
 }

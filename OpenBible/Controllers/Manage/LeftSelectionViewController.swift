@@ -8,14 +8,16 @@
 
 import UIKit
 
-class LeftSelectionViewController: SidePanelViewController {
+class LeftSelectionViewController: UIViewController, Storyboarded {
 
-    var manager: VerseManager = AppDelegate.coreManager { didSet { updateUI() } }
+//    var manager: VerseManager = AppDelegate.coreManager { didSet { updateUI() } }
     var rightSpace: CGFloat = 0.0 {
         didSet {
             rightConstraint.constant = rightSpace
         }
     }
+    
+    var coordinator: MainMenuCoordinator!
     
     @IBOutlet weak var moduleButton: UIButton!
     private var selectedIndexPath: IndexPath?
@@ -27,7 +29,7 @@ class LeftSelectionViewController: SidePanelViewController {
     private var books: [Book]? {
         didSet {
             bookTable?.reloadData()
-            var selected = manager.bookIndex - 1
+            var selected = coordinator.selectedBookIndex - 1
             var section = 0
             if sectionCount != 1, selected >= 39 {
                 selected -= 39
@@ -50,12 +52,14 @@ class LeftSelectionViewController: SidePanelViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AppDelegate.coreManager.addDelegate(self)
+
         rightConstraint.constant = rightSpace
+        
         bookTable.dataSource = self
         bookTable.delegate = self
         bookTable.rowHeight = UITableView.automaticDimension
         bookTable.estimatedRowHeight = 36.3
+        
         moduleButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         moduleButton.clipsToBounds = true
         moduleButton.layer.cornerRadius = moduleButton.frame.height / 2
@@ -63,55 +67,35 @@ class LeftSelectionViewController: SidePanelViewController {
         moduleButton.layer.borderWidth = 1.0
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Show Modal Picker", let dest = segue.destination as? ModalViewController {
-            dest.manager = manager
-            dest.delegate = self
-        } else if segue.identifier == "Show history", let dest = segue.destination as? HistoryViewController {
-            dest.delegate = delegate
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUI()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        AppDelegate.coreManager.removeDelegate(self)
+    @IBAction func moduleAction(_ sender: UIButton) {
+        coordinator.presentPicker()
+    }
+    @IBAction func historyAction(_ sender: UIButton) {
+        coordinator.presentHistory()
     }
     
     private func updateUI() {
-        books = manager.getBooks()
-        let modules = manager.getModulesKey()
-        var title = modules.first ?? ""
-        if modules.count > 1 {
-            title += " +\(modules.count - 1)"
-        }
-        moduleButton?.setTitle(title, for:.normal)
+        books = coordinator.getBooksToPresent()
+        bookTable.reloadData()
+        moduleButton?.setTitle(coordinator.getKeysTitle(), for:.normal)
     }
 
 }
 
 extension LeftSelectionViewController: BookTableViewCellDelegate {
     func bookTableViewCellDidSelect(chapter: Int, in book: Int) {
-        delegate?.didSelect(chapter: chapter, in:book)
-        print("selected \(chapter) in \(book)")
+        coordinator.didSelect(chapter: chapter, in: book)
     }
 }
 
 extension LeftSelectionViewController: ModalDelegate {
     func modalViewWillResign() {
         bookTable?.reloadData()
-    }
-}
-
-extension LeftSelectionViewController: ModelUpdateDelegate {
-    func modelChanged(_ fully: Bool) {
-        DispatchQueue.main.async {
-            self.updateUI()
-        }
     }
 }
 

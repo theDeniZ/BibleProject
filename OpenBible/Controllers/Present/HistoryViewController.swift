@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: UIViewController, Storyboarded {
 
-    var delegate: SidePanelViewControllerDelegate?
+//    var delegate: SidePanelViewControllerDelegate?
     var context: NSManagedObjectContext! = AppDelegate.context
     
     @IBOutlet weak var table: UITableView!
@@ -59,7 +59,7 @@ extension HistoryViewController:UITableViewDataSource {
 
 extension HistoryViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.didSelect(chapter: Int(history[indexPath.row].chapter!.number), in:Int(history[indexPath.row].chapter!.book!.number))
+//        delegate?.didSelect(chapter: Int(history[indexPath.row].chapter!.number), in:Int(history[indexPath.row].chapter!.book!.number))
         dismiss(animated: true, completion: nil)
     }
 }

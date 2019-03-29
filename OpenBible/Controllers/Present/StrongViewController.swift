@@ -9,11 +9,13 @@
 import UIKit
 import CoreData
 
-class StrongViewController: UIViewController {
+class StrongViewController: UIViewController, Storyboarded {
     
-    var context: NSManagedObjectContext = AppDelegate.viewContext
-    var numbers: [Int] = []
-    var identifier = StrongId.oldTestament
+//    var context: NSManagedObjectContext = AppDelegate.viewContext
+//    var numbers: [Int] = []
+//    var identifier = StrongId.oldTestament
+    
+    var coordinator: MainStrongCoordinator!
 
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var mainTextView: UITextView!
@@ -21,36 +23,23 @@ class StrongViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        titleLabel.text = "\(identifier) \(numbers.map({String($0)}).joined(separator: ", "))"
-        if numbers.count > 0 {
-            var out = "\n"
-            for number in numbers {
-                if let strong = Strong.get(number, by: identifier, from: context) {
-                    if let org = strong.original {
-                        out += "\(org)\n\n"
-                    }
-                    if let mean = strong.meaning {
-                        out += "\(mean)\n\n"
-                    }
-                }
-            }
-            mainTextView.text = out
-        }
+        titleLabel.text = coordinator.title
+        mainTextView.text = coordinator.text
         if navigationController != nil {
             navigationItem.title = titleLabel.text
             titleLabel.isHidden = true
             closeButton.isHidden = true
         }
-//        mainTextView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 0, height: 0), animated: false)
         mainTextView.contentOffset = CGPoint(x: 0, y: 0)
     }
     
     @IBAction func closeAction(_ sender: Any) {
-        if let nav = navigationController {
-            nav.popViewController(animated: true)
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
+//        if let nav = navigationController {
+//            nav.popViewController(animated: true)
+//        } else {
+//            dismiss(animated: true, completion: nil)
+//        }
+        coordinator.dismiss()
     }
     
 }

@@ -1,23 +1,23 @@
 import UIKit
 import QuartzCore
 
-class ContainerViewController: UIViewController {
+class ContainerViewController: UIViewController, Storyboarded, MenuDelegate {
   
   enum SlideOutState {
     case collapsed
     case leftPanelExpanded
   }
-  
+    
+    var coordinator: MainContainerCoordinator!
+    
     private var maximumWidthOfTheLeftPanel: CGFloat {
         return UIDevice.current.userInterfaceIdiom == .phone ? 500.0 : 300.0
     }
     
-  var centerNavigationController: UINavigationController!
-    var centerViewController: ContainingViewController? {
-        get {
-            return centerNavigationController.visibleViewController as? ContainingViewController
-        }
+    var centerNavigationController: UINavigationController {
+        return coordinator.navigationController
     }
+
   
   var currentState: SlideOutState = .collapsed {
     didSet {
@@ -25,7 +25,6 @@ class ContainerViewController: UIViewController {
       showShadowForCenterViewController(shouldShowShadow)
     }
   }
-  var leftViewController: LeftSelectionViewController?
   
     /// The amount of space the main screen is still visible on
     /// is NOT the width of left panel
@@ -40,30 +39,39 @@ class ContainerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
 //    centerViewController =
     
     
-    centerNavigationController = UIStoryboard.centerViewController()//UINavigationController(rootViewController: centerViewController)
-    view.addSubview(centerNavigationController.view)
-    addChild(centerNavigationController)
+//    centerNavigationController = coordinator.getRootController()//UIStoryboard.centerViewController()//UINavigationController(rootViewController: centerViewController)
     
-    centerNavigationController.didMove(toParent: self)
     
-    centerViewController?.delegate = self
-    
+//    centerViewController?.delegate = self
+    initialise()
   }
+    
+    func initialise() {
+//        guard let centerCoordinator = centerCoordinator else {return}
+//        coordinator.start()
+//        coordinator.menuDelegate = self
+//        if let nav = centerNavigationController {
+            view.addSubview(centerNavigationController.view)
+            addChild(centerNavigationController)
+            centerNavigationController.didMove(toParent: self)
+//        }
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        collapseSidePanels()
+        collapseMenu()
     }
     
 }
 
 // MARK: CenterViewController delegate
-extension ContainerViewController:CenterViewControllerDelegate {
+extension ContainerViewController {
   
-  func toggleLeftPanel() {
+  func toggleMenu() {
     
     let notAlreadyExpanded = (currentState != .leftPanelExpanded)
     
@@ -75,35 +83,33 @@ extension ContainerViewController:CenterViewControllerDelegate {
   }
 
   
-  func collapseSidePanels() {
+  func collapseMenu() {
     if currentState == .leftPanelExpanded {
-      toggleLeftPanel()
+      toggleMenu()
     }
   }
   
-  func addLeftPanelViewController() {
+  private func addLeftPanelViewController() {
     
-    guard leftViewController == nil else { return }
+//    guard leftCoordinator == nil else { return }
     
-    if let vc = UIStoryboard.leftViewController() {
-      
+    if let menu = coordinator.menuCoordinator {
+        menu.start()
+      let vc = menu.rootViewController
       addChildSidePanelController(vc)
-      leftViewController = vc
-        vc.rightSpace = centerPanelExpandedOffset
+      vc.rightSpace = centerPanelExpandedOffset
     }
+//    leftCoordinator = menu
   }
   
-  func addChildSidePanelController(_ sidePanelController: SidePanelViewController) {
-    
-    sidePanelController.delegate = centerViewController
+  private func addChildSidePanelController(_ sidePanelController: LeftSelectionViewController) {
     view.insertSubview(sidePanelController.view, at: 0)
-    
     addChild(sidePanelController)
     sidePanelController.didMove(toParent: self)
   }
   
-  func animateLeftPanel(shouldExpand: Bool) {
-    
+  private func animateLeftPanel(shouldExpand: Bool) {
+//    guard let centerNavigationController = centerNavigationController else {return}
     if shouldExpand {
       currentState = .leftPanelExpanded
       animateCenterPanelXPosition(targetPosition: centerNavigationController.view.frame.width - centerPanelExpandedOffset)
@@ -111,43 +117,31 @@ extension ContainerViewController:CenterViewControllerDelegate {
     } else {
       animateCenterPanelXPosition(targetPosition: 0) { _ in
         self.currentState = .collapsed
-        self.leftViewController?.view.removeFromSuperview()
-        self.leftViewController = nil
+        self.coordinator.menuCoordinator?.rootViewController.view.removeFromSuperview()
+        self.coordinator.menuCoordinator = nil
       }
     }
   }
   
-  func animateCenterPanelXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)? = nil) {
-    
+  private func animateCenterPanelXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)? = nil) {
+//    guard let centerNavigationController = centerNavigationController else {return}
     UIView.animate(withDuration:0.5, delay:0, usingSpringWithDamping:0.8, initialSpringVelocity:0, options:.curveEaseInOut, animations:{
       self.centerNavigationController.view.frame.origin.x = targetPosition
     }, completion: completion)
   }
   
-  func showShadowForCenterViewController(_ shouldShowShadow: Bool) {
+  private func showShadowForCenterViewController(_ shouldShowShadow: Bool) {
+//    guard let centerNavigationController = centerNavigationController else {return}
     if shouldShowShadow {
       centerNavigationController.view.layer.shadowOpacity = 0.8
-        centerViewController?.overlapped = true
+//        centerViewController?.overlapped = true
     } else {
       centerNavigationController.view.layer.shadowOpacity = 0.0
-        centerViewController?.overlapped = false
+//        centerViewController?.overlapped = false
     }
   }
 }
 
 extension UIStoryboard {
-  
   static func main() -> UIStoryboard { return UIStoryboard(name: "Main", bundle: Bundle.main) }
-  
-  static func leftViewController() -> LeftSelectionViewController? {
-    return main().instantiateViewController(withIdentifier: "LeftViewController") as? LeftSelectionViewController
-  }
-  
-  static func centerViewController() -> UINavigationController? {
-    return main().instantiateViewController(withIdentifier: "CenterViewController") as? UINavigationController
-  }
-  
-  static func StartViewController() -> UIViewController? {
-    return main().instantiateViewController(withIdentifier: "Start")
-  }
 }

@@ -8,28 +8,31 @@
 
 import UIKit
 
-class ModalViewController: UIViewController {
-
-    var manager: VerseManager?
-    var delegate: ModalDelegate?
+class ModalViewController: UIViewController, Storyboarded {
+//
+//    var manager: VerseManager?
+//    var delegate: ModalDelegate?
+//
+    private var modules: [(String, String)]?
+    private var selectedModules: [(String, String)]?
     
-    private var modules: [Module]?
-    private var selectedModules: [Module]?
+    var coordinator: MainModalCoordinator!
 
     @IBOutlet private weak var table: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        modules = manager?.getAllAvailableModules()
-        selectedModules = manager?.modules
+        modules = coordinator.getNotSelectedModules()
+        selectedModules = coordinator.getSelectedModules()
         table.delegate = self
         table.dataSource = self
         table.setEditing(true, animated: true)
     }
 
     @IBAction func closeButton(_ sender: Any) {
-        delegate?.modalViewWillResign()
+//        delegate?.modalViewWillResign()
         dismiss(animated: true, completion: nil)
+        coordinator.dismiss()
     }
     
 }
@@ -45,16 +48,16 @@ extension ModalViewController: UITableViewDelegate {
                 let module = modules![sourceIndexPath.row]
                 modules!.remove(at: sourceIndexPath.row)
                 selectedModules!.insert(module, at: destinationIndexPath.row)
-                manager!.insert(module, at: destinationIndexPath.row)
+                coordinator.insert(module, at: destinationIndexPath.row)
             } else {
                 modules!.insert(selectedModules![sourceIndexPath.row], at: destinationIndexPath.row)
                 selectedModules?.remove(at: sourceIndexPath.row)
-                manager!.removeModule(at: sourceIndexPath.row)
+                coordinator.removeModule(at: sourceIndexPath.row)
             }
         } else {
             if sourceIndexPath.section == 0 {
                 selectedModules?.swapAt(sourceIndexPath.row, destinationIndexPath.row)
-                manager!.swapModulesAt(sourceIndexPath.row, destinationIndexPath.row)
+                coordinator.swapModulesAt(sourceIndexPath.row, destinationIndexPath.row)
             } else {
                 modules?.swapAt(sourceIndexPath.row, destinationIndexPath.row)
             }
@@ -89,7 +92,7 @@ extension ModalViewController:UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Modal Table Cell", for: indexPath)
-        var module: Module
+        var module: (key: String, name: String)
         if indexPath.section == 0 {
             module = selectedModules![indexPath.row]
         } else {

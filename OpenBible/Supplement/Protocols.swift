@@ -8,10 +8,10 @@
 
 import UIKit
 
-protocol ContainingViewController: class {
-    var overlapped: Bool {get set}
-    func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
-}
+//protocol ContainingViewController: class {
+//    var overlapped: Bool {get set}
+//    func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
+//}
 
 protocol BookTableViewCellDelegate {
     func bookTableViewCellDidSelect(chapter: Int, in book: Int)

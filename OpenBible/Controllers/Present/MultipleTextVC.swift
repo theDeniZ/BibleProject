@@ -8,12 +8,11 @@
 
 import UIKit
 
-class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
+class MultipleTextVC: UIViewController, Storyboarded {
     
-    var verseManager = AppDelegate.coreManager
-    var overlapped: Bool = false
+//    var verseManager = AppDelegate.coreManager
     
-    var coordinator: MainPreviewCoordinator?
+    var coordinator: MainPreviewCoordinator!
     
     // MARK: Private implementation
     
@@ -30,7 +29,7 @@ class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
     private var draggedScrollView: Int = 0
     private var executeOnAppear: (() -> ())?
     
-    private var textToPresent = [[NSAttributedString]]()
+    private var textToPresent = [[Presentable]]()
     private var layoutManager = CVLayoutManager()
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
@@ -47,7 +46,7 @@ class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
         AppDelegate.shared.consistentManager.addDelegate(self)
         AppDelegate.shared.urlDelegate = self
 //        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
-        verseManager.addDelegate(self)
+//        verseManager.addDelegate(self)
 //        loadTextViews()
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
@@ -102,7 +101,7 @@ class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
     
     @IBAction func navigationItemTextFieldDidEnter(_ sender: UITextField) {
         if let text = sender.text {
-            doSearch(text: text)
+            coordinator.doSearch(text: text)
         }
         sender.text = nil
         view.endEditing(true)
@@ -113,10 +112,10 @@ class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
     }
     
     func loadTextViews() {
-        navigationItemTitleTextField.placeholder = verseManager.description
+        navigationItemTitleTextField.placeholder = coordinator.description
         navigationItemTitleTextField.resignFirstResponder()
 //        DispatchQueue.global(qos: .userInteractive).async {
-            self.textToPresent = self.verseManager.getVerses()
+            self.textToPresent = coordinator.getDataToPresent()
             if UIDevice.current.orientation == .portrait, self.textToPresent.count > self.countOfPortraitModulesAtOnce {
                 self.textToPresent = Array(self.textToPresent[..<self.countOfPortraitModulesAtOnce])
             }
@@ -145,9 +144,6 @@ class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
     private func updateSearchUI() {
         if isInSearch {
             searchTextField.isHidden = false
-            if overlapped {
-                toggleMenu()
-            }
             searchTextField.becomeFirstResponder()
         } else {
             searchTextField.isHidden = true
@@ -158,34 +154,7 @@ class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
     
     // MARK: Search
     
-    func doSearch(text arrived: String) {
-        let text = arrived.replacingOccurrences(of: " ", with: "")
-        if text.matches(String.regexForChapter) {
-            let m = text.capturedGroups(withRegex: String.regexForChapter)!
-            verseManager.changeChapter(to: Int(m[0])!)
-        } else if text.matches(String.regexForBookRefference) {
-            let match = text.capturedGroups(withRegex: String.regexForBookRefference)!
-            if verseManager.changeBook(by: match[0]),
-                match.count > 1,
-                let n = Int(match[1]) {
-                verseManager.changeChapter(to: n)
-                if match.count > 2,
-                    let verseMatch = text.matches(withRegex: String.regexForVerses),
-                    verseMatch[0][0] == match[1] {
-                    let v = verseMatch[1...]
-                    verseManager.setVerses(from: v.map {$0[0]})
-                }
-            }
-        } else if text.matches(String.regexForVersesOnly) {
-            let verseMatch = text.matches(withRegex: String.regexForVersesOnly)!
-            verseManager.changeChapter(to: Int(verseMatch[0][0])!)
-            let v = verseMatch[1...]
-            if v.count > 0 {
-                verseManager.setVerses(from: v.map {$0[0]})
-            }
-        }
-        loadTextViews()
-    }
+
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: nil) { (_) in
@@ -197,6 +166,17 @@ class MultipleTextVC: UIViewController, ContainingViewController, Storyboarded {
     
     func setNeedsLoad() {
         loadTextViews()
+    }
+    
+    func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            self?.mainCollectionView.reloadData()
+        }
+    }
+    
+    func scroll(to index: (Int, Int)) {
+        let item = ((index.1 - 1) * textToPresent.count) + index.0
+        mainCollectionView.scrollToItem(at: IndexPath(row: item, section: 0), at: .top, animated: true)
     }
 }
 
@@ -214,9 +194,9 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         let row = indexPath.row / count
         if let c = cell as? TextCollectionViewCell {
             if textToPresent[number].count > row {
-                c.text = textToPresent[number][row]
-                c.index = (number, row)
-                c.delegate = verseManager
+                c.text = textToPresent[number][row].attributedString
+                c.index = (number, textToPresent[number][row].index)
+                c.delegate = coordinator.modelVerseDelegate
                 c.presentee = self
             } else {
                 c.text = NSAttributedString(string: "")
@@ -248,37 +228,20 @@ extension MultipleTextVC: URLDelegate {
     func openedURL(with parameters: [String]) {
         coordinator?.openLink(parameters)
     }
-    
-    private func present(vc: UIViewController, with size: CGSize) {
-        let nvc = UINavigationController(rootViewController: vc)
-        nvc.modalPresentationStyle = UIModalPresentationStyle.popover
-        let popover = nvc.popoverPresentationController
-        vc.preferredContentSize = size
-        popover?.sourceView = self.view
-        popover?.sourceRect = CGRect(x: (view.bounds.width / 2), y: (view.bounds.height / 2), width: 0, height: 0)
-        popover?.permittedArrowDirections = .init(rawValue: 0)
-//        popover?.backgroundColor = UIColor.green
-        
-        present(nvc, animated: true, completion: nil)
-    }
 }
 
 // MARK: GestureRecognizers
 
 extension MultipleTextVC {
     @objc private func swipeLeft() {
-        if overlapped {
-            toggleMenu()
-        }
-        verseManager.incrementChapter()
-        loadTextViews()
+//        verseManager.incrementChapter()
+//        loadTextViews()
+        coordinator.swipe(.left)
     }
     @objc private func swipeRight() {
-        if overlapped {
-            toggleMenu()
-        }
-        verseManager.decrementChapter()
-        loadTextViews()
+//        verseManager.decrementChapter()
+//        loadTextViews()
+        coordinator.swipe(.right)
     }
     @objc private func edgePan(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .began {
@@ -315,14 +278,15 @@ extension MultipleTextVC: ConsistencyManagerDelegate {
     }
 }
 
-extension MultipleTextVC: ModelUpdateDelegate {
-    func modelChanged(_ fully: Bool) {
-//        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
-        DispatchQueue.main.async {
-            self.loadTextViews()
-        }
-    }
-}
+// MARK: - redo
+//extension MultipleTextVC: ModelUpdateDelegate {
+//    func modelChanged(_ fully: Bool) {
+////        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
+//        DispatchQueue.main.async {
+//            self.loadTextViews()
+//        }
+//    }
+//}
 
 extension MultipleTextVC: UIPresentee {
     func presentNote(at index: (Int, Int)) {
@@ -333,56 +297,9 @@ extension MultipleTextVC: UIPresentee {
     func presentMenu(at index: (Int, Int)) {
         if UIDevice.current.userInterfaceIdiom == .phone {
             AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
-            presentOniPhone(at: index)
+            coordinator.presentOniPhone(at: index)
         } else {
-            presentOniPad(at: index)
-        }
-    }
-    
-    private func presentOniPhone(at index: (Int, Int)) {
-        let pvc = UIStoryboard.main().instantiateViewController(withIdentifier: "Note VC") as! NoteViewController
-        pvc.modalPresentationStyle = UIModalPresentationStyle.custom
-        pvc.transitioningDelegate = self
-        pvc.delegate = verseManager
-        pvc.resignDelegate = self
-        pvc.index = index
-        let item = (index.1 * textToPresent.count) + index.0
-        mainCollectionView.scrollToItem(at: IndexPath(row: item, section: 0), at: .top, animated: true)
-        self.present(pvc, animated: true, completion: nil)
-    }
-
-    private func presentOniPad(at index: (Int, Int)) {
-        let pvc = UIStoryboard.main().instantiateViewController(withIdentifier: "Note VC") as! NoteViewController
-        
-        pvc.delegate = verseManager
-        pvc.resignDelegate = self
-        pvc.index = index
-        pvc.makingCustomSize = false
-        let item = (index.1 * textToPresent.count) + index.0
-        mainCollectionView.scrollToItem(at: IndexPath(row: item, section: 0), at: .top, animated: true)
-        
-        let size = CGSize(width: 300, height: 300)
-        present(vc: pvc, with: size)
-//        self.present(pvc, animated: true, completion: nil)
-    }
-}
-
-extension MultipleTextVC: UIViewControllerTransitioningDelegate {
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
-    }
-}
-
-class HalfSizePresentationController : UIPresentationController {
-    override var frameOfPresentedViewInContainerView: CGRect {
-        return containerView!.bounds
-    }
-}
-
-extension MultipleTextVC: UIResignDelegate {
-    func viewControllerWillResign() {
-        DispatchQueue.main.async {
-            self.mainCollectionView.reloadData()
+            coordinator.presentOniPad(at: index)
         }
     }
 }

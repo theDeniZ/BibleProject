@@ -90,6 +90,7 @@
 		227A4642221D8DCC0080F7CC /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */; };
 		227A4649221D9A2B0080F7CC /* Light.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 227A4647221D9A2A0080F7CC /* Light.dmp */; };
 		22826B6C224282AD00990D3C /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22826B6B224282AD00990D3C /* NoteViewController.swift */; };
+		22842F412251320800A1E028 /* PreviewModuleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22842F402251320800A1E028 /* PreviewModuleService.swift */; };
 		22B69892224015620015F46B /* ReactTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B69891224015620015F46B /* ReactTextView.swift */; };
 		22B69894224129E40015F46B /* NoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B69893224129E40015F46B /* NoteVC.swift */; };
 		22B9F1EF21DD219A00E6E62C /* plistHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B9F1ED21DD219A00E6E62C /* plistHandler.swift */; };
@@ -196,6 +197,7 @@
 		227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
 		227A4647221D9A2A0080F7CC /* Light.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Light.dmp; sourceTree = "<group>"; };
 		22826B6B224282AD00990D3C /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
+		22842F402251320800A1E028 /* PreviewModuleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModuleService.swift; sourceTree = "<group>"; };
 		22B69891224015620015F46B /* ReactTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactTextView.swift; sourceTree = "<group>"; };
 		22B69893224129E40015F46B /* NoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteVC.swift; sourceTree = "<group>"; };
 		22B9F1ED21DD219A00E6E62C /* plistHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = plistHandler.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				22F538D2224ABC630040709C /* VerseService.swift */,
 				226493D4224BAA75000DD8A5 /* StrongService.swift */,
 				226493D8224BBE84000DD8A5 /* ModalPickerService.swift */,
+				22842F402251320800A1E028 /* PreviewModuleService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				222F4E91222FD4EB008CD4E7 /* SharedSolutions.swift in Sources */,
 				225FC201222FF3C500E61CA8 /* SearchManager.swift in Sources */,
 				225FC2032230034900E61CA8 /* SearchTableViewCell.swift in Sources */,
+				22842F412251320800A1E028 /* PreviewModuleService.swift in Sources */,
 				221E385B220AF3E7003D8E40 /* Types.swift in Sources */,
 				223AA8F62249406100F4A98D /* RootCoordinator.swift in Sources */,
 				221E3821220AE9B0003D8E40 /* Strong.swift in Sources */,

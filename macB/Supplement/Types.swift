@@ -545,3 +545,13 @@ class DownloadModel: NSObject {
         self.path = path
     }
 }
+
+class Presentable: NSObject {
+    var index: Int
+    var attributedString: NSAttributedString
+    
+    init(_ attributedString: NSAttributedString, index: Int) {
+        self.index = index
+        self.attributedString = attributedString
+    }
+}

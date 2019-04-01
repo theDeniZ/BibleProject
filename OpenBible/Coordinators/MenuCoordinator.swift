@@ -39,12 +39,12 @@ class MainMenuCoordinator: NSObject, Coordinator {
         
     }
     
-    func getBooksToPresent() -> [Book] {
-        return service.getBooksToPresent()
+    func getItemsToPresent() -> [[ListExpandablePresentable]] {
+        return service.getItemsToPresent()
     }
     
-    var selectedBookIndex: Int {
-        return service.bookIndex
+    var selectedBookIndexPath: IndexPath {
+        return service.bookIndexPath
     }
     
     func getKeysTitle() -> String {

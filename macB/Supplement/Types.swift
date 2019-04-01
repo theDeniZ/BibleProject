@@ -555,3 +555,15 @@ class Presentable: NSObject {
         self.attributedString = attributedString
     }
 }
+
+class ListExpandablePresentable: NSObject {
+    var index: Int
+    var title: String
+    var countOfExpandable: Int
+    
+    init(_ title: String, index: Int, count: Int) {
+        self.title = title
+        self.index = index
+        self.countOfExpandable = count
+    }
+}

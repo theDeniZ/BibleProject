@@ -526,20 +526,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qS9-iM-itO">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                <items>
-                                    <navigationItem id="Acp-Ca-Rky">
-                                        <barButtonItem key="rightBarButtonItem" title="Close" id="7Y3-cp-Tuw">
-                                            <connections>
-                                                <action selector="closeButton:" destination="qOz-bG-0gx" id="P8W-m7-HC8"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="trE-eD-Ldu">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Modal Table Cell" textLabel="MD8-Vp-YYi" detailTextLabel="ZiJ-C0-tFw" style="IBUITableViewCellStyleValue2" id="HoG-n5-hcq">
@@ -572,12 +560,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dbO-DX-EeB" firstAttribute="top" secondItem="qS9-iM-itO" secondAttribute="top" id="BAI-pX-waW"/>
-                            <constraint firstItem="qS9-iM-itO" firstAttribute="leading" secondItem="dbO-DX-EeB" secondAttribute="leading" id="GhE-iy-qzT"/>
                             <constraint firstItem="dbO-DX-EeB" firstAttribute="trailing" secondItem="trE-eD-Ldu" secondAttribute="trailing" id="TMW-Ay-gef"/>
                             <constraint firstItem="trE-eD-Ldu" firstAttribute="leading" secondItem="dbO-DX-EeB" secondAttribute="leading" id="UMs-MF-Fpx"/>
-                            <constraint firstItem="qS9-iM-itO" firstAttribute="trailing" secondItem="trE-eD-Ldu" secondAttribute="trailing" id="ciT-sf-wvT"/>
-                            <constraint firstItem="trE-eD-Ldu" firstAttribute="top" secondItem="qS9-iM-itO" secondAttribute="bottom" id="f9C-la-17I"/>
+                            <constraint firstItem="trE-eD-Ldu" firstAttribute="top" secondItem="dbO-DX-EeB" secondAttribute="top" id="gzy-g2-s1t"/>
                             <constraint firstItem="dbO-DX-EeB" firstAttribute="bottom" secondItem="trE-eD-Ldu" secondAttribute="bottom" id="mRT-Eo-4d2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dbO-DX-EeB"/>

@@ -19,7 +19,7 @@ class ModalViewController: UIViewController, Storyboarded {
     var coordinator: MainModalCoordinator!
 
     @IBOutlet private weak var table: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         modules = coordinator.getNotSelectedModules()
@@ -27,12 +27,20 @@ class ModalViewController: UIViewController, Storyboarded {
         table.delegate = self
         table.dataSource = self
         table.setEditing(true, animated: true)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        } else {
+            navigationController?.isNavigationBarHidden = true
+        }
     }
-
-    @IBAction func closeButton(_ sender: Any) {
-//        delegate?.modalViewWillResign()
-        dismiss(animated: true, completion: nil)
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         coordinator.dismiss()
+    }
+    
+    @objc private func close() {
+        dismiss(animated: false, completion: nil)
     }
     
 }

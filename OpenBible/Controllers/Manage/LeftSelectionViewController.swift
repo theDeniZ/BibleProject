@@ -10,7 +10,6 @@ import UIKit
 
 class LeftSelectionViewController: UIViewController, Storyboarded {
 
-//    var manager: VerseManager = AppDelegate.coreManager { didSet { updateUI() } }
     var rightSpace: CGFloat = 0.0 {
         didSet {
             rightConstraint.constant = rightSpace
@@ -19,57 +18,28 @@ class LeftSelectionViewController: UIViewController, Storyboarded {
     
     var coordinator: MainMenuCoordinator!
     
-    @IBOutlet weak var moduleButton: UIButton!
-    private var selectedIndexPath: IndexPath?
-    
+    @IBOutlet private weak var moduleButton: UIButton!
     @IBOutlet private weak var rightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var bookTable: UITableView!
     
-    @IBOutlet weak var bookTable: UITableView!
-    
-    private var books: [Book]? {
-        didSet {
-            bookTable?.reloadData()
-            var selected = coordinator.selectedBookIndex - 1
-            var section = 0
-            if sectionCount != 1, selected >= 39 {
-                selected -= 39
-                section = 1
-            }
-            if count == 27 {
-                selected -= 39
-            }
-            bookTable?.scrollToRow(at: IndexPath(row:selected, section:section), at:UITableView.ScrollPosition.middle, animated:false)
-            
-        }
-    }
-    
-    private var count: Int {
-        return books?.count ?? 0
-    }
-    private var sectionCount: Int {
-        return count == 66 ? 2 : 1
-    }
+    private var items: [[ListExpandablePresentable]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         rightConstraint.constant = rightSpace
         
+        items = coordinator.getItemsToPresent()
+        moduleButton?.setTitle(coordinator.getKeysTitle(), for:.normal)
+        
         bookTable.dataSource = self
         bookTable.delegate = self
         bookTable.rowHeight = UITableView.automaticDimension
         bookTable.estimatedRowHeight = 36.3
         
-        moduleButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
-        moduleButton.clipsToBounds = true
-        moduleButton.layer.cornerRadius = moduleButton.frame.height / 2
-        moduleButton.layer.borderColor = UIColor.blue.cgColor
-        moduleButton.layer.borderWidth = 1.0
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateUI()
+        setupButton()
+        
+        bookTable?.scrollToRow(at: coordinator.selectedBookIndexPath, at:UITableView.ScrollPosition.middle, animated:false)
     }
     
     @IBAction func moduleAction(_ sender: UIButton) {
@@ -79,10 +49,12 @@ class LeftSelectionViewController: UIViewController, Storyboarded {
         coordinator.presentHistory()
     }
     
-    private func updateUI() {
-        books = coordinator.getBooksToPresent()
-        bookTable.reloadData()
-        moduleButton?.setTitle(coordinator.getKeysTitle(), for:.normal)
+    private func setupButton() {
+        moduleButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
+        moduleButton.clipsToBounds = true
+        moduleButton.layer.cornerRadius = moduleButton.frame.height / 2
+        moduleButton.layer.borderColor = UIColor.blue.cgColor
+        moduleButton.layer.borderWidth = 1.0
     }
 
 }
@@ -101,7 +73,7 @@ extension LeftSelectionViewController: ModalDelegate {
 
 extension LeftSelectionViewController:UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionCount
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -109,13 +81,13 @@ extension LeftSelectionViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sectionCount == 1 ? count : section == 0 ? 39 : 27
+        return items[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Book Table Cell", for: indexPath)
-        if let c = cell as? BookTableViewCell, let b = books {
-            c.book = b[sectionCount == 1 ? indexPath.row:indexPath.section == 0 ? indexPath.row:39 + indexPath.row]
+        if let c = cell as? BookTableViewCell {
+            c.item = items[indexPath.section][indexPath.row]
             c.delegate = self
         }
         let v = UIView()

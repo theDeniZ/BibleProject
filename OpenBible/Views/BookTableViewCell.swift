@@ -10,22 +10,19 @@ import UIKit
 
 class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    var book: Book! {
+    var item: ListExpandablePresentable! {
         didSet {
-            titleLabel?.text = book.name
+            titleLabel?.text = item.title
         }
     }
     var delegate: BookTableViewCellDelegate?
-    var bookNumber: Int {
-        return Int(book.number)
-    }
     
     var isExpanded = false {
         didSet {
             if isExpanded {
                 var height = (numbersCollection.bounds.width - CGFloat(cellsAcross - 1) * spaceBetweenCells) / CGFloat(cellsAcross)
-                var c = count / Int(cellsAcross)
-                if count % Int(cellsAcross) != 0 {
+                var c = item.countOfExpandable / Int(cellsAcross)
+                if item.countOfExpandable % Int(cellsAcross) != 0 {
                     c += 1
                 }
                 height *= CGFloat(c)
@@ -43,7 +40,6 @@ class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
     @IBOutlet weak private var numbersCollection: UICollectionView!
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
     
-    private var count: Int { return book.chapters?.array.count ?? 0 }
     private var cellsAcross: Int = 5
     private let spaceBetweenCells: CGFloat = 10
     private let maximalCellSize: CGFloat = 48.0
@@ -51,7 +47,7 @@ class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
     override func awakeFromNib() {
         super.awakeFromNib()
         numbersCollection.isHidden = true
-        //        titleLabel.text = book.name
+//        titleLabel.text = item.title
         numbersCollection.dataSource = self
         numbersCollection.delegate = self
         sizeToFit()
@@ -69,13 +65,13 @@ class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
     // MARK: - Collection View Delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.bookTableViewCellDidSelect(chapter: indexPath.row + 1, in:bookNumber)
+        delegate?.bookTableViewCellDidSelect(chapter: indexPath.row + 1, in: item.index)
     }
     
     // MARK: - Collection View Data Source
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return count
+        return item.countOfExpandable
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

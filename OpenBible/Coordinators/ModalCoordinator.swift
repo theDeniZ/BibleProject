@@ -27,7 +27,20 @@ class MainModalCoordinator: Coordinator {
         let vc = ModalViewController.instantiate()
         vc.coordinator = self
 //        navigationController.pushViewController(vc, animated: true)
-        navigationController.present(vc, animated: true, completion: nil)
+//        navigationController.present(vc, animated: true, completion: nil)
+        let nvc = UINavigationController(rootViewController: vc)
+//        nvc.delegate = self
+        nvc.modalPresentationStyle = UIModalPresentationStyle.popover
+        let popover = nvc.popoverPresentationController
+//        vc.preferredContentSize = size
+//        if let view = rootViewController?.view {
+            popover?.sourceView = vc.view
+//            popover?.sourceRect = CGRect(x: (view.bounds.width / 2), y: (view.bounds.height / 2), width: 0, height: 0)
+//        }
+//        popover?.permittedArrowDirections = .init(rawValue: 0)
+        //        popover?.backgroundColor = UIColor.green
+        
+        navigationController.present(nvc, animated: true, completion: nil)
     }
     
     func getNotSelectedModules() -> [(String, String)] {
@@ -55,3 +68,16 @@ class MainModalCoordinator: Coordinator {
     }
     
 }
+//
+//extension MainModalCoordinator: UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+//        guard let fromVC = navigationController.transitionCoordinator?.viewController(forKey: .from) else {return}
+//        if navigationController.viewControllers.contains(fromVC) {return}
+//
+//        if fromVC is ModalViewController {
+////            childCoordinators.removeValue(forKey: "Strong")
+//            print("removed modal coord")
+//            parent?.dismiss(self)
+//        }
+//    }
+//}

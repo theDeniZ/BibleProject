@@ -61,7 +61,7 @@ class MainContainerCoordinator: Coordinator {
 
 extension MainContainerCoordinator: PreviewCoordinator {
     func setNeedsUpdate() {
-        (childCoordinators["MainPreview"] as? PreviewCoordinator)?.setNeedsUpdate()
+        (childCoordinators["Preview"] as? PreviewCoordinator)?.setNeedsUpdate()
     }
 }
 

@@ -16,7 +16,7 @@ class LeftSelectionViewController: UIViewController, Storyboarded {
         }
     }
     
-    var coordinator: MainMenuCoordinator!
+    weak var coordinator: MenuCoordinator!
     
     @IBOutlet private weak var moduleButton: UIButton!
     @IBOutlet private weak var rightConstraint: NSLayoutConstraint!
@@ -26,7 +26,9 @@ class LeftSelectionViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        guard let coordinator = coordinator else {return}
+        
         rightConstraint.constant = rightSpace
         
         items = coordinator.getItemsToPresent()

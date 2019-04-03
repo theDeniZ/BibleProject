@@ -31,6 +31,18 @@ class SpiritBook: NSManagedObject {
         return nil
     }
     
+    class func get(by index: Int, from context: NSManagedObjectContext) throws -> SpiritBook? {
+        let request: NSFetchRequest<SpiritBook> = SpiritBook.fetchRequest()
+        request.predicate = NSPredicate(format: "index = %@", argumentArray: [index])
+        
+        let matches = try context.fetch(request)
+        if matches.count > 0 {
+            assert(matches.count == 1, "SpiritBook: inconsistency error")
+            return matches[0]
+        }
+        return nil
+    }
+    
     class func exists(with code: String, in context: NSManagedObjectContext) -> Bool {
         let request: NSFetchRequest<SpiritBook> = SpiritBook.fetchRequest()
         request.predicate = NSPredicate(format: "code = %@", argumentArray: [code])

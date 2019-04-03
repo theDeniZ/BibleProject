@@ -16,7 +16,7 @@ class ModalViewController: UIViewController, Storyboarded {
     private var modules: [(String, String)]?
     private var selectedModules: [(String, String)]?
     
-    var coordinator: MainModalCoordinator!
+    weak var coordinator: MainModalCoordinator!
 
     @IBOutlet private weak var table: UITableView!
     

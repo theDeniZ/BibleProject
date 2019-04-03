@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var consistentManager: ConsistencyManager!
     
     private lazy var manager: VerseManager = VerseManager(AppDelegate.viewContext)
+    private lazy var spiritManager = SpiritManager()
     
     private var urlToOpen: [String]? {didSet{openUrlIfNeeded()}}
     
@@ -25,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static var coreManager: VerseManager {
         return AppDelegate.shared.manager
+    }
+    
+    static var spiritManager: SpiritManager {
+        return AppDelegate.shared.spiritManager
     }
     
     static var shared: AppDelegate {

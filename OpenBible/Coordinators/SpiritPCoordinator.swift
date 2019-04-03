@@ -1,14 +1,16 @@
 //
-//  MainCoordinator.swift
+//  SpiritPCoordinator.swift
 //  OpenBible
 //
-//  Created by Denis Dobanda on 24.03.19.
+//  Created by Denis Dobanda on 02.04.19.
 //  Copyright © 2019 Denis Dobanda. All rights reserved.
 //
 
 import UIKit
 
-class MainPreviewCoordinator: NSObject, PreviewCoordinator {
+class SpiritPreviewCoordinator: NSObject, PreviewCoordinator {
+    
+//    var coordinator: ModelVerseDelegate
     
     var childCoordinators: [String:Coordinator] = [:]
     
@@ -20,7 +22,7 @@ class MainPreviewCoordinator: NSObject, PreviewCoordinator {
         return service.modelVerseDelegate
     }
     
-    var service = PreviewModuleService()
+    var service = PreviewSpiritService()
     
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -35,80 +37,34 @@ class MainPreviewCoordinator: NSObject, PreviewCoordinator {
         rootViewController = vc
     }
     
-    func toggleMenu() {
-        menuDelegate?.toggleMenu()
+    func setNeedsUpdate() {
+        rootViewController?.setNeedsLoad()
     }
     
     func openLink(_ parameters: [String]) -> Bool {
         menuDelegate?.collapseMenu()
-        if parameters.count > 1 {
-            switch parameters[0] {
-            case StrongId.oldTestament, StrongId.newTestament:
-                let strong = MainStrongCoordinator(navigationController, parameters: parameters)
-                strong.start()
-                childCoordinators["Strong"] = strong
-                return true
-            default: break
-            }
-        } else {
-            return doSearch(text: parameters[0])
-        }
+        
+        return doSearch(text: parameters[0])
+        
+    }
+    
+    
+    func doSearch(text: String) -> Bool {
         return false
     }
     
-    func dismiss(_ coordinator: Coordinator) {
-        if coordinator is MainStrongCoordinator {
-            childCoordinators.removeValue(forKey: "Strong")
-            print("removed strong coord")
-        }
-    }
-    
-    func setNeedsUpdate() {
-        rootViewController?.setNeedsLoad()
+    func toggleMenu() {
+        menuDelegate?.toggleMenu()
     }
 }
 
-extension MainPreviewCoordinator: ModelUpdateDelegate {
+extension SpiritPreviewCoordinator: ModelUpdateDelegate {
     func modelChanged(_ fully: Bool) {
         rootViewController?.loadTextViews()
     }
 }
 
-extension MainPreviewCoordinator {
-    func doSearch(text arrived: String) -> Bool {
-        let text = arrived.replacingOccurrences(of: " ", with: "")
-        if text.matches(String.regexForChapter) {
-            let m = text.capturedGroups(withRegex: String.regexForChapter)!
-            service.changeChapter(to: Int(m[0])!)
-        } else if text.matches(String.regexForBookRefference) {
-            let match = text.capturedGroups(withRegex: String.regexForBookRefference)!
-            if service.changeBook(by: match[0]),
-                match.count > 1,
-                let n = Int(match[1]) {
-                service.changeChapter(to: n)
-                if match.count > 2,
-                    let verseMatch = text.matches(withRegex: String.regexForVerses),
-                    verseMatch[0][0] == match[1] {
-                    let v = verseMatch[1...]
-                    service.setVerses(from: v.map {$0[0]})
-                }
-            }
-        } else if text.matches(String.regexForVersesOnly) {
-            let verseMatch = text.matches(withRegex: String.regexForVersesOnly)!
-            service.changeChapter(to: Int(verseMatch[0][0])!)
-            let v = verseMatch[1...]
-            if v.count > 0 {
-                service.setVerses(from: v.map {$0[0]})
-            }
-        } else {
-            return false
-        }
-        return true
-//        loadTextViews()
-    }
-}
-
-extension MainPreviewCoordinator: UINavigationControllerDelegate {
+extension SpiritPreviewCoordinator: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         guard let fromVC = navigationController.transitionCoordinator?.viewController(forKey: .from) else {return}
         if navigationController.viewControllers.contains(fromVC) {return}
@@ -120,7 +76,8 @@ extension MainPreviewCoordinator: UINavigationControllerDelegate {
     }
 }
 
-extension MainPreviewCoordinator {
+
+extension SpiritPreviewCoordinator {
     override var description: String {
         return service.description
     }
@@ -139,7 +96,7 @@ extension MainPreviewCoordinator {
     }
 }
 
-extension MainPreviewCoordinator {
+extension SpiritPreviewCoordinator {
     
     func presentNote(at index: (Int, Int)) {
         //        guard let note = verseManager.isThereANote(at: index) else {return}
@@ -155,7 +112,7 @@ extension MainPreviewCoordinator {
         }
     }
     
-    private func presentOniPhone(at index: (Int, Int)) {
+    func presentOniPhone(at index: (Int, Int)) {
         let pvc = NoteViewController.instantiate()
         pvc.modalPresentationStyle = UIModalPresentationStyle.custom
         pvc.transitioningDelegate = self
@@ -166,8 +123,9 @@ extension MainPreviewCoordinator {
         navigationController.present(pvc, animated: true, completion: nil)
     }
     
-    private func presentOniPad(at index: (Int, Int)) {
+    func presentOniPad(at index: (Int, Int)) {
         let pvc = NoteViewController.instantiate()
+        
         pvc.delegate = modelVerseDelegate
         pvc.resignDelegate = self
         pvc.index = index
@@ -195,24 +153,13 @@ extension MainPreviewCoordinator {
     }
 }
 
-
-enum SwipeDirection {
-    case left, right
-}
-
-extension MainPreviewCoordinator: UIViewControllerTransitioningDelegate {
+extension SpiritPreviewCoordinator: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return HalfSizePresentationController(presentedViewController: presented, presenting: presenting)
     }
 }
 
-class HalfSizePresentationController : UIPresentationController {
-    override var frameOfPresentedViewInContainerView: CGRect {
-        return containerView!.bounds
-    }
-}
-
-extension MainPreviewCoordinator: UIResignDelegate {
+extension SpiritPreviewCoordinator: UIResignDelegate {
     func viewControllerWillResign() {
         rootViewController?.reloadData()
     }

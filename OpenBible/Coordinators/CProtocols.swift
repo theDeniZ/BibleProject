@@ -16,6 +16,38 @@ protocol Coordinator: AnyObject {
     func start()
 }
 
+protocol ContainerCoordinator: Coordinator {
+    var menuCoordinator: MenuCoordinator? {get set}
+    var menuDelegate: MenuDelegate {get}
+    
+    func didSelect(chapter: Int, in book: Int)
+}
+
+protocol PreviewCoordinator: Coordinator, UIPresentee {
+    var description: String {get}
+    var modelVerseDelegate: ModelVerseDelegate {get}
+    
+    func doSearch(text: String) -> Bool
+    func getDataToPresent() -> [[Presentable]]
+    func toggleMenu()
+    func openLink(_ parameters: [String]) -> Bool
+    func swipe(_ direction: SwipeDirection)
+    
+    func setNeedsUpdate()
+}
+
+protocol MenuCoordinator: Coordinator {
+    var selectedBookIndexPath: IndexPath {get}
+    var rootViewController: LeftSelectionViewController {get}
+    
+    func getItemsToPresent() -> [[ListExpandablePresentable]]
+    func getKeysTitle() -> String
+    
+    func presentPicker()
+    func presentHistory()
+    func didSelect(chapter: Int, in book: Int)
+}
+
 protocol DownloadCoordinator: Coordinator {
     var modules: [DownloadModel] {get}
     var strongs: [DownloadModel] {get}
@@ -35,10 +67,6 @@ protocol SettingsCootrinator: Coordinator {
 protocol MenuDelegate {
     func toggleMenu()
     func collapseMenu()
-}
-
-protocol PreviewCoordinator: AnyObject {
-    func setNeedsUpdate()
 }
 
 // MARK: - Storyboard

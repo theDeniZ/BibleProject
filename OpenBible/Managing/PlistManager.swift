@@ -21,6 +21,7 @@ class PlistManager {
     private let modulesKey = "modules"
     private let strongsKey = "strongs"
     private let portraitNumberKey = "portraitNumber"
+    private var spiritKey = "spirit"
     
     var isStrongsOn: Bool {
         get {
@@ -118,5 +119,21 @@ class PlistManager {
         plistHandler.setValue(size.description, of: fontKey)
     }
     
+    func setSpirit(_ index: SpiritIndex, at place: Int) {
+        var dict: [String:String] = [:]
+        plistHandler.get(to: &dict, of: spiritKey)
+        dict["\(place)"] = "\(index.book)|\(index.chapter)"
+        plistHandler.setValue(dict, of: spiritKey)
+    }
+    
+    func getSpirit(from place: Int) -> SpiritIndex? {
+        var dict: [String:String] = [:]
+        plistHandler.get(to: &dict, of: spiritKey)
+        if dict.index(forKey: "\(place)") != nil {
+            let s = dict["\(place)"]!.split(separator: "|")
+            return SpiritIndex.init(book: String(s[0]), chapter: Int(s[1]) ?? 0)
+        }
+        return nil
+    }
     
 }

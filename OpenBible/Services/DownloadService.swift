@@ -53,10 +53,10 @@ class DownloadService: NSObject {
                             let exist = (try? Strong.exists(key, in: context)) ?? false
                             allExist = allExist && exist
                             self.strongs.append(DownloadModel(size: size, name: name, loaded: exist, loading: false, path: path))
-                        }/* else if let key = SharingRegex.parseSpirit(regex) {
+                        } else if let key = SharingRegex.parseSpirit(regex) {
                          let exist = SpiritBook.exists(with: key, in: context)
-                         self.spirit.append((size, name, exist, path))
-                         }*/ // we are not ready for this
+                         self.spirit.append(DownloadModel(size: size, name: name, loaded: exist, loading: false, path: path))
+                         } // we are not ready for this
                     }
                 }
             } else {

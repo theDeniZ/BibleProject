@@ -1,22 +1,22 @@
 //
-//  GeneralContainerCoordinator.swift
+//  SpiritMCoordinator.swift
 //  OpenBible
 //
-//  Created by Denis Dobanda on 24.03.19.
+//  Created by Denis Dobanda on 02.04.19.
 //  Copyright © 2019 Denis Dobanda. All rights reserved.
 //
 
 import UIKit
 
-class MainMenuCoordinator: NSObject, MenuCoordinator {
+class SpiritMenuCoordinator: NSObject, MenuCoordinator {
     
     var navigationController: UINavigationController
     var childCoordinators: [String:Coordinator]
     var rootViewController: LeftSelectionViewController
     
-    weak var parent: MainContainerCoordinator?
+    weak var parent: ContainerCoordinator?
     
-    private lazy var service = MenuService()
+    private lazy var service = SpiritMenuService()
     
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -29,10 +29,10 @@ class MainMenuCoordinator: NSObject, MenuCoordinator {
     }
     
     func presentPicker() {
-        let picker = MainModalCoordinator(navigationController)
-        picker.start()
-        picker.parent = self
-        childCoordinators["Picker"] = picker
+//        let picker = MainModalCoordinator(navigationController)
+//        picker.start()
+//        picker.parent = self
+//        childCoordinators["Picker"] = picker
     }
     
     func presentHistory() {

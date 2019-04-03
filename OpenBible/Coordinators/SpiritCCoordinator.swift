@@ -1,37 +1,37 @@
 //
-//  MainContainerCoordinator.swift
+//  SpiritCCoordinator.swift
 //  OpenBible
 //
-//  Created by Denis Dobanda on 25.03.19.
+//  Created by Denis Dobanda on 02.04.19.
 //  Copyright © 2019 Denis Dobanda. All rights reserved.
 //
 
 import UIKit
 
-class MainContainerCoordinator: ContainerCoordinator {
+class SpiritContainerCoordinator: ContainerCoordinator {
     
     var navigationController: UINavigationController
     
-    var childCoordinators: [String:Coordinator]
+    var childCoordinators: [String : Coordinator]
     
     var rootViewController: ContainerViewController
     
-    var previewCoordinator: MainPreviewCoordinator? {
-        return childCoordinators["Preview"] as? MainPreviewCoordinator
+    var previewCoordinator: SpiritPreviewCoordinator? {
+        return childCoordinators["Preview"] as? SpiritPreviewCoordinator
     }
     
     var menuDelegate: MenuDelegate {
         return rootViewController
     }
     
-    private lazy var verseService = VerseService()
+    private lazy var spiritService = SpiritService()
     
     var menuCoordinator: MenuCoordinator? {
         get {
-            if let c = childCoordinators["Menu"] as? MainMenuCoordinator {
+            if let c = childCoordinators["Menu"] as? MenuCoordinator {
                 return c
             } else {
-                let c = MainMenuCoordinator(navigationController)
+                let c = SpiritMenuCoordinator(navigationController)
                 c.parent = self
                 childCoordinators["Menu"] = c
                 return c
@@ -43,37 +43,31 @@ class MainContainerCoordinator: ContainerCoordinator {
     }
     
     required init(_ navigationController: UINavigationController) {
-        self.navigationController = navigationController
         childCoordinators = [:]
+        self.navigationController = navigationController
         rootViewController = ContainerViewController.instantiate()
-        rootViewController.tabBarItem = UITabBarItem(title: "Bible", image: UIImage(named: "book"), tag: 0)
+        rootViewController.tabBarItem = UITabBarItem(title: "Spirit", image: UIImage(named: "book"), tag: 0)
     }
     
     func start() {
-        let preview = MainPreviewCoordinator(navigationController)
+        let preview = SpiritPreviewCoordinator(navigationController)
         preview.start()
         preview.menuDelegate = rootViewController
         rootViewController.coordinator = self
-//        navigationController.pushViewController(rootViewController, animated: false)
         childCoordinators["Preview"] = preview
     }
     
     func openURL(with parameters: [String]) -> Bool {
         return previewCoordinator?.openLink(parameters) ?? false
     }
-    
 }
 
-//extension MainContainerCoordinator: PreviewCoordinator {
-//    func setNeedsUpdate() {
-//        (childCoordinators["Preview"] as? PreviewCoordinator)?.setNeedsUpdate()
-//    }
-//}
-
-extension MainContainerCoordinator {
+extension SpiritContainerCoordinator {
     func didSelect(chapter: Int, in book: Int) {
         rootViewController.collapseMenu()
-        verseService.changeBook(to: book)
-        verseService.changeChapter(to: chapter)
+        spiritService.set(book: book)
+        spiritService.set(chapter: chapter)
+//        verseService.changeBook(to: book)
+//        verseService.changeChapter(to: chapter)
     }
 }

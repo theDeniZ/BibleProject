@@ -26,7 +26,15 @@ class Page: NSManagedObject {
         let new = Page(context: context)
         new.number = Int32(sync.number)
         new.roman = sync.roman
-        new.text = sync.text
+//        new.text = sync.text
+        let paragraphs = sync.text.split(separator: "\n")
+        var ps = [SpiritParagraph]()
+        for paragraph in paragraphs {
+            let p = SpiritParagraph(context: context)
+            p.text = String(paragraph)
+            ps.append(p)
+        }
+        new.paragraphs = NSOrderedSet(array: ps)
         return new
     }
 }

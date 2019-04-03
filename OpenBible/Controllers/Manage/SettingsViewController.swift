@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsViewController: UIViewController, Storyboarded {
 
-    var coordinator: SettingsCootrinator?
+    weak var coordinator: SettingsCootrinator?
     
     @IBOutlet private weak var numberLabel: UILabel!
     @IBOutlet private weak var stepper: UIStepper!

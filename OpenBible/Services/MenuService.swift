@@ -12,7 +12,6 @@ class MenuService: NSObject {
     
     var manager = AppDelegate.coreManager
     
-    
     var bookIndexPath: IndexPath {
         if manager.getBooks()?.count == 66 {
             var index = manager.bookIndex

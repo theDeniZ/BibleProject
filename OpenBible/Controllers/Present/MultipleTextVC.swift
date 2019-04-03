@@ -12,7 +12,7 @@ class MultipleTextVC: UIViewController, Storyboarded {
     
 //    var verseManager = AppDelegate.coreManager
     
-    var coordinator: MainPreviewCoordinator!
+    weak var coordinator: PreviewCoordinator!
     
     // MARK: Private implementation
     
@@ -44,7 +44,7 @@ class MultipleTextVC: UIViewController, Storyboarded {
         mainStackView.spacing = 0
         progressView.isHidden = true
         AppDelegate.shared.consistentManager.addDelegate(self)
-        AppDelegate.shared.urlDelegate = self
+//        AppDelegate.shared.urlDelegate = self
 //        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
 //        verseManager.addDelegate(self)
 //        loadTextViews()
@@ -101,7 +101,7 @@ class MultipleTextVC: UIViewController, Storyboarded {
     
     @IBAction func navigationItemTextFieldDidEnter(_ sender: UITextField) {
         if let text = sender.text {
-            coordinator.doSearch(text: text)
+            _ = coordinator.doSearch(text: text)
         }
         sender.text = nil
         view.endEditing(true)
@@ -152,10 +152,6 @@ class MultipleTextVC: UIViewController, Storyboarded {
         }
     }
     
-    // MARK: Search
-    
-
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: nil) { (_) in
             self.loadTextViews()
@@ -175,8 +171,10 @@ class MultipleTextVC: UIViewController, Storyboarded {
     }
     
     func scroll(to index: (Int, Int)) {
-        let item = ((index.1 - 1) * textToPresent.count) + index.0
-        mainCollectionView.scrollToItem(at: IndexPath(row: item, section: 0), at: .top, animated: true)
+//        let item = ((index.1 - 1) * textToPresent.count) + index.0
+        var item = 0
+        while textToPresent[index.0][item].index < index.1 {item += 1}
+        mainCollectionView.scrollToItem(at: IndexPath(row: item * textToPresent.count, section: 0), at: .top, animated: true)
     }
 }
 
@@ -197,7 +195,7 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
                 c.text = textToPresent[number][row].attributedString
                 c.index = (number, textToPresent[number][row].index)
                 c.delegate = coordinator.modelVerseDelegate
-                c.presentee = self
+                c.presentee = coordinator
             } else {
                 c.text = NSAttributedString(string: "")
                 c.index = nil
@@ -226,7 +224,7 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
 
 extension MultipleTextVC: URLDelegate {
     func openedURL(with parameters: [String]) {
-        coordinator?.openLink(parameters)
+        _ = coordinator?.openLink(parameters)
     }
 }
 
@@ -275,31 +273,5 @@ extension MultipleTextVC: ConsistencyManagerDelegate {
         }
         stop()
         executeOnAppear = stop
-    }
-}
-
-// MARK: - redo
-//extension MultipleTextVC: ModelUpdateDelegate {
-//    func modelChanged(_ fully: Bool) {
-////        countOfPortraitModulesAtOnce = AppDelegate.plistManager.portraitNumber
-//        DispatchQueue.main.async {
-//            self.loadTextViews()
-//        }
-//    }
-//}
-
-extension MultipleTextVC: UIPresentee {
-    func presentNote(at index: (Int, Int)) {
-//        guard let note = verseManager.isThereANote(at: index) else {return}
-        presentMenu(at: index)
-    }
-    
-    func presentMenu(at index: (Int, Int)) {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
-            coordinator.presentOniPhone(at: index)
-        } else {
-            coordinator.presentOniPad(at: index)
-        }
     }
 }

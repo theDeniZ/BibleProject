@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="-1788" y="-734"/>
         </scene>
-        <!--Read-->
+        <!--Container View Controller-->
         <scene sceneID="dKQ-e3-XIG">
             <objects>
                 <viewController storyboardIdentifier="ContainerViewController" id="gxE-eX-D2Y" customClass="ContainerViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
@@ -35,7 +35,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="vkh-QW-6hW"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Read" image="book" id="fSW-hV-fd5"/>
+                    <tabBarItem key="tabBarItem" title="" id="fSW-hV-fd5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egq-Zv-QK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -836,7 +836,6 @@
     </scenes>
     <resources>
         <image name="blue" width="128" height="128"/>
-        <image name="book" width="25" height="25"/>
         <image name="clear" width="128" height="128"/>
         <image name="green" width="128" height="128"/>
         <image name="load" width="25" height="25"/>

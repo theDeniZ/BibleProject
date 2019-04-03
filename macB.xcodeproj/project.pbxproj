@@ -71,6 +71,12 @@
 		2255298822312C3C00780298 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255298722312C3C00780298 /* DownloadViewController.swift */; };
 		2255298A22312CCE00780298 /* ConsistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255298922312CCE00780298 /* ConsistencyManager.swift */; };
 		2255298C22314DB200780298 /* Light.dmp in Resources */ = {isa = PBXBuildFile; fileRef = 2255298B22314DB200780298 /* Light.dmp */; };
+		225C81282253A1F0009D4154 /* SpiritMCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C81272253A1F0009D4154 /* SpiritMCoordinator.swift */; };
+		225C812A2253A71E009D4154 /* PreviewSpiritService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C81292253A71E009D4154 /* PreviewSpiritService.swift */; };
+		225C812C2253E7C9009D4154 /* CoreSpiritManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C812B2253E7C9009D4154 /* CoreSpiritManager.swift */; };
+		225C812D2253E982009D4154 /* CoreSpiritManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C812B2253E7C9009D4154 /* CoreSpiritManager.swift */; };
+		225C812F2253E9A7009D4154 /* SpiritManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C812E2253E9A7009D4154 /* SpiritManager.swift */; };
+		225C81302253E9FA009D4154 /* Roman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22061ED421F4A76E00F00B04 /* Roman.swift */; };
 		225FC1FF222FF30000E61CA8 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC1FE222FF30000E61CA8 /* SearchTableViewController.swift */; };
 		225FC201222FF3C500E61CA8 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC200222FF3C500E61CA8 /* SearchManager.swift */; };
 		225FC2032230034900E61CA8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC2022230034900E61CA8 /* SearchTableViewCell.swift */; };
@@ -110,6 +116,8 @@
 		22BD927021CCDB0E00019853 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BD926F21CCDB0E00019853 /* Protocols.swift */; };
 		22C5D02D22346A990000CC19 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22C5D02C22346A980000CC19 /* README.md */; };
 		22C7A35D223AB068006B368E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C7A35C223AB068006B368E /* SettingsViewController.swift */; };
+		22C98B6D225393C200A3BE0D /* SpiritCCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C98B6C225393C200A3BE0D /* SpiritCCoordinator.swift */; };
+		22C98B6F225398DA00A3BE0D /* SpiritPCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C98B6E225398DA00A3BE0D /* SpiritPCoordinator.swift */; };
 		22CB04AF21D907BA004110E0 /* Strong.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04AD21D907BA004110E0 /* Strong.swift */; };
 		22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B221D911F2004110E0 /* StrongViewController.swift */; };
 		22CB04B521D9155B004110E0 /* LabelCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB04B421D9155B004110E0 /* LabelCellView.swift */; };
@@ -121,6 +129,10 @@
 		22F68BB221CF87EB001C96D3 /* VerseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB121CF87EB001C96D3 /* VerseManager.swift */; };
 		22F68BB421CFAF4C001C96D3 /* ModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */; };
 		22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F68BB721CFC556001C96D3 /* MainViewController.swift */; };
+		22FCFEC32254D21C001F2DF1 /* SpiritMenuService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FCFEC22254D21C001F2DF1 /* SpiritMenuService.swift */; };
+		22FCFEC52254D5B6001F2DF1 /* SpiritService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FCFEC42254D5B6001F2DF1 /* SpiritService.swift */; };
+		22FCFEC72254E1F8001F2DF1 /* SpiritParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FCFEC62254E1F8001F2DF1 /* SpiritParagraph.swift */; };
+		22FCFEC82254E2AB001F2DF1 /* SpiritParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FCFEC62254E1F8001F2DF1 /* SpiritParagraph.swift */; };
 		22FFB73721E26DEF00E7F0FD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -179,6 +191,10 @@
 		2255298722312C3C00780298 /* DownloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadViewController.swift; sourceTree = "<group>"; };
 		2255298922312CCE00780298 /* ConsistencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsistencyManager.swift; sourceTree = "<group>"; };
 		2255298B22314DB200780298 /* Light.dmp */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Light.dmp; sourceTree = "<group>"; };
+		225C81272253A1F0009D4154 /* SpiritMCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritMCoordinator.swift; sourceTree = "<group>"; };
+		225C81292253A71E009D4154 /* PreviewSpiritService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSpiritService.swift; sourceTree = "<group>"; };
+		225C812B2253E7C9009D4154 /* CoreSpiritManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreSpiritManager.swift; sourceTree = "<group>"; };
+		225C812E2253E9A7009D4154 /* SpiritManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritManager.swift; sourceTree = "<group>"; };
 		225FC1FE222FF30000E61CA8 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		225FC200222FF3C500E61CA8 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		225FC2022230034900E61CA8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
@@ -220,6 +236,8 @@
 		22BD926F21CCDB0E00019853 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		22C5D02C22346A980000CC19 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		22C7A35C223AB068006B368E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		22C98B6C225393C200A3BE0D /* SpiritCCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritCCoordinator.swift; sourceTree = "<group>"; };
+		22C98B6E225398DA00A3BE0D /* SpiritPCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritPCoordinator.swift; sourceTree = "<group>"; };
 		22CB04AD21D907BA004110E0 /* Strong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strong.swift; sourceTree = "<group>"; };
 		22CB04B221D911F2004110E0 /* StrongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongViewController.swift; sourceTree = "<group>"; };
 		22CB04B421D9155B004110E0 /* LabelCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellView.swift; sourceTree = "<group>"; };
@@ -231,6 +249,9 @@
 		22F68BB121CF87EB001C96D3 /* VerseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerseManager.swift; sourceTree = "<group>"; };
 		22F68BB321CFAF4C001C96D3 /* ModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleViewController.swift; sourceTree = "<group>"; };
 		22F68BB721CFC556001C96D3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		22FCFEC22254D21C001F2DF1 /* SpiritMenuService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritMenuService.swift; sourceTree = "<group>"; };
+		22FCFEC42254D5B6001F2DF1 /* SpiritService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritService.swift; sourceTree = "<group>"; };
+		22FCFEC62254E1F8001F2DF1 /* SpiritParagraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritParagraph.swift; sourceTree = "<group>"; };
 		22FFB73621E26DEF00E7F0FD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,6 +322,7 @@
 				227A4641221D8DCC0080F7CC /* ConsistencyManager.swift */,
 				22707AE42236BE29006E01D5 /* CVLayoutManager.swift */,
 				224D727622395E3B00691F30 /* CoreManager.swift */,
+				225C812E2253E9A7009D4154 /* SpiritManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -387,6 +409,9 @@
 				223AA8F7224941AE00F4A98D /* ContainerCoordinator.swift */,
 				226493D2224BA1C4000DD8A5 /* StrongCoordinator.swift */,
 				226493D6224BBDF9000DD8A5 /* ModalCoordinator.swift */,
+				22C98B6C225393C200A3BE0D /* SpiritCCoordinator.swift */,
+				22C98B6E225398DA00A3BE0D /* SpiritPCoordinator.swift */,
+				225C81272253A1F0009D4154 /* SpiritMCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -401,6 +426,9 @@
 				226493D4224BAA75000DD8A5 /* StrongService.swift */,
 				226493D8224BBE84000DD8A5 /* ModalPickerService.swift */,
 				22842F402251320800A1E028 /* PreviewModuleService.swift */,
+				225C81292253A71E009D4154 /* PreviewSpiritService.swift */,
+				22FCFEC22254D21C001F2DF1 /* SpiritMenuService.swift */,
+				22FCFEC42254D5B6001F2DF1 /* SpiritService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -455,9 +483,10 @@
 				22BD926421CCD36A00019853 /* Module.swift */,
 				22BD926621CCD37F00019853 /* History.swift */,
 				22CB04AD21D907BA004110E0 /* Strong.swift */,
-				22061ECE21F4A4DC00F00B04 /* Page.swift */,
-				22061ED021F4A50A00F00B04 /* SpiritChapter.swift */,
 				22061ED221F4A52F00F00B04 /* SpiritBook.swift */,
+				22061ED021F4A50A00F00B04 /* SpiritChapter.swift */,
+				22061ECE21F4A4DC00F00B04 /* Page.swift */,
+				22FCFEC62254E1F8001F2DF1 /* SpiritParagraph.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -522,6 +551,7 @@
 				22061ECC21F4829C00F00B04 /* ListManager.swift */,
 				222222A22213108700AFDE40 /* StrongManager.swift */,
 				226F9C08223EDADE0066BDDF /* CVLayoutManager.swift */,
+				225C812B2253E7C9009D4154 /* CoreSpiritManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -659,15 +689,21 @@
 				221E3820220AE9B0003D8E40 /* History.swift in Sources */,
 				221E383F220AE9EE003D8E40 /* ModalViewController.swift in Sources */,
 				22826B6C224282AD00990D3C /* NoteViewController.swift in Sources */,
+				22C98B6F225398DA00A3BE0D /* SpiritPCoordinator.swift in Sources */,
+				22FCFEC82254E2AB001F2DF1 /* SpiritParagraph.swift in Sources */,
 				223AA8F2224918F700F4A98D /* SettingsCoordinator.swift in Sources */,
 				221E381E220AE9B0003D8E40 /* Module.swift in Sources */,
 				221E3801220AE6AC003D8E40 /* Extensions.swift in Sources */,
 				223AA8E722478A0D00F4A98D /* CProtocols.swift in Sources */,
+				225C812F2253E9A7009D4154 /* SpiritManager.swift in Sources */,
 				221E37F9220AE665003D8E40 /* AppDelegate.swift in Sources */,
 				226493D5224BAA75000DD8A5 /* StrongService.swift in Sources */,
 				223AA8F8224941AE00F4A98D /* ContainerCoordinator.swift in Sources */,
 				22707AE122368D51006E01D5 /* MultipleTextVC.swift in Sources */,
+				22FCFEC32254D21C001F2DF1 /* SpiritMenuService.swift in Sources */,
 				221E3823220AE9B0003D8E40 /* SpiritChapter.swift in Sources */,
+				225C812A2253A71E009D4154 /* PreviewSpiritService.swift in Sources */,
+				22C98B6D225393C200A3BE0D /* SpiritCCoordinator.swift in Sources */,
 				223AA8EE2247F8EF00F4A98D /* DownloadCoordinator.swift in Sources */,
 				22E6F599221F341300A6915D /* ProgressView.swift in Sources */,
 				223AA8EC2247F73800F4A98D /* DownloadService.swift in Sources */,
@@ -678,6 +714,7 @@
 				221E3822220AE9B0003D8E40 /* Page.swift in Sources */,
 				226493D3224BA1C4000DD8A5 /* StrongCoordinator.swift in Sources */,
 				22F538D1224A7C320040709C /* MenuService.swift in Sources */,
+				225C81282253A1F0009D4154 /* SpiritMCoordinator.swift in Sources */,
 				221E3845220AE9EE003D8E40 /* LeftSelectionViewController.swift in Sources */,
 				225FC1FF222FF30000E61CA8 /* SearchTableViewController.swift in Sources */,
 				226493D9224BBE84000DD8A5 /* ModalPickerService.swift in Sources */,
@@ -699,7 +736,10 @@
 				221E3842220AE9EE003D8E40 /* ContainerViewController.swift in Sources */,
 				222F4E8E222FCA58008CD4E7 /* SharedExtensions.swift in Sources */,
 				221E3854220AEA01003D8E40 /* BookTableViewCell.swift in Sources */,
+				22FCFEC52254D5B6001F2DF1 /* SpiritService.swift in Sources */,
+				225C81302253E9FA009D4154 /* Roman.swift in Sources */,
 				221E3846220AE9EE003D8E40 /* HistoryViewController.swift in Sources */,
+				225C812D2253E982009D4154 /* CoreSpiritManager.swift in Sources */,
 				221E381A220AE99A003D8E40 /* PlistManager.swift in Sources */,
 				22707AE322368F29006E01D5 /* TextCollectionViewCell.swift in Sources */,
 			);
@@ -724,6 +764,7 @@
 				22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */,
 				22061ECF21F4A4DC00F00B04 /* Page.swift in Sources */,
 				22061ECD21F4829C00F00B04 /* ListManager.swift in Sources */,
+				225C812C2253E7C9009D4154 /* CoreSpiritManager.swift in Sources */,
 				2240220521EB479900DC8E2F /* Types.swift in Sources */,
 				22061ECB21F4821100F00B04 /* ListViewController.swift in Sources */,
 				226F9C09223EDADE0066BDDF /* CVLayoutManager.swift in Sources */,
@@ -751,6 +792,7 @@
 				22CB04AF21D907BA004110E0 /* Strong.swift in Sources */,
 				225FC2072230361E00E61CA8 /* SearchTableCellView.swift in Sources */,
 				22BD924A21CC159C00019853 /* Extensions.swift in Sources */,
+				22FCFEC72254E1F8001F2DF1 /* SpiritParagraph.swift in Sources */,
 				22B69894224129E40015F46B /* NoteVC.swift in Sources */,
 				222F4E8D222FCA53008CD4E7 /* SharedExtensions.swift in Sources */,
 				22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */,

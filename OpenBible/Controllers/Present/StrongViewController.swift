@@ -15,7 +15,7 @@ class StrongViewController: UIViewController, Storyboarded {
 //    var numbers: [Int] = []
 //    var identifier = StrongId.oldTestament
     
-    var coordinator: MainStrongCoordinator!
+    weak var coordinator: MainStrongCoordinator!
 
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var mainTextView: UITextView!

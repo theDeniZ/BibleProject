@@ -8,7 +8,7 @@ class ContainerViewController: UIViewController, Storyboarded, MenuDelegate {
     case leftPanelExpanded
   }
     
-    var coordinator: MainContainerCoordinator!
+    weak var coordinator: ContainerCoordinator!
     
     private var maximumWidthOfTheLeftPanel: CGFloat {
         return UIDevice.current.userInterfaceIdiom == .phone ? 500.0 : 300.0

@@ -10,9 +10,10 @@ import UIKit
 
 class TextCollectionViewCell: UICollectionViewCell {
     
-    var text: NSAttributedString? {didSet{updateUI()}}
-    var index: (Int, Int)?
-    var delegate: ModelVerseDelegate? {didSet{updateUI()}}
+//    var text: NSAttributedString? {didSet{updateUI()}}
+    var presented: Presentable? {didSet{updateUI()}}
+    var index: Int = 0
+//    var delegate: ModelVerseDelegate? {didSet{updateUI()}}
     var presentee: UIPresentee?
     
     @IBOutlet weak var noteButton: UIButton!
@@ -37,25 +38,31 @@ class TextCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateUI() {
-        mainLabel?.attributedText = text
-        guard let index = index else {return}
-        noteButton?.isHidden = delegate?.isThereANote(at: index) == nil
+        guard let presented = presented else {
+            mainLabel?.text = ""
+            noteButton?.isHidden = true
+            mainLabel.layer.backgroundColor = nil
+            return
+        }
+        mainLabel?.attributedText = presented.attributedString
+        noteButton?.isHidden = !presented.hasNote
+        mainLabel.layer.backgroundColor = nil
     }
     
     @IBAction func noteAction(_ sender: UIButton) {
-        guard let index = index else {return}
-        presentee?.presentNote(at: index)
+        guard let presented = presented else {return}
+        presentee?.presentNote(at: (index, presented.index))
     }
     
     @objc private func tapped(_ sender: UITapGestureRecognizer) {
-        guard let index = index else {return}
+        guard let presented = presented else {return}
         if mainLabel.selectedRange.length == 0 {
 //            let pos = sender.location(in: mainLabel)
 //            let idx = mainLabel.layoutManager.glyphIndex(for: pos, in: mainLabel.textContainer)
 //            if mainLabel.attributedText.attribute(.link, at: idx, effectiveRange: nil) != nil {
 //                return
 //            }
-            presentee?.presentMenu(at: index)
+            presentee?.presentMenu(at: (index, presented.index))
             select()
         } else {
 //            mainLabel.selectedRange = NSRange()
@@ -65,6 +72,7 @@ class TextCollectionViewCell: UICollectionViewCell {
     
     private func select() {
 //        mainLabel.selectedRange = NSRange(0..<mainLabel.text.count)
-        mainLabel.selectAll(nil)
+//        mainLabel.selectAll(nil)
+        mainLabel.layer.backgroundColor = UIColor.gray.withAlphaComponent(0.6).cgColor
     }
 }

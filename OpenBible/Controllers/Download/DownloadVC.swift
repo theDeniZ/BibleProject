@@ -8,19 +8,22 @@
 
 import UIKit
 
-class DownloadVC: UIViewController {
+class DownloadVC: UIViewController, Storyboarded {
 
-    @IBOutlet private weak var table: UITableView!
-    @IBOutlet weak var allButton: UIButton!
+    weak var coordinator: DownloadCoordinator?
     
-    private var modules = [DownloadModel]()
-    private var strongs = [DownloadModel]()
-    private var spirit = [DownloadModel]()
+    @IBOutlet private weak var table: UITableView!
+    @IBOutlet private weak var allButton: UIButton!
+    
+    private var modules: [DownloadModel] {return coordinator?.modules ?? []}
+    private var strongs: [DownloadModel] {return coordinator?.strongs ?? []}
+    private var spirit: [DownloadModel] {return coordinator?.spirit ?? []}
+    
     private let refreshControl = UIRefreshControl()
     
-    private var manager: ConsistencyManager!
+//    private var manager: ConsistencyManager!
     
-    private var allExists = false
+    private var allExists: Bool {return coordinator?.allExists ?? false}
     private var numberOfBackgroundProccesses = 0
     private var numberOfProceededProccesses = 0 {
         didSet {
@@ -41,20 +44,23 @@ class DownloadVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        table.dataSource = self
-        table.delegate = self
+//        table.dataSource = self
+//        table.delegate = self
         
         refreshControl.attributedTitle = NSAttributedString(string: "Load data from server")
         refreshControl.addTarget(self, action: #selector(refreshOnDemand(_:)), for: UIControl.Event.valueChanged)
         table.addSubview(refreshControl)
         refreshControl.beginRefreshing()
-        readFromServer()
         allButton.isHidden = true
+        
+        coordinator?.readFromServer() {
+            self.updateUI()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        manager = AppDelegate.shared.consistentManager
+//        manager = AppDelegate.shared.consistentManager
     }
     
     @IBAction func allAction(_ sender: UIButton) {
@@ -90,7 +96,6 @@ class DownloadVC: UIViewController {
             //                self.downloadNeeded(self.spirit)
             //            }
         }
-        allExists = !allExists
     }
     
     private func downloadNeeded(_ array: [DownloadModel]) {
@@ -99,12 +104,13 @@ class DownloadVC: UIViewController {
                 obj.loading = true
                 numberOfBackgroundProccesses += 1
                 DispatchQueue.main.async {
-                    self.manager.download(file: obj.path, completition: { (sucess) in
+                    self.coordinator?.download(obj.path, completition: { (sucess) in
                         obj.loaded = sucess
                         obj.loading = false
                         self.numberOfProceededProccesses += 1
                         DispatchQueue.main.async {
                             self.table?.reloadData()
+                            self.allButton.setTitle(self.currentAllButtonTitle, for: .normal)
                         }
                     })
                 }
@@ -118,12 +124,13 @@ class DownloadVC: UIViewController {
                 obj.loading = true
                 numberOfBackgroundProccesses += 1
                 DispatchQueue.main.async {
-                    self.manager.remove(obj.path, completition: {
+                    self.coordinator?.remove(obj.path, completition: {
                         obj.loaded = false
                         obj.loading = false
                         self.numberOfProceededProccesses += 1
                         DispatchQueue.main.async {
                             self.table?.reloadData()
+                            self.allButton.setTitle(self.currentAllButtonTitle, for: .normal)
                         }
                     })
                 }
@@ -131,58 +138,19 @@ class DownloadVC: UIViewController {
         }
     }
     
-    private func readFromServer() {
-        guard modules.count == 0, strongs.count == 0, spirit.count == 0 else {return}
-        let context = AppDelegate.context
-        guard let url = URL(string: AppDelegate.downloadServerURL) else {return}
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print(error!)
-            }
-            var allExist = true
-            if data != nil,
-                let json = try? JSONSerialization.jsonObject(
-                    with: data!, options: .allowFragments
-                    ) as? [[String:String]],
-                let array = json {
-                for file in array {
-                    if let name = file["name"],
-                        let size = file["size"],
-                        let path = file["path"],
-                        let regex = file["key"] {
-                        if let key = SharingRegex.parseModule(regex) {
-                            let exist = Module.exists(key: key, in: context)
-                            allExist = allExist && exist
-                            self.modules.append(DownloadModel(size: size, name: name, loaded: exist, loading: false, path: path))
-                        } else if let key = SharingRegex.parseStrong(regex) {
-                            let exist = (try? Strong.exists(key, in: context)) ?? false
-                            allExist = allExist && exist
-                            self.strongs.append(DownloadModel(size: size, name: name, loaded: exist, loading: false, path: path))
-                        }/* else if let key = SharingRegex.parseSpirit(regex) {
-                            let exist = SpiritBook.exists(with: key, in: context)
-                            self.spirit.append((size, name, exist, path))
-                        }*/ // we are not ready for this
-                    }
-                }
-            } else {
-                print("No readable data is arrived")
-            }
-            self.allExists = allExist
-            DispatchQueue.main.async {
-                self.table.reloadData()
-                self.refreshControl.endRefreshing()
-                self.allButton.isHidden = false
-                self.allButton.setTitle(self.currentAllButtonTitle, for: .normal)
-            }
+    private func updateUI() {
+        DispatchQueue.main.async {
+            self.table.reloadData()
+            self.refreshControl.endRefreshing()
+            self.allButton.isHidden = false
+            self.allButton.setTitle(self.currentAllButtonTitle, for: .normal)
         }
-        task.resume()
     }
     
     @objc func refreshOnDemand(_ sender: AnyObject) {
-        modules = []
-        strongs = []
-        spirit = []
-        readFromServer()
+        coordinator?.readFromServer() {
+            self.updateUI()
+        }
     }
 
 }

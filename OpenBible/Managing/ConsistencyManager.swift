@@ -103,28 +103,24 @@ class ConsistencyManager: NSObject {
                     context.delete(module!)
                     try? context.save()
                 }
-                self.processedEntities += 1
-                self.broadcastProgress()
-                AppDelegate.coreManager.update(true)
+//                AppDelegate.coreManager.update(true)
                 completition()
                 
             } else if let type = SharingRegex.parseStrong(code) {
                 Strong.remove(type, from: context)
-                self.processedEntities += 1
-                self.broadcastProgress()
                 try? context.save()
-                AppDelegate.coreManager.update(true)
+//                AppDelegate.coreManager.update(true)
                 completition()
             } else if let c = SharingRegex.parseSpirit(code) {
                 if let b = try? SpiritBook.get(by: c, from: context), b != nil {
                     context.delete(b!)
-                    self.processedEntities += 1
-                    self.broadcastProgress()
                     try? context.save()
                 }
-                AppDelegate.coreManager.update(true)
+//                AppDelegate.coreManager.update(true)
                 completition()
             }
+            self.processedEntities += 1
+            self.broadcastProgress()
         }
     }
     
@@ -243,7 +239,7 @@ extension ConsistencyManager {
     func removeDelegate(_ del: ConsistencyManagerDelegate) {
         switch delegates {
         case .some(var some):
-            some.removeAll {$0.hashValue == del.hashValue}
+            some.removeAll {$0.hash == del.hash}
         default: break
         }
     }

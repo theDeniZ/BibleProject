@@ -8,96 +8,62 @@
 
 import UIKit
 
-class LeftSelectionViewController: SidePanelViewController {
+class LeftSelectionViewController: UIViewController, Storyboarded {
 
-    var manager: VerseManager = AppDelegate.coreManager { didSet { updateUI() } }
     var rightSpace: CGFloat = 0.0 {
         didSet {
             rightConstraint.constant = rightSpace
         }
     }
     
-    @IBOutlet weak var moduleButton: UIButton!
-    private var selectedIndexPath: IndexPath?
+    weak var coordinator: MenuCoordinator!
     
+    @IBOutlet private weak var moduleButton: UIButton!
     @IBOutlet private weak var rightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var bookTable: UITableView!
     
-    @IBOutlet weak var bookTable: UITableView!
-    
-    private var books: [Book]? {
-        didSet {
-            bookTable?.reloadData()
-            var selected = manager.bookIndex - 1
-            var section = 0
-            if sectionCount != 1, selected >= 39 {
-                selected -= 39
-                section = 1
-            }
-            if count == 27 {
-                selected -= 39
-            }
-            bookTable?.scrollToRow(at: IndexPath(row:selected, section:section), at:UITableView.ScrollPosition.middle, animated:false)
-            
-        }
-    }
-    
-    private var count: Int {
-        return books?.count ?? 0
-    }
-    private var sectionCount: Int {
-        return count == 66 ? 2 : 1
-    }
+    private var items: [[ListExpandablePresentable]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AppDelegate.coreManager.addDelegate(self)
+        
+        guard let coordinator = coordinator else {return}
+        
         rightConstraint.constant = rightSpace
+        
+        items = coordinator.getItemsToPresent()
+        moduleButton?.setTitle(coordinator.getKeysTitle(), for:.normal)
+        
         bookTable.dataSource = self
         bookTable.delegate = self
         bookTable.rowHeight = UITableView.automaticDimension
         bookTable.estimatedRowHeight = 36.3
+        
+        setupButton()
+        
+        bookTable?.scrollToRow(at: coordinator.selectedBookIndexPath, at:UITableView.ScrollPosition.middle, animated:false)
+    }
+    
+    @IBAction func moduleAction(_ sender: UIButton) {
+        coordinator.presentPicker()
+    }
+    @IBAction func historyAction(_ sender: UIButton) {
+        coordinator.presentHistory()
+    }
+    
+    private func setupButton() {
         moduleButton.contentEdgeInsets = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0)
         moduleButton.clipsToBounds = true
         moduleButton.layer.cornerRadius = moduleButton.frame.height / 2
         moduleButton.layer.borderColor = UIColor.blue.cgColor
         moduleButton.layer.borderWidth = 1.0
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Show Modal Picker", let dest = segue.destination as? ModalViewController {
-            dest.manager = manager
-            dest.delegate = self
-        } else if segue.identifier == "Show history", let dest = segue.destination as? HistoryViewController {
-            dest.delegate = delegate
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateUI()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        AppDelegate.coreManager.removeDelegate(self)
-    }
-    
-    private func updateUI() {
-        books = manager.getBooks()
-        let modules = manager.getModulesKey()
-        var title = modules.first ?? ""
-        if modules.count > 1 {
-            title += " +\(modules.count - 1)"
-        }
-        moduleButton?.setTitle(title, for:.normal)
-    }
 
 }
 
 extension LeftSelectionViewController: BookTableViewCellDelegate {
     func bookTableViewCellDidSelect(chapter: Int, in book: Int) {
-        delegate?.didSelect(chapter: chapter, in:book)
-        print("selected \(chapter) in \(book)")
+        coordinator.didSelect(chapter: chapter, in: book)
     }
 }
 
@@ -107,17 +73,9 @@ extension LeftSelectionViewController: ModalDelegate {
     }
 }
 
-extension LeftSelectionViewController: ModelUpdateDelegate {
-    func modelChanged(_ fully: Bool) {
-        DispatchQueue.main.async {
-            self.updateUI()
-        }
-    }
-}
-
 extension LeftSelectionViewController:UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionCount
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -125,14 +83,15 @@ extension LeftSelectionViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sectionCount == 1 ? count : section == 0 ? 39 : 27
+        return items[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Book Table Cell", for: indexPath)
-        if let c = cell as? BookTableViewCell, let b = books {
-            c.book = b[sectionCount == 1 ? indexPath.row:indexPath.section == 0 ? indexPath.row:39 + indexPath.row]
+        if let c = cell as? BookTableViewCell {
+            c.item = items[indexPath.section][indexPath.row]
             c.delegate = self
+            c.hasZeroElement = items[indexPath.section][indexPath.row].hasZeroElement
         }
         let v = UIView()
         v.backgroundColor = UIColor.white

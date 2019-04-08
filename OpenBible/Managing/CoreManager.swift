@@ -195,6 +195,17 @@ extension CoreManager {
         broadcastChanges()
     }
     
+    /// Insert a module to a needed place
+    ///
+    /// - Parameters:
+    ///   - module: a Module key
+    ///   - position: a place to insert into
+    func insert(_ module: String, at position: Int) {
+        activeModules.insert(try! Module.get(by: module, from: context)!, at: position)
+        plistManager.set(modules: activeModules.map{$0.key!})
+        broadcastChanges()
+    }
+    
     func swapModulesAt(_ i: Int, _ j: Int) {
         activeModules.swapAt(i, j)
         plistManager.set(modules: activeModules.map{$0.key!})

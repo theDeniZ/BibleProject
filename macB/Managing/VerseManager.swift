@@ -96,7 +96,8 @@ internal class VerseManager: CoreManager {
 extension VerseManager: ModelVerseDelegate {
 
     func isThereANote(at index: (module: Int, verse: Int)) -> String? {
-        return (chapter(index.module)?.verses!.array as! [Verse])[index.verse].note
+        guard let array = chapter(index.module)?.verses!.array as? [Verse], array.count > index.verse else {return nil}
+        return array[index.verse].note
     }
     
     func isThereAColor(at index: (module: Int, verse: Int)) -> Data? {

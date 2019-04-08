@@ -16,7 +16,7 @@ struct ColorPicker {
     static let blue     = UIColor(red: 71/255, green: 145/255, blue: 240/255, alpha: 1.0)
 }
 
-class NoteViewController: UIViewController {
+class NoteViewController: UIViewController, Storyboarded {
 
     var index: (Int, Int) = (0,0)
     var delegate: ModelVerseDelegate?
@@ -46,9 +46,15 @@ class NoteViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         resignDelegate?.viewControllerWillResign()
+        AppUtility.lockOrientation(.all)
     }
 
     @IBAction func clearAction(_ sender: UIButton) {

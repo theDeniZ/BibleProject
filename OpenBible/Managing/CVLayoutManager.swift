@@ -10,7 +10,7 @@ import UIKit
 
 class CVLayoutManager: NSObject {
     
-    var arrayOfVerses = [[NSAttributedString]]() {didSet{cached = []}}
+    var arrayOfVerses = [[Presentable]]() {didSet{cached = []}}
     
     private var cached: [CGFloat?] = []
     private var cachedWidth: CGFloat = 0.0
@@ -28,7 +28,7 @@ class CVLayoutManager: NSObject {
         for i in 0..<arrayOfVerses.count {
 //            newMax = max(newMax, arrayOfVerses[i][position].boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil).size.height)
             if arrayOfVerses[i].count > position {
-                newMax = max(newMax, arrayOfVerses[i][position].sizeFittingWidth(width).height)
+                newMax = max(newMax, arrayOfVerses[i][position].attributedString.sizeFittingWidth(width).height)
             }
         }
         cached.append(newMax)

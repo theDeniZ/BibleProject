@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="63U-Qa-Cy5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="63U-Qa-Cy5">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,33 +14,28 @@
         <!--Main Tab Bar Controller-->
         <scene sceneID="3dg-YH-dLC">
             <objects>
-                <tabBarController id="63U-Qa-Cy5" customClass="MainTabBarController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" id="63U-Qa-Cy5" customClass="MainTabBarController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ktC-Wo-Lla">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
-                    <connections>
-                        <segue destination="gxE-eX-D2Y" kind="relationship" relationship="viewControllers" id="SGl-mv-NKw"/>
-                        <segue destination="BLx-jU-nzV" kind="relationship" relationship="viewControllers" id="VPv-A9-pSH"/>
-                        <segue destination="wDB-l5-Ram" kind="relationship" relationship="viewControllers" id="Wqo-eW-sUk"/>
-                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q0W-z3-y6M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2018" y="318"/>
+            <point key="canvasLocation" x="-1788" y="-734"/>
         </scene>
-        <!--Read-->
+        <!--Container View Controller-->
         <scene sceneID="dKQ-e3-XIG">
             <objects>
-                <viewController id="gxE-eX-D2Y" customClass="ContainerViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContainerViewController" id="gxE-eX-D2Y" customClass="ContainerViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nta-Wi-x2j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="vkh-QW-6hW"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Read" image="book" id="fSW-hV-fd5"/>
+                    <tabBarItem key="tabBarItem" title="" id="fSW-hV-fd5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egq-Zv-QK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -49,19 +44,19 @@
         <!--Download-->
         <scene sceneID="YPX-7P-10K">
             <objects>
-                <viewController id="BLx-jU-nzV" customClass="DownloadVC" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DownloadVC" id="BLx-jU-nzV" customClass="DownloadVC" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ox2-MU-Bin">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nLn-fI-eRp">
-                                <rect key="frame" x="0.0" y="44" width="375" height="675"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="724"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Fs-ud-PrN">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="272"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="684"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9Og-oZ-R5i">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="272"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="684"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Download Cell" textLabel="1XY-Ea-8lH" detailTextLabel="pKl-vf-4fL" style="IBUITableViewCellStyleValue2" id="jcQ-60-sAi">
@@ -89,11 +84,15 @@
                                                         </tableViewCellContentView>
                                                     </tableViewCell>
                                                 </prototypes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="BLx-jU-nzV" id="mNg-5B-Te5"/>
+                                                    <outlet property="delegate" destination="BLx-jU-nzV" id="jyh-Sa-WfR"/>
+                                                </connections>
                                             </tableView>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWQ-06-crV">
-                                        <rect key="frame" x="0.0" y="282" width="375" height="393"/>
+                                        <rect key="frame" x="0.0" y="694" width="375" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="allAction:" destination="BLx-jU-nzV" eventType="touchUpInside" id="bEm-D8-zfn"/>
@@ -119,12 +118,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eQW-VV-sJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-951" y="703"/>
+            <point key="canvasLocation" x="-1788" y="-27"/>
         </scene>
         <!--Settings-->
         <scene sceneID="nPB-2j-k1A">
             <objects>
-                <viewController id="wDB-l5-Ram" customClass="SettingsViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" id="wDB-l5-Ram" customClass="SettingsViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KrQ-mZ-YEm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -192,12 +191,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ssu-Mz-AII" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-951" y="1418"/>
+            <point key="canvasLocation" x="-2665" y="-27"/>
         </scene>
         <!--Search Table View Controller-->
         <scene sceneID="ryI-Bm-LeA">
             <objects>
-                <tableViewController storyboardIdentifier="Search View Controller" id="tnw-kj-RVT" customClass="SearchTableViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SearchTableViewController" id="tnw-kj-RVT" customClass="SearchTableViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4rX-DA-7Pc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,12 +249,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Kf-tW-lwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-47.200000000000003" y="702.70935960591135"/>
+            <point key="canvasLocation" x="-951" y="672"/>
         </scene>
         <!--Note View Controller-->
         <scene sceneID="rM8-oS-QBU">
             <objects>
-                <viewController storyboardIdentifier="Note VC" id="Xzh-bA-F03" customClass="NoteViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NoteViewController" id="Xzh-bA-F03" customClass="NoteViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P8r-ac-aX9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -378,12 +377,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3es-Iz-DBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="750.73891625615772"/>
+            <point key="canvasLocation" x="-111" y="672"/>
         </scene>
         <!--Strong View Controller-->
         <scene sceneID="HPY-ca-juT">
             <objects>
-                <viewController storyboardIdentifier="StrongVC" id="5ZU-LU-4ds" customClass="StrongViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StrongViewController" id="5ZU-LU-4ds" customClass="StrongViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Avb-bF-e2G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -435,12 +434,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="339-gA-ulV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1804" y="-27.339901477832512"/>
+            <point key="canvasLocation" x="711" y="-27"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="W02-eU-bMz">
             <objects>
-                <viewController id="56W-Cz-Ui8" customClass="HistoryViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HistoryViewController" id="56W-Cz-Ui8" customClass="HistoryViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hj5-dO-gj2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -517,30 +516,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uzy-Wi-whL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-47" y="-733"/>
+            <point key="canvasLocation" x="710" y="-734"/>
         </scene>
         <!--Modal View Controller-->
         <scene sceneID="XPh-nK-CP6">
             <objects>
-                <viewController id="qOz-bG-0gx" customClass="ModalViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ModalViewController" id="qOz-bG-0gx" customClass="ModalViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wIj-DJ-Adf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qS9-iM-itO">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                <items>
-                                    <navigationItem id="Acp-Ca-Rky">
-                                        <barButtonItem key="rightBarButtonItem" title="Close" id="7Y3-cp-Tuw">
-                                            <connections>
-                                                <action selector="closeButton:" destination="qOz-bG-0gx" id="P8W-m7-HC8"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="trE-eD-Ldu">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Modal Table Cell" textLabel="MD8-Vp-YYi" detailTextLabel="ZiJ-C0-tFw" style="IBUITableViewCellStyleValue2" id="HoG-n5-hcq">
@@ -573,12 +560,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dbO-DX-EeB" firstAttribute="top" secondItem="qS9-iM-itO" secondAttribute="top" id="BAI-pX-waW"/>
-                            <constraint firstItem="qS9-iM-itO" firstAttribute="leading" secondItem="dbO-DX-EeB" secondAttribute="leading" id="GhE-iy-qzT"/>
                             <constraint firstItem="dbO-DX-EeB" firstAttribute="trailing" secondItem="trE-eD-Ldu" secondAttribute="trailing" id="TMW-Ay-gef"/>
                             <constraint firstItem="trE-eD-Ldu" firstAttribute="leading" secondItem="dbO-DX-EeB" secondAttribute="leading" id="UMs-MF-Fpx"/>
-                            <constraint firstItem="qS9-iM-itO" firstAttribute="trailing" secondItem="trE-eD-Ldu" secondAttribute="trailing" id="ciT-sf-wvT"/>
-                            <constraint firstItem="trE-eD-Ldu" firstAttribute="top" secondItem="qS9-iM-itO" secondAttribute="bottom" id="f9C-la-17I"/>
+                            <constraint firstItem="trE-eD-Ldu" firstAttribute="top" secondItem="dbO-DX-EeB" secondAttribute="top" id="gzy-g2-s1t"/>
                             <constraint firstItem="dbO-DX-EeB" firstAttribute="bottom" secondItem="trE-eD-Ldu" secondAttribute="bottom" id="mRT-Eo-4d2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dbO-DX-EeB"/>
@@ -589,12 +573,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WbE-Vh-Rxa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-47" y="-1388"/>
+            <point key="canvasLocation" x="710" y="-1414"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="O8h-TT-Kld">
             <objects>
-                <viewController storyboardIdentifier="LeftViewController" title="Left View Controller" id="xeb-JB-MFX" customClass="LeftSelectionViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeftSelectionViewController" title="Left View Controller" id="xeb-JB-MFX" customClass="LeftSelectionViewController" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6aU-tZ-mgH"/>
                         <viewControllerLayoutGuide type="bottom" id="2J1-bf-kAj"/>
@@ -613,18 +597,14 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="177.66666666666666" height="30"/>
                                                 <state key="normal" title="Module"/>
                                                 <connections>
-                                                    <segue destination="qOz-bG-0gx" kind="popoverPresentation" identifier="Show Modal Picker" popoverAnchorView="AQ3-ez-Jbm" id="3c2-WN-H9s">
-                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                    </segue>
+                                                    <action selector="moduleAction:" destination="xeb-JB-MFX" eventType="touchUpInside" id="C2A-f7-WzB"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5VW-6H-Lmp">
                                                 <rect key="frame" x="197.66666666666663" y="0.0" width="177.33333333333337" height="30"/>
                                                 <state key="normal" title="History"/>
                                                 <connections>
-                                                    <segue destination="56W-Cz-Ui8" kind="popoverPresentation" identifier="Show history" popoverAnchorView="5VW-6H-Lmp" id="lU5-Xh-hFJ">
-                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                    </segue>
+                                                    <action selector="historyAction:" destination="xeb-JB-MFX" eventType="touchUpInside" id="RPn-0j-BxT"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -727,36 +707,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLR-jZ-0XP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-951" y="-896"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="NAB-le-cyT">
-            <objects>
-                <navigationController storyboardIdentifier="CenterViewController" automaticallyAdjustsScrollViewInsets="NO" id="8Eh-1d-FfK" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="wCj-6O-6ls">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="zAO-vJ-Ggs" kind="relationship" relationship="rootViewController" id="zvZ-no-Pq7"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1KL-Qh-lhB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-47.200000000000003" y="-27.339901477832512"/>
+            <point key="canvasLocation" x="-111" y="-1038"/>
         </scene>
         <!--Multiple TextVC-->
         <scene sceneID="rrl-2L-4GK">
             <objects>
-                <viewController id="zAO-vJ-Ggs" customClass="MultipleTextVC" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MultipleTextVC" id="zAO-vJ-Ggs" customClass="MultipleTextVC" customModule="OpenBible" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dxf-Y6-UUA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="AbZ-eF-OYM">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfM-Sk-Lie" customClass="ProgressView" customModule="OpenBible" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="5"/>
@@ -775,10 +737,10 @@
                                         </connections>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4Uj-rY-Hpv">
-                                        <rect key="frame" x="0.0" y="15" width="375" height="675"/>
+                                        <rect key="frame" x="0.0" y="15" width="375" height="719"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="i3U-mc-56F">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="675"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="719"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="LW7-Zi-MYA">
                                                     <size key="itemSize" width="133" height="55"/>
@@ -849,7 +811,7 @@
                     <navigationItem key="navigationItem" id="H7a-ta-hGa">
                         <nil key="title"/>
                         <textField key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" id="J0a-S6-me4">
-                            <rect key="frame" x="88" y="7" width="200" height="30"/>
+                            <rect key="frame" x="87.666666666666686" y="7" width="200" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -869,19 +831,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Y3-03-Q6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="885.60000000000002" y="-27.339901477832512"/>
+            <point key="canvasLocation" x="-111" y="-27"/>
         </scene>
     </scenes>
     <resources>
         <image name="blue" width="128" height="128"/>
-        <image name="book" width="75" height="75"/>
         <image name="clear" width="128" height="128"/>
         <image name="green" width="128" height="128"/>
-        <image name="load" width="75" height="75"/>
+        <image name="load" width="25" height="25"/>
         <image name="orange" width="128" height="128"/>
         <image name="red" width="128" height="128"/>
-        <image name="settings" width="75" height="75"/>
-        <image name="top" width="62" height="62"/>
+        <image name="settings" width="25" height="25"/>
+        <image name="top" width="31" height="31"/>
         <image name="yellow" width="128" height="128"/>
     </resources>
 </document>

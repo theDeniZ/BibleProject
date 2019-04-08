@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchTableViewController: UITableViewController {
+class SearchTableViewController: UITableViewController, Storyboarded {
 
     var titleToShow: String!
     var searchManager: SearchManager!

@@ -19,38 +19,39 @@ class VerseManager: CoreManager {
         super.init(context)
     }
     
-    override func getAttributedString(from index: Int, loadingTooltip: Bool) -> [NSAttributedString] {
+    func getAttributedString(from index: Int, loadingTooltip: Bool) -> [Presentable] {
         let strongs = isStrongsOn
         if let chapter = chapter(index) {
             if let vrss = chapter.verses?.array as? [Verse] {
                 if let vs = verses {
-                    var result = [NSAttributedString]()
+                    var result = [Presentable]()
                     for range in vs {
                         let versesFiltered = vrss.filter {range.contains(Int($0.number))}
                         for verse in versesFiltered {
                             let attributedVerse = verse.attributedCompound(size: fontSize)
                             //check for strong's numbers
                             if attributedVerse.strongNumbersAvailable {
-                                result.append(attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongs))
+                                let text = attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongs)
+                                result.append(Presentable(text, index: Int(verse.number), hasNote: verse.note != nil))
                             } else {
-                                result.append(attributedVerse)
+                                result.append(Presentable(attributedVerse, index: Int(verse.number), hasNote: verse.note != nil))
                             }
                         }
                     }
                     return result
                 } else {
                     if vrss[0].attributedCompound.strongNumbersAvailable {
-                        return vrss.map {$0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongs)}
+                        return vrss.map {Presentable($0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongs), index: Int($0.number))}
                     }
-                    return vrss.map {$0.attributedCompound(size: fontSize)}
+                    return vrss.map {Presentable($0.attributedCompound(size: fontSize), index: Int($0.number), hasNote: $0.note != nil)}
                 }
             }
         }
-        return super.getAttributedString(from: index, loadingTooltip: loadingTooltip)
+        return []//super.getAttributedString(from: index, loadingTooltip: loadingTooltip)
     }
     
-    func getVerses() -> [[NSAttributedString]] {
-        var allOfThem: [[NSAttributedString]] = []
+    func getVerses() -> [[Presentable]] {
+        var allOfThem: [[Presentable]] = []
         for i in 0..<modules.count {
             allOfThem.append(getAttributedString(from: i, loadingTooltip: false))
         }
@@ -87,21 +88,21 @@ class VerseManager: CoreManager {
 extension VerseManager: ModelVerseDelegate {
     
     func isThereANote(at index: (module: Int, verse: Int)) -> String? {
-        return (chapter(index.module)?.verses!.array as! [Verse])[index.verse].note
+        return (chapter(index.module)?.verses!.array as! [Verse])[index.verse - 1].note
     }
     
     func isThereAColor(at index: (module: Int, verse: Int)) -> Data? {
-        return (chapter(index.module)?.verses!.array as! [Verse])[index.verse].color
+        return (chapter(index.module)?.verses!.array as! [Verse])[index.verse - 1].color
     }
     
     func setNote(at index: (module: Int, verse: Int), _ note: String?) {
-        (chapter(index.module)?.verses!.array as! [Verse])[index.verse].note = note
+        (chapter(index.module)?.verses!.array as! [Verse])[index.verse - 1].note = note
         try? context.save()
         broadcastChanges()
     }
     
     func setColor(at index: (module: Int, verse: Int), _ color: Data?) {
-        (chapter(index.module)?.verses!.array as! [Verse])[index.verse].color = color
+        (chapter(index.module)?.verses!.array as! [Verse])[index.verse - 1].color = color
         try? context.save()
         broadcastChanges()
     }

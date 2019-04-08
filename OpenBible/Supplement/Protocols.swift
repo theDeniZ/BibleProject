@@ -8,21 +8,10 @@
 
 import UIKit
 
-@objc
-protocol CenterViewControllerDelegate {
-    @objc optional func toggleLeftPanel()
-    @objc optional func collapseSidePanels()
-}
-
-protocol SidePanelViewControllerDelegate {
-    func didSelect(chapter: Int, in book: Int)
-}
-
-protocol ContainingViewController: class, SidePanelViewControllerDelegate {
-    var delegate: CenterViewControllerDelegate? {get set}
-    var overlapped: Bool {get set}
-    func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
-}
+//protocol ContainingViewController: class {
+//    var overlapped: Bool {get set}
+//    func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
+//}
 
 protocol BookTableViewCellDelegate {
     func bookTableViewCellDidSelect(chapter: Int, in book: Int)
@@ -43,7 +32,7 @@ protocol URLDelegate {
 
 @objc
 protocol ConsistencyManagerDelegate {
-    var hashValue: Int {get}
+    var hash: Int {get}
     @objc optional func consistentManagerDidChangedModel()
     @objc optional func consistentManagerDidStartUpdate()
     @objc optional func consistentManagerDidUpdatedProgress(to: Double)

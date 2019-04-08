@@ -21,7 +21,7 @@ extension NSAttributedString: StrongsLinkEmbeddable {
              .foregroundColor : UIColor.gray.withAlphaComponent(0.7)]
         
         let backColor = attribute(.backgroundColor, at: 1, effectiveRange: nil) as? UIColor
-        let frontColor = attribute(.foregroundColor, at: 1, effectiveRange: nil) as? UIColor
+        let frontColor: UIColor? = UIColor.black//attribute(.foregroundColor, at: 1, effectiveRange: nil) as? UIColor
         
         
         let root = AppDelegate.URLServerRoot + link + "/"
@@ -54,7 +54,8 @@ extension NSAttributedString: StrongsLinkEmbeddable {
             newMAString.addAttribute(.backgroundColor, value: back, range: NSRange(0..<newMAString.length))
         }
         if let front = frontColor {
-            newMAString.addAttribute(.foregroundColor, value: front, range: NSRange(0..<newMAString.length))
+            let start = splited[0].count + 1
+            newMAString.addAttribute(.foregroundColor, value: front, range: NSRange(start..<newMAString.length))
         }
         return newMAString
     }

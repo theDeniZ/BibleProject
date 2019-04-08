@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -316,7 +316,7 @@
                                         <menuItem title="Show Sidebar" keyEquivalent="s" id="kIP-vf-haE">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
-                                                <action selector="toggleSourceList:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
+                                                <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Enter Full Screen" keyEquivalent="f" id="4J7-dP-txa">
@@ -422,6 +422,10 @@
                                                                 </textView>
                                                             </subviews>
                                                         </clipView>
+                                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="VE5-wg-Kc8">
+                                                            <rect key="frame" x="-100" y="-100" width="1334" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </scroller>
                                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="tfG-Aa-HG1">
                                                             <rect key="frame" x="1318" y="0.0" width="16" height="658"/>
                                                             <autoresizingMask key="autoresizingMask"/>
@@ -1307,6 +1311,10 @@
                                                 </textView>
                                             </subviews>
                                         </clipView>
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="aPh-39-hZF">
+                                            <rect key="frame" x="-100" y="-100" width="450" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ztU-tJ-kl9">
                                             <rect key="frame" x="434" y="0.0" width="16" height="332"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1813,6 +1821,10 @@
                                                 </textView>
                                             </subviews>
                                         </clipView>
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="50x-Dc-91C">
+                                            <rect key="frame" x="-100" y="-100" width="304" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="zRi-5c-yaz">
                                             <rect key="frame" x="288" y="0.0" width="16" height="135"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1918,6 +1930,10 @@
                                         </textView>
                                     </subviews>
                                 </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="iWD-YE-wnB">
+                                    <rect key="frame" x="-100" y="-100" width="100" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" arrowsPosition="none" horizontal="NO" id="02Y-RQ-Zsg">
                                     <rect key="frame" x="-100" y="-100" width="16" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
@@ -2066,6 +2082,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="top" width="62" height="62"/>
+        <image name="top" width="31" height="31"/>
     </resources>
 </document>

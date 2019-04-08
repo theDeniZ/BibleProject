@@ -26,7 +26,22 @@ class Page: NSManagedObject {
         let new = Page(context: context)
         new.number = Int32(sync.number)
         new.roman = sync.roman
-        new.text = sync.text
+//        new.text = sync.text
+        let paragraphs = sync.text.split(separator: "\n")
+        var ps = [SpiritParagraph]()
+        for paragraph in paragraphs {
+            let p = SpiritParagraph(context: context)
+            p.text = String(paragraph)
+            ps.append(p)
+        }
+        new.paragraphs = NSOrderedSet(array: ps)
         return new
+    }
+    
+    class func find(number: Int, code: String, in context: NSManagedObjectContext) throws -> Page? {
+        let request: NSFetchRequest<Page> = Page.fetchRequest()
+        request.predicate = NSPredicate(format: "number = %@ AND chapter.book.code MATCHES [cd] %@", argumentArray: [number, code])
+        let match = try context.fetch(request)
+        return match.first
     }
 }

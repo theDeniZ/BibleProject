@@ -32,9 +32,9 @@ class VerseManager: CoreManager {
                             //check for strong's numbers
                             if attributedVerse.strongNumbersAvailable {
                                 let text = attributedVerse.embedStrongs(to: currentTestament, using: fontSize, linking: strongs)
-                                result.append(Presentable(text, index: Int(verse.number)))
+                                result.append(Presentable(text, index: Int(verse.number), hasNote: verse.note != nil))
                             } else {
-                                result.append(Presentable(attributedVerse, index: Int(verse.number)))
+                                result.append(Presentable(attributedVerse, index: Int(verse.number), hasNote: verse.note != nil))
                             }
                         }
                     }
@@ -43,7 +43,7 @@ class VerseManager: CoreManager {
                     if vrss[0].attributedCompound.strongNumbersAvailable {
                         return vrss.map {Presentable($0.attributedCompound.embedStrongs(to: currentTestament, using: fontSize, linking: strongs), index: Int($0.number))}
                     }
-                    return vrss.map {Presentable($0.attributedCompound(size: fontSize), index: Int($0.number))}
+                    return vrss.map {Presentable($0.attributedCompound(size: fontSize), index: Int($0.number), hasNote: $0.note != nil)}
                 }
             }
         }

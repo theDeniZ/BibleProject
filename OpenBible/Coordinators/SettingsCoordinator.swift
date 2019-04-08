@@ -48,5 +48,8 @@ class MainSettingsCoordinator: NSObject, SettingsCootrinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
+    func getInfo() -> String? {
+        return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    }
     
 }

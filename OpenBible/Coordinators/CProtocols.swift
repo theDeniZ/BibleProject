@@ -62,6 +62,8 @@ protocol DownloadCoordinator: Coordinator {
 protocol SettingsCootrinator: Coordinator {
     var isStrongsOn: Bool {get set}
     var modulesCount: Int {get set}
+    
+    func getInfo() -> String?
 }
 
 protocol MenuDelegate {

@@ -28,7 +28,16 @@ class SpiritMenuService: NSObject {
     
     func getItemsToPresent() -> [[ListExpandablePresentable]] {
         if let books = manager.getBooks() {
-            return [books.compactMap {ListExpandablePresentable($0.name ?? "", index: Int($0.index), count: $0.chapters?.count ?? 0)}]
+            return [
+                books.compactMap {
+                    ListExpandablePresentable(
+                        $0.name ?? "",
+                        index: Int($0.index),
+                        count: $0.chapters?.count ?? 0,
+                        hasZeroElement: $0.hasPreword()
+                    )
+                }
+            ]
         }
         return []
     }

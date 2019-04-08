@@ -25,4 +25,11 @@ class SpiritChapter: NSManagedObject {
         new.pages = NSOrderedSet(array: pages)
         return new
     }
+    
+    class func find(number: Int, code: String, in context: NSManagedObjectContext) throws -> SpiritChapter? {
+        let request: NSFetchRequest<SpiritChapter> = SpiritChapter.fetchRequest()
+        request.predicate = NSPredicate(format: "number = %@ AND book.code = %@", argumentArray: [number, code])
+        let match = try context.fetch(request)
+        return match.first
+    }
 }

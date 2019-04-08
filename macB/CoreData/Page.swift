@@ -37,4 +37,11 @@ class Page: NSManagedObject {
         new.paragraphs = NSOrderedSet(array: ps)
         return new
     }
+    
+    class func find(number: Int, code: String, in context: NSManagedObjectContext) throws -> Page? {
+        let request: NSFetchRequest<Page> = Page.fetchRequest()
+        request.predicate = NSPredicate(format: "number = %@ AND chapter.book.code MATCHES [cd] %@", argumentArray: [number, code])
+        let match = try context.fetch(request)
+        return match.first
+    }
 }

@@ -73,4 +73,38 @@ class SpiritManager: CoreSpiritManager {
         return super.stringValue()
     }
     
+    override func doSearch(_ text: String) {
+        if let matched = text.capturedGroups(withRegex: "(\\w[^\\d])(\\d+)(?:\\.\\d+)?") {
+            _ = find(match: matched)
+        } else {
+            super.doSearch(text)
+        }
+    }
+    
+    private func find(match: [String]) -> Int? {
+        guard let number = Int(match[1]) else {return nil}
+        do {
+            let page = try Page.find(number: number, code: match[0], in: context)
+            if let ch = page?.chapter, let code = ch.book?.code {
+                currentIndex.chapter = Int(ch.index)
+                currentIndex.book = code
+                plistManager.setSpirit(currentIndex, at: index)
+//                _ = presentableValue()
+//                if let cache = cached {
+//                    for i in 0..<cache.count {
+//                        if let n = cache[i].page?.number, n == number {
+//                            super.update()
+//                            return i + 1
+//                        }
+//                    }
+//                }
+                super.update()
+                return 0
+            }
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+    
 }

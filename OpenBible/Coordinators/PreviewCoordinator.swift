@@ -46,6 +46,13 @@ class MainPreviewCoordinator: NSObject, PreviewCoordinator {
             case StrongId.oldTestament, StrongId.newTestament:
                 let strong = MainStrongCoordinator(navigationController, parameters: parameters)
                 strong.start()
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    strong.present()
+                } else {
+                    if let vc = strong.rootViewController {
+                        present(vc: vc, with: CGSize(width: 400, height: 400))
+                    }
+                }
                 childCoordinators["Strong"] = strong
                 return true
             default: break

@@ -549,10 +549,12 @@ class DownloadModel: NSObject {
 class Presentable: NSObject {
     var index: Int
     var attributedString: NSAttributedString
+    var hasNote: Bool = false
     
-    init(_ attributedString: NSAttributedString, index: Int) {
+    init(_ attributedString: NSAttributedString, index: Int, hasNote: Bool = false) {
         self.index = index
         self.attributedString = attributedString
+        self.hasNote = hasNote
     }
 }
 
@@ -560,10 +562,12 @@ class ListExpandablePresentable: NSObject {
     var index: Int
     var title: String
     var countOfExpandable: Int
+    var hasZeroElement: Bool = false
     
-    init(_ title: String, index: Int, count: Int) {
+    init(_ title: String, index: Int, count: Int, hasZeroElement: Bool = false) {
         self.title = title
         self.index = index
         self.countOfExpandable = count
+        self.hasZeroElement = hasZeroElement
     }
 }

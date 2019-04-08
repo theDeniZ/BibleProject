@@ -16,6 +16,7 @@ class SettingsViewController: UIViewController, Storyboarded {
     @IBOutlet private weak var stepper: UIStepper!
     @IBOutlet private weak var strongSwitch: UISwitch!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         strongSwitch.isOn = coordinator?.isStrongsOn ?? false

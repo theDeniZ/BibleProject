@@ -46,7 +46,7 @@ class SpiritContainerCoordinator: ContainerCoordinator {
         childCoordinators = [:]
         self.navigationController = navigationController
         rootViewController = ContainerViewController.instantiate()
-        rootViewController.tabBarItem = UITabBarItem(title: "Spirit", image: UIImage(named: "book"), tag: 0)
+        rootViewController.tabBarItem = UITabBarItem(title: "Spirit", image: UIImage(named: "dove"), tag: 0)
     }
     
     func start() {

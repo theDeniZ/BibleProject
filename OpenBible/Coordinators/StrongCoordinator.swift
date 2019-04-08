@@ -18,6 +18,8 @@ class MainStrongCoordinator: NSObject, Coordinator {
     
     var parent: MainPreviewCoordinator?
     
+    var rootViewController: StrongViewController?
+    
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
         childCoordinators = [:]
@@ -33,6 +35,11 @@ class MainStrongCoordinator: NSObject, Coordinator {
     func start() {
         let vc = StrongViewController.instantiate()
         vc.coordinator = self
+        rootViewController = vc
+    }
+    
+    func present() {
+        guard let vc = rootViewController else {return}
         navigationController.pushViewController(vc, animated: true)
     }
     

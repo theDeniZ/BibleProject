@@ -13,6 +13,20 @@ class SpiritManager: CoreSpiritManager {
     
     var fontSize: CGFloat
     
+    override var currentIndex: SpiritIndex {
+        get {
+            return super.currentIndex
+        }
+        set {
+            super.currentIndex = newValue
+            cachedPresentable = nil
+            cached = nil
+        }
+    }
+    
+    private var cached: [SpiritParagraph]?
+    private var cachedPresentable: [Presentable]?
+    
     override init() {
         fontSize = AppDelegate.plistManager.getFontSize()
         super.init()
@@ -23,11 +37,14 @@ class SpiritManager: CoreSpiritManager {
     }
     
     func presentableValue() -> [Presentable] {
+        if cachedPresentable != nil {
+            return cachedPresentable!
+        }
         if let pages = getPages() {
             var result = [Presentable]()
             let titleParagraphStyle = NSMutableParagraphStyle()
             titleParagraphStyle.alignment = .center
-            let normalFont: UIFont = UIFont.systemFont(ofSize: fontSize)
+            let font: UIFont = UIFont.systemFont(ofSize: fontSize)
             let boldFont: UIFont = UIFont.boldSystemFont(ofSize: fontSize)
             let smallFontValue: UIFont = UIFont.systemFont(ofSize: fontSize * 0.6)
 //            if let namedFont = plistManager.getFont() {
@@ -36,9 +53,9 @@ class SpiritManager: CoreSpiritManager {
 //                smallFontValue = NSFont(name: namedFont, size: fontSize * 0.6)!
 //            }
             
-            let font: [NSAttributedString.Key:Any] = [
-                .font : normalFont
-            ]
+//            let font: [NSAttributedString.Key:Any] = [
+//                .font : normalFont
+//            ]
             let note: [NSAttributedString.Key:Any] = [
                 .font : boldFont,
                 .paragraphStyle: titleParagraphStyle
@@ -52,6 +69,7 @@ class SpiritManager: CoreSpiritManager {
                 result.append(Presentable(NSAttributedString(string: intro + "\n\n", attributes: note), index: 0))
             }
 //            if let pages = chapter.pages?.array as? [Page] {
+            var allOfPresentedParagraphs = [SpiritParagraph]()
             var ordinalIndex = 1
             for page in pages {
                 var numberStr = ""
@@ -63,15 +81,18 @@ class SpiritManager: CoreSpiritManager {
                 if let paragraphs = page.paragraphs?.array as? [SpiritParagraph] {
 //                    let paragraphs = text.split(separator: "\n")
                     for i in 0..<paragraphs.count {
-                        if let text = paragraphs[i].text {
-                            let str = NSMutableAttributedString(string: String(text), attributes: font)
+                        let str = NSMutableAttributedString(attributedString: paragraphs[i].attributedCompound(font: font))
+//                            let str = NSMutableAttributedString(string: String(text), attributes: font)
                             str.append(NSAttributedString(string: "  \(currentIndex.book) \(numberStr).\(i+1) \n\n", attributes: smallFont))
-                            result.append(Presentable(str, index: ordinalIndex))
-                        }
+                            result.append(Presentable(str, index: ordinalIndex, hasNote: paragraphs[i].note != nil))
+                            ordinalIndex += 1
+//                        }
                     }
-                    ordinalIndex += 1
+                    allOfPresentedParagraphs.append(contentsOf: paragraphs)
                 }
             }
+            cached = allOfPresentedParagraphs
+            cachedPresentable = result
             return result
         }
         return []
@@ -89,9 +110,36 @@ class SpiritManager: CoreSpiritManager {
     }
     
     override var description: String {
-        return currentIndex.book + ":\(currentIndex.chapter + 1)"
+        return currentIndex.book + ":\(currentChapter()?.number ?? 0)"
     }
     
+    func find(reference: String) -> Int? {
+        guard let matched = reference.capturedGroups(withRegex: "(\\w[^\\d])(\\d+)(?:\\.\\d+)?"),
+                let number = Int(matched[1]) else {return nil}
+        
+        do {
+            let page = try Page.find(number: number, code: matched[0], in: context)
+            if let ch = page?.chapter, let code = ch.book?.code {
+                currentIndex.chapter = Int(ch.index)
+                currentIndex.book = code
+                plistManager.setSpirit(currentIndex, at: index)
+                _ = presentableValue()
+                if let cache = cached {
+                    for i in 0..<cache.count {
+                        if let n = cache[i].page?.number, n == number {
+                            super.update()
+                            return i + 1
+                        }
+                    }
+                }
+                super.update()
+                return 0
+            }
+        } catch {
+            print(error)
+        }
+        return nil
+    }
     
 }
 
@@ -101,15 +149,19 @@ extension SpiritManager: ModelVerseDelegate {
         return nil
     }
     
-    func setNote(at: (module: Int, verse: Int), _ note: String?) {
-        
+    func setNote(at index: (module: Int, verse: Int), _ note: String?) {
+        guard let cache = cached else {return}
+        cache[index.verse - 1].note = note
+        try? context.save()
     }
     
     func isThereAColor(at: (module: Int, verse: Int)) -> Data? {
         return nil
     }
     
-    func setColor(at: (module: Int, verse: Int), _ color: Data?) {
-        
+    func setColor(at index: (module: Int, verse: Int), _ color: Data?) {
+        guard let cache = cached else {return}
+        cache[index.verse - 1].color = color
+        try? context.save()
     }
 }

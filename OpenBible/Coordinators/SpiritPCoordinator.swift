@@ -43,13 +43,19 @@ class SpiritPreviewCoordinator: NSObject, PreviewCoordinator {
     
     func openLink(_ parameters: [String]) -> Bool {
         menuDelegate?.collapseMenu()
-        
-        return doSearch(text: parameters[0])
+        if parameters.count > 1, parameters[0].lowercased() == "spirit" {
+            return doSearch(text: parameters[1])
+        }
+        return false
         
     }
     
     
     func doSearch(text: String) -> Bool {
+        if let index = service.find(text: text) {
+            rootViewController?.scroll(to: (0, index))
+            return true
+        }
         return false
     }
     
@@ -104,6 +110,7 @@ extension SpiritPreviewCoordinator {
     }
     
     func presentMenu(at index: (Int, Int)) {
+        guard index.1 > 0 else {return}
         if UIDevice.current.userInterfaceIdiom == .phone {
             AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
             presentOniPhone(at: index)
@@ -161,6 +168,6 @@ extension SpiritPreviewCoordinator: UIViewControllerTransitioningDelegate {
 
 extension SpiritPreviewCoordinator: UIResignDelegate {
     func viewControllerWillResign() {
-        rootViewController?.reloadData()
+        rootViewController?.setNeedsLoad()
     }
 }

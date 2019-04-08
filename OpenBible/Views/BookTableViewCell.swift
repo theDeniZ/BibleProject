@@ -16,6 +16,7 @@ class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
         }
     }
     var delegate: BookTableViewCellDelegate?
+    var hasZeroElement: Bool = false
     
     var isExpanded = false {
         didSet {
@@ -71,13 +72,13 @@ class BookTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollecti
     // MARK: - Collection View Data Source
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return item.countOfExpandable
+        return item.countOfExpandable + (hasZeroElement ? 1 : 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let c = collectionView.dequeueReusableCell(withReuseIdentifier: "Number Collection Cell", for: indexPath)
         if let cell = c as? NumberCollectionViewCell {
-            cell.number = indexPath.row + 1
+            cell.number = indexPath.row + (hasZeroElement ? 0 : 1)
         }
         return c
     }

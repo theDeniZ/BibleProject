@@ -95,4 +95,8 @@ class SpiritBook: NSManagedObject {
         new.chapters = NSOrderedSet(array: chapters)
         return new
     }
+    
+    func hasPreword() -> Bool {
+        return (chapters?.array as? [SpiritChapter])?[0].number == 0
+    }
 }

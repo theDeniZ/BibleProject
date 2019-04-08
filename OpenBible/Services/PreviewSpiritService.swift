@@ -45,4 +45,8 @@ class PreviewSpiritService: NSObject {
         manager.delegate = del
     }
     
+    func find(text: String) -> Int? {
+        return manager.find(reference: text)
+    }
+    
 }

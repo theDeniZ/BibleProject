@@ -112,16 +112,16 @@ class MultipleTextVC: UIViewController, Storyboarded {
     }
     
     func loadTextViews() {
-        navigationItemTitleTextField.placeholder = coordinator.description
-        navigationItemTitleTextField.resignFirstResponder()
+        navigationItemTitleTextField?.placeholder = coordinator.description
+        navigationItemTitleTextField?.resignFirstResponder()
 //        DispatchQueue.global(qos: .userInteractive).async {
             self.textToPresent = coordinator.getDataToPresent()
-            if UIDevice.current.orientation == .portrait, self.textToPresent.count > self.countOfPortraitModulesAtOnce {
+            if UIDevice.current.orientation.rawValue <= 1, self.textToPresent.count > self.countOfPortraitModulesAtOnce {
                 self.textToPresent = Array(self.textToPresent[..<self.countOfPortraitModulesAtOnce])
             }
             self.layoutManager.arrayOfVerses = self.textToPresent
 //            DispatchQueue.main.async {
-                self.mainCollectionView.reloadData()
+                self.mainCollectionView?.reloadData()
 //            }
 //        }
     }
@@ -192,13 +192,15 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         let row = indexPath.row / count
         if let c = cell as? TextCollectionViewCell {
             if textToPresent[number].count > row {
-                c.text = textToPresent[number][row].attributedString
-                c.index = (number, textToPresent[number][row].index)
-                c.delegate = coordinator.modelVerseDelegate
+//                c.text = textToPresent[number][row].attributedString
+                c.presented = textToPresent[number][row]
+                c.index = number//, textToPresent[number][row].index)
+//                c.delegate = coordinator.modelVerseDelegate
                 c.presentee = coordinator
             } else {
-                c.text = NSAttributedString(string: "")
-                c.index = nil
+//                c.text = NSAttributedString(string: "")
+//                c.index = nil
+                c.presented = nil
             }
         }
         return cell

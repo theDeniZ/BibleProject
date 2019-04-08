@@ -91,6 +91,7 @@ extension LeftSelectionViewController:UITableViewDataSource {
         if let c = cell as? BookTableViewCell {
             c.item = items[indexPath.section][indexPath.row]
             c.delegate = self
+            c.hasZeroElement = items[indexPath.section][indexPath.row].hasZeroElement
         }
         let v = UIView()
         v.backgroundColor = UIColor.white

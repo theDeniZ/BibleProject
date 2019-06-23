@@ -10,7 +10,7 @@ import UIKit
 
 extension NSAttributedString: StrongsLinkEmbeddable {
     var strongNumbersAvailable: Bool {
-        return self.string.matches("(\\w \\d+ )")
+        return self.string.matches("(\\w \\d+)")
     }
     
     func embedStrongs(to link: String, using size: CGFloat, linking: Bool = true) -> NSAttributedString {

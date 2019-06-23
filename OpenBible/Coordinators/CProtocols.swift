@@ -32,6 +32,8 @@ protocol PreviewCoordinator: Coordinator, UIPresentee {
     func toggleMenu()
     func openLink(_ parameters: [String]) -> Bool
     func swipe(_ direction: SwipeDirection)
+    func pinch(_ value: CGFloat)
+    func collapseIfNeeded()
     
     func setNeedsUpdate()
 }

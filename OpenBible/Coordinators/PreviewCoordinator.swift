@@ -73,6 +73,10 @@ class MainPreviewCoordinator: NSObject, PreviewCoordinator {
     func setNeedsUpdate() {
         rootViewController?.setNeedsLoad()
     }
+    
+    func collapseIfNeeded() {
+        menuDelegate?.collapseMenu()
+    }
 }
 
 extension MainPreviewCoordinator: ModelUpdateDelegate {
@@ -144,6 +148,10 @@ extension MainPreviewCoordinator {
             service.decrement()
         }
     }
+    
+    func pinch(_ value: CGFloat) {
+        service.zoom(incrementingTo: Double(value))
+    }
 }
 
 extension MainPreviewCoordinator {
@@ -160,6 +168,7 @@ extension MainPreviewCoordinator {
         } else {
             presentOniPad(at: index)
         }
+        collapseIfNeeded()
     }
     
     private func presentOniPhone(at index: (Int, Int)) {

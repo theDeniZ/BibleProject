@@ -14,7 +14,7 @@ class MenuService: NSObject {
     
     var bookIndexPath: IndexPath {
         if manager.getBooks()?.count == 66 {
-            var index = manager.bookIndex
+            var index = manager.bookIndex - 1
             var section = 0
             if index >= 39 {
                 section = 1

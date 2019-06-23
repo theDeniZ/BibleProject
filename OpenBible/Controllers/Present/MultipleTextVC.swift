@@ -37,6 +37,9 @@ class MultipleTextVC: UIViewController, Storyboarded {
         return AppDelegate.plistManager.portraitNumber
     }
     
+    private var barsVisible: Bool = true
+    private var lastContentOffset: CGFloat = 0.0
+    
     // MARK: - Actions
     
     override func viewDidLoad() {
@@ -51,6 +54,8 @@ class MultipleTextVC: UIViewController, Storyboarded {
         mainCollectionView.dataSource = self
         mainCollectionView.delegate = self
         mainCollectionView.isUserInteractionEnabled = true
+        
+        
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "menu"), style: .plain,
@@ -85,6 +90,9 @@ class MultipleTextVC: UIViewController, Storyboarded {
         let pan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgePan(_:)))
         pan.edges = .left
         view.addGestureRecognizer(pan)
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinch(_:)))
+        view.addGestureRecognizer(pinch)
     }
     
     @IBAction func searchTextFieldDidEnter(_ sender: UITextField) {
@@ -176,6 +184,15 @@ class MultipleTextVC: UIViewController, Storyboarded {
         while textToPresent[index.0][item].index < index.1 {item += 1}
         mainCollectionView.scrollToItem(at: IndexPath(row: item * textToPresent.count, section: 0), at: .top, animated: true)
     }
+    
+    private func manageBars(toVisible: Bool) {
+        guard toVisible != barsVisible else { return }
+        barsVisible = toVisible
+        UIView.animate(withDuration: 0.2) {
+            self.navigationController?.isNavigationBarHidden = !toVisible
+            self.tabBarController?.tabBar.isHidden = !toVisible
+        }
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -220,6 +237,19 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         let row = indexPath.row / count
         print((number, row))
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if lastContentOffset > scrollView.contentOffset.y  || scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height < 20 {
+            // up
+            manageBars(toVisible: true)
+        } else if scrollView.contentOffset.y > 50.0,
+            scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.bounds.height > 60 {
+            manageBars(toVisible: false)
+            view.safeAreaInsetsDidChange()
+        }
+        lastContentOffset = scrollView.contentOffset.y
+        coordinator?.collapseIfNeeded()
+    }
 }
 
 // MARK: URLDelegate
@@ -248,6 +278,10 @@ extension MultipleTextVC {
             toggleMenu()
             recognizer.state = .ended
         }
+    }
+    @objc func pinch(_ sender: UIPinchGestureRecognizer) {
+        coordinator.pinch(sender.scale)
+        sender.scale = 1.0
     }
 }
 

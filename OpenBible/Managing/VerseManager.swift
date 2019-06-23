@@ -69,6 +69,12 @@ class VerseManager: CoreManager {
         plistManager.setFont(size: fontSize)
     }
     
+    func scaleFont(to value: Double) {
+        fontSize *= CGFloat(value)
+        super.broadcastChanges()
+        plistManager.setFont(size: fontSize)
+    }
+    
     func getBooks() -> [Book]? {
         return (mainModule?.books?.array as? [Book])?.sorted(by: { (f, s) -> Bool in
             f.number < s.number

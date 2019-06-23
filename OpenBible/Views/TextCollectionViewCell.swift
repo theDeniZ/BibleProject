@@ -73,6 +73,6 @@ class TextCollectionViewCell: UICollectionViewCell {
     private func select() {
 //        mainLabel.selectedRange = NSRange(0..<mainLabel.text.count)
 //        mainLabel.selectAll(nil)
-        mainLabel.layer.backgroundColor = UIColor.gray.withAlphaComponent(0.6).cgColor
+        mainLabel.layer.backgroundColor = UIColor.yellow.withAlphaComponent(0.3).cgColor
     }
 }

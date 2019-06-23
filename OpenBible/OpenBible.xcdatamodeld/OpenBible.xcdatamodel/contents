@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Book" representedClassName=".Book" syncable="YES" codeGenerationType="category">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -62,6 +62,7 @@
         <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="text" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="chapter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Chapter" inverseName="verses" inverseEntity="Chapter" syncable="YES"/>
         <relationship name="inHistory" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="History" inverseName="verses" inverseEntity="History" syncable="YES"/>
     </entity>
@@ -73,8 +74,8 @@
         <element name="Page" positionX="-412.84765625" positionY="118.78125" width="128" height="120"/>
         <element name="SpiritBook" positionX="-180.6640625" positionY="-236.25" width="128" height="135"/>
         <element name="SpiritChapter" positionX="-344.4140625" positionY="-98.8359375" width="128" height="135"/>
-        <element name="Strong" positionX="191.421875" positionY="46.375" width="128" height="103"/>
-        <element name="Verse" positionX="-197.13671875" positionY="129.59765625" width="128" height="135"/>
         <element name="SpiritParagraph" positionX="-207" positionY="-81" width="128" height="105"/>
+        <element name="Strong" positionX="191.421875" positionY="46.375" width="128" height="103"/>
+        <element name="Verse" positionX="-197.13671875" positionY="129.59765625" width="128" height="150"/>
     </elements>
 </model>

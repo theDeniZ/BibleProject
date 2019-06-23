@@ -43,4 +43,8 @@ class PreviewModuleService: NSObject {
         manager.addDelegate(del)
     }
     
+    func zoom(incrementingTo value: Double) {
+        manager.scaleFont(to: value)
+    }
+    
 }

@@ -53,6 +53,10 @@
 		222F4E90222FD4EA008CD4E7 /* SharedSolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F4E8F222FD4EA008CD4E7 /* SharedSolutions.swift */; };
 		222F4E91222FD4EB008CD4E7 /* SharedSolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F4E8F222FD4EA008CD4E7 /* SharedSolutions.swift */; };
 		2235F68922142D3100E46411 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2235F68822142D3100E46411 /* OutlineViewController.swift */; };
+		223971FE2274DE810007693B /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223971FD2274DE810007693B /* SyncManager.swift */; };
+		223971FF2274DE810007693B /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223971FD2274DE810007693B /* SyncManager.swift */; };
+		223972152274E29D0007693B /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223972142274E29D0007693B /* Crypto.swift */; };
+		223972162274E29D0007693B /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223972142274E29D0007693B /* Crypto.swift */; };
 		223AA8E722478A0D00F4A98D /* CProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AA8E622478A0D00F4A98D /* CProtocols.swift */; };
 		223AA8E9224791C600F4A98D /* PreviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AA8E8224791C600F4A98D /* PreviewCoordinator.swift */; };
 		223AA8EC2247F73800F4A98D /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223AA8EB2247F73800F4A98D /* DownloadService.swift */; };
@@ -174,6 +178,8 @@
 		222F4E8C222FCA53008CD4E7 /* SharedExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedExtensions.swift; sourceTree = "<group>"; };
 		222F4E8F222FD4EA008CD4E7 /* SharedSolutions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedSolutions.swift; sourceTree = "<group>"; };
 		2235F68822142D3100E46411 /* OutlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
+		223971FD2274DE810007693B /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
+		223972142274E29D0007693B /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		223AA8E622478A0D00F4A98D /* CProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CProtocols.swift; sourceTree = "<group>"; };
 		223AA8E8224791C600F4A98D /* PreviewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCoordinator.swift; sourceTree = "<group>"; };
 		223AA8EB2247F73800F4A98D /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
@@ -520,6 +526,7 @@
 				22061ED421F4A76E00F00B04 /* Roman.swift */,
 				222F4E8F222FD4EA008CD4E7 /* SharedSolutions.swift */,
 				225FC200222FF3C500E61CA8 /* SearchManager.swift */,
+				223972142274E29D0007693B /* Crypto.swift */,
 			);
 			path = Supplement;
 			sourceTree = "<group>";
@@ -554,6 +561,7 @@
 				222222A22213108700AFDE40 /* StrongManager.swift */,
 				226F9C08223EDADE0066BDDF /* CVLayoutManager.swift */,
 				225C812B2253E7C9009D4154 /* CoreSpiritManager.swift */,
+				223971FD2274DE810007693B /* SyncManager.swift */,
 			);
 			path = Managing;
 			sourceTree = "<group>";
@@ -700,6 +708,7 @@
 				225C812F2253E9A7009D4154 /* SpiritManager.swift in Sources */,
 				221E37F9220AE665003D8E40 /* AppDelegate.swift in Sources */,
 				226493D5224BAA75000DD8A5 /* StrongService.swift in Sources */,
+				223972162274E29D0007693B /* Crypto.swift in Sources */,
 				223AA8F8224941AE00F4A98D /* ContainerCoordinator.swift in Sources */,
 				22707AE122368D51006E01D5 /* MultipleTextVC.swift in Sources */,
 				22FCFEC32254D21C001F2DF1 /* SpiritMenuService.swift in Sources */,
@@ -739,6 +748,7 @@
 				222F4E8E222FCA58008CD4E7 /* SharedExtensions.swift in Sources */,
 				221E3854220AEA01003D8E40 /* BookTableViewCell.swift in Sources */,
 				22FCFEC52254D5B6001F2DF1 /* SpiritService.swift in Sources */,
+				223971FF2274DE810007693B /* SyncManager.swift in Sources */,
 				225C81302253E9FA009D4154 /* Roman.swift in Sources */,
 				221E3846220AE9EE003D8E40 /* HistoryViewController.swift in Sources */,
 				225C812D2253E982009D4154 /* CoreSpiritManager.swift in Sources */,
@@ -766,6 +776,7 @@
 				22F68BB821CFC556001C96D3 /* MainViewController.swift in Sources */,
 				22061ECF21F4A4DC00F00B04 /* Page.swift in Sources */,
 				22061ECD21F4829C00F00B04 /* ListManager.swift in Sources */,
+				223971FE2274DE810007693B /* SyncManager.swift in Sources */,
 				225C812C2253E7C9009D4154 /* CoreSpiritManager.swift in Sources */,
 				2240220521EB479900DC8E2F /* Types.swift in Sources */,
 				22061ECB21F4821100F00B04 /* ListViewController.swift in Sources */,
@@ -798,6 +809,7 @@
 				22B69894224129E40015F46B /* NoteVC.swift in Sources */,
 				222F4E8D222FCA53008CD4E7 /* SharedExtensions.swift in Sources */,
 				22BD925621CC1EC400019853 /* macB.xcdatamodeld in Sources */,
+				223972152274E29D0007693B /* Crypto.swift in Sources */,
 				225FC2082230391C00E61CA8 /* SearchManager.swift in Sources */,
 				22CB04B321D911F2004110E0 /* StrongViewController.swift in Sources */,
 				22B9F1F021DD219A00E6E62C /* PlistManager.swift in Sources */,
@@ -833,6 +845,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 6V7ANKZCL9;
 				INFOPLIST_FILE = OpenBible/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -857,6 +870,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 6V7ANKZCL9;
 				INFOPLIST_FILE = OpenBible/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

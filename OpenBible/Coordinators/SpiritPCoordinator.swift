@@ -62,6 +62,14 @@ class SpiritPreviewCoordinator: NSObject, PreviewCoordinator {
     func toggleMenu() {
         menuDelegate?.toggleMenu()
     }
+    
+    func pinch(_ value: CGFloat) {
+        
+    }
+    
+    func collapseIfNeeded() {
+        menuDelegate?.collapseMenu()
+    }
 }
 
 extension SpiritPreviewCoordinator: ModelUpdateDelegate {
@@ -117,6 +125,7 @@ extension SpiritPreviewCoordinator {
         } else {
             presentOniPad(at: index)
         }
+        collapseIfNeeded()
     }
     
     func presentOniPhone(at index: (Int, Int)) {

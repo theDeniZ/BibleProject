@@ -79,6 +79,8 @@ extension String {
             if capturedGroupIndex.length > 0 {
                 let matchedString = (self as NSString).substring(with: capturedGroupIndex)
                 results.append(matchedString)
+            } else {
+                results.append("")
             }
         }
         
@@ -110,6 +112,8 @@ extension String {
                     }
                 }
                 returning.append(results)
+            } else {
+                returning.append([])
             }
         }
         return returning

@@ -16,12 +16,15 @@ class PlistManager {
     private var plistPath: String?
     
     private let fontKey = "fontSize"
-    private let bookKey = "lastBookIndex"
-    private let chapterKey = "lastChapterIndex"
+    private let indexKey = "bibleIndex"
     private let modulesKey = "modules"
     private let strongsKey = "strongs"
     private let portraitNumberKey = "portraitNumber"
     private var spiritKey = "spirit"
+    
+    private let bookKey = "bookIndex"
+    private let chapterKey = "chapterIndex"
+    private let verseKey = "versesRanges"
     
     var isStrongsOn: Bool {
         get {
@@ -67,6 +70,8 @@ class PlistManager {
         plistHandler = PlistHandler(plistPath)
     }
     
+    static var shared = PlistManager()
+    
     func getCurrentBookAndChapterIndexes() -> (bookIndex: Int, chapterIndex: Int) {
         var bookIndex = 1
         var chapterIndex = 1
@@ -75,17 +80,74 @@ class PlistManager {
         return (bookIndex, chapterIndex)
     }
     
-    func set(book bookIndex: Int, chapter chapterIndex: Int) {
-        plistHandler.setValue(bookIndex, of: bookKey)
-        plistHandler.setValue(chapterIndex, of: chapterKey)
+    func getBibleIndex() -> MultipleBibleIndex {
+        var dict: [String: Any] = [:]
+        plistHandler.get(to: &dict, of: indexKey)
+        let index = MultipleBibleIndex()
+        for key in dict.keys.sorted() {
+            if let current = dict[key] as? [String: Any] {
+                let book = current[bookKey] as? Int ?? 1
+                let chapter = current[chapterKey] as? Int ?? 1
+                var verses: [Range<Int>]? = nil
+                if let data = current[verseKey] as? Data {
+                    let decoder = JSONDecoder()
+                    verses = try? decoder.decode([Range<Int>].self, from: data)
+                }
+                let item = BibleIndex(book: book, chapter: chapter, verses: verses)
+                index.set(at: Int(key) ?? 0, bibleIndex: item)
+            }
+        }
+        return index
     }
     
-    func set(book bookIndex: Int) {
-        plistHandler.setValue(bookIndex, of: bookKey)
+    func set(index: MultipleBibleIndex) {
+        var dict: [String: Any] = [:]
+        for key in index.keys {
+            if let stored = index[key] {
+                var bibleIndex = [String: Any]()
+                bibleIndex[bookKey] = stored.book
+                bibleIndex[chapterKey] = stored.chapter
+                let encoder = JSONEncoder()
+                bibleIndex[verseKey] = try? encoder.encode(stored.verses)
+
+                dict["\(key)"] = bibleIndex
+            }
+        }
+        plistHandler.setValue(dict, of: indexKey)
     }
     
-    func set(chapter chapterIndex: Int) {
-        plistHandler.setValue(chapterIndex, of: chapterKey)
+    func set(book bookIndex: Int, chapter chapterIndex: Int, at index: String = "0") {
+        var dict: [String: Any] = [:]
+        plistHandler.get(to: &dict, of: indexKey)
+        if var current = dict[index] as? [String: Any] {
+            current[bookKey] = bookIndex
+            current[chapterKey] = chapterIndex
+        } else {
+            dict[index] = [ bookKey : bookIndex, chapterKey : chapterIndex ]
+        }
+        plistHandler.setValue(dict, of: indexKey)
+    }
+    
+    func set(book bookIndex: Int, at index: String = "0") {
+        var dict: [String: Any] = [:]
+        plistHandler.get(to: &dict, of: indexKey)
+        if var current = dict[index] as? [String: Any] {
+            current[bookKey] = bookIndex
+        } else {
+            dict[index] = [ bookKey : bookIndex ]
+        }
+        plistHandler.setValue(dict, of: indexKey)
+    }
+    
+    func set(chapter chapterIndex: Int, at index: String = "0") {
+        var dict: [String: Any] = [:]
+        plistHandler.get(to: &dict, of: indexKey)
+        if var current = dict[index] as? [String: Any] {
+            current[chapterKey] = chapterIndex
+        } else {
+            dict[index] = [ chapterKey : chapterIndex ]
+        }
+        plistHandler.setValue(dict, of: indexKey)
     }
     
     func getAllModuleKeys() -> [String] {

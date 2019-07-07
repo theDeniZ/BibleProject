@@ -742,13 +742,13 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="LW7-Zi-MYA">
                                                     <size key="itemSize" width="133" height="55"/>
-                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="headerReferenceSize" width="50" height="25"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="TextViewCell" id="fKL-hu-2ZX" customClass="TextCollectionViewCell" customModule="OpenBible" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="133" height="55"/>
+                                                        <rect key="frame" x="0.0" y="25" width="133" height="55"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                             <rect key="frame" x="0.0" y="0.0" width="133" height="55"/>
@@ -788,6 +788,27 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
+                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CollectionTextHeaderCell" id="Coe-SC-mNO" customClass="HeaderCollectionReusableView" customModule="OpenBible" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHD-JI-MZB">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="DHD-JI-MZB" secondAttribute="trailing" id="9B9-Jp-ilt"/>
+                                                        <constraint firstItem="DHD-JI-MZB" firstAttribute="leading" secondItem="Coe-SC-mNO" secondAttribute="leading" id="Y2P-f8-hbn"/>
+                                                        <constraint firstItem="DHD-JI-MZB" firstAttribute="top" secondItem="Coe-SC-mNO" secondAttribute="top" id="aNS-UK-1TJ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="DHD-JI-MZB" secondAttribute="bottom" id="cEg-WP-MtY"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="headerLabel" destination="DHD-JI-MZB" id="vYB-bX-Lhl"/>
+                                                    </connections>
+                                                </collectionReusableView>
                                             </collectionView>
                                         </subviews>
                                     </stackView>
@@ -829,7 +850,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Y3-03-Q6G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-111" y="-27"/>
+            <point key="canvasLocation" x="-111.2" y="-27.339901477832512"/>
         </scene>
     </scenes>
     <resources>

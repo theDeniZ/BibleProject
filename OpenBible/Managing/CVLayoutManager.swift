@@ -10,28 +10,35 @@ import UIKit
 
 class CVLayoutManager: NSObject {
     
-    var arrayOfVerses = [[Presentable]]() {didSet{cached = []}}
+    var presentable = CollectionPresentable() {didSet{cached = [:]}}
     
-    private var cached: [CGFloat?] = []
+    private var cached: [Int: [Int: CGFloat]] = [:]
     private var cachedWidth: CGFloat = 0.0
     
-    func calculateHeight(at position: Int, with width: CGFloat) -> CGFloat {
+    func calculateHeight(at indexPath: IndexPath, with width: CGFloat) -> CGFloat {
+        
+        let count = presentable.countOfInternalColumns(in: indexPath.section)
+        let row = indexPath.row / count
+        
         if cachedWidth != width {
             cachedWidth = width
-            cached = []
+            cached = [:]
         }
-        if position < cached.count, let cache = cached[position] {return cache}
+        if let cache = cached[indexPath.section]?[row] {
+            return cache
+        }
         var newMax: CGFloat = 0.0
-//        let height: CGFloat = 1000.0
         
-//        let size = CGSize(width: width, height: height)
-        for i in 0..<arrayOfVerses.count {
+        for i in 0..<presentable.sections[indexPath.section].presentable.count {
 //            newMax = max(newMax, arrayOfVerses[i][position].boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil).size.height)
-            if arrayOfVerses[i].count > position {
-                newMax = max(newMax, arrayOfVerses[i][position].attributedString.sizeFittingWidth(width).height)
+            if presentable.sections[indexPath.section].presentable[i].count > row {
+                newMax = max(newMax, presentable.sections[indexPath.section].presentable[i][row].attributedString.sizeFittingWidth(width).height)
             }
         }
-        cached.append(newMax)
+        if cached[indexPath.section] == nil {
+            cached[indexPath.section] = [:]
+        }
+        cached[indexPath.section]?[row] = newMax
         return newMax
     }
     

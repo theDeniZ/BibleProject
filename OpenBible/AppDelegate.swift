@@ -36,11 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
     
-    static var plistManager: PlistManager {
-        return AppDelegate.shared.plistManager
-    }
-    
-    private var plistManager = PlistManager()
     
     var orientationLock = UIInterfaceOrientationMask.all
     

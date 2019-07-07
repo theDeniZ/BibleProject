@@ -16,9 +16,9 @@ class MainPreviewCoordinator: NSObject, PreviewCoordinator {
     var menuDelegate: MenuDelegate?
     
     var rootViewController: MultipleTextVC?
-    var modelVerseDelegate: ModelVerseDelegate {
-        return service.modelVerseDelegate
-    }
+//    var modelVerseDelegate: ModelVerseDelegate {
+//        return service.modelVerseDelegate
+//    }
     
     var service = PreviewModuleService()
     
@@ -54,6 +54,7 @@ class MainPreviewCoordinator: NSObject, PreviewCoordinator {
                     }
                 }
                 childCoordinators["Strong"] = strong
+                rootViewController?.barsVisible = true
                 return true
             default: break
             }
@@ -66,7 +67,7 @@ class MainPreviewCoordinator: NSObject, PreviewCoordinator {
     func dismiss(_ coordinator: Coordinator) {
         if coordinator is MainStrongCoordinator {
             childCoordinators.removeValue(forKey: "Strong")
-            print("removed strong coord")
+//            print("removed strong coord")
         }
     }
     
@@ -82,38 +83,53 @@ class MainPreviewCoordinator: NSObject, PreviewCoordinator {
 extension MainPreviewCoordinator: ModelUpdateDelegate {
     func modelChanged(_ fully: Bool) {
         rootViewController?.loadTextViews()
+        rootViewController?.scrollToTop(animated: true)
     }
 }
 
 extension MainPreviewCoordinator {
     func doSearch(text arrived: String) -> Bool {
-        let text = arrived.replacingOccurrences(of: " ", with: "")
-        if text.matches(String.regexForChapter) {
-            let m = text.capturedGroups(withRegex: String.regexForChapter)!
-            service.changeChapter(to: Int(m[0])!)
-        } else if text.matches(String.regexForBookRefference) {
-            let match = text.capturedGroups(withRegex: String.regexForBookRefference)!
-            if service.changeBook(by: match[0]),
-                match.count > 1,
-                let n = Int(match[1]) {
-                service.changeChapter(to: n)
-                if match.count > 2,
-                    let verseMatch = text.matches(withRegex: String.regexForVerses),
-                    verseMatch[0][0] == match[1] {
-                    let v = verseMatch[1...]
-                    service.setVerses(from: v.map {$0[0]})
+        
+        var indices: [BibleIndex] = []
+        
+        let searches = arrived.split(separator: ";")
+        for arrivedOne in searches {
+            let text = arrivedOne.replacingOccurrences(of: " ", with: "")
+            if text.matches(String.regexForChapter) {
+                let m = text.capturedGroups(withRegex: String.regexForChapter)!
+                service.changeChapter(to: Int(m[0])!)
+            } else if text.matches(String.regexForBookRefference) {
+                let match = text.capturedGroups(withRegex: String.regexForBookRefference)!
+                
+                var prevIndex = service.bibleIndex(for: indices.count)
+                if let bookIndex = service.bookIndex(for: match[0]) {
+                    prevIndex.book = bookIndex
                 }
+                if let chapter = Int(match[1]) {
+                    prevIndex.chapter = chapter
+                }
+                if let verseMatch = text.matches(withRegex: String.regexForVerses) {
+                    let v = verseMatch[1...].map {$0[0]}
+                    let ranges = getVerseRanges(from: v)
+                    prevIndex.verses = ranges.count > 0 ? ranges : nil
+                }
+                indices.append(prevIndex)
+            } else if text.matches(String.regexForVersesOnly) {
+                let verseMatch = text.matches(withRegex: String.regexForVersesOnly)!
+                var prevIndex = service.bibleIndex(for: indices.count)
+                if let chapter = Int(verseMatch[0][0]) {
+                    prevIndex.chapter = chapter
+                }
+                let v = verseMatch[1...].map {$0[0]}
+                if v.count > 0 {
+                    let verses = getVerseRanges(from: v)
+                    prevIndex.verses = verses.count > 0 ? verses : nil
+                }
+                indices.append(prevIndex)
             }
-        } else if text.matches(String.regexForVersesOnly) {
-            let verseMatch = text.matches(withRegex: String.regexForVersesOnly)!
-            service.changeChapter(to: Int(verseMatch[0][0])!)
-            let v = verseMatch[1...]
-            if v.count > 0 {
-                service.setVerses(from: v.map {$0[0]})
-            }
-        } else {
-            return false
         }
+        service.setIndices(indices)
+        rootViewController?.scrollToTop(animated: false)
         return true
 //        loadTextViews()
     }
@@ -136,7 +152,7 @@ extension MainPreviewCoordinator {
         return service.description
     }
     
-    func getDataToPresent() -> [[Presentable]] {
+    func getDataToPresent() -> CollectionPresentable {
         return service.getDataToPresent()
     }
     
@@ -175,20 +191,20 @@ extension MainPreviewCoordinator {
         let pvc = NoteViewController.instantiate()
         pvc.modalPresentationStyle = UIModalPresentationStyle.custom
         pvc.transitioningDelegate = self
-        pvc.delegate = modelVerseDelegate
+//        pvc.delegate = modelVerseDelegate
         pvc.resignDelegate = self
         pvc.index = index
-        rootViewController?.scroll(to: index)
+        rootViewController?.scroll(to: (0,index))
         navigationController.present(pvc, animated: true, completion: nil)
     }
     
     private func presentOniPad(at index: (Int, Int)) {
         let pvc = NoteViewController.instantiate()
-        pvc.delegate = modelVerseDelegate
+//        pvc.delegate = modelVerseDelegate
         pvc.resignDelegate = self
         pvc.index = index
         pvc.makingCustomSize = false
-        rootViewController?.scroll(to: index)
+        rootViewController?.scroll(to: (0,index))
         
         let size = CGSize(width: 300, height: 300)
         present(vc: pvc, with: size)

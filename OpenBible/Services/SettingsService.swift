@@ -12,21 +12,19 @@ class SettingService: NSObject {
     
     var isStrongsOn: Bool {
         get {
-            return plist.isStrongsOn
+            return PlistManager.shared.isStrongsOn
         }
         set {
-            plist.isStrongsOn = newValue
+            PlistManager.shared.isStrongsOn = newValue
         }
     }
     
     var numberOfModules: Int {
         get {
-            return plist.portraitNumber
+            return PlistManager.shared.portraitNumber
         }
         set {
-            plist.portraitNumber = newValue
+            PlistManager.shared.portraitNumber = newValue
         }
     }
-    
-    private var plist: PlistManager = AppDelegate.plistManager
 }

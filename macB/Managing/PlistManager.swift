@@ -65,6 +65,8 @@ class PlistManager {
         plistHandler = PlistHandler(plistPath)
     }
     
+    static var shared = PlistManager()
+    
     func getCurrentBookAndChapterIndexes() -> (bookIndex: Int, chapterIndex: Int) {
         var bookIndex = 1
         var chapterIndex = 1

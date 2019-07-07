@@ -41,16 +41,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6D37FC06-92E6-44C3-9455-606C9EA418AE"
-            shouldBeEnabled = "No"
+            uuid = "4D0FD686-9CE1-4540-A715-F0EF6C2036C7"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "OpenBible/Controllers/Present/MultipleTextVC.swift"
+            filePath = "OpenBible/Coordinators/PreviewCoordinator.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "scrollViewDidScroll(_:)"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "doSearch(text:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

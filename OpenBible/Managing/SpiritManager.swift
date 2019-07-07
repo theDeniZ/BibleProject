@@ -28,7 +28,7 @@ class SpiritManager: CoreSpiritManager {
     private var cachedPresentable: [Presentable]?
     
     override init() {
-        fontSize = AppDelegate.plistManager.getFontSize()
+        fontSize = PlistManager.shared.getFontSize()
         super.init()
     }
     
@@ -105,7 +105,7 @@ class SpiritManager: CoreSpiritManager {
     func setBook(withIndex: Int) {
         guard let book = (try? SpiritBook.get(by: withIndex, from: context)) ?? nil else {return}
         currentIndex.book = book.code!
-        plistManager.setSpirit(currentIndex, at: index)
+        PlistManager.shared.setSpirit(currentIndex, at: index)
         update()
     }
     
@@ -122,7 +122,7 @@ class SpiritManager: CoreSpiritManager {
             if let ch = page?.chapter, let code = ch.book?.code {
                 currentIndex.chapter = Int(ch.index)
                 currentIndex.book = code
-                plistManager.setSpirit(currentIndex, at: index)
+                PlistManager.shared.setSpirit(currentIndex, at: index)
                 _ = presentableValue()
                 if let cache = cached {
                     for i in 0..<cache.count {

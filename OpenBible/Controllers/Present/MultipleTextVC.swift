@@ -29,15 +29,15 @@ class MultipleTextVC: UIViewController, Storyboarded {
     private var draggedScrollView: Int = 0
     private var executeOnAppear: (() -> ())?
     
-    private var textToPresent = [[Presentable]]()
+    private var textToPresent = CollectionPresentable()
     private var layoutManager = CVLayoutManager()
     
     private var isInSearch: Bool = false {didSet{updateSearchUI()}}
     private var countOfPortraitModulesAtOnce: Int {
-        return AppDelegate.plistManager.portraitNumber
+        return PlistManager.shared.portraitNumber
     }
     
-    private var barsVisible: Bool = true
+    var barsVisible: Bool = true
     private var lastContentOffset: CGFloat = 0.0
     
     // MARK: - Actions
@@ -55,7 +55,7 @@ class MultipleTextVC: UIViewController, Storyboarded {
         mainCollectionView.delegate = self
         mainCollectionView.isUserInteractionEnabled = true
         
-        
+        navigationItemTitleTextField?.placeholder = "Quick Go To"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "menu"), style: .plain,
@@ -120,18 +120,18 @@ class MultipleTextVC: UIViewController, Storyboarded {
     }
     
     func loadTextViews() {
-        navigationItemTitleTextField?.placeholder = coordinator.description
+//        navigationItemTitleTextField?.placeholder = coordinator.description
         navigationItemTitleTextField?.resignFirstResponder()
-//        DispatchQueue.global(qos: .userInteractive).async {
-            self.textToPresent = coordinator.getDataToPresent()
-            if UIDevice.current.orientation.rawValue <= 1, self.textToPresent.count > self.countOfPortraitModulesAtOnce {
-                self.textToPresent = Array(self.textToPresent[..<self.countOfPortraitModulesAtOnce])
-            }
-            self.layoutManager.arrayOfVerses = self.textToPresent
-//            DispatchQueue.main.async {
-                self.mainCollectionView?.reloadData()
-//            }
+//        if UIDevice.current.orientation.rawValue <= 1,
+//            presentable.countOfInternalColumns(in: 0) > countOfPortraitModulesAtOnce {
+//            presentable = Array(presentable[..<countOfPortraitModulesAtOnce])
 //        }
+
+        textToPresent = coordinator.getDataToPresent()
+        
+        layoutManager.presentable = textToPresent
+        
+        mainCollectionView?.reloadData()
     }
     
     @objc private func toggleMenu() {
@@ -178,11 +178,15 @@ class MultipleTextVC: UIViewController, Storyboarded {
         }
     }
     
-    func scroll(to index: (Int, Int)) {
-//        let item = ((index.1 - 1) * textToPresent.count) + index.0
-        var item = 0
-        while textToPresent[index.0][item].index < index.1 {item += 1}
-        mainCollectionView.scrollToItem(at: IndexPath(row: item * textToPresent.count, section: 0), at: .top, animated: true)
+    func scroll(to item: (section: Int, index: (Int, Int))) {
+////        let item = ((index.1 - 1) * textToPresent.count) + index.0
+//        var itemIndex = 0
+//        while textToPresent.sections[item.section] [index.0][itemIndex].index < index.1 {itemIndex += 1}
+//        mainCollectionView.scrollToItem(at: IndexPath(row: itemIndex * textToPresent.count, section: 0), at: .top, animated: true)
+    }
+    
+    func scrollToTop(animated: Bool) {
+        self.mainCollectionView?.setContentOffset(CGPoint(x: 0, y: 0), animated: animated)
     }
     
     private func manageBars(toVisible: Bool) {
@@ -195,22 +199,37 @@ class MultipleTextVC: UIViewController, Storyboarded {
     }
 }
 
-// MARK: - UITextViewDelegate
+// MARK: - UICollectionViewDelegate, DataSource
 
 extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "CollectionTextHeaderCell", for: indexPath)
+        
+        if let header = cell as? HeaderCollectionReusableView {
+            header.header = textToPresent.sections[indexPath.section].title
+        }
+        
+        return cell
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return textToPresent.countMax * textToPresent.count
+        return textToPresent.sections[section].presentable.countMax * min(textToPresent.countOfInternalColumns(in: section), countOfPortraitModulesAtOnce)
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return textToPresent.sections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextViewCell", for: indexPath)
-        let count = textToPresent.count
+        let count = min(textToPresent.countOfInternalColumns(in: indexPath.section), countOfPortraitModulesAtOnce)//textToPresent.sections[indexPath.section].presentable.count
         let number = indexPath.row % count
         let row = indexPath.row / count
         if let c = cell as? TextCollectionViewCell {
-            if textToPresent[number].count > row {
+            if textToPresent.sections[indexPath.section].presentable[number].count > row {
 //                c.text = textToPresent[number][row].attributedString
-                c.presented = textToPresent[number][row]
+                c.presented = textToPresent.sections[indexPath.section].presentable[number][row]
                 c.index = number//, textToPresent[number][row].index)
 //                c.delegate = coordinator.modelVerseDelegate
                 c.presentee = coordinator
@@ -224,15 +243,14 @@ extension MultipleTextVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let count = textToPresent.count
-        let row = indexPath.row / count
-        let width = (collectionView.bounds.width - 1.0) / CGFloat(count)
-        return CGSize(width: width, height: layoutManager.calculateHeight(at: row, with: width))
+        
+        let width = (collectionView.bounds.width - 1.0) / CGFloat(textToPresent.countOfInternalColumns(in: indexPath.section))
+        return CGSize(width: width, height: layoutManager.calculateHeight(at: indexPath, with: width))
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        collectionView.deselectItem(at: indexPath, animated: true)
-        let count = textToPresent.count
+        let count = textToPresent.sections[indexPath.section].presentable.count
         let number = indexPath.row % count
         let row = indexPath.row / count
         print((number, row))

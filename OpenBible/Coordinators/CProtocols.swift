@@ -25,10 +25,10 @@ protocol ContainerCoordinator: Coordinator {
 
 protocol PreviewCoordinator: Coordinator, UIPresentee {
     var description: String {get}
-    var modelVerseDelegate: ModelVerseDelegate {get}
+//    var modelVerseDelegate: ModelVerseDelegate {get}
     
     func doSearch(text: String) -> Bool
-    func getDataToPresent() -> [[Presentable]]
+    func getDataToPresent() -> CollectionPresentable
     func toggleMenu()
     func openLink(_ parameters: [String]) -> Bool
     func swipe(_ direction: SwipeDirection)

@@ -26,7 +26,6 @@ class CoreSpiritManager: NSObject {
     var context: NSManagedObjectContext = AppDelegate.context
     var currentIndex: SpiritIndex
     
-    var plistManager: PlistManager { return AppDelegate.plistManager }
     var index: Int = 0
     var delegate: ModelUpdateDelegate?
     
@@ -40,7 +39,7 @@ class CoreSpiritManager: NSObject {
     }
     
     override init() {
-        currentIndex = AppDelegate.plistManager.getSpirit(from: index) ?? SpiritIndex(book: "", chapter: 0)
+        currentIndex = PlistManager.shared.getSpirit(from: index) ?? SpiritIndex(book: "", chapter: 0)
         //        currentIndesies = AppDelegate.plistManager.getSpirit()
         super.init()
     }
@@ -58,14 +57,14 @@ class CoreSpiritManager: NSObject {
     
     func set(book: String) -> Int {
         currentIndex.book = book
-        plistManager.setSpirit(currentIndex, at: index)
+        PlistManager.shared.setSpirit(currentIndex, at: index)
         broadcastChanges()
         return index
     }
     
     func setChapter(number: Int) {
         currentIndex.chapter = number
-        plistManager.setSpirit(currentIndex, at: index)
+        PlistManager.shared.setSpirit(currentIndex, at: index)
         broadcastChanges()
     }
     
@@ -114,12 +113,12 @@ class CoreSpiritManager: NSObject {
             let match = text.capturedGroups(withRegex: String.regexForSpiritIndex)!
             if match.count > 0, SpiritBook.exists(with: match[0], in: context) {
                 currentIndex.book = match[0]
-                plistManager.setSpirit(currentIndex, at: index)
+                PlistManager.shared.setSpirit(currentIndex, at: index)
                 broadcastChanges()
                 if match.count > 1 {
                     if match[1] == ":", match.count > 2 {
                         currentIndex.chapter = Int(match[2])!
-                        plistManager.setSpirit(currentIndex, at: index)
+                        PlistManager.shared.setSpirit(currentIndex, at: index)
                         broadcastChanges()
                         return
                     } else {

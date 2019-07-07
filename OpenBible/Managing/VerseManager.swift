@@ -12,10 +12,10 @@ import CoreData
 class VerseManager: CoreManager {
 
     var fontSize: CGFloat
-    var isStrongsOn: Bool { return plistManager.isStrongsOn }
+    var isStrongsOn: Bool { return PlistManager.shared.isStrongsOn }
     
     override init(_ context: NSManagedObjectContext) {
-        fontSize = AppDelegate.plistManager.getFontSize()
+        fontSize = PlistManager.shared.getFontSize()
         super.init(context)
     }
     
@@ -61,18 +61,18 @@ class VerseManager: CoreManager {
     func incrementFont() {
         fontSize += 1.0
         super.broadcastChanges()
-        plistManager.setFont(size: fontSize)
+        PlistManager.shared.setFont(size: fontSize)
     }
     func decrementFont() {
         fontSize -= 1.0
         super.broadcastChanges()
-        plistManager.setFont(size: fontSize)
+        PlistManager.shared.setFont(size: fontSize)
     }
     
     func scaleFont(to value: Double) {
         fontSize *= CGFloat(value)
         super.broadcastChanges()
-        plistManager.setFont(size: fontSize)
+        PlistManager.shared.setFont(size: fontSize)
     }
     
     func getBooks() -> [Book]? {

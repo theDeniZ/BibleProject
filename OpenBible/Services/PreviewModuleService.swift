@@ -9,11 +9,11 @@
 import Foundation
 
 class PreviewModuleService: NSObject {
-    private var manager: VerseManager = AppDelegate.coreManager
+    private var manager: MultipleVerseManager = MultipleVerseManager(context: AppDelegate.context)
     
-    var modelVerseDelegate: ModelVerseDelegate {
-        return manager
-    }
+//    var modelVerseDelegate: ModelVerseDelegate {
+//        return manager
+//    }
     
     override var description: String {
         return manager.description
@@ -25,12 +25,22 @@ class PreviewModuleService: NSObject {
     func changeBook(by text: String) -> Bool {
         return manager.changeBook(by: text)
     }
-    func setVerses(from array: [String]) {
-        manager.setVerses(from: array)
+    func setVerses(from array: [String], at index: Int = 0) {
+        manager.setVerses(from: array, at: index)
     }
     
-    func getDataToPresent() -> [[Presentable]] {
-        return manager.getVerses()
+    func setVerses(from dimentionalArray: [[String]]) {
+        for i in 0..<dimentionalArray.count {
+            setVerses(from: dimentionalArray[i], at: i)
+        }
+    }
+    
+    func setIndices(_ indices: [BibleIndex]) {
+        manager.setIndices(indices)
+    }
+    
+    func getDataToPresent() -> CollectionPresentable {
+        return manager.getPresentable()
     }
     func increment() {
         manager.incrementChapter()
@@ -45,6 +55,14 @@ class PreviewModuleService: NSObject {
     
     func zoom(incrementingTo value: Double) {
         manager.scaleFont(to: value)
+    }
+    
+    func bibleIndex(for index: Int) -> BibleIndex {
+        return manager.bibleIndex(for: index)
+    }
+    
+    func bookIndex(for name: String) -> Int? {
+        return manager.bookIndex(for: name)
     }
     
 }

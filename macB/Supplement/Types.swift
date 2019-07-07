@@ -558,6 +558,42 @@ class Presentable: NSObject {
     }
 }
 
+class SectionPresentable: NSObject {
+    var presentable: [[Presentable]] = []
+    var title: String?
+}
+
+class CollectionPresentable: NSObject {
+    var sections: [SectionPresentable] = []
+    
+    func countOfInternalColumns(in section: Int) -> Int {
+        return sections[section].presentable.count
+    }
+}
+
+class MultipleBibleIndex {
+    private var indices: [Int: BibleIndex] = [:]
+    
+    var keys: Dictionary<Int, BibleIndex>.Keys {
+        return indices.keys
+    }
+    
+    subscript (index: Int) -> BibleIndex? {
+        return indices[index]
+    }
+    
+    func set(at index: Int, bibleIndex: BibleIndex) {
+        indices[index] = bibleIndex
+    }
+    
+    func set(new indexs: [BibleIndex]) {
+        indices = [:]
+        for i in 0..<indexs.count {
+            indices[i] = indexs[i]
+        }
+    }
+}
+
 class ListExpandablePresentable: NSObject {
     var index: Int
     var title: String

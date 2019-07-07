@@ -9,6 +9,10 @@
 import UIKit
 
 class SpiritPreviewCoordinator: NSObject, PreviewCoordinator {
+    func getDataToPresent() -> CollectionPresentable {
+        return CollectionPresentable()
+    }
+    
     
 //    var coordinator: ModelVerseDelegate
     
@@ -53,7 +57,7 @@ class SpiritPreviewCoordinator: NSObject, PreviewCoordinator {
     
     func doSearch(text: String) -> Bool {
         if let index = service.find(text: text) {
-            rootViewController?.scroll(to: (0, index))
+            rootViewController?.scroll(to: (0,(0, index)))
             return true
         }
         return false
@@ -135,7 +139,7 @@ extension SpiritPreviewCoordinator {
         pvc.delegate = modelVerseDelegate
         pvc.resignDelegate = self
         pvc.index = index
-        rootViewController?.scroll(to: index)
+        rootViewController?.scroll(to: (0,index))
         navigationController.present(pvc, animated: true, completion: nil)
     }
     
@@ -146,7 +150,7 @@ extension SpiritPreviewCoordinator {
         pvc.resignDelegate = self
         pvc.index = index
         pvc.makingCustomSize = false
-        rootViewController?.scroll(to: index)
+        rootViewController?.scroll(to: (0,index))
         
         let size = CGSize(width: 300, height: 300)
         present(vc: pvc, with: size)

@@ -29,6 +29,8 @@ class StrongViewController: UIViewController, Storyboarded {
             navigationItem.title = titleLabel.text
             titleLabel.isHidden = true
             closeButton.isHidden = true
+            navigationController?.isNavigationBarHidden = false
+            self.tabBarController?.tabBar.isHidden = false
         }
         mainTextView.contentOffset = CGPoint(x: 0, y: 0)
     }

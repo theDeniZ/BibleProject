@@ -23,19 +23,18 @@ class CoreManager: NSObject {
     
     var context: NSManagedObjectContext
     
-    private var currentIndex: BibleIndex
-    var plistManager: PlistManager = AppDelegate.plistManager
+    var index: BibleIndex
     var currentTestament: String {
-        return currentIndex.book <= 39 ? StrongId.oldTestament : StrongId.newTestament
+        return index.book <= 39 ? StrongId.oldTestament : StrongId.newTestament
     }
     var modules: [Module] {
         return activeModules
     }
     var bookIndex: Int {
-        return currentIndex.book
+        return index.book
     }
     var verses: [Range<Int>]? {
-        return currentIndex.verses
+        return index.verses
     }
     
     private var activeModules: [Module]
@@ -45,14 +44,14 @@ class CoreManager: NSObject {
     init(_ context: NSManagedObjectContext) {
         self.context = context
         activeModules = []
-        let modules = AppDelegate.plistManager.getAllModuleKeys()
+        let modules = PlistManager.shared.getAllModuleKeys()
         for module in modules {
             if let m = try? Module.get(by: module, from: context), m != nil {
                 activeModules.append(m!)
             }
         }
-        let index = AppDelegate.plistManager.getCurrentBookAndChapterIndexes()
-        currentIndex = BibleIndex(book: index.bookIndex, chapter: index.chapterIndex, verses: nil)
+        let index = PlistManager.shared.getCurrentBookAndChapterIndexes()
+        self.index = BibleIndex(book: index.bookIndex, chapter: index.chapterIndex, verses: nil)
         super.init()
     }
     
@@ -91,7 +90,7 @@ class CoreManager: NSObject {
             activeModules.append(try! Module.get(by: "kjv", from: context)!)
         }
         activeModules = mods
-        plistManager.set(modules: activeModules.map{$0.key!})
+        PlistManager.shared.set(modules: activeModules.map{$0.key!})
         delegates?.forEach {$0.modelChanged(full)}
     }
     
@@ -138,7 +137,7 @@ extension CoreManager {
     func setActive(_ module: Module, at place: Int) -> Module? {
         if place < activeModules.count, let k = module.key {
             activeModules[place] = module
-            plistManager.set(module: k, at: place)
+            PlistManager.shared.set(module: k, at: place)
             broadcastChanges()
             return module
         }
@@ -153,7 +152,7 @@ extension CoreManager {
     /// - Returns: placed module if success, nil otherwise
     func setActive(_ key: String, at place: Int) -> Module? {
         if let m = try? Module.get(by: key, from: context), let module = m {
-            plistManager.set(module: key, at: place)
+            PlistManager.shared.set(module: key, at: place)
             return setActive(module, at: place)
         }
         return nil
@@ -166,7 +165,7 @@ extension CoreManager {
         let available = getAllAvailableModules()
         if available.count > 0, let key = available[0].key {
             activeModules.append(available[0])
-            plistManager.set(module: key, at: activeModules.count - 1)
+            PlistManager.shared.set(module: key, at: activeModules.count - 1)
             broadcastChanges()
             return (available[0], activeModules.count - 1)
         }
@@ -179,7 +178,7 @@ extension CoreManager {
     func removeModule(at index: Int) {
         if index < activeModules.count {
             activeModules.remove(at: index)
-            plistManager.set(modules: activeModules.map{$0.key!})
+            PlistManager.shared.set(modules: activeModules.map{$0.key!})
             broadcastChanges()
         }
     }
@@ -191,7 +190,7 @@ extension CoreManager {
     ///   - position: a place to insert into
     func insert(_ module: Module, at position: Int) {
         activeModules.insert(module, at: position)
-        plistManager.set(modules: activeModules.map{$0.key!})
+        PlistManager.shared.set(modules: activeModules.map{$0.key!})
         broadcastChanges()
     }
     
@@ -202,13 +201,13 @@ extension CoreManager {
     ///   - position: a place to insert into
     func insert(_ module: String, at position: Int) {
         activeModules.insert(try! Module.get(by: module, from: context)!, at: position)
-        plistManager.set(modules: activeModules.map{$0.key!})
+        PlistManager.shared.set(modules: activeModules.map{$0.key!})
         broadcastChanges()
     }
     
     func swapModulesAt(_ i: Int, _ j: Int) {
         activeModules.swapAt(i, j)
-        plistManager.set(modules: activeModules.map{$0.key!})
+        PlistManager.shared.set(modules: activeModules.map{$0.key!})
         broadcastChanges()
     }
 }
@@ -221,7 +220,7 @@ extension CoreManager {
     var book: Book? {
         do {
             if let module = mainModule,
-                let b = try Book.get(by: currentIndex.book, concerning: module, in: context) {
+                let b = try Book.get(by: index.book, concerning: module, in: context) {
                 return b
             }
         } catch {
@@ -237,7 +236,7 @@ extension CoreManager {
     func book(_ index: Int) -> Book? {
         do {
             if let module = module(index),
-                let b = try Book.get(by: currentIndex.book, concerning: module, in: context) {
+                let b = try Book.get(by: self.index.book, concerning: module, in: context) {
                 return b
             }
         } catch {
@@ -253,7 +252,7 @@ extension CoreManager {
     func chapter(_ index: Int) -> Chapter? {
         do {
             if let b = book(index),
-                let c = try Chapter.get(by: currentIndex.chapter, concerning: b, in: context) {
+                let c = try Chapter.get(by: self.index.chapter, concerning: b, in: context) {
                 return c
             }
         } catch {
@@ -284,7 +283,7 @@ extension CoreManager {
     /// Quick refference to current book and chapter
     override var description: String {
         if let b = book, let n = b.name {
-            return "\(n) \(currentIndex.chapter)"
+            return "\(n) \(index.chapter)"
         }
         return ""
     }
@@ -297,7 +296,7 @@ extension CoreManager {
     ///
     /// - Parameter strArray: Array of String. Acceptable format for each String: "[-.,]?\\d+"
     func setVerses(from strArray: [String]) {
-        currentIndex.verses = getVerseRanges(from: strArray)
+        index.verses = getVerseRanges(from: strArray)
         broadcastChanges()
     }
 }
@@ -308,42 +307,42 @@ extension CoreManager {
     func changeChapter(to number: Int) {
         guard let book = book else {return}
         if Chapter.isThere(with: number, in: book, context) {
-            currentIndex.chapter = number
-            plistManager.set(chapter: number)
-            currentIndex.verses = nil
+            index.chapter = number
+            PlistManager.shared.set(chapter: number)
+            index.verses = nil
             broadcastChanges()
         }
     }
     func incrementChapter() {
         guard let book = book else {return}
-        if Chapter.isThere(with: currentIndex.chapter + 1, in: book, context) {
-            currentIndex.chapter += 1
-            plistManager.set(chapter: currentIndex.chapter)
-            currentIndex.verses = nil
+        if Chapter.isThere(with: index.chapter + 1, in: book, context) {
+            index.chapter += 1
+            PlistManager.shared.set(chapter: index.chapter)
+            index.verses = nil
             broadcastChanges()
         } else if let m = mainModule,
-            Book.isThere(with: currentIndex.book + 1, in: m, context) {
-            currentIndex.book += 1
-            currentIndex.chapter = 1
-            plistManager.set(chapter: 1)
-            plistManager.set(book: currentIndex.book)
-            currentIndex.verses = nil
+            Book.isThere(with: index.book + 1, in: m, context) {
+            index.book += 1
+            index.chapter = 1
+            PlistManager.shared.set(chapter: 1)
+            PlistManager.shared.set(book: index.book)
+            index.verses = nil
             broadcastChanges()
         }
     }
     func decrementChapter() {
-        if currentIndex.chapter > 1 {
-            currentIndex.chapter -= 1
-            plistManager.set(chapter: currentIndex.chapter)
-            currentIndex.verses = nil
+        if index.chapter > 1 {
+            index.chapter -= 1
+            PlistManager.shared.set(chapter: index.chapter)
+            index.verses = nil
             broadcastChanges()
         } else if let m = mainModule,
-            Book.isThere(with: currentIndex.book - 1, in: m, context) {
-            currentIndex.book -= 1
-            currentIndex.chapter = book?.chapters?.array.count ?? 1
-            plistManager.set(chapter: currentIndex.chapter)
-            plistManager.set(book: currentIndex.book)
-            currentIndex.verses = nil
+            Book.isThere(with: index.book - 1, in: m, context) {
+            index.book -= 1
+            index.chapter = book?.chapters?.array.count ?? 1
+            PlistManager.shared.set(chapter: index.chapter)
+            PlistManager.shared.set(book: index.book)
+            index.verses = nil
             broadcastChanges()
         }
     }
@@ -355,22 +354,35 @@ extension CoreManager {
     func changeBook(to number: Int) {
         guard let module = mainModule else {return}
         if Book.isThere(with: number, in: module, context) {
-            currentIndex.book = number
-            currentIndex.chapter = 1
-            plistManager.set(chapter: 1)
-            plistManager.set(book: number)
-            currentIndex.verses = nil
+            index.book = number
+            index.chapter = 1
+            PlistManager.shared.set(chapter: 1)
+            PlistManager.shared.set(book: number)
+            index.verses = nil
             broadcastChanges()
         }
     }
     func incrementBook() {
-        changeBook(to: currentIndex.book + 1)
+        changeBook(to: index.book + 1)
     }
     func decrementBook() {
-        changeBook(to: currentIndex.book - 1)
+        changeBook(to: index.book - 1)
     }
     
     func changeBook(by name: String) -> Bool {
+        if let n = CoreManager.bookIndex(for: name) {
+            index.book = n
+            index.chapter = 1
+            PlistManager.shared.set(chapter: 1)
+            PlistManager.shared.set(book: n)
+            index.verses = nil
+            broadcastChanges()
+            return true
+        }
+        return false
+    }
+    
+    static func bookIndex(for name: String) -> Int? {
         var regex = "(?i)\(name).*"
         if "0"..."9" ~= name[0] {
             var i = 1
@@ -379,16 +391,7 @@ extension CoreManager {
             }
             regex = "\(name[0])[.]?\\s*(?i)\(name[i..<name.count]).*"
         }
-        if let n = Book.find(by: regex, in: context) {
-            currentIndex.book = n
-            currentIndex.chapter = 1
-            plistManager.set(chapter: 1)
-            plistManager.set(book: n)
-            currentIndex.verses = nil
-            broadcastChanges()
-            return true
-        }
-        return false
+        return Book.find(by: regex, in: AppDelegate.context)
     }
 }
 

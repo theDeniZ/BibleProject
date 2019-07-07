@@ -25,7 +25,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         settings.previewCoordinator = main.previewCoordinator
         viewControllers = [
             main.rootViewController,
-            spirit.rootViewController,
+//            spirit.rootViewController,
             load.navigationController,
             settings.navigationController
         ]

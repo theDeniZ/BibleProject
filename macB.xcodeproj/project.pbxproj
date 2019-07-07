@@ -87,6 +87,8 @@
 		225FC205223035FB00E61CA8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC204223035FB00E61CA8 /* SearchViewController.swift */; };
 		225FC2072230361E00E61CA8 /* SearchTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC2062230361E00E61CA8 /* SearchTableCellView.swift */; };
 		225FC2082230391C00E61CA8 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FC200222FF3C500E61CA8 /* SearchManager.swift */; };
+		22637F6B22D20B1800E7AEF5 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22637F6A22D20B1800E7AEF5 /* HeaderCollectionReusableView.swift */; };
+		22637F6D22D21CDA00E7AEF5 /* MultipleCoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22637F6C22D21CDA00E7AEF5 /* MultipleCoreManager.swift */; };
 		226493D3224BA1C4000DD8A5 /* StrongCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226493D2224BA1C4000DD8A5 /* StrongCoordinator.swift */; };
 		226493D5224BAA75000DD8A5 /* StrongService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226493D4224BAA75000DD8A5 /* StrongService.swift */; };
 		226493D7224BBDF9000DD8A5 /* ModalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226493D6224BBDF9000DD8A5 /* ModalCoordinator.swift */; };
@@ -206,6 +208,8 @@
 		225FC2022230034900E61CA8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		225FC204223035FB00E61CA8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		225FC2062230361E00E61CA8 /* SearchTableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableCellView.swift; sourceTree = "<group>"; };
+		22637F6A22D20B1800E7AEF5 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		22637F6C22D21CDA00E7AEF5 /* MultipleCoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCoreManager.swift; sourceTree = "<group>"; };
 		226493D2224BA1C4000DD8A5 /* StrongCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongCoordinator.swift; sourceTree = "<group>"; };
 		226493D4224BAA75000DD8A5 /* StrongService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongService.swift; sourceTree = "<group>"; };
 		226493D6224BBDF9000DD8A5 /* ModalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCoordinator.swift; sourceTree = "<group>"; };
@@ -323,6 +327,7 @@
 		221E380C220AE990003D8E40 /* Managing */ = {
 			isa = PBXGroup;
 			children = (
+				22637F6C22D21CDA00E7AEF5 /* MultipleCoreManager.swift */,
 				221E380E220AE999003D8E40 /* VerseManager.swift */,
 				221E380F220AE999003D8E40 /* plistHandler.swift */,
 				221E3813220AE99A003D8E40 /* PlistManager.swift */,
@@ -353,6 +358,7 @@
 				22E6F598221F341300A6915D /* ProgressView.swift */,
 				225FC2022230034900E61CA8 /* SearchTableViewCell.swift */,
 				22707AE222368F29006E01D5 /* TextCollectionViewCell.swift */,
+				22637F6A22D20B1800E7AEF5 /* HeaderCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -720,6 +726,7 @@
 				223AA8EC2247F73800F4A98D /* DownloadService.swift in Sources */,
 				221E3816220AE99A003D8E40 /* plistHandler.swift in Sources */,
 				221E3802220AE6AC003D8E40 /* Protocols.swift in Sources */,
+				22637F6D22D21CDA00E7AEF5 /* MultipleCoreManager.swift in Sources */,
 				221E381C220AE9B0003D8E40 /* Chapter.swift in Sources */,
 				22D424BD2222A15600D8EB8F /* DownloadVC.swift in Sources */,
 				221E3822220AE9B0003D8E40 /* Page.swift in Sources */,
@@ -751,6 +758,7 @@
 				223971FF2274DE810007693B /* SyncManager.swift in Sources */,
 				225C81302253E9FA009D4154 /* Roman.swift in Sources */,
 				221E3846220AE9EE003D8E40 /* HistoryViewController.swift in Sources */,
+				22637F6B22D20B1800E7AEF5 /* HeaderCollectionReusableView.swift in Sources */,
 				225C812D2253E982009D4154 /* CoreSpiritManager.swift in Sources */,
 				221E381A220AE99A003D8E40 /* PlistManager.swift in Sources */,
 				22707AE322368F29006E01D5 /* TextCollectionViewCell.swift in Sources */,

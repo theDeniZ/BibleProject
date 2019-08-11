@@ -191,7 +191,7 @@ extension DownloadVC: UITableViewDataSource {
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

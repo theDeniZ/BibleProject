@@ -69,7 +69,7 @@ class CoreSpiritManager: NSObject {
     }
     
     func currentBook() -> SpiritBook? {
-        return (try? SpiritBook.get(by: currentIndex.book, from: context)) ?? nil
+        return (((try? SpiritBook.get(by: currentIndex.book, from: context)) as SpiritBook??)) ?? nil
     }
     
     func currentChapter() -> SpiritChapter? {

@@ -47,9 +47,10 @@ class SearchTableViewController: UITableViewController, Storyboarded {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sel = results[indexPath.row].index
-        AppDelegate.coreManager.changeBook(to: sel.0)
-        AppDelegate.coreManager.changeChapter(to: sel.1)
-        AppDelegate.coreManager.setVerses(from: ["\(sel.2)"])
+
+        _=MultipleVerseManager.shared.changeBook(to: sel.0)
+        MultipleVerseManager.shared.changeChapter(to: sel.1)
+        MultipleVerseManager.shared.setVerses(from: ["\(sel.2)"], at: 0)
         navigationController?.popViewController(animated: true)
     }
 

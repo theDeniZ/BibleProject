@@ -24,9 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static let URLServerRoot = "x-com-thedeniz-bible://"
     static let downloadServerURL = "https://sword-ground.herokuapp.com/api/" //"http://192.168.178.25:3000/"
     
-    static var coreManager: VerseManager {
-        return AppDelegate.shared.manager
-    }
+//    static var coreManager: VerseManager {
+//        return AppDelegate.shared.manager
+//    }
     
     static var spiritManager: SpiritManager {
         return AppDelegate.shared.spiritManager

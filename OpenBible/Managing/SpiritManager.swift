@@ -103,7 +103,7 @@ class SpiritManager: CoreSpiritManager {
     }
     
     func setBook(withIndex: Int) {
-        guard let book = (try? SpiritBook.get(by: withIndex, from: context)) ?? nil else {return}
+        guard let book = try? SpiritBook.get(by: withIndex, from: context) else {return}
         currentIndex.book = book.code!
         PlistManager.shared.setSpirit(currentIndex, at: index)
         update()

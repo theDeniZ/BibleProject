@@ -10,12 +10,12 @@ import Foundation
 
 class VerseService: NSObject {
     
-    func changeChapter(to number: Int) {
-        AppDelegate.coreManager.changeChapter(to: number)
-    }
-    
-    func changeBook(to number: Int) {
-        AppDelegate.coreManager.changeBook(to: number)
-    }
+//    func changeChapter(to number: Int) {
+//        AppDelegate.coreManager.changeChapter(to: number)
+//    }
+//
+//    func changeBook(to number: Int) {
+//        AppDelegate.coreManager.changeBook(to: number)
+//    }
     
 }

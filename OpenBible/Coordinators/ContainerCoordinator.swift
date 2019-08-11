@@ -64,16 +64,10 @@ class MainContainerCoordinator: ContainerCoordinator {
     
 }
 
-//extension MainContainerCoordinator: PreviewCoordinator {
-//    func setNeedsUpdate() {
-//        (childCoordinators["Preview"] as? PreviewCoordinator)?.setNeedsUpdate()
-//    }
-//}
-
 extension MainContainerCoordinator {
     func didSelect(chapter: Int, in book: Int) {
         rootViewController.collapseMenu()
-        verseService.changeBook(to: book)
-        verseService.changeChapter(to: chapter)
+        _=previewCoordinator?.service.changeBook(to: book)
+        previewCoordinator?.service.changeChapter(to: chapter)
     }
 }

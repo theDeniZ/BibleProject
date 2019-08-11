@@ -45,7 +45,7 @@ struct SyncObject {
     
     static func parsing(_ data: Data?) -> SyncObject? {
         guard let data = data else { return nil }
-        if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any], let dictionary = json {
+        if let dictionary = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
             return SyncObject.parsing(dictionary)
         }
         return nil
@@ -74,7 +74,7 @@ struct SyncObject {
     
     static func parsingArray(_ data: Data?) -> [SyncObject]? {
         guard let data = data else { return nil }
-        if let jsonArray = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [Any], let json = jsonArray {
+        if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [Any] {
             var array = [SyncObject]()
             for dataObj in json {
                 if let arrayObj = dataObj as? [String:Any], let obj = SyncObject.parsing(arrayObj) {

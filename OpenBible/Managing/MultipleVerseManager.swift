@@ -11,8 +11,10 @@ import CoreData
 
 class MultipleVerseManager: NSObject {
     
+    static var shared = MultipleVerseManager(context: AppDelegate.context)
+    
     private var managers: [VerseManager]
-    private var context: NSManagedObjectContext
+    private weak var context: NSManagedObjectContext?
     private var delegates: [ModelUpdateDelegate] = []
     
     private var multiple: MultipleBibleIndex
@@ -87,6 +89,15 @@ class MultipleVerseManager: NSObject {
         return false
     }
     
+    func changeBook(to index: Int) -> Bool {
+        if managers.count >= 1 {
+            managers = [managers[0]]
+            managers[0].changeBook(to: index)
+            return true
+        }
+        return false
+    }
+    
     func setVerses(from array: [String], at index: Int) {
         guard index < managers.count else { return }
         managers[index].setVerses(from: array)
@@ -98,6 +109,7 @@ class MultipleVerseManager: NSObject {
     }
     
     func setIndices(_ indices: [BibleIndex]) {
+        guard let context = context else { fatalError() }
         managers = []
         for _ in 0..<indices.count {
             managers.append(VerseManager(context))
@@ -132,4 +144,36 @@ class MultipleVerseManager: NSObject {
         return VerseManager.bookIndex(for: name)
     }
     
+    func getBooks(from index: Int) -> [Book]? {
+        guard index < managers.count else { return nil }
+        return managers[index].getBooks()
+    }
+    
+    func getModulesKey() -> [String] {
+        return managers.first?.getModulesKey() ?? []
+    }
+    
+    func getSelectedModules() -> [(String, String)] {
+        return managers.first?.modules.map {($0.key!, $0.name!)} ?? []
+    }
+    
+    func getNotSelectedModules() -> [(String, String)] {
+        return managers.first?.getAllAvailableModules().map {($0.key!, $0.name!)} ?? []
+    }
+    
+    func insert(_ module: (String, String), at position: Int) {
+        managers.forEach { $0.insert(module.0, at: position) }
+    }
+    
+    func removeModule(at position: Int) {
+        managers.forEach { $0.removeModule(at: position) }
+    }
+    
+    func swapModulesAt(_ first: Int, _ second: Int) {
+        managers.forEach { $0.swapModulesAt(first, second) }
+    }
+    
+    var modules: [Module] {
+        managers.first?.modules ?? []
+    }
 }

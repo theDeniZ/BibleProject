@@ -99,8 +99,8 @@ class ConsistencyManager: NSObject {
         didStartUpdate()
         DispatchQueue.global(qos: .userInitiated).async {
             if let key = SharingRegex.parseModule(code) {
-                if let module = try? Module.get(by: key, from: context), module != nil {
-                    context.delete(module!)
+                if let module = try? Module.get(by: key, from: context) {
+                    context.delete(module)
                     try? context.save()
                 }
 //                AppDelegate.coreManager.update(true)
@@ -112,8 +112,8 @@ class ConsistencyManager: NSObject {
 //                AppDelegate.coreManager.update(true)
                 completition()
             } else if let c = SharingRegex.parseSpirit(code) {
-                if let b = try? SpiritBook.get(by: c, from: context), b != nil {
-                    context.delete(b!)
+                if let b = try? SpiritBook.get(by: c, from: context) {
+                    context.delete(b)
                     try? context.save()
                 }
 //                AppDelegate.coreManager.update(true)

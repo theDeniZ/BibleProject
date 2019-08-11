@@ -9,7 +9,7 @@
 import Foundation
 
 class PreviewModuleService: NSObject {
-    private var manager: MultipleVerseManager = MultipleVerseManager(context: AppDelegate.context)
+    private var manager = MultipleVerseManager.shared
     
 //    var modelVerseDelegate: ModelVerseDelegate {
 //        return manager
@@ -21,6 +21,9 @@ class PreviewModuleService: NSObject {
     
     func changeChapter(to number: Int) {
         manager.changeChapter(to: number)
+    }
+    func changeBook(to index: Int) -> Bool {
+        return manager.changeBook(to: index)
     }
     func changeBook(by text: String) -> Bool {
         return manager.changeBook(by: text)

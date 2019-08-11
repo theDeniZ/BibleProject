@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+/// Book, chapter, verses
 struct BibleIndex {
     var book, chapter: Int
     var verses: [Range<Int>]?
@@ -46,8 +47,8 @@ class CoreManager: NSObject {
         activeModules = []
         let modules = PlistManager.shared.getAllModuleKeys()
         for module in modules {
-            if let m = try? Module.get(by: module, from: context), m != nil {
-                activeModules.append(m!)
+            if let m = try? Module.get(by: module, from: context) {
+                activeModules.append(m)
             }
         }
         let index = PlistManager.shared.getCurrentBookAndChapterIndexes()
@@ -151,7 +152,7 @@ extension CoreManager {
     ///   - place: index to place module to
     /// - Returns: placed module if success, nil otherwise
     func setActive(_ key: String, at place: Int) -> Module? {
-        if let m = try? Module.get(by: key, from: context), let module = m {
+        if let module = try? Module.get(by: key, from: context) {
             PlistManager.shared.set(module: key, at: place)
             return setActive(module, at: place)
         }

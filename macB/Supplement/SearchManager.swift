@@ -18,7 +18,7 @@ class SearchManager: NSObject {
     
     func engageSearch(with text: String) {
         let context = AppDelegate.context
-        let modules = AppDelegate.coreManager.modules
+        let modules = MultipleVerseManager.shared.modules
         DispatchQueue.global(qos: .userInitiated).async {
             var verses: [Verse] = []
             do {

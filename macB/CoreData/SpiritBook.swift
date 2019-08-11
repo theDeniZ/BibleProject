@@ -73,7 +73,7 @@ class SpiritBook: NSManagedObject {
     /// - Parameter context: NSManagedOblectContext
     /// - Returns: a pages count
     class func checkConsistency(of code: String, in context: NSManagedObjectContext) -> Int {
-        if let m = try? SpiritBook.get(by: code, from: context), let book = m {
+        if let book = try? SpiritBook.get(by: code, from: context){
             return SpiritBook.checkConsistency(of: book, in: context)
         }
         return 0

@@ -44,23 +44,23 @@ class MainModalCoordinator: Coordinator {
     }
     
     func getNotSelectedModules() -> [(String, String)] {
-        return service.getNotSelectedModules()
+        return MultipleVerseManager.shared.getNotSelectedModules()
     }
     
     func getSelectedModules() -> [(String, String)] {
-        return service.getSelectedModules()
+        return MultipleVerseManager.shared.getSelectedModules()
     }
     
     func insert(_ module: (String, String), at position: Int) {
-        service.insert(module, at: position)
+        MultipleVerseManager.shared.insert(module, at: position)
     }
     
     func removeModule(at position: Int) {
-        service.removeModule(at: position)
+        MultipleVerseManager.shared.removeModule(at: position)
     }
     
     func swapModulesAt(_ first: Int, _ second: Int) {
-        service.swapModulesAt(first, second)
+        MultipleVerseManager.shared.swapModulesAt(first, second)
     }
     
     func dismiss() {

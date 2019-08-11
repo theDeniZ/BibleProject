@@ -10,11 +10,11 @@ import Foundation
 
 class MenuService: NSObject {
     
-    var manager = AppDelegate.coreManager
+    var manager = MultipleVerseManager.shared
     
     var bookIndexPath: IndexPath {
-        if manager.getBooks()?.count == 66 {
-            var index = manager.bookIndex - 1
+        if manager.getBooks(from: 0)?.count == 66 {
+            var index = manager.bibleIndex(for: 0).book - 1
             var section = 0
             if index >= 39 {
                 section = 1
@@ -22,12 +22,12 @@ class MenuService: NSObject {
             }
             return IndexPath(row: index, section: section)
         } else {
-            return IndexPath(row: manager.bookIndex, section: 0)
+            return IndexPath(row: manager.bibleIndex(for: 0).book, section: 0)
         }
     }
 
     func getItemsToPresent() -> [[ListExpandablePresentable]] {
-        if let books = manager.getBooks() {
+        if let books = manager.getBooks(from: 0) {
             if books.count == 66 {
                 var old: [ListExpandablePresentable] = []
                 var new: [ListExpandablePresentable] = []

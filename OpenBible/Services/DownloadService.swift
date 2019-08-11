@@ -36,10 +36,9 @@ class DownloadService: NSObject {
             }
             var allExist = true
             if data != nil,
-                let json = try? JSONSerialization.jsonObject(
+                let array = try? JSONSerialization.jsonObject(
                     with: data!, options: .allowFragments
-                    ) as? [[String:String]],
-                let array = json {
+                    ) as? [[String:String]] {
                 for file in array {
                     if let name = file["name"],
                         let size = file["size"],

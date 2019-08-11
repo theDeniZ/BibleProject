@@ -74,8 +74,8 @@ class Module: NSManagedObject {
     }
     
     class func from(_ sync: SyncModule, in context: NSManagedObjectContext) -> Module {
-        if let existed = try? Module.get(by: sync.key, from: context), existed != nil {
-            context.delete(existed!)
+        if let existed = try? Module.get(by: sync.key, from: context) {
+            context.delete(existed)
         }
         let new = Module(context: context)
         new.key = sync.key
@@ -114,7 +114,7 @@ class Module: NSManagedObject {
     /// - Parameter context: NSManagedOblectContext
     /// - Returns: a verses count
     class func checkConsistency(of key: String, in context: NSManagedObjectContext) -> Int {
-        if let m = try? Module.get(by: key, from: context), let module = m {
+        if let module = try? Module.get(by: key, from: context) {
             return Module.checkConsistency(of: module, in: context)
         }
         return 0
